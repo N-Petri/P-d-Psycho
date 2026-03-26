@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lernpsychologie – Interaktiver Überblick</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#faf8f4;--sur:#fff;--sur2:#f3f0ea;--brd:#e2ddd4;--txt:#1c1917;--mut:#78716c;--acc:#2d6a4f;--sh:0 2px 12px rgba(0,0,0,.07);}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6;}
+.nav{position:sticky;top:0;z-index:100;background:rgba(250,248,244,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--brd);padding:0 32px;}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:8px;height:52px;overflow-x:auto;scrollbar-width:none;}
+.nav-inner::-webkit-scrollbar{display:none;}
+.back-btn{font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;border:1.5px solid var(--brd);cursor:pointer;background:transparent;color:var(--mut);transition:all .2s;font-family:'DM Sans',sans-serif;text-decoration:none;display:flex;align-items:center;gap:4px;white-space:nowrap;}
+.back-btn:hover{background:var(--sur);color:var(--txt);}
+.nav-sep{color:var(--brd);}
+.nb{white-space:nowrap;font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;border:1.5px solid transparent;cursor:pointer;background:transparent;color:var(--mut);transition:all .2s;font-family:'DM Sans',sans-serif;}
+.nb:hover{color:var(--txt);border-color:var(--brd);background:var(--sur);}
+.hero{max-width:1100px;margin:0 auto;padding:52px 32px 32px;}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--acc);margin-bottom:10px;}
+h1{font-family:'Lora',serif;font-size:clamp(30px,4.5vw,50px);font-weight:700;line-height:1.1;letter-spacing:-.5px;margin-bottom:14px;}
+.hdesc{font-size:16px;color:var(--mut);max-width:580px;font-weight:300;line-height:1.7;margin-bottom:18px;}
+.throw{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+.thb{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;border:1.5px solid;}
+.thby{font-weight:400;font-size:10px;opacity:.65;}
+.thgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:10px;margin-bottom:28px;}
+.thcard{background:var(--sur);border:1px solid var(--brd);border-radius:10px;padding:13px 15px;border-left-width:4px;box-shadow:var(--sh);}
+.thcard .thn{font-family:'Lora',serif;font-size:14px;font-weight:700;margin-bottom:1px;}
+.thcard .thy{font-size:10px;color:var(--mut);margin-bottom:6px;}
+.thcard .thk{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:3px;}
+.thcard .thd{font-size:12px;color:#4a4540;line-height:1.5;}
+.main{max-width:1100px;margin:0 auto;padding:0 32px 80px;}
+.section{margin-bottom:52px;}
+.sh{display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid var(--txt);flex-wrap:wrap;row-gap:6px;}
+.sn{font-family:'Lora',serif;font-size:13px;color:var(--mut);flex-shrink:0;}
+.st{font-family:'Lora',serif;font-size:21px;font-weight:700;flex:1;}
+.sa{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;color:white;white-space:nowrap;flex-shrink:0;}
+.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:16px;}
+.cg.wide{grid-template-columns:repeat(auto-fill,minmax(450px,1fr));}
+.card{background:var(--sur);border:1px solid var(--brd);border-radius:12px;border-top-width:3px;overflow:hidden;box-shadow:var(--sh);}
+.ch{padding:14px 18px 11px;border-bottom:1px solid var(--brd);}
+.ch h3{font-family:'Lora',serif;font-size:15px;font-weight:700;margin-bottom:2px;line-height:1.3;}
+.ca{display:inline-block;font-size:10px;font-weight:700;padding:1px 7px;border-radius:10px;margin-bottom:4px;letter-spacing:.5px;color:white;}
+.csub{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.8px;}
+.ai{border-bottom:1px solid var(--brd);cursor:pointer;transition:background .15s;}
+.ai:last-child{border-bottom:none;}.ai:hover,.ai.open{background:var(--sur2);}
+.at{display:flex;align-items:center;gap:10px;padding:11px 18px;user-select:none;}
+.an{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;}
+.al{flex:1;font-size:13.5px;font-weight:600;line-height:1.3;}
+.ab2{font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;white-space:nowrap;}
+.aico{font-size:14px;color:var(--mut);transition:transform .25s;flex-shrink:0;}
+.ai.open .aico{transform:rotate(180deg);}
+.abody{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1);}
+.abody.open{max-height:1200px;}
+.ac{padding:6px 18px 16px 50px;}
+.ex{font-size:14px;color:#2c2825;line-height:1.75;margin-bottom:10px;}
+.ebox{background:#f0fdf4;border-left:3px solid var(--acc);border-radius:0 6px 6px 0;padding:10px 14px;font-size:13px;color:#1a3d2d;line-height:1.6;margin-bottom:8px;}
+.ebox .el{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--acc);margin-bottom:4px;}
+.fb{background:#f0f4ff;border-left:3px solid #3730a3;border-radius:0 6px 6px 0;padding:9px 14px;font-size:13px;margin-bottom:8px;line-height:1.55;}
+.fb .fl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#3730a3;margin-bottom:3px;}
+.fb .ft{font-weight:700;color:#1e1b4b;}
+.tip{background:#fefce8;border-left:3px solid #ca8a04;border-radius:0 6px 6px 0;padding:9px 14px;font-size:13px;margin-bottom:8px;color:#422006;line-height:1.55;}
+.tip .tl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#ca8a04;margin-bottom:3px;}
+.warn{background:#fff1f2;border-left:3px solid #e11d48;border-radius:0 6px 6px 0;padding:9px 14px;font-size:13px;margin-bottom:8px;color:#4c0519;line-height:1.55;}
+.warn .wl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#e11d48;margin-bottom:3px;}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
+.ci{background:var(--sur2);border-radius:6px;padding:9px 12px;}
+.ci .cil{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px;}
+ul.pl{list-style:none;padding:0;}
+ul.pl li{font-size:13.5px;padding:2.5px 0 2.5px 13px;position:relative;color:#2c2825;}
+ul.pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
+.note{font-size:12px;color:var(--mut);font-style:italic;margin-top:8px;padding-top:7px;border-top:1px solid var(--brd);}
+.stufe{display:flex;gap:8px;align-items:flex-start;padding:5px 7px;border-radius:6px;margin-bottom:5px;border:1px solid var(--brd);}
+.snum{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;flex-shrink:0;margin-top:1px;}
+.sbody{font-size:12.5px;line-height:1.45;}
+.sbody strong{display:block;font-weight:700;margin-bottom:1px;}
+/* audio */
+.audio-bar{position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(20,20,25,.96);backdrop-filter:blur(10px);border-top:1px solid rgba(255,255,255,.12);padding:10px 24px 12px;transform:translateY(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);}
+.audio-bar.visible{transform:translateY(0);}
+.audio-inner{max-width:1100px;margin:0 auto;}
+.audio-top{display:flex;align-items:center;gap:14px;margin-bottom:8px;}
+.apb{width:36px;height:36px;border-radius:50%;border:none;cursor:pointer;background:var(--acc);color:white;font-size:15px;display:flex;align-items:center;justify-content:center;transition:transform .15s;flex-shrink:0;}
+.apb:hover{transform:scale(1.08);}
+.ainfo{flex:1;min-width:0;}
+.ach{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.5);}
+.atit{font-size:13px;font-weight:600;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.atime{font-size:12px;color:rgba(255,255,255,.45);font-variant-numeric:tabular-nums;flex-shrink:0;}
+.acb{width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,255,255,.2);cursor:pointer;background:transparent;color:rgba(255,255,255,.5);font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;}
+.acb:hover{background:rgba(255,255,255,.1);color:white;}
+.aprog{width:100%;height:4px;border-radius:2px;cursor:pointer;appearance:none;outline:none;accent-color:var(--acc);}
+.aprog::-webkit-slider-thumb{appearance:none;width:14px;height:14px;border-radius:50%;background:var(--acc);cursor:pointer;margin-top:-5px;}
+.aprog::-webkit-slider-runnable-track{height:4px;border-radius:2px;background:rgba(255,255,255,.15);}
+.ahp{margin-top:22px;background:var(--sur);border:1px solid var(--brd);border-radius:12px;padding:16px 20px;box-shadow:var(--sh);}
+.ahph{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.ahpi{font-size:22px;}
+.ahpl{font-family:'Lora',serif;font-size:15px;font-weight:700;}
+.ahps{font-size:11px;color:var(--mut);margin-top:1px;}
+.ahppb{width:38px;height:38px;border-radius:50%;border:none;cursor:pointer;background:var(--acc);color:white;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;margin-left:auto;}
+.ahppr{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.ahpt{font-size:11px;color:var(--mut);font-variant-numeric:tabular-nums;white-space:nowrap;}
+.ahpsk{flex:1;height:4px;border-radius:2px;cursor:pointer;accent-color:var(--acc);}
+.ahpch{display:flex;flex-wrap:wrap;gap:5px;}
+.chbtn{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;border:1px solid var(--brd);background:var(--sur2);color:var(--mut);cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif;}
+.spb{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:4px 11px;border-radius:20px;border:1.5px solid var(--acc);background:transparent;color:var(--acc);cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif;white-space:nowrap;flex-shrink:0;}
+.spbi{font-size:10px;}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .5s,transform .5s;}
+.reveal.visible{opacity:1;transform:none;}
+@media(max-width:640px){.hero,.main{padding-left:18px;padding-right:18px;}.nav{padding:0 18px;}.cg,.cg.wide{grid-template-columns:1fr;}.cmp{grid-template-columns:1fr;}.ac{padding-left:18px;}.thgrid{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+
+<audio id="mainAudio" preload="none"><source src="hoerbuch_lernpsychologie.mp3" type="audio/mpeg"></audio>
+<div class="audio-bar" id="audioBar">
+  <div class="audio-inner">
+    <div class="audio-top">
+      <button class="apb" id="barPlayBtn" onclick="togglePlay()">▶</button>
+      <div class="ainfo"><div class="ach" id="barCh">Hörbuch</div><div class="atit" id="barTit">Lernpsychologie</div></div>
+      <div class="atime" id="barTime">0:00 / 0:00</div>
+      <button class="acb" onclick="closeBar()">×</button>
+    </div>
+    <input type="range" class="aprog" id="audioProgress" value="0" min="0" step="0.1">
+  </div>
+</div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="back-btn" href="index.html">← Übersicht</a><span class="nav-sep">|</span>
+    <button class="nb" onclick="scrollTo('s0')">Theoretiker</button>
+    <button class="nb" onclick="scrollTo('s1')">Motivation</button>
+    <button class="nb" onclick="scrollTo('s2')">Attribution</button>
+    <button class="nb" onclick="scrollTo('s3')">Gedächtnis</button>
+    <button class="nb" onclick="scrollTo('s4')">Lerntheorien</button>
+    <button class="nb" onclick="scrollTo('s5')">Lernstile</button>
+    <button class="nb" onclick="scrollTo('s6')">Strategien</button>
+    <button class="nb" onclick="scrollTo('s7')">Prüfungsangst</button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="eyebrow">Psychologie · Interaktiver Überblick</div>
+  <h1>Lernpsychologie</h1>
+  <p class="hdesc">Wie Lernen wirklich funktioniert — von der Motivation über das Gedächtnis bis zur Prüfungsangst. Mit Fachbegriff-Erklärungen und konkreten Unterrichtstipps.</p>
+  <div class="throw">
+    <span class="thb" style="color:#b45309;border-color:#b45309;">Heckhausen · Rheinberg <span class="thby">Motivation</span></span>
+    <span class="thb" style="color:#be123c;border-color:#be123c;">Weiner <span class="thby">Attribution</span></span>
+    <span class="thb" style="color:#0369a1;border-color:#0369a1;">Dweck <span class="thby">Mindset</span></span>
+    <span class="thb" style="color:#0f766e;border-color:#0f766e;">Ebbinghaus <span class="thby">Gedächtnis</span></span>
+    <span class="thb" style="color:#6d28d9;border-color:#6d28d9;">Skinner · Bandura <span class="thby">Lerntheorien</span></span>
+  </div>
+  <div class="ahp">
+    <div class="ahph"><span class="ahpi">🎧</span><div><div class="ahpl">Hörbuch: Lernpsychologie</div><div class="ahps">ca. 26 Minuten · 9 Kapitel · alle Fachbegriffe erklärt</div></div><button class="ahppb" id="heroPlayBtn" onclick="togglePlay()">▶</button></div>
+    <div class="ahppr"><span class="ahpt" id="heroTime">0:00</span><input type="range" class="ahpsk" id="heroSeek" value="0" min="0" step="0.1"><span class="ahpt" id="heroDur">26:02</span></div>
+    <div class="ahpch" id="chBtns"></div>
+  </div>
+</header>
+
+<main class="main">
+
+<!-- 0 THEORETIKER -->
+<section class="section reveal" id="s0">
+  <div class="sh"><span class="sn">0</span><span class="st">Die Theoretiker auf einen Blick</span></div>
+  <div class="thgrid">
+    <div class="thcard" style="border-left-color:#b45309;"><div class="thn">Heckhausen &amp; Rheinberg</div><div class="thy">Dt. Motivationspsychologen · 20. Jh.</div><div class="thk" style="color:#b45309;">Motivation &amp; Handlung</div><div class="thd">Rubikon-Modell: Wann wird aus einem Wunsch eine Handlung? Rheinbergs Rahmenmodell erklärt Motivationsquellen im Unterricht.</div></div>
+    <div class="thcard" style="border-left-color:#be123c;"><div class="thn">Bernard Weiner</div><div class="thy">US-Psychologe · geb. 1935</div><div class="thk" style="color:#be123c;">Attributionstheorie</div><div class="thd">Warum glauben wir, dass wir erfolgreich oder gescheitert sind? 3-dimensionales Modell der Ursachenzuschreibung mit direktem Einfluss auf Motivation.</div></div>
+    <div class="thcard" style="border-left-color:#0369a1;"><div class="thn">Carol Dweck</div><div class="thy">US-Psychologin · geb. 1946</div><div class="thk" style="color:#0369a1;">Implicit Theories / Mindset</div><div class="thd">Fixed vs. Growth Mindset: Die eigene Überzeugung über Fähigkeiten bestimmt maßgeblich, wie man mit Misserfolg umgeht.</div></div>
+    <div class="thcard" style="border-left-color:#0f766e;"><div class="thn">Hermann Ebbinghaus</div><div class="thy">Dt. Psychologe · 1850–1909</div><div class="thk" style="color:#0f766e;">Gedächtnis &amp; Vergessen</div><div class="thd">Erster Experimentator des Gedächtnisses. Entdeckte die Vergessenskurve durch jahrelange Selbstversuche mit sinnlosen Silben.</div></div>
+    <div class="thcard" style="border-left-color:#6d28d9;"><div class="thn">B. F. Skinner</div><div class="thy">US-Psychologe · 1904–1990</div><div class="thk" style="color:#6d28d9;">Operantes Konditionieren</div><div class="thd">Verhalten entsteht durch Konsequenzen. 4 Verstärkungstypen — positive/negative Verstärkung, positive/negative Bestrafung.</div></div>
+    <div class="thcard" style="border-left-color:#db2777;"><div class="thn">Albert Bandura</div><div class="thy">Kanad.-US-Psychologe · 1925–2021</div><div class="thk" style="color:#db2777;">Modelllernen</div><div class="thd">Menschen lernen durch Beobachtung. 4 Teilprozesse nötig, damit Modelllernen wirkt. Auch Begründer der Selbstwirksamkeits-Theorie.</div></div>
+    <div class="thcard" style="border-left-color:#7c3aed;"><div class="thn">Lev Vygotski</div><div class="thy">Sowjet. Psychologe · 1896–1934</div><div class="thk" style="color:#7c3aed;">Zone der nächsten Entwicklung</div><div class="thd">Lernen geschieht am besten im Bereich knapp über dem aktuellen Können — mit sozialer Unterstützung (Scaffolding).</div></div>
+    <div class="thcard" style="border-left-color:#0891b2;"><div class="thn">John Hattie</div><div class="thy">Neuseeländ. Bildungsforscher · geb. 1950</div><div class="thk" style="color:#0891b2;">Visible Learning</div><div class="thd">Größte Metaanalyse im Bildungsbereich (800+ Studien). Feedback und kognitive Aktivierung zählen zu den wirksamsten Lernfaktoren.</div></div>
+  </div>
+</section>
+
+<!-- 1 MOTIVATION -->
+<section class="section reveal" id="s1">
+  <div class="sh"><span class="sn">I</span><span class="st">Motivation</span><span class="sa" style="background:#b45309;">Heckhausen · Rheinberg · Deci &amp; Ryan</span><button class="spb" data-chapter="ch1" onclick="playChapter('ch1')"><span class="spbi">▶</span> Kapitel hören</button></div>
+  <div class="cg wide">
+    <div class="card" style="border-top-color:#b45309;">
+      <div class="ch"><span class="ca" style="background:#b45309;">Motivation</span><h3 style="color:#b45309;">🔥 Intrinsisch vs. extrinsisch — und der korrumpierende Effekt</h3><div class="csub">Deci &amp; Ryan · Selbstbestimmungstheorie</div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fef3c7;color:#b45309;">💡</div><div class="al">Was ist Motivation? Intrinsisch vs. extrinsisch</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Motivation</span> — Gesamtheit der Beweggründe, die das Verhalten aktivieren, richten und aufrechterhalten. Vom lat. "movere" = bewegen. Motivation beantwortet: Warum fängt jemand an? Warum hält er durch? Warum stoppt er?</div>
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#15803d;">Intrinsisch</div>Aus eigener innerer Freude, Neugier oder Interesse. Das Tun selbst ist die Belohnung. Führt zu tieferem Lernen und mehr Ausdauer.</div>
+          <div class="ci"><div class="cil" style="color:#b45309;">Extrinsisch</div>Um eine äußere Belohnung zu erhalten oder Strafe zu vermeiden: Noten, Lob, Preise. Effektiv für einfache Aufgaben — kann intrinsische Motivation schädigen.</div>
+        </div>
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Selbstbestimmungstheorie</span> (Deci &amp; Ryan, 1985) — Menschen haben drei angeborene psychologische Grundbedürfnisse: <span class="ft">Autonomie</span> (selbst entscheiden), <span class="ft">Kompetenz</span> (sich fähig fühlen), <span class="ft">soziale Eingebundenheit</span> (dazugehören). Werden alle drei erfüllt, entsteht intrinsische Motivation.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fef3c7;color:#b45309;">⚠️</div><div class="al">Der korrumpierende Effekt — wenn Belohnung schadet</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Korrumpierender Effekt</span> (engl. overjustification effect) — Wenn eine intrinsisch motivierte Tätigkeit von außen belohnt wird, sinkt die intrinsische Motivation. Die äußere Belohnung "erklärt" die Aktivität — und sobald die Belohnung wegfällt, verliert die Aktivität ihren Reiz.</div>
+        <div class="ebox"><div class="el">🎨 Klassisches Experiment (Lepper et al., 1973)</div>Kinder, die gerne malten, wurden für ihre Bilder belohnt. Nach Entfernen der Belohnung malten sie deutlich weniger als Kinder, die nie belohnt worden waren. Die Belohnung hatte die intrinsische Freude am Malen "überschrieben".</div>
+        <div class="warn"><div class="wl">⚠️ Implikation für die Schule</div>Noten für Aktivitäten, die Schüler ohnehin gerne machen (kreatives Schreiben, Experimente, Diskussionen), können die intrinsische Freude an diesen Aktivitäten langfristig zerstören. Lob für Anstrengung und Prozess ist besser als Belohnungen für Ergebnisse.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Differenzieren: Extrinsische Anreize bei unbeliebten, aber notwendigen Aufgaben (Vokabeln) — intrinsische Motivation schützen bei Aktivitäten, die Eigeninitiative und Kreativität erfordern. Autonomie immer mitdenken.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fef3c7;color:#b45309;">🎯</div><div class="al">Lernziel vs. Leistungsziel — der entscheidende Unterschied</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Lernzielorientierung</span> — Fokus auf Kompetenzzuwachs: "Ich will verstehen und besser werden." Fehler werden als Lernchancen genutzt. Korreliert mit tiefem Verarbeiten und langfristiger Ausdauer.</div>
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Leistungszielorientierung</span> — Fokus auf Ergebnis und sozialen Vergleich: "Ich will besser sein als die anderen" oder "Ich will nicht schlechter aussehen." Führt zu Angst vor Fehlern und Vermeidungsverhalten.</div>
+        <div class="ebox"><div class="el">📚 Konsequenz im Unterricht</div>Eine Schülerin mit Lernzielorientierung fragt nach dem Test: "Was habe ich falsch verstanden?" Eine Schülerin mit Leistungszielorientierung fragt: "Wie war der Klassendurchschnitt?" — Beide haben den gleichen Test gemacht, aber völlig verschiedene Konsequenzen daraus gezogen.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Fehlerfreundliche Kultur schaffen. Nicht "Was hast du für eine Note?" sondern "Was hast du gelernt?" Individuelle Fortschritte betonen statt Ranking. Prozesslob ("Du hast wirklich gründlich recherchiert") statt Ergebnislob ("Du bist so schlau").</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fef3c7;color:#b45309;">🌊</div><div class="al">Das Rubikon-Modell — von der Absicht zur Handlung</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Rubikon-Modell</span> (Heckhausen &amp; Gollwitzer, 1987) — Modell, das erklärt, wie aus einem Wunsch eine Handlung wird. Benannt nach Caesars Entscheidung, den Rubikon zu überqueren — der Punkt, ab dem es kein Zurück gibt.</div>
+        <div class="stufe" style="background:#fffbeb;border-color:#fde68a;"><div class="snum" style="background:#fef3c7;color:#b45309;">1</div><div class="sbody"><strong>Prädezisionale Phase — Abwägen</strong>Man überlegt: Soll ich dieses Ziel überhaupt verfolgen? Wünsche konkurrieren miteinander. Man ist noch offen für alle Informationen.</div></div>
+        <div class="stufe" style="background:#fffbeb;border-color:#fde68a;"><div class="snum" style="background:#fef3c7;color:#b45309;">2</div><div class="sbody"><strong>Präaktionale Phase — Planen (nach dem Rubikon)</strong>Entscheidung ist gefallen. Nun wird geplant: Wann? Wie? Was brauche ich? Ziel ist jetzt verbindlich.</div></div>
+        <div class="stufe" style="background:#fffbeb;border-color:#fde68a;"><div class="snum" style="background:#fef3c7;color:#b45309;">3</div><div class="sbody"><strong>Aktionale Phase — Handeln</strong>Die Handlung wird ausgeführt. Hindernisse werden überwunden. Fokus auf das Ziel.</div></div>
+        <div class="stufe" style="background:#fffbeb;border-color:#fde68a;"><div class="snum" style="background:#fef3c7;color:#b45309;">4</div><div class="sbody"><strong>Postaktionale Phase — Bewerten</strong>War die Handlung erfolgreich? Was hat geholfen, was nicht? Diese Bewertung beeinflusst zukünftige Motivation (s. Attribution).</div></div>
+        <div class="ebox"><div class="el">🎓 Schulbeispiel</div>Schüler steht vor einer Hausarbeit: (1) Überlegt, ob er sie wirklich schreiben will. (2) Entscheidet "Ich mache das" und plant Zeitplan. (3) Schreibt aktiv. (4) Bewertet danach: "Hat der Aufwand sich gelohnt?" — Diese Bewertung bestimmt, ob er beim nächsten Mal wieder motiviert ist.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fef3c7;color:#b45309;">📊</div><div class="al">Rheinbergs Rahmenmodell — was Motivation im Unterricht beeinflusst</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Falko Rheinberg beschreibt vier zentrale Quellen der Lernmotivation im Unterricht — die Lehrkraft kann alle vier aktiv beeinflussen:</div>
+        <ul class="pl" style="margin-bottom:10px;">
+          <li><strong>Situationsreiz:</strong> Ist die Aufgabe selbst interessant und ansprechend?</li>
+          <li><strong>Instrumentalität:</strong> Nützt das Gelernte für persönlich wichtige Ziele (Beruf, Alltag)?</li>
+          <li><strong>Inzentive der Tätigkeit:</strong> Macht das Tun selbst Spaß, auch unabhängig vom Ergebnis?</li>
+          <li><strong>Erwartung × Wert:</strong> Glaube ich, dass ich es schaffe? Und ist es mir überhaupt wichtig?</li>
+        </ul>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>"Warum lernen wir das überhaupt?" ist keine Frechheit — es ist eine berechtigte Frage nach Instrumentalität. Wer sie beantwortet ("In welchen Berufen brauchst du das?"), steigert die Motivation messbar.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 ATTRIBUTION -->
+<section class="section reveal" id="s2">
+  <div class="sh"><span class="sn">II</span><span class="st">Attribution, Mindset &amp; Hilflosigkeit</span><span class="sa" style="background:#be123c;">Weiner · Dweck · Seligman</span><button class="spb" data-chapter="ch2" onclick="playChapter('ch2')"><span class="spbi">▶</span> Kapitel hören</button></div>
+  <div class="cg">
+    <div class="card" style="border-top-color:#be123c;">
+      <div class="ch"><span class="ca" style="background:#be123c;">Weiner</span><h3 style="color:#be123c;">📌 Attributionstheorie — Warum glaube ich, dass ich gescheitert bin?</h3><div class="csub">3 Dimensionen · Muster · Schulrelevanz</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ffe4e6;color:#be123c;">💡</div><div class="al">Was ist Attribution? Und warum ist sie so mächtig?</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Attribution</span> — Kausalzuschreibung: Die subjektive Erklärung, warum ein Ereignis eingetreten ist. Entscheidend ist nicht das Ereignis selbst, sondern wie jemand es erklärt — denn das beeinflusst, was er das nächste Mal tut.</div>
+        <div class="ex">Zwei Schüler schreiben eine schlechte Klausur. Schüler A denkt: "Ich bin zu dumm." Schüler B denkt: "Ich habe zu wenig gelernt." — Beide hatten das gleiche Ergebnis, aber völlig unterschiedliche Konsequenzen für ihre zukünftige Motivation.</div>
+      </div></div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ffe4e6;color:#be123c;">🔲</div><div class="al">Weiners 3 Dimensionen der Attribution</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Dimension 1</div><span class="ft">Kausallokalisation</span> — Liegt die Ursache in mir (internal) oder außerhalb (external)? "Ich bin schlecht" vs. "Der Test war unfair".</div>
+        <div class="fb"><div class="fl">🔑 Dimension 2</div><span class="ft">Stabilität</span> — Ist die Ursache dauerhaft (stabil) oder veränderbar (variabel)? "Ich bin generell schlecht in Mathe" (stabil) vs. "Ich hatte heute einen schlechten Tag" (variabel).</div>
+        <div class="fb"><div class="fl">🔑 Dimension 3</div><span class="ft">Kontrollierbarkeit</span> — Kann ich die Ursache selbst beeinflussen? Anstrengung ist kontrollierbar, Begabung (nach Fixed Mindset) nicht.</div>
+        <div class="ebox"><div class="el">📋 Beispiel: "Ich habe die Prüfung bestanden"</div>
+          Internal + stabil: "Ich bin einfach klug." (Begabungserfolg)<br>
+          Internal + variabel: "Ich habe intensiv gelernt." (Anstrengungserfolg — motivationsfördernd!)<br>
+          External + stabil: "Diese Prüfung ist immer leicht."<br>
+          External + variabel: "Ich hatte heute Glück."
+        </div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Günstigstes Muster fördern: Erfolg → internal + variabel + kontrollierbar ("Dein Einsatz hat sich ausgezahlt!") · Misserfolg → variabel + kontrollierbar ("Wenn du beim nächsten Mal früher anfängst..."). Dieses Muster stärkt Selbstwirksamkeit und Ausdauer.</div>
+      </div></div></div>
+    </div>
+
+    <div class="card" style="border-top-color:#0369a1;">
+      <div class="ch"><span class="ca" style="background:#0369a1;">Dweck · Seligman</span><h3 style="color:#0369a1;">🧠 Mindset &amp; Erlernte Hilflosigkeit</h3><div class="csub">Fixed vs. Growth · Teufelskreis</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0f2fe;color:#0369a1;">💡</div><div class="al">Fixed vs. Growth Mindset — Dweck (2006)</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Fixed Mindset</span> (Dweck) — Die Überzeugung, dass Intelligenz und Fähigkeiten angeboren und unveränderbar sind. "Ich bin einfach nicht gut in Mathe." Misserfolg wird als Beweis für mangelnde Begabung interpretiert → Vermeidung.</div>
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Growth Mindset</span> (Dweck) — Überzeugung, dass Fähigkeiten durch Anstrengung und Strategie entwickelt werden können. "Ich bin noch nicht gut in Mathe." Misserfolg ist Feedback, kein Urteil → Ausdauer und Entwicklung.</div>
+        <div class="ebox"><div class="el">🔬 Dwecks Experiment</div>Kinder wurden für Intelligenz gelobt ("Du bist so klug!") vs. für Anstrengung ("Du hast wirklich hart gearbeitet!"). Beim nächsten schwierigen Problem: Die "Intelligenz"-Kinder wählten leichtere Aufgaben (um ihr Image zu schützen). Die "Anstrengungs"-Kinder wählten schwierigere Aufgaben (weil sie wissen wollten, wie weit sie kommen).</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>NIEMALS für Intelligenz loben. IMMER für Anstrengung, Strategie und Fortschritt loben. "Du hast eine gute Strategie gefunden" fördert Growth Mindset. "Du bist so schlau" fördert Fixed Mindset — selbst wenn es gut gemeint ist.</div>
+      </div></div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ffe4e6;color:#be123c;">🌀</div><div class="al">Erlernte Hilflosigkeit — Seligman — der Teufelskreis</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Erlernte Hilflosigkeit</span> (Seligman, 1967) — Erlernte Überzeugung, hilflos zu sein. Entsteht, wenn jemand wiederholt erlebt, dass sein Handeln keine Wirkung hat — egal was er tut.</div>
+        <div class="ex">Der Teufelskreis: Misserfolg → "Es liegt an mir, ich bin dumm" (internal, stabil) → geringere Anstrengung → weiterer Misserfolg → stärkere Hilflosigkeitsüberzeugung → garkeine Anstrengung mehr.</div>
+        <div class="ebox"><div class="el">🔓 Ausbrechen aus dem Kreislauf</div>1. Erfolg durch klar machbare Aufgaben ermöglichen. 2. Erfolg auf veränderbare Faktoren zurückführen ("Das hast du durch dein Durchhalten geschafft!"). 3. Schrittweise Herausforderung erhöhen. 4. Misserfolg als Information, nicht als Urteil rahmen.</div>
+        <div class="note">Verbindung zu Attributionstheorie: Hilflosigkeit entsteht, wenn Misserfolge internal, stabil und unkontrollierbar attribuiert werden — "Ich bin zu dumm und das ändert sich nie."</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 GEDÄCHTNIS -->
+<section class="section reveal" id="s3">
+  <div class="sh"><span class="sn">III</span><span class="st">Gedächtnis &amp; Lernen im Gehirn</span><span class="sa" style="background:#0f766e;">Ebbinghaus · Baddeley · Vygotski</span><button class="spb" data-chapter="ch3" onclick="playChapter('ch3')"><span class="spbi">▶</span> Kapitel hören</button></div>
+  <div class="cg">
+    <div class="card" style="border-top-color:#0f766e;">
+      <div class="ch"><span class="ca" style="background:#0f766e;">Ebbinghaus · Baddeley</span><h3 style="color:#0f766e;">🧠 Wie das Gedächtnis funktioniert</h3><div class="csub">Vergessenskurve · Arbeitsgedächtnis · Langzeitgedächtnis</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ccfbf1;color:#0f766e;">📉</div><div class="al">Vergessenskurve — Ebbinghaus (1885)</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Vergessenskurve</span> (Ebbinghaus, 1885) — Grafische Darstellung, wie schnell neu Gelerntes vergessen wird, wenn es nicht wiederholt wird. Vergessen ist am stärksten in den ersten Stunden nach dem Lernen — danach flacht die Kurve ab.</div>
+        <div class="ex">Ebbinghaus testete sich jahrelang selbst: Er lernte Listen sinnloser Silben und maß, wie viel er nach verschiedenen Zeitabständen noch wusste. Ergebnis: Nach einer Stunde war etwa 50% vergessen. Nach einem Tag etwa 70%. Nach einer Woche etwa 80%.</div>
+        <div class="ebox"><div class="el">⏰ Die Konsequenz: Verteiltes Lernen</div>Nicht alles kurz vor der Prüfung lernen (Massen-Lernen = schlechte Retention). Stattdessen: Mehrfache kurze Wiederholungen in wachsenden Abständen. Das "verflacht" die Vergessenskurve erheblich.</div>
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Spaced Repetition</span> — Methode der verteilten Wiederholung in wachsenden Zeitabständen (heute, morgen, in 3 Tagen, in 1 Woche...). Basiert direkt auf Ebbinghaus' Vergessenskurve. Eine der effektivsten Lernmethoden überhaupt.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Kurze Wiederholungsphasen zu Beginn jeder Stunde ("Was haben wir letzte Woche gelernt?") sind kein Zeitverlust — sie sind Lernförderung. Kompakttests und Aktivierungsfragen sind direkte Anwendungen von Spaced Repetition.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ccfbf1;color:#0f766e;">🗂️</div><div class="al">Arbeitsgedächtnis &amp; Langzeitgedächtnis — Baddeley</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Arbeitsgedächtnis</span> (Baddeley, 1974) — Kurzzeitiger Arbeitsspeicher des Denkens. Sehr begrenzte Kapazität: ca. 7 ± 2 Informationseinheiten gleichzeitig. Zuständig für aktives Verarbeiten, Problemlösen und Verstehen.</div>
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Kognitive Überlastung</span> (Cognitive Overload) — Wenn mehr Informationen auf einmal verarbeitet werden müssen, als das Arbeitsgedächtnis fassen kann. Lernen wird dadurch stark beeinträchtigt oder verhindert.</div>
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Langzeitgedächtnis</span> — Praktisch unbegrenzte Speicherkapazität. Enthält: deklaratives Wissen (Fakten und Episoden) und prozedurales Wissen (Fähigkeiten). Neues Wissen wird aus dem Arbeitsgedächtnis durch Wiederholung und Verknüpfung ins Langzeitgedächtnis überführt.</div>
+        <div class="ebox"><div class="el">🔗 Wie Wissen ins Langzeitgedächtnis gelangt</div>Durch: Wiederholung (Ebbinghaus!), Verknüpfung mit Vorwissen (tiefere Verarbeitung), emotionale Bedeutsamkeit, aktives Abrufen (Testing-Effekt).</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Kognitive Überlastung vermeiden: Nicht zu viele neue Konzepte gleichzeitig einführen. Neue Inhalte immer mit bekannten Inhalten verknüpfen. Komplexe Aufgaben in handhabbare Teilschritte aufteilen (Scaffolding).</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ccfbf1;color:#0f766e;">🌱</div><div class="al">Vorwissen als stärkster Lernfaktor · Zone der nächsten Entwicklung — Vygotski</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Vorwissen</span> — Das stärkste Gerüst für neues Lernen (Ausubel: "Was ein Schüler bereits weiß, ist der wichtigste Faktor für sein Lernen."). Neues Wissen kann nur verankert werden, wenn es an vorhandene kognitive Strukturen anknüpft.</div>
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Zone der nächsten Entwicklung</span> (Vygotski, 1978) — Bereich zwischen dem, was jemand selbst kann, und dem, was er mit Unterstützung (Lehrkraft, Peers) erreichen kann. Optimal wirksames Lernen findet genau in dieser Zone statt: weder zu leicht noch zu schwer.</div>
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Scaffolding</span> — "Lerngerüst": Gezielte, schrittweise Unterstützung in der Zone der nächsten Entwicklung, die bei wachsender Kompetenz wieder abgebaut wird. Wie Baugerüste an einem Gebäude.</div>
+        <div class="ebox"><div class="el">🔭 Analogie</div>Vorwissen ist wie ein Anker. Neues Wissen ist wie ein Seil — es haftet nur, wenn es einen Anker gibt. Ohne Vorwissenaktivierung "fließt" neues Wissen durch das Gehirn hindurch, ohne verankert zu werden.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Stunden nie ohne Vorwissensaktivierung beginnen: "Was wisst ihr schon zu...?" "Wer hat schon mal erlebt...?" "Was bedeutet der Begriff...?" Das dauert 3 Minuten und erhöht den Lernerfolg messbar.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ccfbf1;color:#0f766e;">🖼️</div><div class="al">Dual Coding — zwei Kanäle sind besser als einer</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Dual Coding</span> (Paivio, 1971) — Informationen werden besser behalten, wenn sie sowohl verbal (Sprache) als auch nonverbal (Bilder, Diagramme) kodiert werden. Zwei unabhängige Gedächtnissysteme werden gleichzeitig aktiviert → stärkere Gedächtnisspur.</div>
+        <div class="ebox"><div class="el">📊 Konsequenz für den Unterricht</div>Eine Erklärung + ein passendes Diagramm werden besser behalten als eine Erklärung allein. ABER: Bild + Text gleichzeitig ist nur dann hilfreich, wenn beide sich gegenseitig ergänzen — redundante Texte neben Grafiken erhöhen die kognitive Last (s. Baddeley).</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Verbale Erklärungen immer mit visuellen Darstellungen ergänzen (Mindmaps, Diagramme, Skizzen). Schüler eigene Skizzen oder Concept Maps anfertigen lassen — das aktiviert beide Kodierwege aktiv.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 LERNTHEORIEN -->
+<section class="section reveal" id="s4">
+  <div class="sh"><span class="sn">IV</span><span class="st">Lerntheorien</span><span class="sa" style="background:#6d28d9;">Pawlow · Skinner · Bandura</span><button class="spb" data-chapter="ch4" onclick="playChapter('ch4')"><span class="spbi">▶</span> Kapitel hören</button></div>
+  <div class="cg">
+    <div class="card" style="border-top-color:#6d28d9;">
+      <div class="ch"><span class="ca" style="background:#6d28d9;">Pawlow · Skinner</span><h3 style="color:#6d28d9;">🔔 Klassisches &amp; operantes Konditionieren</h3><div class="csub">Behaviorismus · Verstärkung · Bestrafung</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ede9fe;color:#6d28d9;">🐕</div><div class="al">Klassisches Konditionieren — Pawlow (1890er)</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Klassisches Konditionieren</span> (Pawlow) — Lernen durch zeitliches Zusammentreffen eines neutralen Reizes mit einem biologisch bedeutsamen Reiz. Der neutrale Reiz löst schließlich allein die Reaktion aus.</div>
+        <div class="ebox"><div class="el">🐕 Pawlows Experiment</div>Hunde speicheln (UCR) automatisch bei Futter (UCS). Pawlow läutete eine Glocke (CS) immer kurz vor dem Futter. Nach mehrfacher Wiederholung: Hunde speicheln allein beim Glockenklingeln — ohne Futter. Konditionierte Reaktion (CR) entstanden.</div>
+        <div class="ebox"><div class="el">📚 Schulbeispiel</div>Ein Schüler hatte in der 5. Klasse einen Lehrer, der ihn immer vor der Klasse bloßstellte. Heute, Jahre später, löst allein der Geruch von Kreide oder die Geräuschkulisse eines Klassenzimmers Angst aus — obwohl die Situation neutral ist. Das ist klassisches Konditionieren.</div>
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Extinktion</span> — Löschung einer konditionierten Reaktion durch wiederholtes Präsentieren des CS ohne UCS. Der konditionierte Reiz verliert seine Wirkung — aber das Lernen verschwindet nie ganz (Spontanerholung).</div>
+      </div></div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ede9fe;color:#6d28d9;">⚙️</div><div class="al">Operantes Konditionieren — Skinner — die 4 Verstärkertypen</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Operantes Konditionieren</span> (Skinner) — Verhalten wird durch seine Konsequenzen geformt. Positive Konsequenzen erhöhen die Auftretenswahrscheinlichkeit, negative Konsequenzen senken sie.</div>
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#15803d;">Positive Verstärkung</div>Angenehmen Reiz hinzufügen → Verhalten steigt<br><em>Lob, Belohnung, Anerkennung</em></div>
+          <div class="ci"><div class="cil" style="color:#0369a1;">Negative Verstärkung</div>Unangenehmen Reiz entfernen → Verhalten steigt<br><em>Keine Hausaufgaben wenn Aufgaben in Klasse fertig</em></div>
+        </div>
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#b45309;">Positive Bestrafung</div>Unangenehmen Reiz hinzufügen → Verhalten sinkt<br><em>Nachsitzen, Tadel</em></div>
+          <div class="ci"><div class="cil" style="color:#be123c;">Negative Bestrafung</div>Angenehmen Reiz entfernen → Verhalten sinkt<br><em>Handyentzug, Pausenverbot</em></div>
+        </div>
+        <div class="warn"><div class="wl">⚠️ Wichtige Unterscheidung</div>"Negative Verstärkung" ist NICHT dasselbe wie Bestrafung. Negative Verstärkung ERHÖHT die Verhaltenswahrscheinlichkeit — nur durch Entfernen eines unangenehmen Reizes.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Positive Verstärkung ist langfristig wirksamer als Bestrafung. Bestrafung unterdrückt Verhalten kurzfristig — aber schafft oft Ausweichstrategien und hemmt Motivation. Intermittierender Verstärkungsplan (nicht jede Aktion belohnen) erzeugt die robusteste Verhaltensänderung.</div>
+      </div></div></div>
+    </div>
+
+    <div class="card" style="border-top-color:#db2777;">
+      <div class="ch"><span class="ca" style="background:#db2777;">Bandura</span><h3 style="color:#db2777;">👁️ Modelllernen — Lernen durch Beobachtung</h3><div class="csub">4 Teilprozesse · Sozial-kognitive Theorie</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fce7f3;color:#db2777;">💡</div><div class="al">Wie funktioniert Modelllernen? Die 4 Teilprozesse</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Modelllernen</span> (Bandura, 1963) — Lernen durch Beobachtung und Nachahmung. Menschen müssen eine Verhaltensweise nicht selbst ausführen, um sie zu lernen — Beobachtung genügt. Damit überwindet Bandura den reinen Behaviorismus: Kognition spielt eine entscheidende Rolle.</div>
+        <div class="stufe"><div class="snum" style="background:#fce7f3;color:#db2777;">1</div><div class="sbody"><strong>Aufmerksamkeitsprozess</strong> — Beobachtung des Modells. Nur was wahrgenommen wird, kann gelernt werden. Auffällige, ähnliche, kompetente Modelle erhalten mehr Aufmerksamkeit.</div></div>
+        <div class="stufe"><div class="snum" style="background:#fce7f3;color:#db2777;">2</div><div class="sbody"><strong>Gedächtnisprozess</strong> — Abspeichern im Gedächtnis. Das Beobachtete muss als mentale Repräsentation (Bild oder Sprache) kodiert und gespeichert werden.</div></div>
+        <div class="stufe"><div class="snum" style="background:#fce7f3;color:#db2777;">3</div><div class="sbody"><strong>Reproduktionsprozess</strong> — Nachahmung. Körperliche und kognitive Fähigkeiten müssen vorhanden sein, um das Verhalten auch ausführen zu können.</div></div>
+        <div class="stufe"><div class="snum" style="background:#fce7f3;color:#db2777;">4</div><div class="sbody"><strong>Motivationsprozess</strong> — Anreiz zur Nachahmung. Wird das Modell für sein Verhalten belohnt (stellvertretende Verstärkung), steigt die Wahrscheinlichkeit der Nachahmung.</div></div>
+        <div class="ebox"><div class="el">👩‍🏫 Schulbeispiel</div>Eine Lehrkraft, die offen Fehler macht und zeigt, wie sie damit umgeht ("Hm, das war falsch — ich denke nochmal nach"), modelliert Growth Mindset. Schüler beobachten das und lernen: Fehler machen gehört zum Denken dazu.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Lehrkräfte sind immer Modelle — auch dann, wenn sie es nicht beabsichtigen. Laut denken ("Ich bin mir nicht sicher — ich würde das so angehen..."), Coping-Verhalten vorleben, Gleichaltrigenmodelle bewusst einsetzen (Peer-Tutoring).</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 LERNSTILE -->
+<section class="section reveal" id="s5">
+  <div class="sh"><span class="sn">V</span><span class="st">Lernstile &amp; individuelle Unterschiede</span><span class="sa" style="background:#0891b2;">Kolb · Gardner · Hattie</span><button class="spb" data-chapter="ch5" onclick="playChapter('ch5')"><span class="spbi">▶</span> Kapitel hören</button></div>
+  <div class="cg">
+    <div class="card" style="border-top-color:#0891b2;">
+      <div class="ch"><span class="ca" style="background:#0891b2;">Kolb</span><h3 style="color:#0891b2;">🔄 Kolbs Lernkreislauf &amp; Lernstile</h3><div class="csub">4 Stile · Erfahrungslernen · Kritik</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0f7fa;color:#0891b2;">🔄</div><div class="al">Das Lernkreislauf-Modell — Kolb (1984)</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Experiential Learning</span> (Kolb, 1984) — Lernen als Kreislauf aus konkreter Erfahrung → Reflexion → abstrakte Begriffsbildung → aktives Experimentieren → neue Erfahrung.</div>
+        <div class="stufe"><div class="snum" style="background:#e0f7fa;color:#0891b2;">1</div><div class="sbody"><strong>Konkrete Erfahrung</strong> — Erleben. Etwas ausprobieren, fühlen, wahrnehmen.</div></div>
+        <div class="stufe"><div class="snum" style="background:#e0f7fa;color:#0891b2;">2</div><div class="sbody"><strong>Reflektierte Beobachtung</strong> — Nachdenken. Was ist passiert? Aus mehreren Perspektiven betrachten.</div></div>
+        <div class="stufe"><div class="snum" style="background:#e0f7fa;color:#0891b2;">3</div><div class="sbody"><strong>Abstrakte Begriffsbildung</strong> — Schlussfolgern. Regeln und Konzepte aus der Erfahrung ableiten.</div></div>
+        <div class="stufe"><div class="snum" style="background:#e0f7fa;color:#0891b2;">4</div><div class="sbody"><strong>Aktives Experimentieren</strong> — Anwenden. Das Konzept in neuen Situationen testen.</div></div>
+        <div class="ex">Aus dem Kreislauf ergeben sich vier Lernstile je nach bevorzugtem Einstiegspunkt: <strong>Divergierer</strong> (Erfahrung + Reflexion), <strong>Assimilierer</strong> (Reflexion + Konzept), <strong>Konvergierer</strong> (Konzept + Experiment), <strong>Akkomodierer</strong> (Experiment + Erfahrung).</div>
+      </div></div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0f7fa;color:#0891b2;">⚠️</div><div class="al">Kritik: Was bedeutet das für die Schule wirklich?</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="warn"><div class="wl">⚠️ Wichtige Einschränkung</div>Lernstile sind als feste Kategorien wissenschaftlich nicht belegt. Es gibt keine robuste Evidenz dafür, dass Unterricht, der auf den "Lernstil" eines Schülers zugeschnitten ist, bessere Ergebnisse erzeugt.</div>
+        <div class="ex">Was die Forschung zeigt: Menschen haben Präferenzen — aber Lernen ist für alle am wirksamsten, wenn es multimodal ist (sehen + hören + tun). Das ist kein Lernstil — das ist optimales Lernen für alle.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Kolbs Kreislauf ist nützlich als Unterrichtsstruktur — Erfahrung → Reflexion → Konzept → Anwendung. Als feste Schublade ("dieser Schüler ist ein Kinästhetiker") ist er wissenschaftlich problematisch. Methodenvielfalt statt Lernstil-Anpassung.</div>
+      </div></div></div>
+    </div>
+
+    <div class="card" style="border-top-color:#0891b2;">
+      <div class="ch"><span class="ca" style="background:#0891b2;">Hattie</span><h3 style="color:#0891b2;">📊 Was wirklich wirkt — Hattie (Visible Learning)</h3><div class="csub">Einflussfaktoren · Feedback · Kognitive Aktivierung</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0f7fa;color:#0891b2;">🔬</div><div class="al">Hatties Metaanalyse — die wichtigsten Lernfaktoren</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Visible Learning</span> (Hattie, 2009) — Größte Metaanalyse im Bildungsbereich: 800+ Studien, 240+ Millionen Schüler. Vergleicht die Effektgröße (d) verschiedener Unterrichtsfaktoren. Durchschnitt: d = 0.40. Alles über 0.40 ist überdurchschnittlich wirksam.</div>
+        <div class="ex">Die Top-Faktoren nach Hattie:</div>
+        <ul class="pl" style="margin-bottom:10px;">
+          <li><strong>Feedback</strong> (d = 0.73) — Konkretes, handlungsleitendes Feedback über Lernfortschritt</li>
+          <li><strong>Lehrkraft-Schüler-Beziehung</strong> (d = 0.72) — Vertrauen und Respekt als Lerngrundlage</li>
+          <li><strong>Metakognitive Strategien</strong> (d = 0.69) — Schüler lernen, ihr eigenes Lernen zu steuern</li>
+          <li><strong>Kognitive Aktivierung</strong> — Tiefes Denken anregen, nicht Reproduktion abfragen</li>
+          <li><strong>Direkte Instruktion</strong> (d = 0.59) — Klare, explizite Erklärungen durch die Lehrkraft</li>
+        </ul>
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Feedback</span> (Hattie) — Effektives Feedback beantwortet drei Fragen: Wohin geht mein Lernweg? (Lernziel) · Wo stehe ich gerade? (Ist-Stand) · Wie komme ich vom Ist zum Soll? (Nächste Schritte). Lob allein ist kein Feedback.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Feedback ist die mächtigste Methode — aber nur, wenn es konkret, handlungsleitend und zeitnah ist. "Gut gemacht!" ist kein Feedback. "Du hast die These klar formuliert, aber noch keine Belege geliefert — füge im nächsten Schritt zwei Zitate ein" ist Feedback.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 STRATEGIEN -->
+<section class="section reveal" id="s6">
+  <div class="sh"><span class="sn">VI</span><span class="st">Lernstrategien &amp; Metakognition</span><span class="sa" style="background:#2d6a4f;">Flavell · Zimmermann · Forschungsevidenz</span><button class="spb" data-chapter="ch6" onclick="playChapter('ch6')"><span class="spbi">▶</span> Kapitel hören</button></div>
+  <div class="cg">
+    <div class="card" style="border-top-color:#2d6a4f;">
+      <div class="ch"><h3 style="color:#2d6a4f;">💡 Effektive vs. ineffektive Lernstrategien</h3><div class="csub">Was die Forschung sagt</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#d1fae5;color:#15803d;">⚡</div><div class="al">Retrieval Practice — die effektivste Methode ★</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Retrieval Practice</span> (Testing-Effekt) — Aktives Abrufen aus dem Gedächtnis ist effektiver als erneutes Lesen oder Zusammenfassen. Das Erinnern selbst stärkt die Gedächtnisspur.</div>
+        <div class="ebox"><div class="el">🔬 Was die Forschung zeigt</div>Schüler, die nach dem Lernen einen Test machen (auch ohne Note), behalten deutlich mehr als Schüler, die dieselbe Zeit mit erneutem Lesen verbringen — selbst wenn sie subjektiv das Gefühl haben, durch Lesen mehr gelernt zu haben. Das Gehirn verankert Wissen durch den Abruf, nicht durch das Aufnehmen.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Exit Tickets, Quizfragen, "Erkläre einem Mitschüler", Lernkarten (Karteikarten mit Frage vorne / Antwort hinten) — all das aktiviert Retrieval Practice. Kurze Wiederholungstests ohne Note sind hochwirksam.</div>
+      </div></div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#d1fae5;color:#15803d;">🌐</div><div class="al">Elaboration — verstehen statt auswendig lernen</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Elaboration</span> — Tief verarbeiten: Neues mit Vorwissen verknüpfen, Beispiele finden, Bedeutung erschließen. "Was bedeutet das für mich? Wo habe ich das schon erlebt? Wozu brauche ich das?"</div>
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Feynman-Technik</span> — Erklären, als ob man es einem Kind beibringen müsste. Wo man stockt, zeigt Lücken im Verständnis. Dann nachschlagen, vereinfachen, nochmal erklären.</div>
+        <div class="ebox"><div class="el">🧪 Warum Elaboration funktioniert</div>Flaches Lernen (Vokabel→Übersetzung auswendig lernen) erzeugt isolierte Gedächtnisspur. Tiefes Lernen (Vokabel → Kontext → eigene Sätze → Ableitung → ähnliche Wörter) erzeugt ein ganzes Netzwerk → viele Abrufwege.</div>
+      </div></div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#d1fae5;color:#15803d;">🗂️</div><div class="al">Organisation &amp; Spaced Repetition</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Organisation</span> — Struktur in neues Material bringen: Mindmaps, Concept Maps, Tabellen, Gliederungen. Ordnung im Stoff = Ordnung im Gedächtnis. Cluster und Hierarchien sind gedächtnisfreundlicher als lineare Listen.</div>
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Spaced Repetition</span> — Verteiltes Lernen in wachsenden Zeitabständen (basiert auf Ebbinghaus). Mathematisch optimal: heute → morgen → in 3 Tagen → in 1 Woche → in 2 Wochen...</div>
+        <div class="warn"><div class="wl">⚠️ Häufigster Fehler</div>Massen-Lernen (Cramming) kurz vor der Prüfung: kurzfristig wirksam, langfristig wirkungslos. Viele Schüler haben nach 2 Wochen fast alles vergessen, weil keine Wiederholungen erfolgten.</div>
+      </div></div></div>
+    </div>
+
+    <div class="card" style="border-top-color:#2d6a4f;">
+      <div class="ch"><span class="ca" style="background:#2d6a4f;">Flavell · Zimmermann</span><h3 style="color:#2d6a4f;">🧭 Metakognition &amp; Selbstreguliertes Lernen</h3><div class="csub">Über das eigene Lernen nachdenken</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#d1fae5;color:#15803d;">🔍</div><div class="al">Was ist Metakognition? — Flavell (1976)</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Metakognition</span> (Flavell, 1976) — "Denken über das Denken." Wissen über die eigenen kognitiven Prozesse und die Fähigkeit, diese zu überwachen und zu steuern. Drei Komponenten: <span class="ft">Metakognitives Wissen</span> (was ich über mein Lernen weiß), <span class="ft">Metakognitive Überwachung</span> (Selbstbeobachtung beim Lernen), <span class="ft">Metakognitive Kontrolle</span> (Strategie anpassen).</div>
+        <div class="ebox"><div class="el">💡 Konkret: Metakognitive Fragen</div>"Verstehe ich das wirklich oder kann ich es nur wiederholen?" · "Welche Methode hilft mir bei diesem Stoff?" · "Wo habe ich Lücken?" · "Wie weit bin ich auf mein Ziel zu?" — Schüler, die sich diese Fragen stellen, lernen nachweislich effizienter.</div>
+      </div></div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#d1fae5;color:#15803d;">🎯</div><div class="al">Selbstreguliertes Lernen — Zimmermann</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Selbstreguliertes Lernen</span> (Zimmermann) — Die Fähigkeit, den eigenen Lernprozess eigenverantwortlich zu planen, zu überwachen und zu evaluieren. Ist lernbar — und ein stärkerer Prädiktor für Schulerfolg als IQ.</div>
+        <div class="stufe"><div class="snum" style="background:#d1fae5;color:#15803d;">1</div><div class="sbody"><strong>Vorbereitungsphase:</strong> Ziel setzen, Zeitplan erstellen, Strategie wählen</div></div>
+        <div class="stufe"><div class="snum" style="background:#d1fae5;color:#15803d;">2</div><div class="sbody"><strong>Lernphase:</strong> Selbstbeobachtung — komme ich voran? Verstehe ich das?</div></div>
+        <div class="stufe"><div class="snum" style="background:#d1fae5;color:#15803d;">3</div><div class="sbody"><strong>Reflexionsphase:</strong> War die Strategie wirksam? Was würde ich ändern?</div></div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Selbstreguliertes Lernen explizit unterrichten: Lerntagebücher, Planungsbögen ("Was lerne ich heute? Bis wann? Womit?"), Reflexionsgespräche nach Tests. Nicht nur WAS gelernt werden soll, sondern WIE — das ist eine Schlüsselkompetenz fürs Leben.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 PRÜFUNGSANGST -->
+<section class="section reveal" id="s7">
+  <div class="sh"><span class="sn">VII</span><span class="st">Prüfungsangst</span><span class="sa" style="background:#be123c;">Liebert &amp; Morris · Neuropsychologie</span><button class="spb" data-chapter="ch7" onclick="playChapter('ch7')"><span class="spbi">▶</span> Kapitel hören</button></div>
+  <div class="cg">
+    <div class="card" style="border-top-color:#be123c;">
+      <div class="ch"><h3 style="color:#be123c;">😰 Prüfungsangst — Entstehung &amp; Teufelskreis</h3><div class="csub">Zwei Komponenten · 4 Ebenen · Intervention</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ffe4e6;color:#be123c;">💡</div><div class="al">Was ist Prüfungsangst? Zwei Komponenten — Liebert &amp; Morris</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Worry-Komponente</span> (Liebert &amp; Morris, 1967) — Die kognitive Seite der Prüfungsangst: Grübeln, negative Gedanken, Katastrophisieren. "Ich werde versagen." "Alle werden es wissen." Blockiert aktiv das Arbeitsgedächtnis.</div>
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Emotionality-Komponente</span> — Die körperliche Seite: Herzrasen, Zittern, Schwitzen, Übelkeit. Durch das autonome Nervensystem gesteuert. Ist weniger störend für die Leistung als die Worry-Komponente.</div>
+        <div class="ebox"><div class="el">🔬 Warum Worry die Leistung senkt</div>Die Worry-Komponente belegt das Arbeitsgedächtnis. Wer beim Test grübelt ("Ich versage gerade!"), hat weniger kognitive Ressourcen für das eigentliche Problem. Das erklärt, warum kluge Schüler unter Angst weit unter ihrem Niveau abschneiden.</div>
+      </div></div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ffe4e6;color:#be123c;">🔲</div><div class="al">4 Manifestationsebenen der Prüfungsangst</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="stufe"><div class="snum" style="background:#ffe4e6;color:#be123c;">🧠</div><div class="sbody"><strong>Kognitiv</strong> — Negative Gedanken, Blackout, Konzentrationsprobleme, Katastrophisieren</div></div>
+        <div class="stufe"><div class="snum" style="background:#ffe4e6;color:#be123c;">💓</div><div class="sbody"><strong>Physiologisch</strong> — Herzrasen, Schwitzen, Zittern, Bauchschmerzen, Atemnot</div></div>
+        <div class="stufe"><div class="snum" style="background:#ffe4e6;color:#be123c;">😥</div><div class="sbody"><strong>Emotional</strong> — Angst, Scham, Panik, Hilflosigkeit, Hoffnungslosigkeit</div></div>
+        <div class="stufe"><div class="snum" style="background:#ffe4e6;color:#be123c;">🏃</div><div class="sbody"><strong>Behavioral</strong> — Vermeidung (nicht zur Prüfung erscheinen), Prokrastination, motorische Unruhe, Schreibblockade</div></div>
+      </div></div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ffe4e6;color:#be123c;">🌀</div><div class="al">Der Teufelskreis — und wie er entsteht</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Negative Erfahrung bei einer Prüfung → Kopplung von "Prüfung" mit "Angst" (klassisches Konditionieren!) → Vermeidung (Prokrastination, nicht lernen) → schlechtere Vorbereitung → tatsächlich schlechteres Abschneiden → bestätigt die negative Erwartung → stärkere Angst.</div>
+        <div class="ebox"><div class="el">🔑 Verbindung zu anderen Theorien</div>Der Teufelskreis verbindet: Klassisches Konditionieren (Angstreaktion), Erlernte Hilflosigkeit (Seligman: "Es bringt sowieso nichts"), ungünstige Attribution (Weiner: "Ich bin zu dumm"), Fixed Mindset (Dweck).</div>
+      </div></div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ffe4e6;color:#be123c;">🛠️</div><div class="al">Prävention &amp; Intervention — was Lehrkräfte tun können</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex"><strong>Prävention:</strong></div>
+        <ul class="pl" style="margin-bottom:10px;">
+          <li>Fehlerfreundliche Unterrichtskultur schaffen (Fehler als Lernchancen)</li>
+          <li>Realistische Erwartungen kommunizieren, klare Prüfungsstrukturen</li>
+          <li>Sorgfältige Vorbereitung sicherstellen (kein Überraschungseffekt)</li>
+          <li>Growth Mindset aktiv fördern</li>
+        </ul>
+        <div class="ex"><strong>Intervention:</strong></div>
+        <ul class="pl" style="margin-bottom:10px;">
+          <li>Entspannungstechniken (tiefes Atmen, progressive Muskelentspannung)</li>
+          <li>Kognitive Umstrukturierung: Negative Gedanken identifizieren und ersetzen</li>
+          <li>Prüfungsähnliche Übungsbedingungen schaffen (Angsthabituierung)</li>
+          <li>Bei schwerer Prüfungsangst: schulpsychologische Beratung</li>
+        </ul>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Prüfungsangst ist kein Charakterfehler und kein Zeichen von Faulheit. Es ist eine erlernte Reaktion — und erlernte Reaktionen können verändert werden. Offen mit Schülern darüber sprechen, Normalisierung ("Viele fühlen das") und konkrete Strategien anbieten.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer style="background:var(--sur2);border-top:1px solid var(--brd);padding:20px 32px;text-align:center;">
+  <div style="max-width:1100px;margin:0 auto;font-size:12px;color:var(--mut);">
+    Lernpsychologie · Heckhausen · Rheinberg · Weiner · Dweck · Ebbinghaus · Baddeley · Vygotski · Skinner · Bandura · Hattie · Flavell · Zimmermann
+  </div>
+</footer>
+
+<script>
+const ACCENT='#2d6a4f';
+const CHAPTERS=[{key:'intro',title:'Einleitung',start:0,duration:45.1},{key:'ch1',title:'Motivation & Rubikon',start:45.1,duration:338.6},{key:'ch2',title:'Attribution, Mindset & Hilflosigkeit',start:383.7,duration:181.3},{key:'ch3',title:'Gedächtnis & Vorwissen',start:565.0,duration:161.3},{key:'ch4',title:'Lerntheorien',start:726.3,duration:210.1},{key:'ch5',title:'Lernstile & Hattie',start:936.4,duration:210.5},{key:'ch6',title:'Lernstrategien & Metakognition',start:1146.9,duration:179.9},{key:'ch7',title:'Prüfungsangst',start:1326.8,duration:169.0},{key:'outro',title:'Abschluss',start:1495.8,duration:66.2}];
+function toggle(item){const b=item.querySelector('.abody'),o=item.classList.contains('open');item.classList.toggle('open',!o);b.classList.toggle('open',!o);}
+function scrollTo(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
+const audio=document.getElementById('mainAudio'),bar=document.getElementById('audioBar');
+const bpb=document.getElementById('barPlayBtn'),hpb=document.getElementById('heroPlayBtn');
+const btit=document.getElementById('barTit'),bch=document.getElementById('barCh'),btm=document.getElementById('barTime');
+const ap=document.getElementById('audioProgress'),hs=document.getElementById('heroSeek');
+const htm=document.getElementById('heroTime'),hdr=document.getElementById('heroDur');
+const cbe=document.getElementById('chBtns');
+CHAPTERS.forEach(ch=>{const btn=document.createElement('button');btn.className='chbtn';btn.id='cb-'+ch.key;btn.textContent=ch.title;btn.onclick=()=>playChapter(ch.key);cbe.appendChild(btn);});
+function fmt(s){const m=Math.floor(s/60),sec=Math.floor(s%60);return m+':'+String(sec).padStart(2,'0');}
+function curCh(){const t=audio.currentTime;for(let i=CHAPTERS.length-1;i>=0;i--)if(t>=CHAPTERS[i].start)return CHAPTERS[i];return CHAPTERS[0];}
+function ui(){const t=audio.currentTime,d=audio.duration||0,ch=curCh();
+  btit.textContent=ch.title;bch.textContent='Hörbuch · '+(CHAPTERS.indexOf(ch)+1)+'/'+CHAPTERS.length;
+  btm.textContent=fmt(t)+' / '+fmt(d);ap.max=d;ap.value=t;
+  htm.textContent=fmt(t);if(d)hdr.textContent=fmt(d);hs.max=d;hs.value=t;
+  document.querySelectorAll('.chbtn').forEach(b=>{const a=b.id==='cb-'+ch.key&&!audio.paused;b.style.background=a?ACCENT:'';b.style.color=a?'white':'';b.style.borderColor=a?ACCENT:'';});
+  document.querySelectorAll('.spb').forEach(b=>{const bc=CHAPTERS.find(c=>c.key===b.dataset.chapter);const p=!audio.paused&&bc&&t>=bc.start&&t<bc.start+bc.duration;b.innerHTML=p?'<span class="spbi">⏸</span> Pausieren':'<span class="spbi">▶</span> Kapitel hören';b.style.background=p?ACCENT:'';b.style.color=p?'white':ACCENT;b.style.borderColor=ACCENT;});
+  bpb.textContent=audio.paused?'▶':'⏸';hpb.textContent=audio.paused?'▶':'⏸';}
+function playChapter(key){const ch=CHAPTERS.find(c=>c.key===key);if(!ch)return;if(!audio.paused&&curCh().key===key){audio.pause();return;}audio.currentTime=ch.start;audio.play();bar.classList.add('visible');ui();}
+function togglePlay(){if(audio.paused){audio.play();bar.classList.add('visible');}else audio.pause();}
+function closeBar(){audio.pause();bar.classList.remove('visible');ui();}
+audio.addEventListener('timeupdate',ui);audio.addEventListener('play',ui);audio.addEventListener('pause',ui);
+ap.addEventListener('input',()=>{audio.currentTime=ap.value;});
+hs.addEventListener('input',()=>{audio.currentTime=hs.value;});
+const secs=document.querySelectorAll('.section'),nbs=document.querySelectorAll('.nb');
+secs.forEach(s=>new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){const i=Array.from(secs).indexOf(en.target);nbs.forEach((b,j)=>{b.classList.toggle('active',j===i);b.style.background=j===i?ACCENT:'';b.style.color=j===i?'white':'';})}});},{threshold:0.25}).observe(s));
+document.querySelectorAll('.reveal').forEach(el=>new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('visible');});},{threshold:0.08}).observe(el));
+</script>
+</body>
+</html>

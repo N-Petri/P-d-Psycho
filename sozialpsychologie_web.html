@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sozialpsychologie – Interaktiver Überblick</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#faf8f4;--sur:#fff;--sur2:#f3f0ea;--brd:#e2ddd4;--txt:#1c1917;--mut:#78716c;--acc:#3730a3;--sh:0 2px 12px rgba(0,0,0,.07);}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6;}
+.nav{position:sticky;top:0;z-index:100;background:rgba(250,248,244,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--brd);padding:0 32px;}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:8px;height:52px;overflow-x:auto;scrollbar-width:none;}
+.nav-inner::-webkit-scrollbar{display:none;}
+.back-btn{font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;border:1.5px solid var(--brd);cursor:pointer;background:transparent;color:var(--mut);transition:all .2s;font-family:'DM Sans',sans-serif;text-decoration:none;display:flex;align-items:center;gap:4px;white-space:nowrap;}
+.back-btn:hover{background:var(--sur);color:var(--txt);}
+.nav-sep{color:var(--brd);}
+.nb{white-space:nowrap;font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;border:1.5px solid transparent;cursor:pointer;background:transparent;color:var(--mut);transition:all .2s;font-family:'DM Sans',sans-serif;}
+.nb:hover{color:var(--txt);border-color:var(--brd);background:var(--sur);}
+.hero{max-width:1100px;margin:0 auto;padding:52px 32px 32px;}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--acc);margin-bottom:10px;}
+h1{font-family:'Lora',serif;font-size:clamp(30px,4.5vw,50px);font-weight:700;line-height:1.1;letter-spacing:-.5px;margin-bottom:14px;}
+.hdesc{font-size:16px;color:var(--mut);max-width:580px;font-weight:300;line-height:1.7;margin-bottom:18px;}
+.throw{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+.thb{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;border:1.5px solid;}
+.thby{font-weight:400;font-size:10px;opacity:.65;}
+.thgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:10px;margin-bottom:28px;}
+.thcard{background:var(--sur);border:1px solid var(--brd);border-radius:10px;padding:13px 15px;border-left-width:4px;box-shadow:var(--sh);}
+.thcard .thn{font-family:'Lora',serif;font-size:14px;font-weight:700;margin-bottom:1px;}
+.thcard .thy{font-size:10px;color:var(--mut);margin-bottom:6px;}
+.thcard .thk{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:3px;}
+.thcard .thd{font-size:12px;color:#4a4540;line-height:1.5;}
+.main{max-width:1100px;margin:0 auto;padding:0 32px 80px;}
+.section{margin-bottom:52px;}
+.sh{display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid var(--txt);flex-wrap:wrap;row-gap:6px;}
+.sn{font-family:'Lora',serif;font-size:13px;color:var(--mut);flex-shrink:0;}
+.st{font-family:'Lora',serif;font-size:21px;font-weight:700;flex:1;}
+.sa{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;color:white;white-space:nowrap;flex-shrink:0;}
+.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:16px;}
+.cg.wide{grid-template-columns:repeat(auto-fill,minmax(450px,1fr));}
+.card{background:var(--sur);border:1px solid var(--brd);border-radius:12px;border-top-width:3px;overflow:hidden;box-shadow:var(--sh);}
+.ch{padding:14px 18px 11px;border-bottom:1px solid var(--brd);}
+.ch h3{font-family:'Lora',serif;font-size:15px;font-weight:700;margin-bottom:2px;line-height:1.3;}
+.ca{display:inline-block;font-size:10px;font-weight:700;padding:1px 7px;border-radius:10px;margin-bottom:4px;letter-spacing:.5px;color:white;}
+.csub{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.8px;}
+.ai{border-bottom:1px solid var(--brd);cursor:pointer;transition:background .15s;}
+.ai:last-child{border-bottom:none;}.ai:hover,.ai.open{background:var(--sur2);}
+.at{display:flex;align-items:center;gap:10px;padding:11px 18px;user-select:none;}
+.an{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;}
+.al{flex:1;font-size:13.5px;font-weight:600;line-height:1.3;}
+.ab2{font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;white-space:nowrap;}
+.aico{font-size:14px;color:var(--mut);transition:transform .25s;flex-shrink:0;}
+.ai.open .aico{transform:rotate(180deg);}
+.abody{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1);}
+.abody.open{max-height:1200px;}
+.ac{padding:6px 18px 16px 50px;}
+.ex{font-size:14px;color:#2c2825;line-height:1.75;margin-bottom:10px;}
+.ebox{background:#eef2ff;border-left:3px solid var(--acc);border-radius:0 6px 6px 0;padding:10px 14px;font-size:13px;color:#1e1b4b;line-height:1.6;margin-bottom:8px;}
+.ebox .el{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--acc);margin-bottom:4px;}
+.fb{background:#f0f4ff;border-left:3px solid #3730a3;border-radius:0 6px 6px 0;padding:9px 14px;font-size:13px;margin-bottom:8px;line-height:1.55;}
+.fb .fl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#3730a3;margin-bottom:3px;}
+.fb .ft{font-weight:700;color:#1e1b4b;}
+.tip{background:#fefce8;border-left:3px solid #ca8a04;border-radius:0 6px 6px 0;padding:9px 14px;font-size:13px;margin-bottom:8px;color:#422006;line-height:1.55;}
+.tip .tl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#ca8a04;margin-bottom:3px;}
+.warn{background:#fff1f2;border-left:3px solid #e11d48;border-radius:0 6px 6px 0;padding:9px 14px;font-size:13px;margin-bottom:8px;color:#4c0519;line-height:1.55;}
+.warn .wl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#e11d48;margin-bottom:3px;}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
+.ci{background:var(--sur2);border-radius:6px;padding:9px 12px;}
+.ci .cil{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px;}
+ul.pl{list-style:none;padding:0;}
+ul.pl li{font-size:13.5px;padding:2.5px 0 2.5px 13px;position:relative;color:#2c2825;}
+ul.pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
+.note{font-size:12px;color:var(--mut);font-style:italic;margin-top:8px;padding-top:7px;border-top:1px solid var(--brd);}
+.stufe{display:flex;gap:8px;align-items:flex-start;padding:5px 7px;border-radius:6px;margin-bottom:5px;border:1px solid var(--brd);}
+.snum{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;flex-shrink:0;margin-top:1px;}
+.sbody{font-size:12.5px;line-height:1.45;}
+.sbody strong{display:block;font-weight:700;margin-bottom:1px;}
+/* audio */
+.audio-bar{position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(20,20,25,.96);backdrop-filter:blur(10px);border-top:1px solid rgba(255,255,255,.12);padding:10px 24px 12px;transform:translateY(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);}
+.audio-bar.visible{transform:translateY(0);}
+.audio-inner{max-width:1100px;margin:0 auto;}
+.audio-top{display:flex;align-items:center;gap:14px;margin-bottom:8px;}
+.apb{width:36px;height:36px;border-radius:50%;border:none;cursor:pointer;background:var(--acc);color:white;font-size:15px;display:flex;align-items:center;justify-content:center;transition:transform .15s;flex-shrink:0;}
+.apb:hover{transform:scale(1.08);}
+.ainfo{flex:1;min-width:0;}
+.ach{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.5);}
+.atit{font-size:13px;font-weight:600;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.atime{font-size:12px;color:rgba(255,255,255,.45);font-variant-numeric:tabular-nums;flex-shrink:0;}
+.acb{width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,255,255,.2);cursor:pointer;background:transparent;color:rgba(255,255,255,.5);font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;}
+.acb:hover{background:rgba(255,255,255,.1);color:white;}
+.aprog{width:100%;height:4px;border-radius:2px;cursor:pointer;appearance:none;outline:none;accent-color:var(--acc);}
+.aprog::-webkit-slider-thumb{appearance:none;width:14px;height:14px;border-radius:50%;background:var(--acc);cursor:pointer;margin-top:-5px;}
+.aprog::-webkit-slider-runnable-track{height:4px;border-radius:2px;background:rgba(255,255,255,.15);}
+.ahp{margin-top:22px;background:var(--sur);border:1px solid var(--brd);border-radius:12px;padding:16px 20px;box-shadow:var(--sh);}
+.ahph{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.ahpi{font-size:22px;}
+.ahpl{font-family:'Lora',serif;font-size:15px;font-weight:700;}
+.ahps{font-size:11px;color:var(--mut);margin-top:1px;}
+.ahppb{width:38px;height:38px;border-radius:50%;border:none;cursor:pointer;background:var(--acc);color:white;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;margin-left:auto;}
+.ahppr{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.ahpt{font-size:11px;color:var(--mut);font-variant-numeric:tabular-nums;white-space:nowrap;}
+.ahpsk{flex:1;height:4px;border-radius:2px;cursor:pointer;accent-color:var(--acc);}
+.ahpch{display:flex;flex-wrap:wrap;gap:5px;}
+.chbtn{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;border:1px solid var(--brd);background:var(--sur2);color:var(--mut);cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif;}
+.spb{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:4px 11px;border-radius:20px;border:1.5px solid var(--acc);background:transparent;color:var(--acc);cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif;white-space:nowrap;flex-shrink:0;}
+.spbi{font-size:10px;}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .5s,transform .5s;}
+.reveal.visible{opacity:1;transform:none;}
+@media(max-width:640px){.hero,.main{padding-left:18px;padding-right:18px;}.nav{padding:0 18px;}.cg,.cg.wide{grid-template-columns:1fr;}.cmp{grid-template-columns:1fr;}.ac{padding-left:18px;}.thgrid{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+
+<audio id="mainAudio" preload="none"><source src="hoerbuch_sozialpsychologie.mp3" type="audio/mpeg"></audio>
+<div class="audio-bar" id="audioBar">
+  <div class="audio-inner">
+    <div class="audio-top">
+      <button class="apb" id="barPlayBtn" onclick="togglePlay()">▶</button>
+      <div class="ainfo"><div class="ach" id="barCh">Hörbuch</div><div class="atit" id="barTit">Sozialpsychologie</div></div>
+      <div class="atime" id="barTime">0:00 / 0:00</div>
+      <button class="acb" onclick="closeBar()">×</button>
+    </div>
+    <input type="range" class="aprog" id="audioProgress" value="0" min="0" step="0.1">
+  </div>
+</div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="back-btn" href="index.html">← Übersicht</a><span class="nav-sep">|</span>
+    <button class="nb" onclick="scrollTo('s0')">Theoretiker</button>
+    <button class="nb" onclick="scrollTo('s1')">Wahrnehmung</button>
+    <button class="nb" onclick="scrollTo('s2')">Gruppen</button>
+    <button class="nb" onclick="scrollTo('s3')">Mobbing</button>
+    <button class="nb" onclick="scrollTo('s4')">Classroom</button>
+    <button class="nb" onclick="scrollTo('s5')">Watzlawick</button>
+    <button class="nb" onclick="scrollTo('s6')">Schulz von Thun</button>
+    <button class="nb" onclick="scrollTo('s7')">Gesprächsführung</button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="eyebrow">Psychologie · Interaktiver Überblick</div>
+  <h1>Sozialpsychologie</h1>
+  <p class="hdesc">Wahrnehmungsfehler, Gruppendynamik, Kommunikation und Gesprächsführung — mit Fachbegriff-Erklärungen und konkreten Unterrichts- und Beratungstipps.</p>
+  <div class="throw">
+    <span class="thb" style="color:#be123c;border-color:#be123c;">Heider · Rosenthal <span class="thby">Wahrnehmung</span></span>
+    <span class="thb" style="color:#b45309;border-color:#b45309;">Tuckman · Asch <span class="thby">Gruppen</span></span>
+    <span class="thb" style="color:#15803d;border-color:#15803d;">Olweus · Kounin <span class="thby">Mobbing & Classroom</span></span>
+    <span class="thb" style="color:#3730a3;border-color:#3730a3;">Watzlawick · Schulz von Thun <span class="thby">Kommunikation</span></span>
+    <span class="thb" style="color:#0f766e;border-color:#0f766e;">Rogers <span class="thby">Gesprächsführung</span></span>
+  </div>
+  <div class="ahp">
+    <div class="ahph"><span class="ahpi">🎧</span><div><div class="ahpl">Hörbuch: Sozialpsychologie</div><div class="ahps">ca. 24 Minuten · 8 Kapitel · alle Fachbegriffe erklärt</div></div><button class="ahppb" id="heroPlayBtn" onclick="togglePlay()">▶</button></div>
+    <div class="ahppr"><span class="ahpt" id="heroTime">0:00</span><input type="range" class="ahpsk" id="heroSeek" value="0" min="0" step="0.1"><span class="ahpt" id="heroDur">24:01</span></div>
+    <div class="ahpch" id="chBtns"></div>
+  </div>
+</header>
+
+<main class="main">
+
+<!-- 0 THEORETIKER -->
+<section class="section reveal" id="s0">
+  <div class="sh"><span class="sn">0</span><span class="st">Die Theoretiker auf einen Blick</span></div>
+  <div class="thgrid">
+    <div class="thcard" style="border-left-color:#be123c;"><div class="thn">Fritz Heider</div><div class="thy">Österr.-US-Psychologe · 1896–1988</div><div class="thk" style="color:#be123c;">Attribution &amp; Wahrnehmung</div><div class="thd">Begründer der Attributionstheorie. Entdeckte den fundamentalen Attributionsfehler: Wir überschätzen Charakter, unterschätzen Situation.</div></div>
+    <div class="thcard" style="border-left-color:#dc2626;"><div class="thn">Robert Rosenthal</div><div class="thy">US-Psychologe · geb. 1933</div><div class="thk" style="color:#dc2626;">Pygmalion-Effekt</div><div class="thd">Zeigte: Lehrererwartungen beeinflussen Schülerleistungen messbar. Erwartungen werden unbewusst kommuniziert und wirken als selbsterfüllende Prophezeiung.</div></div>
+    <div class="thcard" style="border-left-color:#b45309;"><div class="thn">Bruce Tuckman</div><div class="thy">US-Psychologe · 1938–2016</div><div class="thk" style="color:#b45309;">Gruppenentwicklung</div><div class="thd">5-Phasen-Modell der Gruppenentwicklung: Forming, Storming, Norming, Performing, Adjourning. Zeigt: Konflikte sind normal und notwendig.</div></div>
+    <div class="thcard" style="border-left-color:#92400e;"><div class="thn">Solomon Asch</div><div class="thy">US-Psychologe · 1907–1996</div><div class="thk" style="color:#92400e;">Konformitätsdruck</div><div class="thd">Zeigte im Linienexperiment: Selbst bei offensichtlich falschen Antworten passen sich 75% der Probanden der Gruppe an.</div></div>
+    <div class="thcard" style="border-left-color:#15803d;"><div class="thn">Dan Olweus</div><div class="thy">Norweg. Psychologe · 1931–2020</div><div class="thk" style="color:#15803d;">Mobbing-Forschung</div><div class="thd">Pionier der Mobbing-Forschung. Definierte Mobbing mit 4 Kriterien, entwickelte das erste systematische Anti-Mobbing-Programm.</div></div>
+    <div class="thcard" style="border-left-color:#0369a1;"><div class="thn">Jacob Kounin</div><div class="thy">US-Pädagoge · 1912–1995</div><div class="thk" style="color:#0369a1;">Classroom-Management</div><div class="thd">Überraschendes Ergebnis: Nicht Reaktion auf Störungen entscheidet, sondern Prävention. 7 Techniken wirksamen Classroom-Managements.</div></div>
+    <div class="thcard" style="border-left-color:#3730a3;"><div class="thn">Paul Watzlawick</div><div class="thy">Österr. Kommunikationstheoretiker · 1921–2007</div><div class="thk" style="color:#3730a3;">5 Axiome der Kommunikation</div><div class="thd">"Man kann nicht nicht kommunizieren." 5 Grundgesetze menschlicher Kommunikation — Grundlage jeder Gesprächsanalyse.</div></div>
+    <div class="thcard" style="border-left-color:#6d28d9;"><div class="thn">Friedemann Schulz von Thun</div><div class="thy">Dt. Kommunikationspsychologe · geb. 1944</div><div class="thk" style="color:#6d28d9;">4-Ohren-Modell</div><div class="thd">Jede Nachricht enthält vier Botschaften. Viele Missverständnisse entstehen, weil Sender und Empfänger verschiedene Ebenen betonen.</div></div>
+    <div class="thcard" style="border-left-color:#0f766e;"><div class="thn">Carl Rogers</div><div class="thy">US-Psychologe · 1902–1987</div><div class="thk" style="color:#0f766e;">Humanistische Gesprächsführung</div><div class="thd">3 Grundhaltungen: Empathie, Kongruenz, Wertschätzung. Begründer des personenzentrierten Gesprächs. Grundlage moderner Beratungsarbeit.</div></div>
+  </div>
+</section>
+
+<!-- 1 WAHRNEHMUNG -->
+<section class="section reveal" id="s1">
+  <div class="sh"><span class="sn">I</span><span class="st">Soziale Wahrnehmung &amp; Wahrnehmungsfehler</span><span class="sa" style="background:#be123c;">Heider · Rosenthal · Tajfel</span><button class="spb" data-chapter="ch1" onclick="playChapter('ch1')"><span class="spbi">▶</span> Kapitel hören</button></div>
+  <div class="cg wide">
+    <div class="card" style="border-top-color:#be123c;">
+      <div class="ch"><span class="ca" style="background:#be123c;">Heider · Rosenthal · Tajfel</span><h3 style="color:#be123c;">👁️ Wahrnehmungsfehler — warum wir systematisch falsch liegen</h3><div class="csub">Attributionsfehler · Pygmalion · Halo · Vorurteile</div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ffe4e6;color:#be123c;">💡</div><div class="al">Warum soziale Wahrnehmung nie objektiv ist</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Wir nehmen andere Menschen nicht neutral wahr. Wir kategorisieren, bewerten und schlussfolgern — und das passiert größtenteils unbewusst und automatisch. Das ist kein Fehler — es ist eine evolutionäre Notwendigkeit. Aber im Schulkontext führt es zu systematischen Verzerrungen, die Schülerkarrieren beeinflussen können.</div>
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Kognitive Verzerrung</span> — Systematisches Abweichen des Denkens von rationaler Verarbeitung. Vorhersehbar, konsistent und häufig unbewusst. Menschen wissen oft nicht, dass sie sie begehen.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ffe4e6;color:#be123c;">⚠️</div><div class="al">Fundamentaler Attributionsfehler — der häufigste Wahrnehmungsfehler</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Fundamentaler Attributionsfehler</span> (Heider/Ross) — Die Tendenz, das Verhalten anderer auf deren Charakter zurückzuführen und dabei situationale Faktoren zu unterschätzen. Bei uns selbst machen wir das umgekehrt (Akteur-Beobachter-Effekt).</div>
+        <div class="ebox"><div class="el">📚 Schulbeispiel</div>Ein Schüler kommt zu spät. Lehrkraft denkt: "Er ist respektlos und faul" (Charakterzuschreibung). Tatsächlich: Seine Mutter ist krank, er muss täglich Geschwister in die Schule bringen (Situation). Derselbe Schüler würde über sich selbst sagen: "Ich konnte nicht früher kommen, weil..." (Situation).</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Vor jeder Schlussfolgerung über Verhalten fragen: "Was könnte situational bedingt sein?" Erst nach diesem Schritt sinnvoll urteilen. Das verändert auch Gesprächshaltung mit Eltern und Schülern grundlegend.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ffe4e6;color:#be123c;">🌟</div><div class="al">Pygmalion-Effekt — Erwartungen formen Leistung</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Pygmalion-Effekt</span> (Rosenthal &amp; Jacobson, 1968) — Selbsterfüllende Prophezeiung: Die Erwartung eines Lehrers an einen Schüler beeinflusst, wie der Lehrer mit diesem Schüler interagiert — und damit tatsächlich dessen Leistung.</div>
+        <div class="ebox"><div class="el">🔬 Das Experiment</div>Rosenthal und Jacobson teilten Lehrern mit, welche Schüler "intellektuelle Blüher" seien (zufällig ausgewählt). Ein Jahr später hatten diese Schüler tatsächlich deutlich mehr Leistungsfortschritte gemacht. Die Lehrkräfte wussten nicht, dass sie manipuliert worden waren — sie hatten unbewusst anders mit diesen Kindern interagiert.</div>
+        <div class="ex">Mechanismen des Pygmalion-Effekts: Mehr Augenkontakt und Lächeln · Nähe und Wärme · Schwerere Aufgaben und höhere Erwartungen · Mehr und konstruktiveres Feedback · Länger auf Antworten warten (Wait Time).</div>
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Golem-Effekt</span> — Die negative Version: Niedrige Erwartungen führen zu niedrigerer Leistung. Besonders relevant für Schüler mit Migrationshintergrund, aus sozioökonomisch schwachen Verhältnissen oder mit ungünstiger Vorgeschichte.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Hohe, faire Erwartungen an alle — unabhängig von Herkunft, Aussehen, Sozialstatus. Regelmäßig innehalten: "Habe ich bei diesem Schüler unbewusst niedrigere Erwartungen?" Wait Time (Wartezeit nach Frage) erhöhen: Mindestens 3 Sekunden warten, bevor die nächste Frage gestellt wird.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ffe4e6;color:#be123c;">🔆</div><div class="al">Halo-Effekt, Etikettierung &amp; Vorurteile</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Halo-Effekt</span> (Thorndike, 1920) — Eine bekannte Eigenschaft einer Person "strahlt" auf die Wahrnehmung anderer Eigenschaften ab. Hübsche Menschen gelten als intelligenter; ordentliche Schüler als fleißiger; gut gekleidete Bewerber als kompetenter.</div>
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Stereotyp</span> — Vereinfachtes, verallgemeinertes Bild einer Gruppe. Kognitive Abkürzung: Spart Denkenergie, führt aber zu Fehlurteilen. Oft unbewusst aktiviert.</div>
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Etikettierung</span> (labeling) — Das Zuschreiben einer Eigenschaft ("der faule Schüler", "die Problemklasse") führt dazu, dass die Person oder Gruppe sich entsprechend verhält. Das Label verändert Erwartungen — und damit Verhalten (s. Pygmalion).</div>
+        <div class="warn"><div class="wl">⚠️ Schulkonsequenz</div>Kollegiumsgespräche wie "Die 9b ist eine Katastrophenklasse" sind kontraproduktiv — sie erzeugen negative Erwartungen, die dann in der Klasse wirken. Lieber: konkrete, situationsbezogene Beschreibungen.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ffe4e6;color:#be123c;">🔄</div><div class="al">Subjektive Interpunktion — wer hat angefangen?</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Subjektive Interpunktion</span> (Watzlawick) — Jede Person in einer Interaktion erlebt sich als Reaktion auf den anderen — niemals als Auslöser. "Ich störe, weil er mich ignoriert." "Ich ignoriere, weil er mich stört." Beide haben Recht — aus ihrer Perspektive.</div>
+        <div class="ebox"><div class="el">🔄 Schulbeispiel</div>Schüler: "Ich mache keine Hausaufgaben, weil der Unterricht sowieso langweilig ist." Lehrkraft: "Ich gestalte den Unterricht so, weil die Schüler nie mitmachen." Beide erleben sich als Reaktion — niemand als Auslöser. Das ist der Kreislauf.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>In Konflikten nie nach dem "Schuldigen" suchen — sondern den Kreislauf erkennen. Kreisläufe können an jedem Punkt unterbrochen werden: "Was kann ICH ändern, um den Kreislauf zu durchbrechen?" Das ist die lösungsorientierte Frage.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 GRUPPEN -->
+<section class="section reveal" id="s2">
+  <div class="sh"><span class="sn">II</span><span class="st">Gruppenpsychologie &amp; Klassenklima</span><span class="sa" style="background:#b45309;">Tuckman · Asch · Lewin</span><button class="spb" data-chapter="ch2" onclick="playChapter('ch2')"><span class="spbi">▶</span> Kapitel hören</button></div>
+  <div class="cg">
+    <div class="card" style="border-top-color:#b45309;">
+      <div class="ch"><span class="ca" style="background:#b45309;">Tuckman</span><h3 style="color:#b45309;">🤝 Gruppenentwicklung — 5 Phasen</h3><div class="csub">Forming · Storming · Norming · Performing · Adjourning</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fef3c7;color:#b45309;">💡</div><div class="al">Was macht eine Gruppe zur Gruppe?</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Gruppe</span> (sozialpsychologisch) — Zwei oder mehr Personen, die miteinander interagieren, gemeinsame Ziele haben, sich als Mitglieder einer Gruppe wahrnehmen und durch Normen und Rollen verbunden sind. Eine Schulklasse ist nicht automatisch eine Gruppe — sie muss es erst werden.</div>
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Kohäsion</span> — Zusammenhaltskraft einer Gruppe. Wie stark identifizieren sich Mitglieder mit der Gruppe? Hohe Kohäsion erhöht Zufriedenheit — kann aber auch Konformitätsdruck und Groupthink erzeugen.</div>
+      </div></div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fef3c7;color:#b45309;">📈</div><div class="al">Tuckmans 5 Phasen der Gruppenentwicklung</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="stufe"><div class="snum" style="background:#fef3c7;color:#b45309;">1</div><div class="sbody"><strong>Forming — Orientierung und Kennenlernen</strong>Unsicherheit, höfliches Verhalten, gegenseitiges Abtasten. Abhängigkeit von der Führungsperson. Konfliktscheu.</div></div>
+        <div class="stufe"><div class="snum" style="background:#fde68a;color:#b45309;">2</div><div class="sbody"><strong>Storming — Konflikte und Rollenklärung ★</strong>Machtkämpfe, Widerstände, Subgruppen bilden sich. Klar: Das ist normal und notwendig — keine Gruppe überspringt diese Phase gesund.</div></div>
+        <div class="stufe"><div class="snum" style="background:#fef3c7;color:#b45309;">3</div><div class="sbody"><strong>Norming — Zusammenwachsen</strong>Gruppenregeln entstehen, Vertrauen wächst, Rollen werden akzeptiert. Erste echte Zusammenarbeit.</div></div>
+        <div class="stufe"><div class="snum" style="background:#d1fae5;color:#15803d;">4</div><div class="sbody"><strong>Performing — Hochleistung</strong>Effektive Zusammenarbeit, Aufgaben stehen im Vordergrund, Kreativität und Produktivität. Flexibilität in Rollen.</div></div>
+        <div class="stufe"><div class="snum" style="background:#e0f2fe;color:#0369a1;">5</div><div class="sbody"><strong>Adjourning — Auflösung</strong>Gruppe löst sich auf oder Projekt endet. Emotionen: Stolz, Trauer, Erleichterung.</div></div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Jede neue Klasse beginnt mit Forming. Storming kann im ersten Schulhalbjahr auftreten — das ist kein Versagen der Klassenlehrkraft, sondern normale Entwicklung. Gezielte Kennenlern- und Teambuilding-Aktivitäten beschleunigen die Entwicklung zu Norming/Performing.</div>
+      </div></div></div>
+    </div>
+
+    <div class="card" style="border-top-color:#92400e;">
+      <div class="ch"><span class="ca" style="background:#92400e;">Asch · Latané &amp; Darley</span><h3 style="color:#92400e;">👥 Konformitätsdruck &amp; Bystander-Effekt</h3><div class="csub">Asch-Experiment · Verantwortungsdiffusion · Handlungshemmnisse</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fef3c7;color:#92400e;">🧪</div><div class="al">Konformitätsdruck — Aschs Linienexperiment (1951)</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Konformitätsdruck</span> — Die Tendenz, das eigene Verhalten oder Urteil dem der Gruppe anzupassen, um Ablehnung zu vermeiden — selbst wenn die eigene Einschätzung richtig wäre.</div>
+        <div class="ebox"><div class="el">🔬 Aschs Linienexperiment</div>Probanden wurden gebeten, die Länge einer Linie zu vergleichen — eine offensichtliche Aufgabe. Alle anderen "Teilnehmer" im Raum (Eingeweihte von Asch) gaben bewusst falsche Antworten. Ergebnis: 75% der echten Probanden gaben mindestens einmal eine falsch Antwort — obwohl die richtige Antwort eindeutig war. Ohne Gruppendruck: Fast 0% Fehler.</div>
+        <div class="ebox"><div class="el">📚 Schulkonsequenz</div>Wenn eine Klasse kollektiv eine Norm setzt ("Wer sich meldet, ist ein Streber"), dann werden sich viele Schüler anpassen — obwohl sie anders denken. Das erklärt viel von dem, was im Klassenraum passiert.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Anonyme Methoden (Abstimmung per Karte, digitale Tools) reduzieren Konformitätsdruck deutlich. Positive Klassennormen aktiv stärken: "In unserer Klasse ist Fragen normal." Das muss explizit etabliert werden.</div>
+      </div></div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fef3c7;color:#92400e;">👤</div><div class="al">Bystander-Effekt — warum keiner eingreift</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Bystander-Effekt</span> (Latané &amp; Darley, 1968) — Je mehr Zuschauer eine Notlage beobachten, desto geringer ist die Wahrscheinlichkeit, dass jemand eingreift. Paradox: Bei einem einzelnen Beobachter hilft man öfter.</div>
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Verantwortungsdiffusion</span> — In einer Gruppe teilt sich die gefühlte Verantwortung auf: "Die anderen sehen das auch — irgendjemand wird eingreifen." Jeder wartet auf den anderen.</div>
+        <div class="ebox"><div class="el">📚 Schulbeispiel</div>Mobbing auf dem Schulhof: 20 Schüler schauen zu, keiner greift ein. Nicht weil alle böse sind — sondern weil jeder denkt: "Die anderen werden schon was machen." Und weil man sich nicht exponieren möchte (Konformitätsdruck!).</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Den Bystander-Effekt explizit im Unterricht thematisieren ("Warum schaut man zu?"). Konkrete Rollen zuweisen ("Du gehst zum Lehrer, du sprichst die Person an"). Das Benennen der Situation und das Aufbrechen der Anonymität senkt den Bystander-Effekt drastisch.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 MOBBING -->
+<section class="section reveal" id="s3">
+  <div class="sh"><span class="sn">III</span><span class="st">Mobbing &amp; Inklusion</span><span class="sa" style="background:#15803d;">Olweus (1931–2020)</span><button class="spb" data-chapter="ch3" onclick="playChapter('ch3')"><span class="spbi">▶</span> Kapitel hören</button></div>
+  <div class="cg">
+    <div class="card" style="border-top-color:#15803d;">
+      <div class="ch"><span class="ca" style="background:#15803d;">Olweus</span><h3 style="color:#15803d;">⚠️ Mobbing — Definition, Formen &amp; Dynamik</h3><div class="csub">4 Kriterien · Rollen · Cyber-Mobbing</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#dcfce7;color:#15803d;">💡</div><div class="al">Wann ist es Mobbing? — Olweus' 4 Kriterien</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Mobbing</span> (Olweus) — Eine Schülerin oder ein Schüler wird dann gemobbt, wenn er oder sie wiederholt und über eine längere Zeit den negativen Handlungen eines oder mehrerer Schüler ausgesetzt ist. 4 Kriterien müssen erfüllt sein:</div>
+        <ul class="pl" style="margin-bottom:10px;">
+          <li><strong>Absicht:</strong> Die Handlungen sind bewusst und zielgerichtet schädigend</li>
+          <li><strong>Wiederholung:</strong> Kein Einzelvorfall — systematisch über längere Zeit</li>
+          <li><strong>Machtungleichgewicht:</strong> Das Opfer kann sich nicht wirksam wehren</li>
+          <li><strong>Ausgrenzungscharakter:</strong> Systematische Isolation und Ausschluss</li>
+        </ul>
+        <div class="warn"><div class="wl">⚠️ Was KEIN Mobbing ist</div>Einmaliger Streit · Wechselseitige Konflikte auf Augenhöhe · Ruppiges Spielen · "Die mögen sich halt nicht" — Das ist alles real und wichtig, aber kein Mobbing im Sinne von Olweus.</div>
+      </div></div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#dcfce7;color:#15803d;">👥</div><div class="al">Rollen im Mobbing-System</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Mobbing ist ein Systemphänomen — nicht ein Zwei-Personen-Problem. Die Rollen:</div>
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#be123c;">Täter/in</div>Initiiert und führt die Handlungen aus. Oft sozial kompetent und statusstark in der Gruppe.</div>
+          <div class="ci"><div class="cil" style="color:#dc2626;">Unterstützer</div>Machen mit, ohne zu initiieren. Oft aus Konformitätsdruck oder Angst, selbst Opfer zu werden.</div>
+        </div>
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#ca8a04;">Verstärker</div>Lachen, schauen zu, reagieren positiv — verstärken das Verhalten des Täters, ohne selbst aktiv zu sein.</div>
+          <div class="ci"><div class="cil" style="color:#15803d;">Verteidiger/Bystander</div>Treten für das Opfer ein oder beobachten passiv. Entscheidend für Mobbing-Dynamik.</div>
+        </div>
+        <div class="ebox"><div class="el">🔑 Warum Systembetrachtung so wichtig ist</div>Interventionen, die sich nur auf Täter und Opfer konzentrieren, greifen zu kurz. Effektive Anti-Mobbing-Arbeit adressiert das gesamte System — besonders die passiven Unterstützer und Bystander.</div>
+      </div></div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#dcfce7;color:#15803d;">📱</div><div class="al">Cyber-Mobbing — neue Dimensionen</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Cyber-Mobbing</span> — Mobbing durch digitale Medien (WhatsApp, Instagram, TikTok etc.). Besonderheiten: kein räumlicher und zeitlicher Rückzug möglich, potentiell riesiges Publikum, schwere Nachverfolgbarkeit, Inhalte sind schwer löschbar.</div>
+        <div class="ex">Formen: Beleidigung und Beschimpfung in Gruppen-Chats, unerlaubtes Veröffentlichen von Fotos/Videos, Ausschluss aus digitalen Gruppen, Fake-Profile erstellen, Droh- und Erpressungsnachrichten.</div>
+        <div class="tip"><div class="tl">🏫 Intervention bei Mobbing</div>1. Opfer schützen und stärken (Vertrauen, Sicherheitsplan). 2. Täter konfrontieren — klar und konsequent, ohne Beschämung. 3. Peer-Gruppe ansprechen (Rollen klären). 4. Eltern informieren. 5. Dokumentation. 6. Schulpsychologen einbeziehen. 7. Bei Cyber-Mobbing: Screenshots sichern, Plattform melden.</div>
+      </div></div></div>
+    </div>
+
+    <div class="card" style="border-top-color:#15803d;">
+      <div class="ch"><span class="ca" style="background:#15803d;">UNESCO · Salamanca</span><h3 style="color:#15803d;">🤲 Integration vs. Inklusion</h3><div class="csub">Zwei Begriffe — ein fundamentaler Unterschied</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#dcfce7;color:#15803d;">💡</div><div class="al">Was ist der Unterschied? — Der Systemgedanke</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#b45309;">Integration</div>Das Kind passt sich dem bestehenden System an. Es kommt in die Regelschule — muss aber "mithalten können". Das System bleibt unverändert.</div>
+          <div class="ci"><div class="cil" style="color:#15803d;">Inklusion</div>Das System passt sich dem Kind an. Jedes Kind hat das Recht auf Teilhabe — das System wird so gestaltet, dass es für alle funktioniert.</div>
+        </div>
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Inklusion</span> (UNESCO Salamanca-Erklärung, 1994) — "Schulen für alle" als Grundprinzip: Schulen müssen so organisiert werden, dass alle Kinder — unabhängig von Fähigkeit, Herkunft, Sprache, Behinderung — gemeinsam lernen können.</div>
+        <div class="ebox"><div class="el">🏫 Konsequenz im Schulalltag</div>Inklusion bedeutet nicht: alle sitzen im gleichen Raum und bekommen das Gleiche. Es bedeutet: individualisierte Förderung, barrierefreie Materialien, angepasste Lernziele, Zusammenarbeit mit Sonderpädagogen.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 CLASSROOM -->
+<section class="section reveal" id="s4">
+  <div class="sh"><span class="sn">IV</span><span class="st">Classroom-Management</span><span class="sa" style="background:#0369a1;">Kounin (1912–1995)</span><button class="spb" data-chapter="ch4" onclick="playChapter('ch4')"><span class="spbi">▶</span> Kapitel hören</button></div>
+  <div class="cg wide">
+    <div class="card" style="border-top-color:#0369a1;">
+      <div class="ch"><span class="ca" style="background:#0369a1;">Kounin</span><h3 style="color:#0369a1;">🎯 7 Techniken — und das überraschende Ergebnis</h3><div class="csub">Prävention vor Reaktion · Prinzip geringster Intervention</div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0f2fe;color:#0369a1;">💡</div><div class="al">Kounins überraschendes Ergebnis — Prävention entscheidet</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Jacob Kounin untersuchte ursprünglich, wie Lehrkräfte auf Störungen reagieren sollten. Sein überraschendes Ergebnis: Die Art der Reaktion auf Störungen unterschied effektive und ineffektive Lehrkräfte kaum. Was sie unterschied: Wie gut sie Störungen <em>verhinderten</em>. Classroom-Management ist primär Prävention.</div>
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Classroom-Management</span> — Alle Maßnahmen einer Lehrkraft zur Schaffung und Aufrechterhaltung einer lernförderlichen Unterrichtsumgebung. Umfasst: Raumgestaltung, Regeln, Routinen, Übergänge, Reaktion auf Störungen.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0f2fe;color:#0369a1;">👁️</div><div class="al">Allgegenwärtigkeit — Augen im Hinterkopf</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Allgegenwärtigkeit</span> (Kounin: "with-it-ness") — Lehrkräfte wissen jederzeit, was im Klassenzimmer passiert — und signalisieren das den Schülern. Schüler spüren: "Sie bemerkt alles."</div>
+        <div class="ex">Frühzeitige Reaktion auf Fehlverhalten (Timing), Verhalten beim Richtigen ansprechen (Targeting): Nicht der falsche Schüler wird angesprochen, sondern der tatsächlich störende.</div>
+        <div class="ebox"><div class="el">📚 Warum das so wirksam ist</div>Schüler, die wissen, dass die Lehrkraft alles bemerkt, verhalten sich anders als Schüler, die glauben, "unter dem Radar" zu sein. Das ist eine soziale Norm, keine Überwachung.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0f2fe;color:#0369a1;">🌊</div><div class="al">Überlappung, Reibungslosigkeit &amp; Schwung</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Überlappung</span> — Fähigkeit, mehrere Dinge gleichzeitig zu tun: Mit einem Schüler sprechen und gleichzeitig signalisieren, dass man die Klasse im Blick hat.</div>
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Reibungslosigkeit &amp; Schwung</span> — Unterricht fließt ohne unnötige Pausen, Stockungen oder abrupte Wechsel. Zu lange Erklärungen, Verlieren des Fadens oder häufige Unterbrechungen ("Rupturen") erhöhen das Störungsrisiko stark.</div>
+        <div class="ebox"><div class="el">⚠️ Häufige Fehler</div>Zu lange bei einem Schüler verweilen (Klasse verliert Reibungslosigkeit) · Zu lange Pausen zwischen Phasen · "Ich find das jetzt mal kurz raus..." (Impulse, die den Schwung brechen) · Lektion beenden vor der Zeit (Langeweile → Störung)</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0f2fe;color:#0369a1;">🔄</div><div class="al">Gruppenaktivierung, Abwechslung &amp; Herausforderung</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Gruppenaktivierung</span> — Alle Schüler gleichzeitig aktiv halten, nicht nur den, der gerade dran ist. Alle mitrechnen, alle aufschreiben, Partnerarbeit einsetzen.</div>
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Abwechslungsreichtum &amp; Herausforderung</span> — Monotone, zu leichte oder zu schwere Aufgaben führen zu Desinteresse und Störungen. Varianz in Methoden und angemessener Schwierigkeitsgrad sind präventive Maßnahmen.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Methodenwechsel alle 15–20 Minuten. Immer alle Schüler involvieren (auch die Stillen). Cold Calling (Zufallsprinzip bei Fragen) — mit Wartezeit und ohne Bloßstellung — aktiviert die gesamte Klasse.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0f2fe;color:#0369a1;">🎚️</div><div class="al">Prinzip der geringsten Intervention — Eskalation vermeiden</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Prinzip der geringsten Intervention</span> — Bei Störungen immer mit dem kleinstmöglichen Eingriff beginnen. Die Stärke der Reaktion soll proportional zur Störung sein — nicht mehr.</div>
+        <div class="stufe"><div class="snum" style="background:#e0f2fe;color:#0369a1;">1</div><div class="sbody"><strong>Nonverbal:</strong> Blickkontakt, Nähe aufsuchen, eine Hand auf den Tisch legen → unterbricht viele Störungen ohne Worte</div></div>
+        <div class="stufe"><div class="snum" style="background:#e0f2fe;color:#0369a1;">2</div><div class="sbody"><strong>Verbal-dezent:</strong> Namen nennen, kurze Aufforderung ("Bitte") → ohne Unterbrechung des Unterrichtsflusses</div></div>
+        <div class="stufe"><div class="snum" style="background:#e0f2fe;color:#0369a1;">3</div><div class="sbody"><strong>Explizit:</strong> Deutliche, klare Aufforderung, Konsequenzen ansprechen → nur wenn Stufen 1+2 nicht gewirkt haben</div></div>
+        <div class="warn"><div class="wl">⚠️ Häufiger Fehler</div>Direkt auf Stufe 3 gehen (laute, emotionale Reaktion auf kleine Störung) erzeugt Trotz, beschämt vor der Klasse und eskaliert. Außerdem: Die Lehrkraft verliert an Überzeugungskraft, wenn immer "der Stärkste Hebel" eingesetzt wird.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 WATZLAWICK -->
+<section class="section reveal" id="s5">
+  <div class="sh"><span class="sn">V</span><span class="st">Kommunikation — Watzlawick</span><span class="sa" style="background:#3730a3;">Paul Watzlawick (1921–2007)</span><button class="spb" data-chapter="ch5" onclick="playChapter('ch5')"><span class="spbi">▶</span> Kapitel hören</button></div>
+  <div class="cg wide">
+    <div class="card" style="border-top-color:#3730a3;">
+      <div class="ch"><span class="ca" style="background:#3730a3;">Watzlawick</span><h3 style="color:#3730a3;">📡 Die 5 Axiome der Kommunikation</h3><div class="csub">Grundgesetze menschlicher Verständigung</div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0e7ff;color:#3730a3;">1</div><div class="al">Man kann nicht nicht kommunizieren</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 1. Axiom</div>Jedes Verhalten hat Mitteilungscharakter. Schweigen ist Kommunikation. Wegschauen ist Kommunikation. Auch das Ignorieren von jemandem teilt etwas mit — und der andere interpretiert es.</div>
+        <div class="ebox"><div class="el">📚 Schulbeispiel</div>Eine Lehrkraft, die auf eine Frage nicht reagiert (weil sie abgelenkt ist), kommuniziert dem Schüler möglicherweise: "Deine Frage ist nicht wichtig." Das war nie beabsichtigt — aber die Botschaft ist angekommen.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0e7ff;color:#3730a3;">2</div><div class="al">Inhalts- und Beziehungsaspekt — das "Wie" bestimmt das "Was"</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 2. Axiom</div><span class="ft">Inhaltsaspekt</span> — Was kommuniziert wird (der sachliche Inhalt). <span class="ft">Beziehungsaspekt</span> — Wie es kommuniziert wird (Tonfall, Mimik, Kontext). Der Beziehungsaspekt rahmt den Inhaltsaspekt ein und bestimmt, wie er verstanden wird.</div>
+        <div class="ebox"><div class="el">🗣️ Beispiel</div>"Das haben Sie falsch gemacht." — Gesagt mit wertschätzendem Ton und konstruktiver Haltung: Hilfreicher Hinweis. Gesagt mit herablassendem Ton: Angriff auf die Person. Gleicher Inhalt, völlig andere Wirkung durch den Beziehungsaspekt.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Wie etwas gesagt wird, ist oft wichtiger als was gesagt wird. Bei Missverständnissen: Liegt das Problem auf der Inhalts- oder Beziehungsebene? Diese Unterscheidung löst viele Konflikte im Vorfeld.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0e7ff;color:#3730a3;">3</div><div class="al">Subjektive Interpunktion — wer hat angefangen?</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 3. Axiom</div>Kommunikation ist kein lineares Sender-Empfänger-Modell, sondern ein Kreislauf. Jede Person setzt einen Anfang, der für den anderen eine Reaktion ist. "Ich reagiere nur, ich fange nie an."</div>
+        <div class="ebox"><div class="el">🔄 Schulkonflikt</div>Schüler: "Ich bin respektlos, weil die Lehrerin mich nie ernst nimmt." Lehrerin: "Ich nehme ihn nicht ernst, weil er immer respektlos ist." Beide beschreiben denselben Kreislauf — von verschiedenen Startpunkten. Niemand ist "schuld" — beide halten das Muster aufrecht.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0e7ff;color:#3730a3;">4</div><div class="al">Digitale &amp; analoge Kommunikation — Worte und Körpersprache</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 4. Axiom</div><span class="ft">Digitale Kommunikation</span> — Verbale Sprache: eindeutig, präzise, willkürlich. Das Wort "Tisch" hat keine natürliche Verbindung zum Objekt Tisch. <span class="ft">Analoge Kommunikation</span> — Nonverbal: Mimik, Gestik, Körperhaltung, Tonfall, Blickkontakt. Direkte, evolutionär alte Ausdrucksformen. Schwer bewusst zu steuern.</div>
+        <div class="ex">Wenn digitale und analoge Kommunikation sich widersprechen (Kongruenz fehlt), vertraut das Gehirn dem analogen Signal. "Ich bin nicht wütend" — bei zusammengebissenen Zähnen, rotem Gesicht und gequetschter Stimme: Das analoge Signal gewinnt.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Körpersprache ist in der Lehrkraft-Schüler-Kommunikation oft mächtiger als Worte. Offene Körperhaltung, Augenkontakt, Nähe — oder verschlossene Haltung und Abwenden — kommunizieren ständig mit Schülern, auch wenn keine Worte fallen.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0e7ff;color:#3730a3;">5</div><div class="al">Symmetrische &amp; komplementäre Kommunikation</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 5. Axiom</div><span class="ft">Symmetrische Kommunikation</span> — Beide Partner auf Augenhöhe. Ähnliche Position, gegenseitiger Respekt. Kann in Konkurrenz und Eskalation münden, wenn beide um Status kämpfen. <span class="ft">Komplementäre Kommunikation</span> — Ungleiche Positionen, die sich ergänzen: Lehrkraft–Schüler, Arzt–Patient. Kann in Rigidität und Stagnation führen, wenn die Machtverhältnisse zu starr werden.</div>
+        <div class="ebox"><div class="el">📚 Schulbeispiel</div>Symmetrisch: Zwei Schüler streiten auf Augenhöhe — Eskalationsgefahr, wenn beide "gewinnen wollen". Komplementär: Lehrkraft erklärt, Schüler hört zu — funktioniert gut, solange die Lehrkraft nicht übermäßig dominiert und den Schüler entmündigt.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 SCHULZ VON THUN -->
+<section class="section reveal" id="s6">
+  <div class="sh"><span class="sn">VI</span><span class="st">Das 4-Ohren-Modell — Schulz von Thun</span><span class="sa" style="background:#6d28d9;">Friedemann Schulz von Thun (geb. 1944)</span><button class="spb" data-chapter="ch6" onclick="playChapter('ch6')"><span class="spbi">▶</span> Kapitel hören</button></div>
+  <div class="cg">
+    <div class="card" style="border-top-color:#6d28d9;">
+      <div class="ch"><span class="ca" style="background:#6d28d9;">Schulz von Thun</span><h3 style="color:#6d28d9;">📬 Nachrichtenquadrat — 4 Ebenen jeder Botschaft</h3><div class="csub">Sachinhalt · Selbstoffenbarung · Beziehung · Appell</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ede9fe;color:#6d28d9;">💡</div><div class="al">Das Grundmodell — 4 Ebenen, 4 Ohren</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Sachinhalt</div>Was ich sachlich mitteile. Die "Daten" der Nachricht. "Die Ampel ist grün."</div>
+        <div class="fb"><div class="fl">🔑 Selbstoffenbarung</div>Was ich über mich selbst preisgebe — Gefühle, Gedanken, Zustand. "Ich bin ungeduldig." (oder: "Ich freue mich auf das Ausflugsziel.")</div>
+        <div class="fb"><div class="fl">🔑 Beziehungsseite</div>Wie ich zum Empfänger stehe — Wertschätzung, Herabsetzung, Respekt. "Du fährst gerade!" (oder: "Du bist unfähig.")</div>
+        <div class="fb"><div class="fl">🔑 Appellseite</div>Was ich vom Empfänger möchte. "Fahr los, bevor die Ampel wieder rot wird!"</div>
+        <div class="ebox"><div class="el">🚗 Das klassische Beispiel</div>Beifahrerin: "Die Ampel ist grün." <br>Was hört der Fahrer auf dem Beziehungsohr? "Du fährst schlecht." Auf dem Appellohr? "Fahr endlich los, du Schnarchase!" — Obwohl die Sachaussage völlig neutral war. Das ist das 4-Ohren-Problem.</div>
+      </div></div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ede9fe;color:#6d28d9;">🏫</div><div class="al">Elterngespräch-Analyse mit dem Modell</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ebox"><div class="el">💬 "Zu Hause kann mein Sohn das immer!"</div>
+          <strong>Sachinhalt:</strong> Zu Hause gelingt die Aufgabe.<br>
+          <strong>Selbstoffenbarung:</strong> "Ich bin stolz auf meinen Sohn und mache mir Sorgen."<br>
+          <strong>Beziehungsseite:</strong> "Sie als Lehrerin sind das Problem."<br>
+          <strong>Appellseite:</strong> "Tun Sie mehr für meinen Sohn!"
+        </div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Wenn Eltern angreifen: Metakommunikation einsetzen ("Ich höre, dass Sie sich Sorgen um Ihren Sohn machen — lassen Sie uns das als gemeinsamen Ausgangspunkt nehmen"). Das nimmt die Beziehungsebene auf und überführt das Gespräch auf die Sachebene.</div>
+      </div></div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ede9fe;color:#6d28d9;">💬</div><div class="al">Ich-Botschaften vs. Du-Botschaften</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#be123c;">Du-Botschaft</div>Bewertet, beschuldigt oder etikettiert den anderen. Erzeugt Trotz und Abwehr.<br><em>"Du bist so unordentlich!"</em></div>
+          <div class="ci"><div class="cil" style="color:#15803d;">Ich-Botschaft</div>Beschreibt die eigene Wahrnehmung und Wirkung. Öffnet Dialog, löst weniger Widerstand aus.<br><em>"Ich fühle mich gestresst, wenn der Raum so unordentlich ist."</em></div>
+        </div>
+        <div class="fb"><div class="fl">🔑 Aufbau einer Ich-Botschaft</div>1. Beschreibung des konkreten Verhaltens (nicht bewertend). 2. Wirkung/Gefühl bei mir. 3. Optional: Bitte/Wunsch.<br><em>"Wenn du mich unterbrichst (Verhalten), fühle ich mich nicht ernst genommen (Gefühl). Ich würde gerne ausreden dürfen (Bitte)."</em></div>
+        <div class="note">Ich-Botschaften sind kein Trick — sie funktionieren nur, wenn sie authentisch sind. Eine Ich-Botschaft, die in Wirklichkeit eine versteckte Du-Botschaft ist ("Ich finde, dass DU..."), wirkt genauso wie eine Du-Botschaft.</div>
+      </div></div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ede9fe;color:#6d28d9;">🔄</div><div class="al">Metakommunikation — über das Gespräch reden</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Metakommunikation</span> — Kommunikation über die Kommunikation selbst. Aus dem laufenden Gespräch heraustreten und die Interaktion selbst zum Thema machen. "Ich merke, dass wir gerade aneinander vorbeizureden scheinen — darf ich kurz innehalten?"</div>
+        <div class="ex">Metakommunikation ist der wichtigste Werkzeug zur Deeskalation. Sie unterbricht Teufelskreise (Watzlawick: subjektive Interpunktion) und schafft gemeinsame Wahrnehmung der Interaktion.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>In angespannten Schüler-/Elterngesprächen: "Ich habe das Gefühl, wir reden gerade an verschiedenen Ebenen vorbei — können wir kurz innehalten und klären, was wir eigentlich von diesem Gespräch brauchen?" Das ist Metakommunikation in Aktion.</div>
+      </div></div></div>
+    </div>
+
+    <div class="card" style="border-top-color:#6d28d9;">
+      <div class="ch"><span class="ca" style="background:#6d28d9;">Schulz von Thun</span><h3 style="color:#6d28d9;">🧩 Das Innere Team</h3><div class="csub">Innere Stimmen · Innere Konflikte verstehen</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ede9fe;color:#6d28d9;">💡</div><div class="al">Was ist das "Innere Team"? — Das Konzept</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Inneres Team</span> (Schulz von Thun) — Menschen sind innerlich keine Einheit, sondern ein "Ensemble" verschiedener innerer Stimmen oder Persönlichkeitsanteile — mit unterschiedlichen Bedürfnissen, Werten und Impulsen.</div>
+        <div class="ex">In einer schwierigen Situation aktivieren sich verschiedene "Teammitglieder" gleichzeitig. Beispiel: Vor einem schwierigen Gespräch mit einem Elternteil könnte sich melden: der "Friedfertige" ("Meide Konflikt!"), der "Gerechtigkeitsliebende" ("Sag deine Meinung!"), der "Erschöpfte" ("Nicht jetzt...") und der "Professionelle" ("Handle lösungsorientiert!").</div>
+        <div class="ebox"><div class="el">🏫 Schulbeispiel</div>Eine Lehrkraft will einem Schüler klares Feedback geben, dass er seine Hausaufgaben nicht gemacht hat. Innerlich: "Sag es direkt" (Direktheit) vs. "Er hatte vielleicht Probleme zu Hause" (Empathie) vs. "Wenn ich nichts sage, setzt er sich durch" (Autorität). Diese innere Spannung beeinflusst, wie das Gespräch geführt wird.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Das Innere-Team-Konzept hilft, innere Konflikte bei schwierigen Gesprächen zu verstehen und zu klären. Vor einem wichtigen Gespräch: "Welche meiner inneren Stimmen sprechen gerade? Was brauchen sie?" Das erhöht die Selbstwahrnehmung und Handlungsfähigkeit.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 GESPRÄCHSFÜHRUNG -->
+<section class="section reveal" id="s7">
+  <div class="sh"><span class="sn">VII</span><span class="st">Gesprächsführung nach Rogers</span><span class="sa" style="background:#0f766e;">Carl Rogers (1902–1987)</span><button class="spb" data-chapter="ch6" onclick="playChapter('ch6')"><span class="spbi">▶</span> Kapitel hören</button></div>
+  <div class="cg">
+    <div class="card" style="border-top-color:#0f766e;">
+      <div class="ch"><span class="ca" style="background:#0f766e;">Rogers</span><h3 style="color:#0f766e;">🤝 Die 3 Grundhaltungen &amp; Aktives Zuhören</h3><div class="csub">Personenzentrierte Gesprächsführung</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ccfbf1;color:#0f766e;">💡</div><div class="al">Rogers' Kerngedanke — Menschen haben innere Wachstumskräfte</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Carl Rogers' Grundüberzeugung: Jeder Mensch hat die Fähigkeit zur Selbstentfaltung und Problemlösung — wenn die Bedingungen stimmen. Die Aufgabe des Gesprächsführenden ist nicht Diagnose und Anweisung, sondern das Schaffen dieser Bedingungen.</div>
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Personenzentrierte Gesprächsführung</span> — Gesprächsstil, bei dem die Beziehungsqualität (Grundhaltungen) wichtiger ist als Techniken. Die Person selbst findet die Lösung — der Gesprächsführende schafft den Raum dafür.</div>
+      </div></div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ccfbf1;color:#0f766e;">❤️</div><div class="al">Die 3 Grundhaltungen nach Rogers</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="stufe" style="background:#f0fdfa;border-color:#99f6e4;"><div class="snum" style="background:#ccfbf1;color:#0f766e;">1</div><div class="sbody"><strong>Empathie — einfühlendes Verstehen</strong>Die Innenwelt des anderen aus seiner Perspektive verstehen. Nicht Mitleid, sondern Mitgefühl. "Ich versuche, durch deine Augen zu sehen."</div></div>
+        <div class="stufe" style="background:#f0fdfa;border-color:#99f6e4;"><div class="snum" style="background:#ccfbf1;color:#0f766e;">2</div><div class="sbody"><strong>Kongruenz — Echtheit und Authentizität</strong>Die Lehrkraft/Beratende ist sich selbst gegenüber ehrlich und transparent. Keine Rolle spielen, keine Fassade. Was ich fühle und was ich zeige, stimmen überein.</div></div>
+        <div class="stufe" style="background:#f0fdfa;border-color:#99f6e4;"><div class="snum" style="background:#ccfbf1;color:#0f766e;">3</div><div class="sbody"><strong>Bedingungslose positive Wertschätzung</strong>Den anderen als Menschen annehmen — unabhängig von seinem Verhalten. "Ich schätze dich als Person, auch wenn ich dein Verhalten nicht akzeptiere." Das ist kein Freischein für Fehlverhalten, sondern Basis für Vertrauen.</div></div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Diese drei Haltungen sind keine Techniken, die man "anwendet" — sie sind eine innere Einstellung. In einem Schüler-Gespräch nach einem Regelverstoß: Person wertschätzen + Verhalten klar ansprechen + echte Neugier auf die Perspektive des Schülers. Das ist Rogers in der Praxis.</div>
+      </div></div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ccfbf1;color:#0f766e;">👂</div><div class="al">Aktives Zuhören — was das wirklich bedeutet</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Aktives Zuhören</span> — Zuhören mit voller Aufmerksamkeit, mit dem Ziel, das Gesagte und das Ungesagte zu verstehen — nicht, um die nächste Antwort zu formulieren. Kein Beurteilen, Interpretieren oder Beraten.</div>
+        <div class="ex">Techniken des aktiven Zuhörens:</div>
+        <ul class="pl" style="margin-bottom:10px;">
+          <li><strong>Verbalisierung:</strong> Das Gehörte mit eigenen Worten zurückspiegeln ("Ich höre, dass du dich ungerecht behandelt fühlst.").</li>
+          <li><strong>Paraphrasieren:</strong> Den Inhalt des Gesagten mit eigenen Worten zusammenfassen, ohne zu werten.</li>
+          <li><strong>Offene Fragen:</strong> Fragen, die keine Ja/Nein-Antwort erlauben. "Wie war das für dich?" statt "War das schlimm?"</li>
+          <li><strong>Schweigen aushalten:</strong> Pausen nicht sofort füllen — Schweigen gibt Raum zum Denken und Fühlen.</li>
+          <li><strong>Nonverbale Signale:</strong> Augenkontakt, Nicken, offene Körperhaltung zeigen: "Ich höre zu."</li>
+        </ul>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Bei einem Schüler, der sich beschwert: Erst aktiv zuhören ("Erzähl mir mehr"), bevor man erklärt, bewertet oder löst. Das allein verändert die Gesprächsdynamik fundamental. Schüler fühlen sich ernst genommen — und sind offener für das, was danach kommt.</div>
+      </div></div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ccfbf1;color:#0f766e;">📋</div><div class="al">Gesprächsleitfaden — schwierige Gespräche strukturieren</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Ein Leitfaden für Schüler- und Elterngespräche in schwierigen Situationen — basierend auf Rogers, Schulz von Thun und Watzlawick:</div>
+        <div class="stufe"><div class="snum" style="background:#ccfbf1;color:#0f766e;">1</div><div class="sbody"><strong>Vorbereitung:</strong> Klären: Was möchte ich aus dem Gespräch erreichen? Was weiß ich über die Perspektive des anderen?</div></div>
+        <div class="stufe"><div class="snum" style="background:#ccfbf1;color:#0f766e;">2</div><div class="sbody"><strong>Atmosphäre schaffen:</strong> Ruhige, geschützte Umgebung. Zeit signalisieren: "Ich habe jetzt Zeit für Sie/Dich."</div></div>
+        <div class="stufe"><div class="snum" style="background:#ccfbf1;color:#0f766e;">3</div><div class="sbody"><strong>Perspektive hören:</strong> Aktiv zuhören, bevor man selbst spricht. Offene Fragen stellen.</div></div>
+        <div class="stufe"><div class="snum" style="background:#ccfbf1;color:#0f766e;">4</div><div class="sbody"><strong>Wahrnehmung mitteilen:</strong> Ich-Botschaften. Konkrete Beobachtungen, keine Urteile.</div></div>
+        <div class="stufe"><div class="snum" style="background:#ccfbf1;color:#0f766e;">5</div><div class="sbody"><strong>Gemeinsam Lösungen entwickeln:</strong> Nicht Vorgaben machen, sondern Optionen erarbeiten. "Was könnte helfen?"</div></div>
+        <div class="stufe"><div class="snum" style="background:#ccfbf1;color:#0f766e;">6</div><div class="sbody"><strong>Verbindliche Vereinbarung:</strong> Konkret, realistisch, mit Zeitpunkt. Schriftlich bei Bedarf.</div></div>
+        <div class="stufe"><div class="snum" style="background:#ccfbf1;color:#0f766e;">7</div><div class="sbody"><strong>Abschluss:</strong> Wertschätzendes Gespräch beenden. "Danke, dass Sie/du das so offen mit mir besprochen haben."</div></div>
+        <div class="note">Dieser Leitfaden ist kein Skript — er ist eine Orientierung. Die Reihenfolge und der Umfang der Schritte hängen von der Situation ab.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer style="background:var(--sur2);border-top:1px solid var(--brd);padding:20px 32px;text-align:center;">
+  <div style="max-width:1100px;margin:0 auto;font-size:12px;color:var(--mut);">
+    Sozialpsychologie · Heider · Rosenthal · Tuckman · Asch · Latané &amp; Darley · Olweus · Kounin · Watzlawick · Schulz von Thun · Rogers
+  </div>
+</footer>
+
+<script>
+const ACCENT='#3730a3';
+const CHAPTERS=[{key:'intro',title:'Einleitung',start:0,duration:42.6},{key:'ch1',title:'Soziale Wahrnehmung',start:42.6,duration:306.2},{key:'ch2',title:'Gruppen & Konformitätsdruck',start:348.8,duration:210.1},{key:'ch3',title:'Mobbing & Inklusion',start:558.9,duration:161.9},{key:'ch4',title:'Classroom-Management',start:720.8,duration:172.4},{key:'ch5',title:'Kommunikation – Watzlawick',start:893.2,duration:253.9},{key:'ch6',title:'Schulz von Thun & Rogers',start:1147.1,duration:231.1},{key:'outro',title:'Abschluss',start:1378.2,duration:62.8}];
+function toggle(item){const b=item.querySelector('.abody'),o=item.classList.contains('open');item.classList.toggle('open',!o);b.classList.toggle('open',!o);}
+function scrollTo(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
+const audio=document.getElementById('mainAudio'),bar=document.getElementById('audioBar');
+const bpb=document.getElementById('barPlayBtn'),hpb=document.getElementById('heroPlayBtn');
+const btit=document.getElementById('barTit'),bch=document.getElementById('barCh'),btm=document.getElementById('barTime');
+const ap=document.getElementById('audioProgress'),hs=document.getElementById('heroSeek');
+const htm=document.getElementById('heroTime'),hdr=document.getElementById('heroDur');
+const cbe=document.getElementById('chBtns');
+CHAPTERS.forEach(ch=>{const btn=document.createElement('button');btn.className='chbtn';btn.id='cb-'+ch.key;btn.textContent=ch.title;btn.onclick=()=>playChapter(ch.key);cbe.appendChild(btn);});
+function fmt(s){const m=Math.floor(s/60),sec=Math.floor(s%60);return m+':'+String(sec).padStart(2,'0');}
+function curCh(){const t=audio.currentTime;for(let i=CHAPTERS.length-1;i>=0;i--)if(t>=CHAPTERS[i].start)return CHAPTERS[i];return CHAPTERS[0];}
+function ui(){const t=audio.currentTime,d=audio.duration||0,ch=curCh();
+  btit.textContent=ch.title;bch.textContent='Hörbuch · '+(CHAPTERS.indexOf(ch)+1)+'/'+CHAPTERS.length;
+  btm.textContent=fmt(t)+' / '+fmt(d);ap.max=d;ap.value=t;
+  htm.textContent=fmt(t);if(d)hdr.textContent=fmt(d);hs.max=d;hs.value=t;
+  document.querySelectorAll('.chbtn').forEach(b=>{const a=b.id==='cb-'+ch.key&&!audio.paused;b.style.background=a?ACCENT:'';b.style.color=a?'white':'';b.style.borderColor=a?ACCENT:'';});
+  document.querySelectorAll('.spb').forEach(b=>{const bc=CHAPTERS.find(c=>c.key===b.dataset.chapter);const p=!audio.paused&&bc&&t>=bc.start&&t<bc.start+bc.duration;b.innerHTML=p?'<span class="spbi">⏸</span> Pausieren':'<span class="spbi">▶</span> Kapitel hören';b.style.background=p?ACCENT:'';b.style.color=p?'white':ACCENT;b.style.borderColor=ACCENT;});
+  bpb.textContent=audio.paused?'▶':'⏸';hpb.textContent=audio.paused?'▶':'⏸';}
+function playChapter(key){const ch=CHAPTERS.find(c=>c.key===key);if(!ch)return;if(!audio.paused&&curCh().key===key){audio.pause();return;}audio.currentTime=ch.start;audio.play();bar.classList.add('visible');ui();}
+function togglePlay(){if(audio.paused){audio.play();bar.classList.add('visible');}else audio.pause();}
+function closeBar(){audio.pause();bar.classList.remove('visible');ui();}
+audio.addEventListener('timeupdate',ui);audio.addEventListener('play',ui);audio.addEventListener('pause',ui);
+ap.addEventListener('input',()=>{audio.currentTime=ap.value;});
+hs.addEventListener('input',()=>{audio.currentTime=hs.value;});
+const secs=document.querySelectorAll('.section'),nbs=document.querySelectorAll('.nb');
+secs.forEach(s=>new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){const i=Array.from(secs).indexOf(en.target);nbs.forEach((b,j)=>{b.classList.toggle('active',j===i);b.style.background=j===i?ACCENT:'';b.style.color=j===i?'white':'';})}});},{threshold:0.25}).observe(s));
+document.querySelectorAll('.reveal').forEach(el=>new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('visible');});},{threshold:0.08}).observe(el));
+</script>
+</body>
+</html>

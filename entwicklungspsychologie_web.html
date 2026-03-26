@@ -1,0 +1,1871 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entwicklungspsychologie – Interaktiver Überblick</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #faf8f4;
+  --surface: #ffffff;
+  --surface2: #f3f0ea;
+  --border: #e2ddd4;
+  --text: #1c1917;
+  --muted: #78716c;
+  --accent: #c2410c;
+  --a: #1d4ed8;
+  --b: #6d28d9;
+  --c: #0f766e;
+  --d: #b45309;
+  --e: #15803d;
+  --f: #be123c;
+  --g: #0369a1;
+  --shadow: 0 2px 12px rgba(0,0,0,.07);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,.12);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* ── NAV ── */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(250,248,244,.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 32px;
+}
+.nav-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; align-items: center; gap: 8px;
+  height: 52px; overflow-x: auto;
+  scrollbar-width: none;
+}
+.nav-inner::-webkit-scrollbar { display: none; }
+.nav-btn {
+  white-space: nowrap; font-size: 12px; font-weight: 600;
+  padding: 5px 12px; border-radius: 20px; border: 1.5px solid transparent;
+  cursor: pointer; background: transparent; color: var(--muted);
+  transition: all .2s; font-family: 'DM Sans', sans-serif;
+  letter-spacing: .3px;
+}
+.nav-btn:hover { color: var(--text); border-color: var(--border); background: var(--surface); }
+.nav-btn.active { color: white; border-color: transparent; }
+
+/* ── HERO ── */
+.hero {
+  max-width: 1100px; margin: 0 auto;
+  padding: 64px 32px 40px;
+}
+.hero-eyebrow {
+  font-size: 11px; font-weight: 600; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: 12px;
+}
+.hero h1 {
+  font-family: 'Lora', serif;
+  font-size: clamp(32px, 5vw, 54px);
+  font-weight: 700; line-height: 1.1;
+  letter-spacing: -.5px; margin-bottom: 16px;
+}
+.hero p {
+  font-size: 17px; color: var(--muted); max-width: 580px;
+  font-weight: 300; line-height: 1.7;
+}
+.hero-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
+.hero-tag {
+  font-size: 12px; font-weight: 600; padding: 4px 12px;
+  border-radius: 20px; border: 1.5px solid;
+}
+
+/* ── MAIN ── */
+.main { max-width: 1100px; margin: 0 auto; padding: 0 32px 80px; }
+
+/* ── SECTION ── */
+.section { margin-bottom: 56px; }
+.section-header {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 20px; padding-bottom: 14px;
+  border-bottom: 2px solid var(--text);
+}
+.section-num {
+  font-family: 'Lora', serif; font-size: 13px;
+  color: var(--muted); font-weight: 400;
+  min-width: 24px;
+}
+.section-title {
+  font-family: 'Lora', serif; font-size: 22px;
+  font-weight: 700; letter-spacing: -.3px;
+}
+.section-desc { font-size: 13px; color: var(--muted); margin-left: auto; font-weight: 400; }
+
+/* ── CARD GRID ── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+.card-grid.wide { grid-template-columns: repeat(auto-fill, minmax(480px, 1fr)); }
+.card-grid.full { grid-template-columns: 1fr; }
+
+/* ── CARD ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  border-top-width: 3px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.card-head {
+  padding: 16px 18px 12px;
+  border-bottom: 1px solid var(--border);
+}
+.card-head h3 {
+  font-family: 'Lora', serif;
+  font-size: 16px; font-weight: 700;
+  margin-bottom: 2px; line-height: 1.3;
+}
+.card-head .sub {
+  font-size: 11px; color: var(--muted);
+  text-transform: uppercase; letter-spacing: .8px;
+  font-weight: 500;
+}
+
+/* ── ACCORDION ITEM ── */
+.acc-item {
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background .15s;
+}
+.acc-item:last-child { border-bottom: none; }
+.acc-item:hover { background: var(--surface2); }
+.acc-item.open { background: var(--surface2); }
+
+.acc-trigger {
+  display: flex; align-items: center; gap: 10px;
+  padding: 11px 18px;
+  user-select: none;
+}
+.acc-num {
+  width: 22px; height: 22px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 800; flex-shrink: 0;
+}
+.acc-label {
+  flex: 1; font-size: 13.5px; font-weight: 600;
+  line-height: 1.3;
+}
+.acc-badge {
+  font-size: 10px; font-weight: 700; padding: 2px 8px;
+  border-radius: 10px; white-space: nowrap;
+}
+.acc-icon {
+  font-size: 14px; color: var(--muted);
+  transition: transform .25s; flex-shrink: 0;
+}
+.acc-item.open .acc-icon { transform: rotate(180deg); }
+
+.acc-body {
+  max-height: 0; overflow: hidden;
+  transition: max-height .35s cubic-bezier(.4,0,.2,1);
+}
+.acc-body.open { max-height: 600px; }
+.acc-content {
+  padding: 4px 18px 16px 50px;
+}
+
+/* Explanation box */
+.explain {
+  font-size: 14px; color: #2c2825;
+  line-height: 1.7; margin-bottom: 10px;
+}
+.example-box {
+  background: #fef9f0;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 6px 6px 0;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #4a3728;
+  line-height: 1.6;
+}
+.example-box .ex-label {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1px; color: var(--accent); margin-bottom: 4px;
+}
+
+/* Tag strip */
+.tag-strip { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+.tag {
+  font-size: 12px; font-weight: 600; padding: 3px 10px;
+  border-radius: 20px; background: var(--surface2);
+  border: 1px solid var(--border); color: var(--text);
+  cursor: pointer; transition: all .15s;
+}
+.tag:hover { background: var(--border); }
+.tag.warn { background: #fee2e2; border-color: #fca5a5; color: #991b1b; }
+
+/* Simple list */
+.plain-list { padding-left: 16px; }
+.plain-list li { font-size: 13.5px; padding: 3px 0; color: #2c2825; line-height: 1.5; }
+
+/* Two-col inside card */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 16px 18px; }
+.col-box { border-radius: 8px; padding: 12px 14px; }
+
+/* Inline note */
+.note {
+  font-size: 12px; color: var(--muted); font-style: italic;
+  margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border);
+}
+
+/* ── SPECIAL: Stufen display ── */
+.stufen-wrap { padding: 8px 0; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 640px) {
+  .hero { padding: 40px 18px 28px; }
+  .main { padding: 0 18px 60px; }
+  .nav { padding: 0 18px; }
+  .card-grid, .card-grid.wide { grid-template-columns: 1fr; }
+  .two-col { grid-template-columns: 1fr; }
+  .acc-content { padding-left: 18px; }
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.section { animation: fadeUp .5s ease both; }
+.section:nth-child(1) { animation-delay: .05s; }
+.section:nth-child(2) { animation-delay: .10s; }
+.section:nth-child(3) { animation-delay: .15s; }
+.section:nth-child(4) { animation-delay: .20s; }
+
+/* Scroll reveal */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity .5s ease, transform .5s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ── AUDIO PLAYER ── */
+.audio-bar {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+  background: rgba(28,25,23,.96); backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255,255,255,.12);
+  padding: 10px 24px 12px;
+  transform: translateY(100%);
+  transition: transform .4s cubic-bezier(.4,0,.2,1);
+}
+.audio-bar.visible { transform: translateY(0); }
+.audio-inner { max-width: 1100px; margin: 0 auto; }
+.audio-top { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; }
+.audio-play-btn {
+  width: 36px; height: 36px; border-radius: 50%; border: none; cursor: pointer;
+  background: var(--accent); color: white; font-size: 15px;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform .15s, background .15s; flex-shrink: 0;
+}
+.audio-play-btn:hover { transform: scale(1.08); background: #b53007; }
+.audio-info { flex: 1; min-width: 0; }
+.audio-chapter { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,.5); }
+.audio-title { font-size: 13px; font-weight: 600; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.audio-time { font-size: 12px; color: rgba(255,255,255,.45); font-variant-numeric: tabular-nums; flex-shrink: 0; }
+.audio-close-btn {
+  width: 28px; height: 28px; border-radius: 50%; border: 1px solid rgba(255,255,255,.2);
+  cursor: pointer; background: transparent; color: rgba(255,255,255,.5);
+  font-size: 16px; display: flex; align-items: center; justify-content: center;
+  transition: all .15s; flex-shrink: 0;
+}
+.audio-close-btn:hover { background: rgba(255,255,255,.1); color: white; }
+.audio-progress {
+  width: 100%; height: 4px; border-radius: 2px;
+  background: rgba(255,255,255,.15); cursor: pointer; appearance: none;
+  outline: none;
+}
+.audio-progress::-webkit-slider-thumb {
+  appearance: none; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--accent); cursor: pointer; margin-top: -5px;
+}
+.audio-progress::-webkit-slider-runnable-track {
+  height: 4px; border-radius: 2px; background: transparent;
+}
+
+/* ── AUDIO FULL PLAYER WIDGET (in hero) ── */
+.audio-hero-player {
+  margin-top: 28px; background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 18px 20px;
+  box-shadow: var(--shadow);
+}
+.ahp-head {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
+}
+.ahp-icon { font-size: 22px; }
+.ahp-label { font-family: 'Lora', serif; font-size: 15px; font-weight: 700; }
+.ahp-sub { font-size: 11px; color: var(--muted); margin-top: 1px; }
+.ahp-play-btn {
+  width: 40px; height: 40px; border-radius: 50%; border: none; cursor: pointer;
+  background: var(--accent); color: white; font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .15s; flex-shrink: 0; margin-left: auto;
+}
+.ahp-play-btn:hover { background: #b53007; transform: scale(1.05); }
+.ahp-progress-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.ahp-time { font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ahp-seek {
+  flex: 1; height: 4px; border-radius: 2px; cursor: pointer;
+  accent-color: var(--accent);
+}
+.ahp-chapters { display: flex; flex-wrap: wrap; gap: 5px; }
+.ahp-ch-btn {
+  font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px;
+  border: 1px solid var(--border); background: var(--surface2); color: var(--muted);
+  cursor: pointer; transition: all .15s; font-family: 'DM Sans', sans-serif;
+}
+.ahp-ch-btn:hover { border-color: var(--accent); color: var(--accent); background: #fff5f0; }
+.ahp-ch-btn.playing { background: var(--accent); color: white; border-color: var(--accent); }
+
+/* ── SECTION PLAY BUTTON ── */
+.sec-play-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11px; font-weight: 600; padding: 4px 11px; border-radius: 20px;
+  border: 1.5px solid var(--accent); background: transparent; color: var(--accent);
+  cursor: pointer; transition: all .15s; font-family: 'DM Sans', sans-serif;
+  white-space: nowrap;
+}
+.sec-play-btn:hover { background: var(--accent); color: white; }
+.sec-play-btn.playing { background: var(--accent); color: white; }
+.sec-play-btn .spb-icon { font-size: 10px; }
+</style>
+</head>
+<body>
+
+<!-- HIDDEN AUDIO ELEMENT -->
+<audio id="mainAudio" preload="none">
+  <source src="hoerbuch_entwicklungspsychologie.mp3" type="audio/mpeg">
+</audio>
+
+<!-- STICKY AUDIO BAR (bottom) -->
+<div class="audio-bar" id="audioBar">
+  <div class="audio-inner">
+    <div class="audio-top">
+      <button class="audio-play-btn" id="barPlayBtn" onclick="togglePlay()">▶</button>
+      <div class="audio-info">
+        <div class="audio-chapter" id="barChapter">Hörbuch</div>
+        <div class="audio-title" id="barTitle">Entwicklungspsychologie</div>
+      </div>
+      <div class="audio-time" id="barTime">0:00 / 0:00</div>
+      <button class="audio-close-btn" onclick="closeBar()">×</button>
+    </div>
+    <input type="range" class="audio-progress" id="audioProgress" value="0" min="0" step="0.1">
+  </div>
+</div>
+<nav class="nav">
+  <div class="nav-inner">
+    <button class="nav-btn active" style="background:var(--accent);" onclick="scrollTo('sec1')">Theorien</button>
+    <button class="nav-btn" onclick="scrollTo('sec2')">Pubertät</button>
+    <button class="nav-btn" onclick="scrollTo('sec3')">Sozialisation</button>
+    <button class="nav-btn" onclick="scrollTo('sec4')">Bewältigung</button>
+    <button class="nav-btn" onclick="scrollTo('sec5')">Einflussfaktoren</button>
+    <button class="nav-btn" onclick="scrollTo('sec6')">Warnsignale</button>
+    <button class="nav-btn" onclick="scrollTo('sec7')">Störungsbilder</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-eyebrow">Interaktiver Überblick</div>
+  <h1>Entwicklungs&shy;psychologie</h1>
+  <p>Klicke auf einen Punkt, um ihn einfach erklärt zu bekommen — mit Beispielen aus dem Alltag. Kein Vorwissen nötig.</p>
+  <div class="hero-tags">
+    <span class="hero-tag" style="color:var(--d);border-color:var(--d);">Havighurst</span>
+    <span class="hero-tag" style="color:var(--a);border-color:var(--a);">Kohlberg</span>
+    <span class="hero-tag" style="color:var(--c);border-color:var(--c);">Piaget</span>
+    <span class="hero-tag" style="color:var(--b);border-color:var(--b);">Erikson</span>
+  </div>
+
+  <!-- FULL AUDIO PLAYER -->
+  <div class="audio-hero-player">
+    <div class="ahp-head">
+      <span class="ahp-icon">🎧</span>
+      <div>
+        <div class="ahp-label">Hörbuch: Entwicklungspsychologie</div>
+        <div class="ahp-sub">ca. 40 Minuten · 10 Kapitel · Anfängergerecht erklärt</div>
+      </div>
+      <button class="ahp-play-btn" id="heroPlayBtn" onclick="togglePlay()">▶</button>
+    </div>
+    <div class="ahp-progress-row">
+      <span class="ahp-time" id="heroTimeEl">0:00</span>
+      <input type="range" class="ahp-seek" id="heroSeek" value="0" min="0" step="0.1">
+      <span class="ahp-time" id="heroDurEl">40:14</span>
+    </div>
+    <div class="ahp-chapters" id="chapterBtns"></div>
+  </div>
+</header>
+
+<main class="main">
+
+<!-- ═══════════════════════════════════════════
+     SEKTION I — ENTWICKLUNGSTHEORIEN
+═══════════════════════════════════════════ -->
+<section class="section reveal" id="sec1">
+  <div class="section-header">
+    <span class="section-num">I</span>
+    <span class="section-title">Entwicklungstheorien</span>
+    <span class="section-desc">Die vier Hauptmodelle</span>
+    <button class="sec-play-btn" data-chapter="ch1" onclick="playChapter('ch1',this)"><span class="spb-icon">▶</span> Kapitel hören</button>
+  </div>
+  <div class="card-grid wide">
+
+    <!-- KOHLBERG -->
+    <div class="card" style="border-top-color:var(--a);">
+      <div class="card-head">
+        <h3 style="color:var(--a);">⚖️ Moralische Entwicklung — Kohlberg</h3>
+        <div class="sub">Wie wir lernen, richtig von falsch zu unterscheiden</div>
+      </div>
+
+      <!-- Intro item -->
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#dbeafe;color:var(--a);">💡</div>
+          <div class="acc-label">Was ist das überhaupt?</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Der Psychologe Lawrence Kohlberg hat untersucht, warum Menschen Dinge für richtig oder falsch halten. Seine Erkenntnis: Das moralische Denken entwickelt sich in <strong>6 Stufen</strong>, die aufeinander aufbauen — wie eine Leiter. Kinder beginnen ganz unten, die meisten Erwachsenen landen irgendwo in der Mitte.</div>
+            <div class="example-box">
+              <div class="ex-label">📖 Wie er das herausfand</div>
+              Kohlberg erzählte Menschen moralische Dilemmas — z. B. die Geschichte von Heinz, dessen Frau sterben wird, wenn er ein Medikament nicht klaut, das er sich nicht leisten kann. Die Antworten der Menschen verrieten, auf welcher Stufe sie denken.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stufe 1 -->
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#fee2e2;color:var(--f);">1</div>
+          <div class="acc-label">Angst vor Strafe</div>
+          <span class="acc-badge" style="background:#fee2e2;color:#991b1b;">Präkonventionell</span>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Auf dieser Stufe macht man etwas nur, weil man Angst vor Konsequenzen hat. "Gut" bedeutet: ich bekomme keinen Ärger. Typisch für Kleinkinder, kommt aber auch bei Erwachsenen vor.</div>
+            <div class="example-box">
+              <div class="ex-label">🧒 Alltags-Beispiel</div>
+              Ein Kind teilt sein Spielzeug mit dem Bruder — aber nur, weil Mama zuschaut. Wenn Mama weg ist, nimmt es alles wieder.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stufe 2 -->
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#fee2e2;color:var(--f);">2</div>
+          <div class="acc-label">Vergeltungsprinzip — „Wie du mir, so ich dir"</div>
+          <span class="acc-badge" style="background:#fee2e2;color:#991b1b;">Präkonventionell</span>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Hier beginnt fairer Austausch: Ich tue etwas Gutes für dich, aber nur wenn du auch etwas Gutes für mich tust. Es geht um gegenseitigen Vorteil, nicht um echte Fürsorge.</div>
+            <div class="example-box">
+              <div class="ex-label">🤝 Alltags-Beispiel</div>
+              „Ich helfe dir bei den Matheaufgaben, aber dann hilfst du mir beim Aufsatz." — Hilfe als Tauschgeschäft, nicht aus Mitgefühl.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stufe 3 -->
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#fef3c7;color:#92400e;">3</div>
+          <div class="acc-label">Erwartungen der Mitmenschen — „Nettes Mädchen / guter Junge"</div>
+          <span class="acc-badge" style="background:#fef3c7;color:#92400e;">★ Konventionell</span>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Jetzt geht es darum, was andere von einem denken. Man verhält sich gut, um gemocht zu werden und als "guter Mensch" zu gelten. Die Goldene Regel taucht auf: Was du nicht willst, das man dir tut, das füg auch keinem anderen zu.</div>
+            <div class="example-box">
+              <div class="ex-label">👦 Alltags-Beispiel</div>
+              Ein Schüler hilft dem neuen Mitschüler, weil er ein "guter Kumpel" sein will und möchte, dass die Klasse ihn mag — nicht wegen einer Regel.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stufe 4 -->
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#fde68a;color:#92400e;">4</div>
+          <div class="acc-label">Gesetz &amp; Ordnung</div>
+          <span class="acc-badge" style="background:#fef3c7;color:#92400e;">★ Konventionell</span>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Hier steht die Gesellschaft im Mittelpunkt. Regeln und Gesetze werden befolgt, weil sie das Zusammenleben ordnen. "Was wäre, wenn alle so handeln würden?" ist die typische Frage. Die meisten Erwachsenen denken so.</div>
+            <div class="example-box">
+              <div class="ex-label">🚦 Alltags-Beispiel</div>
+              Jemand fährt nachts an einer roten Ampel — obwohl kein Auto in Sicht ist — nicht an, weil: „Wenn alle bei Rot fahren würden, wäre das Chaos."
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stufe 5 -->
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#ccfbf1;color:#134e4a;">5</div>
+          <div class="acc-label">Gesellschaftsvertrag — Regeln können hinterfragt werden</div>
+          <span class="acc-badge" style="background:#ccfbf1;color:#134e4a;">Postkonventionell</span>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Auf dieser Stufe versteht man: Gesetze sind von Menschen gemacht und können auch falsch sein. Gesetze sollten zum Wohl aller gelten — und wenn nicht, darf man sie demokratisch ändern. Man handelt nach Werten, nicht blind nach Regeln.</div>
+            <div class="example-box">
+              <div class="ex-label">✊ Alltags-Beispiel</div>
+              Rosa Parks verweigerte 1955 ihren Sitzplatz im Bus für einen weißen Fahrgast aufzugeben — weil das Gesetz zwar existierte, aber moralisch falsch war.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stufe 6 -->
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#99f6e4;color:#134e4a;">6</div>
+          <div class="acc-label">Universale ethische Prinzipien — Das eigene Gewissen</div>
+          <span class="acc-badge" style="background:#ccfbf1;color:#134e4a;">Postkonventionell</span>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Die höchste Stufe: Man hat selbst gewählte, universelle Grundsätze — z. B. Menschenwürde und Gerechtigkeit gelten für alle Menschen überall. Selbst wenn Gesetze dagegen sprechen, folgt man dem eigenen Gewissen. Nur wenige erreichen diese Stufe dauerhaft.</div>
+            <div class="example-box">
+              <div class="ex-label">🕊️ Alltags-Beispiel</div>
+              Menschen, die im Zweiten Weltkrieg Juden versteckten, obwohl das gesetzlich verboten und lebensgefährlich war — aus der tiefen Überzeugung, dass Menschenleben heilig sind.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unterricht -->
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#dbeafe;color:var(--a);">🏫</div>
+          <div class="acc-label">Was bedeutet das für den Unterricht?</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain"><strong>Dilemma-Diskussionen:</strong> Schüler diskutieren moralische Zwickmühlen ohne klare Lösung — das regt an, eine Stufe höher zu denken.<br><br><strong>Plus-eins-Regel:</strong> Wenn ein Schüler auf Stufe 3 argumentiert, hilft es ihm, das Argument der nächsthöheren Stufe (4) zu hören — nicht zwei Stufen auf einmal.<br><br><strong>Just Community:</strong> Schule als demokratische Gemeinschaft, in der Schüler echte Mitbestimmung erleben.</div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /kohlberg -->
+
+    <!-- ERIKSON -->
+    <div class="card" style="border-top-color:var(--b);">
+      <div class="card-head">
+        <h3 style="color:var(--b);">👤 Psychosoziale Entwicklung — Erikson</h3>
+        <div class="sub">Die 8 Krisen des Lebens</div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#ede9fe;color:var(--b);">💡</div>
+          <div class="acc-label">Was ist das überhaupt?</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Erik Erikson glaubte, dass jeder Mensch im Leben bestimmte <strong>Entwicklungsaufgaben</strong> bewältigen muss — wie Stationen auf einer Reise. An jeder Station gibt es eine Art "inneren Konflikt", den man lösen muss. Löst man ihn gut, wird man stärker. Löst man ihn schlecht, schleppt man das Problem mit.</div>
+            <div class="example-box">
+              <div class="ex-label">🎯 Das Wichtige</div>
+              Erikson unterschied sich von Freud: Nicht nur die Kindheit prägt uns, sondern das ganze Leben. Und nicht nur der Körper, sondern vor allem die sozialen Beziehungen formen uns.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#d1fae5;color:var(--e);">🌱</div>
+          <div class="acc-label">Schulalter (6–12 J.): Werkssinn vs. Minderwertigkeitsgefühl</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain"><strong>Der Konflikt:</strong> In der Schule lernt das Kind zum ersten Mal: Bin ich gut genug? Kann ich Dinge schaffen? Wenn es immer wieder Erfolgserlebnisse hat, entsteht ein Gefühl von <em>Kompetenz</em> ("ich kann das!"). Scheitert es ständig oder wird kritisiert, entwickelt sich ein <em>Minderwertigkeitsgefühl</em>.</div>
+            <div class="example-box">
+              <div class="ex-label">📚 Schul-Beispiel</div>
+              Ein Kind, das beim Referat gelobt wird und merkt "ich habe das selbst geschafft", baut Werkssinn auf. Ein Kind, das jeden Tag schlechte Noten bekommt und nie Erfolg erlebt, beginnt zu glauben: "Ich bin einfach nicht gut genug."
+            </div>
+            <div class="note">👉 Für Lehrkräfte: Kleine Erfolgserlebnisse einbauen ist entscheidend. Nicht nur die Top-Schüler loben!</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#ede9fe;color:var(--b);">🔍</div>
+          <div class="acc-label">Adoleszenz (12–20 J.): Identität vs. Identitätsdiffusion ★</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain"><strong>Der wichtigste Konflikt der Jugend:</strong> Wer bin ich eigentlich? Jugendliche probieren verschiedene Rollen aus — andere Musikstile, Freundeskreise, Meinungen — um herauszufinden, was zu ihnen passt. Klappt das, entsteht eine stabile Identität. Klappt es nicht, bleibt Verwirrung: "Ich weiß nicht, wer ich bin." Das nennt man <em>Identitätsdiffusion</em>.<br><br>Erikson nannte diese Phase auch das "psychosoziale Moratorium" — eine Art Schonzeit, in der man ausprobieren darf.</div>
+            <div class="example-box">
+              <div class="ex-label">🎭 Alltags-Beispiel</div>
+              Ein 15-Jähriger, der innerhalb eines Jahres vier verschiedene Freundesgruppen wechselt, mal Punk ist, mal Sportler, mal Streber — das ist normal! Er sucht nach dem, was sich "richtig anfühlt". Wer nicht suchen darf, bleibt oft unsicher.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#dbeafe;color:var(--a);">❤️</div>
+          <div class="acc-label">Frühes Erwachsenenalter: Intimität vs. Isolierung</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Jetzt geht es darum, echte, tiefe Beziehungen einzugehen — Freundschaften und Liebesbeziehungen, in denen man sich wirklich zeigt. Wer sich das nicht traut, bleibt emotional auf Distanz und zieht sich zurück.</div>
+            <div class="example-box">
+              <div class="ex-label">💬 Alltags-Beispiel</div>
+              Jemand, der in der Adoleszenz keine stabile Identität entwickelt hat ("Wer bin ich?"), tut sich schwer, echte Nähe zuzulassen — denn dafür müsste er wissen, wer er ist.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#ede9fe;color:var(--b);">🏫</div>
+          <div class="acc-label">Was bedeutet das für den Unterricht?</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain"><strong>Bei Werkssinn/Minderwertigkeit:</strong><ul class="plain-list" style="margin-top:6px;"><li>Eigenverantwortliches Arbeiten fördern</li><li>Misslingen als Lernchance, nicht als Versagen rahmen</li><li>Differenzierte, persönliche Rückmeldungen geben</li></ul><br><strong>Bei Identität/Diffusion:</strong><ul class="plain-list" style="margin-top:6px;"><li>Raum für Selbstreflexion einbauen ("Wer bin ich?")</li><li>Verantwortung übertragen (z. B. Leitung einer Stunde)</li><li>Coping-Strategien und Lernstrategien vermitteln</li></ul></div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /erikson -->
+
+    <!-- PIAGET -->
+    <div class="card" style="border-top-color:var(--c);">
+      <div class="card-head">
+        <h3 style="color:var(--c);">🔭 Kognitive Entwicklung — Piaget</h3>
+        <div class="sub">Wie das Denken wächst</div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#ccfbf1;color:var(--c);">💡</div>
+          <div class="acc-label">Was ist das überhaupt?</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Jean Piaget hat beobachtet, wie Kinder denken — und festgestellt: Kinder denken nicht schlechter als Erwachsene, sie denken <em>anders</em>. Das Denken entwickelt sich in Stufen. Wir können nur so denken, wie es unser aktueller Entwicklungsstand erlaubt.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#ccfbf1;color:var(--c);">🧩</div>
+          <div class="acc-label">Was sind Schemata?</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Stell dir Schemata wie <strong>mentale Schubladen</strong> vor. Für alles, was wir kennen, haben wir eine Schublade: "Hund", "Stuhl", "Gefahren". Wenn wir etwas Neues sehen, suchen wir die passende Schublade.</div>
+            <div class="example-box">
+              <div class="ex-label">🐕 Beispiel</div>
+              Ein Kleinkind kennt Hunde und ruft bei jedem vierbeinigen Tier "Wauwau!" — auch bei einer Katze. Das Schema "Hund = 4 Beine, Fell" ist noch zu weit. Erst später verfeinert es die Schublade.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#ccfbf1;color:var(--c);">📥</div>
+          <div class="acc-label">Assimilation — Neues in alte Schubladen stecken</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Assimilation bedeutet: Ich sehe etwas Neues und ordne es in eine bereits vorhandene Schublade ein — auch wenn es nicht perfekt passt.</div>
+            <div class="example-box">
+              <div class="ex-label">🚗 Beispiel</div>
+              Ein Kind kennt Autos. Es sieht zum ersten Mal ein Motorrad und ruft: "Auto!" — Es steckt das Motorrad in die Schublade "Fahrzeug mit Motor", weil das am besten passt.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#99f6e4;color:var(--c);">🔄</div>
+          <div class="acc-label">Akkomodation — Eine neue Schublade bauen</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Akkomodation passiert, wenn eine neue Erfahrung in keine vorhandene Schublade passt — dann müssen wir unser Denken anpassen und eine neue Schublade bauen. Das ist anstrengender, aber echter Lernfortschritt.</div>
+            <div class="example-box">
+              <div class="ex-label">🏍️ Beispiel</div>
+              Eltern erklären dem Kind: "Das ist ein Motorrad — das ist anders als ein Auto, weil es zwei Räder hat." Das Kind baut eine neue Schublade "Motorrad" und lernt so echtes Verstehen.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#ccfbf1;color:var(--c);">📐</div>
+          <div class="acc-label">Konkret-operationales Stadium (7–11 Jahre)</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Kinder in diesem Alter können schon logisch denken — aber nur, wenn sie etwas <em>sehen oder anfassen</em> können. Abstrakte, rein gedankliche Konzepte überfordern sie noch.</div>
+            <div class="example-box">
+              <div class="ex-label">🧮 Schul-Beispiel</div>
+              Brüche mit Pizzastücken erklären klappt super. Brüche nur mit Buchstaben an der Tafel? Totales Rätsel. → Deshalb sind Anschauungsmaterialien im Grundschulalter so wichtig!
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#5eead4;color:#134e4a);">🧠</div>
+          <div class="acc-label">Formal-operationales Stadium (ab 12 Jahre) ★</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Jetzt ist abstraktes Denken möglich: Hypothesen aufstellen, Wenn-dann-Denken, über die eigene Denkweise nachdenken (Metakognition). Auch philosophische Fragen werden interessant: Warum gibt es Ungerechtigkeit? Was wäre wenn…?</div>
+            <div class="example-box">
+              <div class="ex-label">💭 Schul-Beispiel</div>
+              Ein 14-Jähriger fragt: "Wäre es gerecht, jemanden zu bestrafen, der aus Not gestohlen hat?" — Diese Frage setzt voraus, dass er über abstrakte Konzepte wie "Gerechtigkeit" und "Verhältnismäßigkeit" nachdenken kann.
+            </div>
+            <div class="note">💡 Metakognition = über das eigene Denken nachdenken. "Wie lerne ich am besten?" ist eine metakognitive Frage.</div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /piaget -->
+
+    <!-- HAVIGHURST -->
+    <div class="card" style="border-top-color:var(--d);">
+      <div class="card-head">
+        <h3 style="color:var(--d);">📋 Entwicklungsaufgaben — Havighurst</h3>
+        <div class="sub">Was das Leben von uns verlangt</div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#fef3c7;color:var(--d);">💡</div>
+          <div class="acc-label">Was ist das überhaupt?</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Robert Havighurst hatte eine einfache Idee: Das Leben stellt uns in jeder Phase bestimmte <strong>Aufgaben</strong>. Löst man sie, ist man glücklich und kann die nächste Aufgabe gut angehen. Löst man sie nicht, hat man es schwerer — im Leben und bei späteren Aufgaben.</div>
+            <div class="example-box">
+              <div class="ex-label">🎯 Der Kerngedanke</div>
+              Wer als Kind nie gelernt hat, Freundschaften zu schließen, tut sich als Jugendlicher schwerer bei Beziehungen. Wer als Jugendlicher nie gelernt hat, wer er ist, hat es als Erwachsener schwerer, echte Bindungen einzugehen.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#d1fae5;color:var(--e);">🌱</div>
+          <div class="acc-label">Späte Kindheit (10–12 J.) — Aufgaben</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <ul class="plain-list">
+              <li><strong>Körperliche Geschicklichkeit</strong> entwickeln (Sport, Bewegung)</li>
+              <li>Eine <strong>positive Einstellung zum eigenen Körper</strong> aufbauen</li>
+              <li>Lernen, mit <strong>Altersgenossen</strong> klarzukommen</li>
+              <li>Ein <strong>Gewissen und Moral</strong> entwickeln: Was ist richtig, was falsch?</li>
+              <li><strong>Alltagskonzepte</strong> verstehen (Geld, Zeit, Gesellschaft)</li>
+            </ul>
+            <div class="example-box" style="margin-top:10px;">
+              <div class="ex-label">🏫 Im Schulkontext</div>
+              Ein Kind, das nie lernt, Konflikte mit Mitschülern zu lösen, schleppt dieses Problem in die Pubertät. Deshalb sind soziale Projekte und Gruppenarbeit in der Schule keine "Spielerei".
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#fef3c7;color:var(--d);">🔥</div>
+          <div class="acc-label">Adoleszenz (13–17 J.) — Aufgaben ★</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <ul class="plain-list">
+              <li><strong>Körperveränderungen akzeptieren</strong> — der eigene Körper verändert sich stark</li>
+              <li><strong>Emotionale Unabhängigkeit</strong> von den Eltern entwickeln</li>
+              <li><strong>Identität finden</strong>: Wer bin ich? Was will ich?</li>
+              <li>Einen echten <strong>Freundeskreis</strong> aufbauen</li>
+              <li>Eine eigene <strong>Weltanschauung</strong> entwickeln</li>
+              <li><strong>Zukunftsperspektiven</strong> entwickeln: Beruf, Lebensstil</li>
+            </ul>
+            <div class="example-box" style="margin-top:10px;">
+              <div class="ex-label">🎭 Warum das schwierig ist</div>
+              All diese Aufgaben kommen gleichzeitig. Der Körper verändert sich, die Schule wird schwerer, die Eltern sind nicht mehr so wichtig, Freundschaften werden tiefer — das ist eine enorme Belastung auf einmal.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#fef3c7;color:var(--d);">⚡</div>
+          <div class="acc-label">Coping vs. Defending — Wie man mit Aufgaben umgeht</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain"><strong>Coping</strong> (von englisch "to cope" = zurechtkommen): Man stellt sich dem Problem aktiv. Man sucht Lösungen, redet darüber, akzeptiert Kompromisse.<br><br><strong>Defending</strong> (= sich verteidigen, ausweichen): Man weicht dem Problem aus. Man tut so, als ob es kein Problem gäbe, verdrängt es, oder betäubt sich (z. B. mit Alkohol).</div>
+            <div class="example-box">
+              <div class="ex-label">📊 Vergleich</div>
+              <strong>Coping:</strong> Schüler hat Prüfungsangst → spricht mit Lehrer, lernt Entspannungstechniken, übt mehr.<br><br>
+              <strong>Defending:</strong> Schüler hat Prüfungsangst → meldet sich krank, ignoriert es, hofft es geht vorbei.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /havighurst -->
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     SEKTION II — PUBERTÄT
+═══════════════════════════════════════════ -->
+<section class="section reveal" id="sec2">
+  <div class="section-header">
+    <span class="section-num">II</span>
+    <span class="section-title">Pubertät &amp; Adoleszenz</span>
+    <span class="section-desc">Was im Körper und Kopf passiert</span>
+    <button class="sec-play-btn" data-chapter="ch5" onclick="playChapter('ch5',this)"><span class="spb-icon">▶</span> Kapitel hören</button>
+  </div>
+  <div class="card-grid">
+
+    <div class="card" style="border-top-color:var(--g);">
+      <div class="card-head">
+        <h3 style="color:var(--g);">🧠 Hirnphysiologische Veränderungen</h3>
+        <div class="sub">Das Gehirn wird umgebaut</div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#e0f2fe;color:var(--g);">💡</div>
+          <div class="acc-label">Was passiert im Gehirn?</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Das Gehirn von Jugendlichen wird komplett umgebaut — wie eine Baustelle. Dabei gibt es eine Phase, in der wichtige Funktionen wie Impulskontrolle und Planung vorübergehend schlechter funktionieren. Das ist biologisch normal und kein Versagen!</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#e0f2fe;color:var(--g);">⚡</div>
+          <div class="acc-label">Myelinisierung — Das Gehirn wird schneller</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Nervenbahnen werden mit einer Fettschicht umhüllt (Myelin) — wie ein Kabel, das isoliert wird. Das macht die Signalübertragung bis zu 100× schneller. Gleichzeitig werden unnötige Verbindungen abgebaut ("Synapsenelimination") — das Gehirn wird effizienter.</div>
+            <div class="example-box">
+              <div class="ex-label">🖥️ Analogie</div>
+              Stell dir vor, das Gehirn aktualisiert gerade sein Betriebssystem. Während des Updates läuft manches langsamer oder gar nicht. Nach dem Update ist alles viel schneller.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#e0f2fe;color:var(--g);">🛑</div>
+          <div class="acc-label">Warum Jugendliche impulsiv wirken</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Der <strong>präfrontale Kortex</strong> — der Teil des Gehirns, der für Impulskontrolle, Planung und soziale Urteile zuständig ist — wird in der Pubertät zwar ausgebaut, aber ist noch nicht fertig. Das Belohnungssystem hingegen ist sehr aktiv. Ergebnis: Jugendliche handeln oft impulsiv, wollen schnelle Belohnung, und können Konsequenzen schlechter abschätzen.</div>
+            <div class="example-box">
+              <div class="ex-label">🚗 Warum Jugendliche mehr Risiken eingehen</div>
+              Das Belohnungsgefühl bei riskanten Dingen (Stunt mit dem Fahrrad, Mutproben) ist bei Jugendlichen stärker als bei Erwachsenen — und die Bremse (Impulskontrolle) ist noch schwach. Das ist Biologie, keine Dummheit.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="border-top-color:var(--g);">
+      <div class="card-head">
+        <h3 style="color:var(--g);">💛 Emotionale &amp; kognitive Veränderungen</h3>
+        <div class="sub">Warum Jugendliche so fühlen, wie sie fühlen</div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#fef9c3;color:#854d0e;">😤</div>
+          <div class="acc-label">Emotionales Auf und Ab — warum das normal ist</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Hormone überschwemmen den Körper und das Gehirn. Das Gefühlssystem ist auf Hochtouren, aber die emotionale Regulierung (sich beruhigen, Perspektive einnehmen) ist noch im Aufbau. Deshalb können kleine Anlässe riesige Reaktionen auslösen.</div>
+            <div class="example-box">
+              <div class="ex-label">🌊 Analogie</div>
+              Wie ein Surfer auf riesigen Wellen ohne ausreichendes Training. Die Wellen (Emotionen) kommen trotzdem — aber das Gleichgewicht (Regulierung) muss erst noch geübt werden.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#fef9c3;color:#854d0e;">📉</div>
+          <div class="acc-label">Warum die Lernmotivation oft sinkt</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Mit dem Aufbau von Identität ("Wer bin ich?") beginnen Jugendliche zu fragen: "Wozu lerne ich das?" Was früher automatisch gemacht wurde, muss jetzt einen Sinn ergeben. Dazu kommt: Peers werden wichtiger als Noten, der eigene Körper beschäftigt die Gedanken, und die Zukunft wirkt weit weg.</div>
+            <div class="example-box">
+              <div class="ex-label">🏫 Schul-Tipp</div>
+              Lernstoff mit echten Fragen verbinden ("Was hat das mit deinem Leben zu tun?") und Jugendlichen Mitbestimmung geben — das steigert die Motivation nachweislich.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#fef9c3;color:#854d0e;">🔄</div>
+          <div class="acc-label">Körperliche Veränderungen — und ihr Selbstbild</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Der Körper verändert sich stark und ungleichmäßig. Manche wachsen früh, manche spät. Studien zeigen: <strong>55% der Mädchen</strong> und <strong>25% der Jungen</strong> sind mit ihrem Körper in der Pubertät unzufrieden. Das ist keine Eitelkeit — sondern eine echte psychologische Belastung.</div>
+            <div class="example-box">
+              <div class="ex-label">⚠️ Für Lehrkräfte</div>
+              Keine wertenden Kommentare über Aussehen, Körpergröße oder körperliche Veränderungen — auch scheinbar "positive" Bemerkungen können verletzend sein.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="border-top-color:var(--g);">
+      <div class="card-head">
+        <h3 style="color:var(--g);">👥 Soziale Einflüsse in der Pubertät</h3>
+        <div class="sub">Familie, Peers und die eigene Identität</div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#e0f2fe;color:var(--g);">🏠</div>
+          <div class="acc-label">Warum Jugendliche sich von Eltern distanzieren</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Die Ablösung vom Elternhaus ist biologisch und psychologisch notwendig — kein Versagen der Erziehung! Um eine eigene Identität zu entwickeln, muss man sich von den Eltern abgrenzen. Das fühlt sich für beide Seiten oft schmerzhaft an.</div>
+            <div class="example-box">
+              <div class="ex-label">🦅 Analogie</div>
+              Ein Vogel, der fliegen lernt, muss das Nest verlassen. Das Nest (Familie) ist aber immer noch der sichere Rückzugsort, wenn etwas schiefgeht.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#e0f2fe;color:var(--g);">👫</div>
+          <div class="acc-label">Warum Peers (Gleichaltrige) so wichtig werden</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Die Peergroup übernimmt in der Pubertät viele Funktionen, die früher die Familie hatte: Zugehörigkeit, Bestätigung, Orientierung. Jugendliche "spiegeln" sich in Gleichaltrigen — wer bin ich im Vergleich zu anderen? Das erklärt auch den starken Konformitätsdruck.</div>
+            <div class="example-box">
+              <div class="ex-label">🎭 Warum alle gleich gekleidet sind</div>
+              Jugendliche kleiden sich ähnlich wie ihre Gruppe — das ist kein Herdendenken, sondern aktive Identitätssuche: "Gehöre ich dazu? Wer bin ich?" Gleichzeitig experimentieren sie und suchen nach Eigenständigkeit.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#e0f2fe;color:var(--g);">⚠️</div>
+          <div class="acc-label">Warum Jugendliche bei Peers mehr riskieren</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Studien zeigen: Jugendliche gehen deutlich mehr Risiken ein, wenn Gleichaltrige dabei sind — auch wenn sie alleine vernünftig sind. Das liegt daran, dass das Belohnungssystem im Gehirn durch Peers zusätzlich aktiviert wird.</div>
+            <div class="example-box">
+              <div class="ex-label">🚦 Praxis-Beispiel</div>
+              Alleine würde der 16-Jährige die rote Ampel nicht überqueren. Mit drei Freunden dabei — plötzlich ganz anders. Das ist keine schlechte Erziehung, das ist Biologie.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     SEKTION III — SOZIALISATION
+═══════════════════════════════════════════ -->
+<section class="section reveal" id="sec3">
+  <div class="section-header">
+    <span class="section-num">III</span>
+    <span class="section-title">Sozialisation im Jugendalter</span>
+    <span class="section-desc">Wer prägt uns?</span>
+    <button class="sec-play-btn" data-chapter="ch6" onclick="playChapter('ch6',this)"><span class="spb-icon">▶</span> Kapitel hören</button>
+  </div>
+  <div class="card-grid wide">
+
+    <div class="card" style="border-top-color:var(--g);">
+      <div class="card-head">
+        <h3 style="color:var(--g);">🌐 Die wichtigsten Sozialisationsinstanzen</h3>
+        <div class="sub">Wer oder was uns formt</div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#e0f2fe;color:var(--g);">💡</div>
+          <div class="acc-label">Was bedeutet "Sozialisation"?</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Sozialisation ist der lebenslange Prozess, durch den ein Mensch lernt, wie man in einer Gesellschaft lebt. Werte, Regeln, Normen, Sprache — all das lernen wir durch Menschen und Institutionen um uns herum. Eine "Sozialisationsinstanz" ist einfach: Wer oder was hat Einfluss auf uns?</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#fef3c7;color:var(--d);">👨‍👩‍👧</div>
+          <div class="acc-label">Familie — Der emotionale Anker</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Die Familie ist die erste und prägendste Sozialisationsinstanz. In der Jugend nimmt ihre direkte Kontrolle ab — aber sie bleibt emotional wichtig. Der Erziehungsstil der Eltern wirkt sich stark auf das Selbstwertgefühl aus.</div>
+            <div class="example-box">
+              <div class="ex-label">🏡 Erziehungsstile und ihre Wirkung</div>
+              <strong>Autoritär</strong> ("weil ich das sage!"): Kind lernt Gehorsam, aber keine Eigenständigkeit.<br><br>
+              <strong>Laissez-faire</strong> (keine Grenzen): Kind fühlt sich oft unsicher und ungeliebt.<br><br>
+              <strong>Sozial-integrativ</strong> (klare Regeln + Erklärungen + Wärme): Gilt als gesündestes Modell für Entwicklung.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#d1fae5;color:var(--e);">👫</div>
+          <div class="acc-label">Peers — Das Experimentierfeld</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">In der Jugend werden Gleichaltrige zur wichtigsten Gruppe. Hier testet man, wer man ist: Wie reagieren andere auf mich? Wer mag mich? Was kann ich? Die Peergroup gibt Orientierung — aber auch Konformitätsdruck.</div>
+            <div class="example-box">
+              <div class="ex-label">⚠️ Die Schattenseite</div>
+              Der Wunsch dazuzugehören kann so stark sein, dass Jugendliche Dinge tun, die sie alleine nie tun würden — rauchen, stehlen, mobben. Das ist die Gefahr des Konformitätsdrucks.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#dbeafe;color:var(--a);">🏫</div>
+          <div class="acc-label">Schule — Mehr als Lernen</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Schule ist nicht nur Wissensvermittlung. Sie ist auch Ort der sozialen Entwicklung: Konflikte lösen, mit Autoritäten umgehen, Erfolg und Misserfolg verarbeiten, sich in einer Gruppe behaupten. Das Selbstkonzept ("wie gut bin ich?") wird stark durch Schulerfahrungen geprägt.</div>
+            <div class="example-box">
+              <div class="ex-label">🎓 Konkret</div>
+              Ein Schüler, der in der Schule jahrelang als "der Schlechte" gilt, internalisiert das oft als Identität — selbst wenn es objektiv falsch ist.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#ede9fe;color:var(--b);">📱</div>
+          <div class="acc-label">Medien — Die neue Sozialisationsinstanz</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Social Media, YouTube, TikTok — Jugendliche verbringen mehr Zeit mit Medien als mit der Familie. Medien liefern Rollenbilder, Werte, Sprache und Vergleiche. Das Problem: Die dargestellten Bilder sind oft unrealistisch (gefilterte Fotos, Extremmeinungen), können das Selbstbild verzerren und süchtig machen.</div>
+            <div class="example-box">
+              <div class="ex-label">📊 Zahlen</div>
+              Studien zeigen einen Zusammenhang zwischen hoher Bildschirmzeit und niedrigerem Selbstwertgefühl — besonders bei Mädchen. Gleichzeitig bieten soziale Netzwerke auch echte Gemeinschaft und Unterstützung.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     SEKTION IV — BEWÄLTIGUNG
+═══════════════════════════════════════════ -->
+<section class="section reveal" id="sec4">
+  <div class="section-header">
+    <span class="section-num">IV</span>
+    <span class="section-title">Bewältigungsstrategien</span>
+    <span class="section-desc">Wie wir mit Herausforderungen umgehen</span>
+    <button class="sec-play-btn" data-chapter="ch7" onclick="playChapter('ch7',this)"><span class="spb-icon">▶</span> Kapitel hören</button>
+  </div>
+  <div class="card-grid">
+
+    <div class="card" style="border-top-color:var(--e);">
+      <div class="card-head">
+        <h3 style="color:var(--e);">🛡️ Coping vs. Defending</h3>
+        <div class="sub">Zwei grundlegende Wege</div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#dcfce7;color:var(--e);">✅</div>
+          <div class="acc-label">Coping — aktiv mit Problemen umgehen</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Coping bedeutet, man stellt sich einem Problem — auch wenn es schwer ist. Man sucht aktiv nach Lösungen, redet darüber, holt sich Hilfe oder macht Kompromisse. Das ist meistens die gesündere Strategie, weil das Problem tatsächlich angegangen wird.</div>
+            <div class="example-box">
+              <div class="ex-label">💪 Beispiele</div>
+              • „Ich rede mit meiner Lehrerin über meine Prüfungsangst."<br>
+              • „Ich lerne mit einem Freund gemeinsam."<br>
+              • „Ich suche mir Hilfe beim Schulpsychologen."
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#fee2e2;color:var(--f);">❌</div>
+          <div class="acc-label">Defending — Problemen ausweichen</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Defending bedeutet, man weicht dem Problem aus — man verdrängt es, leugnet es, oder betäubt sich. Kurzfristig fühlt sich das besser an, langfristig wird das Problem größer. Im schlimmsten Fall führt es zu Sucht, Selbstverletzung oder anderen Problemen.</div>
+            <div class="example-box">
+              <div class="ex-label">😶 Beispiele</div>
+              • „Ich tue so, als ob der Streit nicht passiert wäre."<br>
+              • „Wenn ich genug spiele, denke ich nicht mehr daran."<br>
+              • „Mit Alkohol vergesse ich die Probleme."
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="border-top-color:var(--e);">
+      <div class="card-head">
+        <h3 style="color:var(--e);">🔄 Schlüsselbegriffe der Bewältigung</h3>
+        <div class="sub">Was Erfolg oder Misserfolg beeinflusst</div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#dcfce7;color:var(--e);">⚡</div>
+          <div class="acc-label">Selbstwirksamkeit — "Ich kann das!"</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Selbstwirksamkeit ist die Überzeugung, dass man durch eigenes Handeln etwas bewirken kann. Menschen mit hoher Selbstwirksamkeit trauen sich mehr zu, versuchen länger, und erholen sich schneller von Misserfolgen.</div>
+            <div class="example-box">
+              <div class="ex-label">🎯 Wie sie entsteht</div>
+              Hauptsächlich durch <strong>Erfolgserlebnisse</strong>. Deshalb ist es so wichtig, Schülern machbare Aufgaben zu geben — nicht zu leicht (langweilig), nicht zu schwer (frustrierend), sondern genau richtig.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#ccfbf1;color:var(--c);">🌱</div>
+          <div class="acc-label">Resilienz — Die innere Widerstandskraft</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Resilienz ist die Fähigkeit, nach schwierigen Erlebnissen wieder aufzustehen — wie ein Stehaufmännchen. Manche Menschen sind von Natur aus resilient, aber Resilienz kann auch erlernt werden. Sie wird durch gute Beziehungen, Erfolgserlebnisse und das Lernen aus Fehlern gestärkt.</div>
+            <div class="example-box">
+              <div class="ex-label">🏀 Analogie</div>
+              Ein Basketballspieler, der jeden Fehlwurf als Lernchance sieht, wird besser. Jemand, der nach jedem Fehlwurf aufgibt, nicht. Resilienz ist diese Fähigkeit, nach dem Rückschlag weiterzumachen.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#fee2e2;color:var(--f);">😔</div>
+          <div class="acc-label">Erlernte Hilflosigkeit — "Ich kann sowieso nichts ändern"</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Wenn jemand immer wieder erlebt, dass sein Handeln nichts bewirkt — egal was er tut, es geht schief — lernt er irgendwann: "Es hat keinen Sinn, es zu versuchen." Das nennt man erlernte Hilflosigkeit. Selbst wenn sich die Situation ändert, glaubt die Person nicht mehr, dass sie etwas ausrichten kann.</div>
+            <div class="example-box">
+              <div class="ex-label">📚 Schulbeispiel</div>
+              Ein Schüler, der trotz Lernen immer schlechte Noten bekommt und nie Feedback bekommt, warum — hört irgendwann auf zu lernen. Nicht aus Faulheit, sondern weil er gelernt hat: "Es bringt eh nichts."
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     SEKTION V — EINFLUSSFAKTOREN
+═══════════════════════════════════════════ -->
+<section class="section reveal" id="sec5">
+  <div class="section-header">
+    <span class="section-num">V</span>
+    <span class="section-title">Einflussfaktoren auf die Entwicklung</span>
+    <span class="section-desc">Was macht uns zu dem, was wir sind?</span>
+    <button class="sec-play-btn" data-chapter="intro" onclick="playChapter('intro',this)"><span class="spb-icon">▶</span> Kapitel hören</button>
+  </div>
+  <div class="card-grid">
+
+    <div class="card" style="border-top-color:#94a3b8;">
+      <div class="card-head">
+        <h3>🔬 Genetik, Umwelt &amp; Selbststeuerung</h3>
+        <div class="sub">Die drei großen Kräfte</div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#fef3c7;color:var(--d);">🧬</div>
+          <div class="acc-label">Genetik — Was wir mitbekommen</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Genetische Faktoren umfassen alles, was wir von unseren Eltern biologisch mitbekommen: Körperbau, Temperament, Intelligenzpotenzial, Anfälligkeit für bestimmte Krankheiten. Gene setzen aber nur einen Rahmen — innerhalb dieses Rahmens hat die Umwelt viel Gestaltungsspielraum.</div>
+            <div class="example-box">
+              <div class="ex-label">🎸 Analogie</div>
+              Gene sind wie ein Instrument, das man geerbt hat. Ob man damit spielt, ob man übt, ob man Unterricht bekommt — das entscheidet die Umwelt und man selbst.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#dbeafe;color:var(--a);">🌍</div>
+          <div class="acc-label">Umwelt — Wer und was uns prägt</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Umwelt meint alles, was von außen auf uns einwirkt: Familie, Freunde, Schule, Kultur, Gesellschaft, Medien, aber auch materielle Bedingungen wie Armut oder Wohlstand. Durch Umwelteinflüsse lernen wir — das nennt man Lernprozesse.</div>
+            <div class="example-box">
+              <div class="ex-label">📖 Forschung zeigt</div>
+              Zwillingsstudien belegen: Eineiige Zwillinge, die getrennt aufwachsen, entwickeln trotz gleicher Gene unterschiedliche Persönlichkeiten — ein Beweis für den enormen Einfluss der Umwelt.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#dcfce7;color:var(--e);">⚙️</div>
+          <div class="acc-label">Selbststeuerung — Wir formen uns auch selbst</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Menschen sind nicht nur passiv — wir gestalten unsere Entwicklung aktiv mit. Durch unsere Werte, Ziele, unsere Identität und unsere Entscheidungen beeinflussen wir, wer wir werden. Das nennt man Selbststeuerung.</div>
+            <div class="example-box">
+              <div class="ex-label">🧭 Alltags-Beispiel</div>
+              Zwei Geschwister wachsen in der gleichen Familie auf. Einer entscheidet sich für Musik, der andere für Sport. Ihre eigenen Entscheidungen formen ihre Entwicklung — unabhängig von gleichen Genen und Umwelt.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#f0f4ff;color:#4f46e5;">⚖️</div>
+          <div class="acc-label">Die Anlage-Umwelt-Diskussion</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Schon seit Jahrhunderten fragen sich Menschen: Werden wir so geboren, wie wir sind — oder werden wir durch unsere Umwelt geformt? Die moderne Antwort: <strong>beides zusammen</strong>. Gene und Umwelt interagieren ständig miteinander. Man kann sie nicht trennen.</div>
+            <div class="example-box">
+              <div class="ex-label">🌱 Bild dazu</div>
+              Eine Pflanze braucht gute Samen (Gene) UND guten Boden, Wasser und Licht (Umwelt). Weder Samen noch Boden alleine reichen.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     SEKTION VI — WARNSIGNALE
+═══════════════════════════════════════════ -->
+<section class="section reveal" id="sec6">
+  <div class="section-header">
+    <span class="section-num">VI</span>
+    <span class="section-title">Warnsignale erkennen</span>
+    <span class="section-desc">Wenn Entwicklung aus dem Gleichgewicht gerät</span>
+    <button class="sec-play-btn" data-chapter="ch8" onclick="playChapter('ch8',this)"><span class="spb-icon">▶</span> Kapitel hören</button>
+  </div>
+  <div class="card-grid">
+
+    <div class="card" style="border-top-color:var(--f);">
+      <div class="card-head">
+        <h3 style="color:var(--f);">⚠️ Mögliche Hinweise im Schulalltag</h3>
+        <div class="sub">Signale, die ernst genommen werden sollten</div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#fee2e2;color:var(--f);">💡</div>
+          <div class="acc-label">Warum diese Signale wichtig sind</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Kein einzelnes Zeichen bedeutet automatisch ein ernstes Problem. Aber wenn mehrere Signale zusammen auftreten oder dauerhaft anhalten, können sie auf eine problematische Entwicklung hindeuten. Früh handeln ist immer besser als warten.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#fee2e2;color:var(--f);">📉</div>
+          <div class="acc-label">Leistungseinbruch</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Plötzlich deutlich schlechtere Noten oder mangelnde Mitarbeit — ohne offensichtliche schulische Ursache. Oft ein Zeichen, dass mental oder emotional gerade viel passiert.</div>
+            <div class="example-box"><div class="ex-label">👀 Was dahinterstecken kann</div>Schlafprobleme durch Stress, Depressionen, Mobbing, Sucht, familiäre Probleme oder eine psychische Erkrankung.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#fee2e2;color:var(--f);">🚶</div>
+          <div class="acc-label">Sozialer Rückzug</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Wer sich plötzlich von Freunden, Familie und allen sozialen Kontakten zurückzieht, kämpft oft mit etwas. Sozialer Rückzug ist ein häufiges Symptom von Depression, aber auch von Mobbing oder Traumatisierung.</div>
+            <div class="example-box"><div class="ex-label">💬 Was helfen kann</div>Nicht aufdringlich sein, aber Präsenz signalisieren: "Ich bin da, wenn du reden möchtest." Kein Druck, keine Verhöre.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#fee2e2;color:var(--f);">✏️</div>
+          <div class="acc-label">Stumme Hilfeschreie</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <div class="explain">Manchmal können Jugendliche nicht in Worte fassen, was sie quält — aber sie zeigen es auf andere Weise: in Zeichnungen, Aufsätzen, Gedichten, durch Äußerungen wie "ich will nicht mehr" oder durch einen veränderten Stil.</div>
+            <div class="example-box"><div class="ex-label">📝 Beispiel</div>Ein Schüler schreibt immer wieder düstere Texte mit Themen wie "Einsamkeit" oder "kein Ausweg" — das sollte nie als "nur kreativ" abgetan werden.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger">
+          <div class="acc-num" style="background:#fee2e2;color:var(--f);">📋</div>
+          <div class="acc-label">Was tun? — Vorgehen</div>
+          <span class="acc-icon">▾</span>
+        </div>
+        <div class="acc-body">
+          <div class="acc-content">
+            <ul class="plain-list">
+              <li><strong>Beobachten und dokumentieren</strong> — mit Datum und konkreter Beschreibung, nicht mit Deutungen</li>
+              <li><strong>Kollegium einbeziehen</strong> — sehen andere dasselbe?</li>
+              <li><strong>Schulpsychologin / Schulpsychologen informieren</strong></li>
+              <li><strong>Vorsichtiges Gespräch anbieten</strong> — ohne Druck, ohne Verhör</li>
+              <li><strong>Eltern einbeziehen</strong> — in Absprache mit dem Schüler wenn möglich</li>
+            </ul>
+            <div class="note">⚖️ Wichtig: Lehrkräfte sind keine Therapeuten. Die Aufgabe ist Wahrnehmen, Weitervermitteln und Begleiten — nicht Behandeln.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     SEKTION VII — STÖRUNGSBILDER
+═══════════════════════════════════════════ -->
+<section class="section reveal" id="sec7">
+  <div class="section-header">
+    <span class="section-num">VII</span>
+    <span class="section-title">Störungsbilder</span>
+    <span class="section-desc">Was sie sind und wie man reagiert</span>
+    <button class="sec-play-btn" data-chapter="ch8" onclick="playChapter('ch8',this)"><span class="spb-icon">▶</span> Kapitel hören</button>
+  </div>
+  <div class="card-grid">
+
+    <!-- ADHS -->
+    <div class="card" style="border-top-color:#dc2626;">
+      <div class="card-head">
+        <h3 style="color:#dc2626;">AD(H)S</h3>
+        <div class="sub">Aufmerksamkeits-Defizit-(Hyperaktivitäts-)Syndrom</div>
+      </div>
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger"><div class="acc-num" style="background:#fee2e2;color:#dc2626;">💡</div><div class="acc-label">Was ist das einfach erklärt?</div><span class="acc-icon">▾</span></div>
+        <div class="acc-body"><div class="acc-content">
+          <div class="explain">Das Gehirn hat Schwierigkeiten, Aufmerksamkeit zu steuern und Impulse zu kontrollieren. Stell dir vor, dein Gehirn hat 20 Browsertabs gleichzeitig offen und kann keinen schließen. Das ist kein Versagen oder Faulheit — sondern eine neurologische Besonderheit.</div>
+          <div class="example-box"><div class="ex-label">📺 Missverständnis</div>AD(H)S heißt nicht, man kann sich nie konzentrieren. Bei Dingen, die wirklich interessieren (Spiele, Hobbys), ist die Konzentration oft sehr hoch. Das Problem ist die willentliche Steuerung der Aufmerksamkeit.</div>
+        </div></div>
+      </div>
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger"><div class="acc-num" style="background:#fee2e2;color:#dc2626;">👀</div><div class="acc-label">Wie zeigt es sich?</div><span class="acc-icon">▾</span></div>
+        <div class="acc-body"><div class="acc-content">
+          <ul class="plain-list">
+            <li>Kann schwer still sitzen, zappelt viel (Hyperaktivität)</li>
+            <li>Wird durch alles abgelenkt, verliert den Faden</li>
+            <li>Handelt impulsiv, ohne nachzudenken</li>
+            <li>Vergisst häufig Dinge, verliert Sachen</li>
+            <li>Schwierigkeiten, Aufgaben fertigzustellen</li>
+          </ul>
+        </div></div>
+      </div>
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger"><div class="acc-num" style="background:#fee2e2;color:#dc2626;">🏫</div><div class="acc-label">Was hilft im Schulalltag?</div><span class="acc-icon">▾</span></div>
+        <div class="acc-body"><div class="acc-content">
+          <ul class="plain-list">
+            <li>Klare, kurze Arbeitsanweisungen</li>
+            <li>Günstiger Sitzplatz (vorne, wenig Ablenkung)</li>
+            <li>Bewegungspausen einbauen</li>
+            <li>Nonverbale Signale (statt öffentliches Ermahnen)</li>
+            <li>Kleine Fortschritte loben — nicht nur das Ergebnis</li>
+          </ul>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- DEPRESSION -->
+    <div class="card" style="border-top-color:#4f46e5;">
+      <div class="card-head">
+        <h3 style="color:#4f46e5;">Depression</h3>
+        <div class="sub">Mehr als nur Traurigkeit</div>
+      </div>
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger"><div class="acc-num" style="background:#ede9fe;color:#4f46e5;">💡</div><div class="acc-label">Was ist das einfach erklärt?</div><span class="acc-icon">▾</span></div>
+        <div class="acc-body"><div class="acc-content">
+          <div class="explain">Eine Depression ist keine Schwäche und kein "sich anstellen". Das Gehirn steckt in einem biochemischen Ungleichgewicht — wie ein Körper mit Fieber, nur unsichtbar. Alles fühlt sich grau an, selbst Dinge, die früher Freude gemacht haben.</div>
+          <div class="example-box"><div class="ex-label">❌ Häufiges Missverständnis</div>"Reiß dich zusammen" hilft nicht. Man würde das auch nicht zu jemandem mit gebrochenem Bein sagen. Depression ist eine ernste Erkrankung, die Behandlung braucht.</div>
+        </div></div>
+      </div>
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger"><div class="acc-num" style="background:#ede9fe;color:#4f46e5;">👀</div><div class="acc-label">Wie zeigt es sich?</div><span class="acc-icon">▾</span></div>
+        <div class="acc-body"><div class="acc-content">
+          <ul class="plain-list">
+            <li>Anhaltende Traurigkeit und Niedergeschlagenheit</li>
+            <li>Verlust von Interesse an allem — auch Hobbys</li>
+            <li>Antriebslosigkeit, immer müde</li>
+            <li>Konzentrationsprobleme, Denkblockaden</li>
+            <li>Schlafprobleme (zu viel oder zu wenig)</li>
+            <li>Gefühl, wertlos zu sein</li>
+          </ul>
+        </div></div>
+      </div>
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger"><div class="acc-num" style="background:#ede9fe;color:#4f46e5;">🏫</div><div class="acc-label">Was hilft im Schulalltag?</div><span class="acc-icon">▾</span></div>
+        <div class="acc-body"><div class="acc-content">
+          <ul class="plain-list">
+            <li>Aufmerksam wahrnehmen — nicht wegschauen</li>
+            <li>Ruhiges, persönliches Gesprächsangebot</li>
+            <li>Eltern informieren (ohne Schuldzuweisungen)</li>
+            <li>Therapeutische Anbindung sicherstellen</li>
+            <li>Im Unterricht: Routinen beibehalten, Überforderung vermeiden</li>
+          </ul>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- NSSV -->
+    <div class="card" style="border-top-color:#b45309;">
+      <div class="card-head">
+        <h3 style="color:#b45309;">NSSV — Selbstverletzendes Verhalten</h3>
+        <div class="sub">Nicht-suizidales selbstverletzendes Verhalten</div>
+      </div>
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger"><div class="acc-num" style="background:#fef3c7;color:#b45309;">💡</div><div class="acc-label">Was ist das einfach erklärt?</div><span class="acc-icon">▾</span></div>
+        <div class="acc-body"><div class="acc-content">
+          <div class="explain">NSSV bedeutet, sich selbst körperlich zu verletzen — aber nicht mit der Absicht, sich das Leben zu nehmen. Es ist ein Versuch, mit überwältigenden Gefühlen umzugehen: Der körperliche Schmerz lenkt von dem seelischen Schmerz ab oder lässt endlich etwas fühlen, wenn man innerlich taub ist.</div>
+          <div class="example-box"><div class="ex-label">⚠️ Wichtig zu wissen</div>NSSV ist ein Hilfesignal, kein Aufmerksamkeitssuchen. Die Person leidet und weiß nicht, wie sie anders mit dem Schmerz umgehen soll.</div>
+        </div></div>
+      </div>
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger"><div class="acc-num" style="background:#fef3c7;color:#b45309;">🏫</div><div class="acc-label">Was tun?</div><span class="acc-icon">▾</span></div>
+        <div class="acc-body"><div class="acc-content">
+          <ul class="plain-list">
+            <li><strong>Ruhig bleiben</strong> — keine übertriebene Reaktion (weder Panik noch Gleichgültigkeit)</li>
+            <li>Bei akuter Verletzung: ruhige, unspektakuläre Wundversorgung</li>
+            <li>Gesprächsbereitschaft signalisieren — ohne Verhör</li>
+            <li>Eltern informieren</li>
+            <li>Professionelle Hilfe vermitteln (Jugendpsychiatrie, Therapeut)</li>
+          </ul>
+          <div class="note">⚠️ Nicht: Das Thema in der Klasse öffentlich besprechen. "Modelllernen" ist real — andere könnten das Verhalten nachahmen.</div>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- ESSSTÖRUNGEN -->
+    <div class="card" style="border-top-color:#0f766e;">
+      <div class="card-head">
+        <h3 style="color:#0f766e;">Essstörungen</h3>
+        <div class="sub">Magersucht, Bulimie, Binge-Eating</div>
+      </div>
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger"><div class="acc-num" style="background:#ccfbf1;color:#0f766e;">💡</div><div class="acc-label">Was ist das einfach erklärt?</div><span class="acc-icon">▾</span></div>
+        <div class="acc-body"><div class="acc-content">
+          <div class="explain">Essstörungen haben wenig mit Essen zu tun — und viel mit Kontrolle, Selbstwert und Gefühlen. In einer Welt, die sich chaotisch anfühlt, ist die Kontrolle über den eigenen Körper manchmal das Einzige, was kontrollierbar wirkt. Betroffene schämen sich sehr und verbergen es aktiv.</div>
+          <div class="example-box"><div class="ex-label">📊 Zahlen</div>Essstörungen haben von allen psychischen Erkrankungen die höchste Sterblichkeitsrate. Frühzeitige Behandlung ist entscheidend.</div>
+        </div></div>
+      </div>
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger"><div class="acc-num" style="background:#ccfbf1;color:#0f766e;">🏫</div><div class="acc-label">Was tun?</div><span class="acc-icon">▾</span></div>
+        <div class="acc-body"><div class="acc-content">
+          <ul class="plain-list">
+            <li><strong>Nie</strong> direkt das Gewicht oder Essen ansprechen ("Du isst so wenig!")</li>
+            <li>Stattdessen: Verhalten ansprechen ("Ich mache mir Sorgen, weil...")</li>
+            <li>Ruhiges, vertrauensvolles Gespräch anbieten</li>
+            <li>Schulpsychologe einbeziehen — Eltern informieren</li>
+            <li>Im Unterricht: Keine wertenden Kommentare über Körper oder Gewicht</li>
+          </ul>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- SÜCHTE -->
+    <div class="card" style="border-top-color:#7c3aed;">
+      <div class="card-head">
+        <h3 style="color:#7c3aed;">Süchte</h3>
+        <div class="sub">Substanzen, Medien, Spielen</div>
+      </div>
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger"><div class="acc-num" style="background:#ede9fe;color:#7c3aed;">💡</div><div class="acc-label">Was ist das einfach erklärt?</div><span class="acc-icon">▾</span></div>
+        <div class="acc-body"><div class="acc-content">
+          <div class="explain">Eine Sucht entsteht, wenn eine Verhaltensweise oder Substanz so viel Belohnung im Gehirn auslöst, dass man sie immer mehr braucht und sich immer schwerer davon lösen kann. Sucht ist keine Willensschwäche — sondern eine Veränderung im Belohnungssystem des Gehirns. Jugendliche sind besonders anfällig, weil ihr Gehirn noch in Entwicklung ist.</div>
+          <div class="example-box"><div class="ex-label">📱 Moderne Süchte</div>Gaming, Social-Media-Sucht oder Smartphone-Sucht funktionieren neurobiologisch genauso wie Substanzsucht — das Gehirn lernt: "Das macht mich glücklich, ich will mehr."</div>
+        </div></div>
+      </div>
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger"><div class="acc-num" style="background:#ede9fe;color:#7c3aed;">🏫</div><div class="acc-label">Was tun?</div><span class="acc-icon">▾</span></div>
+        <div class="acc-body"><div class="acc-content">
+          <ul class="plain-list">
+            <li>Aufmerksam bleiben für Anzeichen (Geruch, Veränderungen im Verhalten)</li>
+            <li>Gesprächsangebot — ohne Vorwürfe</li>
+            <li>Auf Hilfsangebote hinweisen (Suchtberatung, Anonyme Alkoholiker, Drogenhilfe)</li>
+            <li>Eltern einbeziehen</li>
+            <li>Klasse: Suchtprävention als Thema im Unterricht (mit externen Fachkräften)</li>
+          </ul>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- WEITERE -->
+    <div class="card" style="border-top-color:#475569;">
+      <div class="card-head">
+        <h3 style="color:#475569;">Weitere Störungsbilder</h3>
+        <div class="sub">Borderline · Bipolar · PTBS · Schizophrenie</div>
+      </div>
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger"><div class="acc-num" style="background:#f1f5f9;color:#475569;">💡</div><div class="acc-label">Borderline-Persönlichkeitsstörung</div><span class="acc-icon">▾</span></div>
+        <div class="acc-body"><div class="acc-content">
+          <div class="explain">Stell dir vor, deine Gefühle wären immer auf 100 — keine Dämpfung, kein Mittelweg. Borderline bedeutet extreme emotionale Instabilität, intensive Beziehungen, intensive Angst vor dem Verlassenwerden. Das macht Beziehungen sehr schwierig — für die Person selbst und ihr Umfeld.</div>
+          <div class="example-box"><div class="ex-label">💬 Beispiel</div>Heute ist der Lehrer "der Beste der Welt", morgen "der Schlimmste". Diese Schwarz-Weiß-Wahrnehmung ist kein Drama oder Manipulation — sondern Symptom.</div>
+        </div></div>
+      </div>
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger"><div class="acc-num" style="background:#f1f5f9;color:#475569;">💡</div><div class="acc-label">Bipolare Störung</div><span class="acc-icon">▾</span></div>
+        <div class="acc-body"><div class="acc-content">
+          <div class="explain">Bei bipolarer Störung wechseln sich Phasen tiefer Depression mit Phasen extremer Hochstimmung ab (Manie). In der Manie schläft man kaum, hat riesige Pläne, gibt Geld aus, ist ungewöhnlich aktiv. Dann kommt der Absturz in die Depression.</div>
+          <div class="example-box"><div class="ex-label">🎢 Analogie</div>Wie eine Achterbahn, die die Person nicht selbst steuern kann.</div>
+        </div></div>
+      </div>
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger"><div class="acc-num" style="background:#f1f5f9;color:#475569;">💡</div><div class="acc-label">PTBS — Posttraumatische Belastungsstörung</div><span class="acc-icon">▾</span></div>
+        <div class="acc-body"><div class="acc-content">
+          <div class="explain">Nach einem traumatischen Erlebnis (Unfall, Gewalt, Missbrauch) kann das Gehirn das Erlebnis nicht "ablegen". Es taucht immer wieder auf — als Flashback oder Albtraum — als würde es gerade nochmal passieren. Betroffene vermeiden alles, was sie daran erinnert.</div>
+          <div class="example-box"><div class="ex-label">🏫 Im Schulkontext</div>Ein Schüler, der bei Lärm panisch reagiert oder bei bestimmten Themen einfriert, könnte traumatisiert sein. Das ist keine Überreaktion, sondern das Gehirn in Schutzreaktion.</div>
+        </div></div>
+      </div>
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger"><div class="acc-num" style="background:#f1f5f9;color:#475569;">💡</div><div class="acc-label">Schizophrenie</div><span class="acc-icon">▾</span></div>
+        <div class="acc-body"><div class="acc-content">
+          <div class="explain">Schizophrenie bedeutet nicht "gespaltene Persönlichkeit" — das ist ein verbreiteter Irrtum. Es ist eine psychische Erkrankung, bei der die Wahrnehmung der Realität gestört ist: Stimmenhören, Verfolgungsgedanken, unzusammenhängende Sprache. Betroffene erleben das als sehr real.</div>
+          <div class="example-box"><div class="ex-label">⚠️ Wichtig</div>Bei Anzeichen von Schizophrenie ist sofortige professionelle Hilfe notwendig. Das übersteigt klar die Möglichkeiten von Lehrkräften — ruhig bleiben, Schulleitung und Eltern informieren.</div>
+        </div></div>
+      </div>
+      <div class="acc-item" onclick="toggle(this)">
+        <div class="acc-trigger"><div class="acc-num" style="background:#f1f5f9;color:#475569;">📋</div><div class="acc-label">Genereller Grundsatz bei allen Störungen</div><span class="acc-icon">▾</span></div>
+        <div class="acc-body"><div class="acc-content">
+          <div class="explain">Alle diese Störungen entstehen nicht durch schlechte Erziehung oder fehlende Disziplin. Sie sind das Ergebnis von genetischen Faktoren, Entwicklungsverläufen und Lebensereignissen. Lehrkräfte sind nicht dafür ausgebildet, sie zu behandeln — aber sie können entscheidend dazu beitragen, sie früh zu erkennen und die richtigen Hilfen in Gang zu setzen.</div>
+          <div class="example-box"><div class="ex-label">🤝 Die Rolle der Schule</div>Wahrnehmen · Dokumentieren · Ansprechen · Weitervermitteln · Begleiten</div>
+        </div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<footer style="background:var(--surface2);border-top:1px solid var(--border);padding:24px 32px;text-align:center;">
+  <div style="max-width:1100px;margin:0 auto;font-size:12px;color:var(--muted);">
+    Entwicklungspsychologie — Interaktiver Überblick · Basierend auf: Havighurst (1972) · Kohlberg (1927–1987) · Piaget (1896–1980) · Erikson (1902–1994) · Resch (1999) · Hobmair (2016) · Wisniewski (2016)
+  </div>
+</footer>
+
+<script>
+// ── ACCORDION ──
+function toggle(item) {
+  const body = item.querySelector('.acc-body');
+  const isOpen = item.classList.contains('open');
+  item.classList.toggle('open', !isOpen);
+  body.classList.toggle('open', !isOpen);
+}
+
+// ── NAV SCROLL ──
+function scrollTo(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ── AUDIO PLAYER ──
+const CHAPTERS = [
+  { key: 'intro', title: 'Einleitung', start: 0.0,    duration: 55.5  },
+  { key: 'ch1',   title: 'Kohlberg – Moralische Entwicklung', start: 55.5,   duration: 384.2 },
+  { key: 'ch2',   title: 'Erikson – Psychosoziale Entwicklung', start: 439.7,  duration: 297.7 },
+  { key: 'ch3',   title: 'Piaget – Kognitive Entwicklung', start: 737.4,  duration: 258.1 },
+  { key: 'ch4',   title: 'Havighurst – Entwicklungsaufgaben', start: 995.5,  duration: 268.6 },
+  { key: 'ch5',   title: 'Pubertät – Körper und Geist', start: 1264.1, duration: 297.8 },
+  { key: 'ch6',   title: 'Sozialisation im Jugendalter', start: 1561.9, duration: 183.1 },
+  { key: 'ch7',   title: 'Bewältigungsstrategien', start: 1745.1, duration: 239.3 },
+  { key: 'ch8',   title: 'Warnsignale und Störungsbilder', start: 1984.3, duration: 343.3 },
+  { key: 'outro', title: 'Abschluss', start: 2327.6, duration: 86.5  },
+];
+const TOTAL = 2414.1;
+
+const audio       = document.getElementById('mainAudio');
+const audioBar    = document.getElementById('audioBar');
+const barPlayBtn  = document.getElementById('barPlayBtn');
+const heroPlayBtn = document.getElementById('heroPlayBtn');
+const barTitle    = document.getElementById('barTitle');
+const barChapter  = document.getElementById('barChapter');
+const barTime     = document.getElementById('barTime');
+const audioProgress = document.getElementById('audioProgress');
+const heroSeek    = document.getElementById('heroSeek');
+const heroTimeEl  = document.getElementById('heroTimeEl');
+const heroDurEl   = document.getElementById('heroDurEl');
+
+// Build chapter buttons in hero player
+const chBtnsEl = document.getElementById('chapterBtns');
+CHAPTERS.forEach(ch => {
+  const btn = document.createElement('button');
+  btn.className = 'ahp-ch-btn';
+  btn.id = 'chbtn-' + ch.key;
+  btn.textContent = ch.title;
+  btn.onclick = () => playChapter(ch.key, null);
+  chBtnsEl.appendChild(btn);
+});
+
+function fmt(s) {
+  const m = Math.floor(s / 60);
+  const sec = Math.floor(s % 60);
+  return m + ':' + String(sec).padStart(2, '0');
+}
+
+function currentChapter() {
+  const t = audio.currentTime;
+  for (let i = CHAPTERS.length - 1; i >= 0; i--) {
+    if (t >= CHAPTERS[i].start) return CHAPTERS[i];
+  }
+  return CHAPTERS[0];
+}
+
+function updateUI() {
+  const t = audio.currentTime;
+  const dur = audio.duration || TOTAL;
+  const ch = currentChapter();
+
+  // bar
+  barTitle.textContent    = ch.title;
+  barChapter.textContent  = 'Hörbuch · ' + (CHAPTERS.indexOf(ch) + 1) + ' / ' + CHAPTERS.length;
+  barTime.textContent     = fmt(t) + ' / ' + fmt(dur);
+  audioProgress.max       = dur;
+  audioProgress.value     = t;
+
+  // hero
+  heroTimeEl.textContent  = fmt(t);
+  heroDurEl.textContent   = fmt(dur);
+  heroSeek.max            = dur;
+  heroSeek.value          = t;
+
+  // chapter button highlight
+  document.querySelectorAll('.ahp-ch-btn').forEach(b => b.classList.remove('playing'));
+  const active = document.getElementById('chbtn-' + ch.key);
+  if (active) active.classList.add('playing');
+
+  // section play buttons
+  document.querySelectorAll('.sec-play-btn').forEach(b => {
+    const bkey = b.dataset.chapter;
+    const bch  = CHAPTERS.find(c => c.key === bkey);
+    const playing = !audio.paused && bch && t >= bch.start && t < bch.start + bch.duration;
+    b.classList.toggle('playing', playing);
+    b.innerHTML = playing
+      ? '<span class="spb-icon">⏸</span> Pausieren'
+      : '<span class="spb-icon">▶</span> Kapitel hören';
+  });
+
+  // play/pause icons
+  const icon = audio.paused ? '▶' : '⏸';
+  barPlayBtn.textContent  = icon;
+  heroPlayBtn.textContent = icon;
+}
+
+function playChapter(key, btnEl) {
+  const ch = CHAPTERS.find(c => c.key === key);
+  if (!ch) return;
+
+  // If already playing this chapter, toggle pause
+  if (!audio.paused && currentChapter().key === key) {
+    audio.pause();
+    return;
+  }
+
+  audio.currentTime = ch.start;
+  audio.play();
+  audioBar.classList.add('visible');
+  updateUI();
+}
+
+function togglePlay() {
+  if (audio.paused) {
+    audio.play();
+    audioBar.classList.add('visible');
+  } else {
+    audio.pause();
+  }
+}
+
+function closeBar() {
+  audio.pause();
+  audioBar.classList.remove('visible');
+  updateUI();
+}
+
+audio.addEventListener('timeupdate', updateUI);
+audio.addEventListener('play',  updateUI);
+audio.addEventListener('pause', updateUI);
+
+audioProgress.addEventListener('input', () => { audio.currentTime = audioProgress.value; });
+heroSeek.addEventListener('input', () => { audio.currentTime = heroSeek.value; });
+
+// Active nav on scroll
+const sections = document.querySelectorAll('.section');
+const navBtns  = document.querySelectorAll('.nav-btn');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const idx = Array.from(sections).indexOf(e.target);
+      navBtns.forEach((b, i) => {
+        b.classList.toggle('active', i === idx);
+        b.style.background = i === idx ? 'var(--accent)' : '';
+        b.style.color      = i === idx ? 'white' : '';
+      });
+    }
+  });
+}, { threshold: 0.3 });
+sections.forEach(s => observer.observe(s));
+
+// Scroll reveal
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+</script>
+</body>
+</html>
