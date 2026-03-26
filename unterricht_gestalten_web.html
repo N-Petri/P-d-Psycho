@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unterricht gestalten – Interaktiver Überblick</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#faf8f4;--sur:#fff;--sur2:#f3f0ea;--brd:#e2ddd4;--txt:#1c1917;--mut:#78716c;--acc:#0f766e;--sh:0 2px 12px rgba(0,0,0,.07);}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6;}
+.nav{position:sticky;top:0;z-index:100;background:rgba(250,248,244,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--brd);padding:0 32px;}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:8px;height:52px;overflow-x:auto;scrollbar-width:none;}
+.nav-inner::-webkit-scrollbar{display:none;}
+.back-btn{font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;border:1.5px solid var(--brd);cursor:pointer;background:transparent;color:var(--mut);transition:all .2s;font-family:'DM Sans',sans-serif;text-decoration:none;display:flex;align-items:center;gap:4px;white-space:nowrap;}
+.back-btn:hover{background:var(--sur);color:var(--txt);}
+.nav-sep{color:var(--brd);}
+.nb{white-space:nowrap;font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;border:1.5px solid transparent;cursor:pointer;background:transparent;color:var(--mut);transition:all .2s;font-family:'DM Sans',sans-serif;}
+.nb:hover{color:var(--txt);border-color:var(--brd);background:var(--sur);}
+.hero{max-width:1100px;margin:0 auto;padding:52px 32px 32px;}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--acc);margin-bottom:10px;}
+h1{font-family:'Lora',serif;font-size:clamp(30px,4.5vw,50px);font-weight:700;line-height:1.1;letter-spacing:-.5px;margin-bottom:14px;}
+.hdesc{font-size:16px;color:var(--mut);max-width:580px;font-weight:300;line-height:1.7;margin-bottom:18px;}
+.throw{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+.thb{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;border:1.5px solid;}
+.thby{font-weight:400;font-size:10px;opacity:.65;}
+.main{max-width:1100px;margin:0 auto;padding:0 32px 80px;}
+.section{margin-bottom:52px;}
+.sh{display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid var(--txt);flex-wrap:wrap;row-gap:6px;}
+.sn{font-family:'Lora',serif;font-size:13px;color:var(--mut);flex-shrink:0;}
+.st{font-family:'Lora',serif;font-size:21px;font-weight:700;flex:1;}
+.sa{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;color:white;white-space:nowrap;flex-shrink:0;}
+.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:16px;}
+.cg.wide{grid-template-columns:repeat(auto-fill,minmax(450px,1fr));}
+.card{background:var(--sur);border:1px solid var(--brd);border-radius:12px;border-top-width:3px;overflow:hidden;box-shadow:var(--sh);}
+.ch{padding:14px 18px 11px;border-bottom:1px solid var(--brd);}
+.ch h3{font-family:'Lora',serif;font-size:15px;font-weight:700;margin-bottom:2px;line-height:1.3;}
+.ca{display:inline-block;font-size:10px;font-weight:700;padding:1px 7px;border-radius:10px;margin-bottom:4px;letter-spacing:.5px;color:white;}
+.csub{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.8px;}
+.ai{border-bottom:1px solid var(--brd);cursor:pointer;transition:background .15s;}
+.ai:last-child{border-bottom:none;}.ai:hover,.ai.open{background:var(--sur2);}
+.at{display:flex;align-items:center;gap:10px;padding:11px 18px;user-select:none;}
+.an{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;}
+.al{flex:1;font-size:13.5px;font-weight:600;line-height:1.3;}
+.aico{font-size:14px;color:var(--mut);transition:transform .25s;flex-shrink:0;}
+.ai.open .aico{transform:rotate(180deg);}
+.abody{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.4,0,.2,1);}
+.abody.open{max-height:1500px;}
+.ac{padding:6px 18px 16px 50px;}
+.ex{font-size:14px;color:#2c2825;line-height:1.75;margin-bottom:10px;}
+.ebox{background:#f0fdfa;border-left:3px solid var(--acc);border-radius:0 6px 6px 0;padding:10px 14px;font-size:13px;color:#042f2e;line-height:1.6;margin-bottom:8px;}
+.ebox .el{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--acc);margin-bottom:4px;}
+.fb{background:#f0f4ff;border-left:3px solid #3730a3;border-radius:0 6px 6px 0;padding:9px 14px;font-size:13px;margin-bottom:8px;line-height:1.55;}
+.fb .fl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#3730a3;margin-bottom:3px;}
+.fb .ft{font-weight:700;color:#1e1b4b;}
+.tip{background:#fefce8;border-left:3px solid #ca8a04;border-radius:0 6px 6px 0;padding:9px 14px;font-size:13px;margin-bottom:8px;color:#422006;line-height:1.55;}
+.tip .tl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#ca8a04;margin-bottom:3px;}
+.warn{background:#fff1f2;border-left:3px solid #e11d48;border-radius:0 6px 6px 0;padding:9px 14px;font-size:13px;margin-bottom:8px;color:#4c0519;line-height:1.55;}
+.warn .wl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#e11d48;margin-bottom:3px;}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
+.ci{background:var(--sur2);border-radius:6px;padding:9px 12px;}
+.ci .cil{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px;}
+ul.pl{list-style:none;padding:0;}
+ul.pl li{font-size:13.5px;padding:2.5px 0 2.5px 13px;position:relative;color:#2c2825;}
+ul.pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
+.note{font-size:12px;color:var(--mut);font-style:italic;margin-top:8px;padding-top:7px;border-top:1px solid var(--brd);}
+.stufe{display:flex;gap:8px;align-items:flex-start;padding:5px 7px;border-radius:6px;margin-bottom:5px;border:1px solid var(--brd);}
+.snum{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;flex-shrink:0;margin-top:1px;}
+.sbody{font-size:12.5px;line-height:1.45;}
+.sbody strong{display:block;font-weight:700;margin-bottom:1px;}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .5s,transform .5s;}
+.reveal.visible{opacity:1;transform:none;}
+@media(max-width:640px){.hero,.main{padding-left:18px;padding-right:18px;}.nav{padding:0 18px;}.cg,.cg.wide{grid-template-columns:1fr;}.cmp{grid-template-columns:1fr;}.ac{padding-left:18px;}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="back-btn" href="index.html">← Übersicht</a><span class="nav-sep">|</span>
+    <button class="nb" onclick="scrollTo('s1')">Lernwirksamer Unterricht</button>
+    <button class="nb" onclick="scrollTo('s2')">Lehrerpersönlichkeit</button>
+    <button class="nb" onclick="scrollTo('s3')">Unterrichtsplanung</button>
+    <button class="nb" onclick="scrollTo('s4')">Methoden</button>
+    <button class="nb" onclick="scrollTo('s5')">Feedback</button>
+    <button class="nb" onclick="scrollTo('s6')">Beratungsgespräche</button>
+    <button class="nb" onclick="scrollTo('s7')">Leistung &amp; Bewertung</button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="eyebrow">Pädagogik · Interaktiver Überblick</div>
+  <h1>Unterricht gestalten</h1>
+  <p class="hdesc">Von Merkmalen lernwirksamen Unterrichts über Lehrerpersönlichkeit und Methoden bis zu Feedback und Leistungsbewertung — alle zentralen Konzepte für die Unterrichtspraxis.</p>
+  <div class="throw">
+    <span class="thb" style="color:#0f766e;border-color:#0f766e;">Helmke · Hattie <span class="thby">Unterrichtsqualität</span></span>
+    <span class="thb" style="color:#7c3aed;border-color:#7c3aed;">Lehrerpersönlichkeit <span class="thby">Professionalität</span></span>
+    <span class="thb" style="color:#b45309;border-color:#b45309;">Methoden &amp; Planung <span class="thby">Unterrichtsgestaltung</span></span>
+    <span class="thb" style="color:#be123c;border-color:#be123c;">Leistungsbewertung <span class="thby">Funktionen &amp; Gütekriterien</span></span>
+  </div>
+</header>
+
+<main class="main">
+
+<!-- 1 LERNWIRKSAMER UNTERRICHT -->
+<section class="section reveal" id="s1">
+  <div class="sh"><span class="sn">I</span><span class="st">Merkmale lernwirksamen Unterrichts</span><span class="sa" style="background:#0f766e;">Helmke · Hattie · KMK-Standards</span></div>
+  <div class="cg wide">
+    <div class="card" style="border-top-color:#0f766e;">
+      <div class="ch"><h3 style="color:#0f766e;">🎯 Was macht Unterricht lernwirksam?</h3><div class="csub">Prozess- vs. Produktqualität · Merkmale · Kompetenzorientierung</div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ccfbf1;color:#0f766e;">💡</div><div class="al">Prozess- vs. Produktqualität — eine wichtige Unterscheidung</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Produktqualität</div>Das Ergebnis des Unterrichts: Was können Schüler nach dem Unterricht? Gemessen durch Tests, Noten, Abschlüsse. Output-Orientierung: Vom Ziel her denken.</div>
+        <div class="fb"><div class="fl">🔑 Prozessqualität</div>Wie der Unterricht gestaltet ist: Wie gut sind Erklärungen? Wie ist die Atmosphäre? Wie engagiert sind die Schüler? Wie gut ist das Feedback? Nicht alle guten Prozesse führen zu messbaren Ergebnissen — und nicht alle guten Ergebnisse beruhen auf gut gestaltetem Unterricht.</div>
+        <div class="ebox"><div class="el">🔑 Kernaussage</div>Weder rechtfertigt ein gutes Ergebnis schlechten Unterricht (Ergebnis heiligt nicht die Mittel), noch führt guter Unterricht zwangsläufig zu messbarem Erfolg. Beides muss im Blick behalten werden.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ccfbf1;color:#0f766e;">📊</div><div class="al">10 Merkmale lernwirksamen Unterrichts — Helmke</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Andreas Helmke identifizierte auf Basis von Unterrichtsforschung zehn Merkmale lernwirksamen Unterrichts:</div>
+        <ul class="pl" style="margin-bottom:10px;">
+          <li><strong>Klassenführung:</strong> Effektive Nutzung der Unterrichtszeit, wenig Störungen</li>
+          <li><strong>Lernförderliches Klima:</strong> Respekt, Vertrauen, Fürsorge, Gerechtigkeit</li>
+          <li><strong>Inhaltliche Klarheit:</strong> Verständliche Erklärungen, klare Aufgaben, gesicherte Ergebnisse</li>
+          <li><strong>Methodenvielfalt:</strong> Methodenwechsel je nach Lernziel</li>
+          <li><strong>Aktivierung:</strong> Kognitive Herausforderung und Eigenaktivität der Schüler</li>
+          <li><strong>Sicherung:</strong> Lernziele verankern, Verknüpfung mit Vorwissen</li>
+          <li><strong>Individuelle Förderung:</strong> Binnendifferenzierung, individuelle Rückmeldung</li>
+          <li><strong>Sinnstiftendes Kommunizieren:</strong> Schüler am Lernprozess beteiligen</li>
+          <li><strong>Schülerorientierung:</strong> Lebenswelt und Interessen der Schüler einbeziehen</li>
+          <li><strong>Angebotsvielfalt:</strong> Verschiedene Zugänge zu Lerninhalten anbieten</li>
+        </ul>
+        <div class="note">Es gibt nicht „den" optimalen Unterricht — unterschiedliche Ziele, Lerngruppen und Zeitperspektiven erfordern unterschiedliche Gestaltung.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ccfbf1;color:#0f766e;">🔬</div><div class="al">Hattie: Was wirklich wirkt (s. auch Lernpsychologie)</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Visible Learning (Hattie 2009)</div>800+ Metaanalysen, 240+ Mio. Schüler. Durchschnittliche Effektgröße aller untersuchten Faktoren: d = 0,40. Faktoren über 0,40 sind überdurchschnittlich wirksam.</div>
+        <div class="ebox"><div class="el">📊 Top-Faktoren (Auswahl)</div>
+          Feedback (d = 0,73) · Lehrkraft-Schüler-Beziehung (d = 0,72) · Metakognitive Strategien (d = 0,69) · Direkte Instruktion (d = 0,59) · Lernzielorientierung (d = 0,56).
+        </div>
+        <div class="warn"><div class="wl">⚠️ Kritik an Hattie</div>Metaanalysen sind methodisch anspruchsvoll — Vergleichbarkeit verschiedener Studien ist problematisch. Effektgrößen sagen nichts über die Qualität des Implementierens. Hattie selbst betont: Es kommt auf das Wie an.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 LEHRERPERSÖNLICHKEIT -->
+<section class="section reveal" id="s2">
+  <div class="sh"><span class="sn">II</span><span class="st">Lehrerpersönlichkeit &amp; professionelle Handlungskompetenz</span><span class="sa" style="background:#7c3aed;">Terhart · KMK-Standards</span></div>
+  <div class="cg">
+    <div class="card" style="border-top-color:#7c3aed;">
+      <div class="ch"><h3 style="color:#7c3aed;">👩‍🏫 Was macht eine gute Lehrkraft aus?</h3><div class="csub">Wissen · Können · Haltung</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#f5f3ff;color:#7c3aed;">💡</div><div class="al">Professionalität — Terharts Definition</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Professionalität</div>Terhart: „Im Lehrerberuf beruht Professionalität auf einer spezifischen Mischung aus berufsbezogenem Wissen, situationsbedingtem Können und berufsethischen Haltungen." Alle drei Komponenten sind notwendig — keine reicht allein.</div>
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#0369a1;">Fachwissen</div>Solides, tiefes Wissen im Unterrichtsfach — Grundlage fachlicher Autorität</div>
+          <div class="ci"><div class="cil" style="color:#15803d;">Fachdidaktisches Wissen</div>Wissen über die Vermittlung spezifischer Inhalte: Wie erkläre ich Zinsrechnung? Welche Schülerfehlvorstellungen gibt es?</div>
+        </div>
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#b45309;">Pädagogisches Wissen</div>Wissen über Unterrichtsführung, Lernpsychologie, Klassenmanagement, Diagnose und Förderung</div>
+          <div class="ci"><div class="cil" style="color:#7c3aed;">Berufsethische Haltung</div>Verantwortungsgefühl, Fairness, Respekt, Reflexionsbereitschaft, Fürsorge für Lernende</div>
+        </div>
+      </div></div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#f5f3ff;color:#7c3aed;">🌟</div><div class="al">Persönlichkeitsmerkmale — was die Forschung zeigt</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Die Forschung zeigt: Es gibt kein allgemein gültiges, wünschenswertes Persönlichkeitsprofil für den Lehrerberuf. Aber einige Merkmale fördern nachweislich Unterrichtsqualität und Lehrergesundheit:</div>
+        <ul class="pl" style="margin-bottom:10px;">
+          <li><strong>Begeisterung für Fach und Beruf</strong> (motiviert intrinsisch und ansteckend)</li>
+          <li><strong>Empathiefähigkeit</strong> (Zugang zu Schülerperspektiven)</li>
+          <li><strong>Psychische Stabilität und Gewissenhaftigkeit</strong> (stärkste Prädiktoren für Lehrergesundheit)</li>
+          <li><strong>Humor</strong> (deeskalierend, verbindend, motivierend)</li>
+          <li><strong>Kontaktfähigkeit</strong> (Beziehungsaufbau als Grundlage aller pädagogischen Arbeit)</li>
+        </ul>
+        <div class="warn"><div class="wl">⚠️ Wichtig</div>„Zu viel" ist auch problematisch: Übermäßiger Enthusiasmus und zu hohe Leistungserwartungen können zu Enttäuschungen und Burnout führen, wenn die erlebte Wirksamkeit hinter den Erwartungen zurückbleibt.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Professionelle Kompetenz ist erlernbar und entwickelbar — sie ist keine fixe Eigenschaft. „Streben nach Selbstvervollkommnung" als kontinuierlicher Prozess: Fortbildung, kollegiale Reflexion, Unterrichtsbeobachtung.</div>
+      </div></div></div>
+    </div>
+
+    <div class="card" style="border-top-color:#7c3aed;">
+      <div class="ch"><h3 style="color:#7c3aed;">⚡ Kognitive Aktivierung — der Schlüssel zu tiefem Lernen</h3><div class="csub">Denken anregen · Lerninszenierung</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#f5f3ff;color:#7c3aed;">🧠</div><div class="al">Was ist kognitive Aktivierung?</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Kognitive Aktivierung</div>Unterrichtsgestaltung, die Schülerinnen und Schüler zu anspruchsvollem Denken herausfordert: Schlussfolgerungen ziehen, Zusammenhänge herstellen, Strategien vergleichen, Probleme lösen, Transferaufgaben bearbeiten. Das Gegenteil: Reproduktion von Fakten ohne Verständnis.</div>
+        <div class="ebox"><div class="el">🔍 Merkmale kognitiv aktivierenden Unterrichts</div>
+          Offene Aufgaben mit mehreren Lösungswegen · Aufgaben mit Transfercharakter · Echte Diskussionen statt Frage-Antwort-Spiele · Schüler begründen ihre Antworten · Fehler werden als Denkgelegenheiten genutzt · Schüler stellen eigene Fragen.
+        </div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>„Erkläre warum" statt „Nenne" · „Was wäre wenn" · „Welche anderen Möglichkeiten gibt es" · „Worin stimmen X und Y überein, worin unterscheiden sie sich" — diese Fragen aktivieren tiefes Denken statt bloßer Reproduktion.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 UNTERRICHTSPLANUNG -->
+<section class="section reveal" id="s3">
+  <div class="sh"><span class="sn">III</span><span class="st">Unterricht planen und durchführen</span><span class="sa" style="background:#0f766e;">Struktur · Aktivierung · Lernziele</span></div>
+  <div class="cg">
+    <div class="card" style="border-top-color:#0f766e;">
+      <div class="ch"><h3 style="color:#0f766e;">📐 Strukturierung — der Rahmen des Unterrichts</h3><div class="csub">Lernziele · Phasierung · Ergebnissicherung</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ccfbf1;color:#0f766e;">💡</div><div class="al">Lernziele — das Fundament der Planung</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Lernziel</div>Beschreibung des angestrebten Kompetenzzuwachses: Was sollen Schülerinnen und Schüler nach der Stunde können, wissen oder beurteilen können? Lernziele sind operationalisierbar, schülerbezogen und überprüfbar formuliert.</div>
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#be123c;">Schlechtes Lernziel</div>„Die Schüler beschäftigen sich mit dem Impressionismus." (Was sollen sie können? Nicht überprüfbar)</div>
+          <div class="ci"><div class="cil" style="color:#15803d;">Gutes Lernziel</div>„Die Schüler können Merkmale impressionistischer Malerei benennen und an einem Gemälde nachweisen." (klar, überprüfbar)</div>
+        </div>
+        <div class="fb"><div class="fl">🔑 Bloomsche Taxonomie</div>Lernen auf verschiedenen kognitiven Ebenen: Erinnern → Verstehen → Anwenden → Analysieren → Bewerten → Erschaffen. Lernziele sollten bewusst verschiedene Ebenen ansprechen — nicht nur Reproduktion.</div>
+      </div></div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ccfbf1;color:#0f766e;">⏱️</div><div class="al">Stundenphasen — Einstieg, Erarbeitung, Sicherung</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="stufe"><div class="snum" style="background:#ccfbf1;color:#0f766e;">1</div><div class="sbody"><strong>Einstieg / Motivationsphase:</strong> Vorwissen aktivieren, Interesse wecken, Lernziel transparent machen. Schüler abholen — nicht überrumpeln.</div></div>
+        <div class="stufe"><div class="snum" style="background:#ccfbf1;color:#0f766e;">2</div><div class="sbody"><strong>Erarbeitungsphase:</strong> Neue Inhalte erschließen. Kognitiv aktivierend: Schüler denken, nicht nur zuhören. Verschiedene Sozialformen möglich.</div></div>
+        <div class="stufe"><div class="snum" style="background:#ccfbf1;color:#0f766e;">3</div><div class="sbody"><strong>Sicherung / Transfer:</strong> Verständnis überprüfen, Wissen verankern, auf neue Situationen übertragen. Nicht Abschreiben, sondern aktives Verarbeiten.</div></div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Die Sicherungsphase wird oft unterschätzt — und zu oft auf „Schreibt das ab" reduziert. Echte Ergebnissicherung bedeutet: Schüler formulieren selbst, erklären in eigenen Worten, übertragen auf Beispiele.</div>
+      </div></div></div>
+    </div>
+
+    <div class="card" style="border-top-color:#0f766e;">
+      <div class="ch"><h3 style="color:#0f766e;">🏗️ Der pädagogische Raum</h3><div class="csub">Lernumgebung · Raumgestaltung · Atmosphäre</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ccfbf1;color:#0f766e;">🏠</div><div class="al">Raum als pädagogisches Instrument</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Der pädagogische Raum</div>Der Unterrichtsraum ist nicht neutral — er kommuniziert. Wandgestaltung, Beleuchtung, Sitzordnung, Materialzugänglichkeit: all das beeinflusst das Lernklima, Kommunikationsmöglichkeiten und die Identifikation mit dem Lernort.</div>
+        <div class="ebox"><div class="el">🔍 Dimensionen des pädagogischen Raums</div>
+          Physischer Raum: Beleuchtung, Akustik, Temperatur, Sitzordnung, Materialien · Sozialer Raum: Klassenklima, Normen, Beziehungen · Symbolischer Raum: Schülerarbeiten an den Wänden (Wertschätzung), gemeinsame Regelplakate, Inspirationselemente.
+        </div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Schülerarbeiten an den Wänden zeigen: Eure Arbeit ist es wert, gezeigt zu werden. Lernecken, Experimentiertische, Materialstationen schaffen Differenzierungsmöglichkeiten. Raum ist gestaltbar — auch im Rahmen vorgegebener Strukturen.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 METHODEN -->
+<section class="section reveal" id="s4">
+  <div class="sh"><span class="sn">IV</span><span class="st">Methoden der Unterrichtsgestaltung</span><span class="sa" style="background:#b45309;">Sozialformen · Projektlernen · Medien</span></div>
+  <div class="cg">
+    <div class="card" style="border-top-color:#b45309;">
+      <div class="ch"><h3 style="color:#b45309;">🔧 Methodenrepertoire — Überblick</h3><div class="csub">Sozialformen · Öffnung · Differenzierung</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fef3c7;color:#b45309;">💡</div><div class="al">Sozialformen im Unterricht</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Sozialformen</div>Die Art der sozialen Organisation beim Lernen. Jede Form hat Vor- und Nachteile — die Wahl sollte vom Lernziel abhängen, nicht von Gewohnheit.</div>
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#0369a1;">Frontalunterricht</div>Effizient für Wissensvermittlung, direktes Feedback. Risiko: passive Schüler, wenig kognitive Aktivierung.</div>
+          <div class="ci"><div class="cil" style="color:#15803d;">Einzelarbeit</div>Eigenverantwortung, individuelle Tempo-Anpassung. Risiko: keine soziale Unterstützung, Überforderung.</div>
+        </div>
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#b45309;">Partnerarbeit</div>Kooperation, gegenseitige Erklärung, niedrige Hemmschwelle. Gut für Übung und Reflexion.</div>
+          <div class="ci"><div class="cil" style="color:#7c3aed;">Gruppenarbeit</div>Kooperatives Lernen, Rollenteilung. Risiko: ungleiche Beteiligung, Ablenkung. Struktur ist entscheidend.</div>
+        </div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Methodenvielfalt ist wichtiger als jede einzelne Methode. Methodenwechsel alle 15–20 Minuten verhindert Monotonie. „Kein Schüler soll durch Methoden gleichgeschaltet werden" — Klafki.</div>
+      </div></div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fef3c7;color:#b45309;">🗺️</div><div class="al">Projektlernen — fächerübergreifend und handlungsorientiert</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Projektlernen</div>Schülerinnen und Schüler bearbeiten ein reales Problem oder eine echte Frage selbstgesteuert und handlungsorientiert über einen längeren Zeitraum. Merkmale: Realitätsbezug, Selbstorganisation, Produktorientierung, fächerübergreifende Vernetzung.</div>
+        <div class="ebox"><div class="el">✅ Pädagogischer Mehrwert</div>Förderung von Selbstkompetenz und Eigenverantwortung · Motivationssteigerung durch echten Sinn · Tiefes Lernen durch Anwendung · Entwicklung von Teamfähigkeit und Zeitmanagement.
+        </div>
+        <div class="warn"><div class="wl">⚠️ Herausforderungen</div>Hoher Planungsaufwand · Lernbegleitung statt Steuerung: Lehrkraft muss loslassen können · Leistungserhebung ist komplexer · Nicht alle Lerninhalte eignen sich für Projektformat.</div>
+      </div></div></div>
+    </div>
+
+    <div class="card" style="border-top-color:#b45309;">
+      <div class="ch"><h3 style="color:#b45309;">🖥️ Medien im Unterricht</h3><div class="csub">Digitale Werkzeuge · Kriterien</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fef3c7;color:#b45309;">💡</div><div class="al">Medienauswahl — was entscheidet?</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Der Einsatz von Medien folgt dem Lernziel — nicht der Verfügbarkeit. Leitfragen für die Medienauswahl:</div>
+        <ul class="pl" style="margin-bottom:10px;">
+          <li>Welches Medium erreicht das Lernziel am besten?</li>
+          <li>Aktiviert das Medium Schüler kognitiv oder passiviert es sie?</li>
+          <li>Fördert das Medium Selbstständigkeit oder Abhängigkeit?</li>
+          <li>Welche Kompetenzen werden durch Nutzung des Mediums entwickelt?</li>
+        </ul>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Digitale Medien sind kein Selbstzweck. Ein gut moderiertes Unterrichtsgespräch kann kognitiv aktivierender sein als eine aufwendige Präsentation. Medien unterstützen guten Unterricht — sie ersetzen ihn nicht.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 FEEDBACK -->
+<section class="section reveal" id="s5">
+  <div class="sh"><span class="sn">V</span><span class="st">Rückmeldung zu Lehr- und Lernprozessen</span><span class="sa" style="background:#0f766e;">Hattie · Schüler- und Lehrerfeedback</span></div>
+  <div class="cg">
+    <div class="card" style="border-top-color:#0f766e;">
+      <div class="ch"><h3 style="color:#0f766e;">💬 Feedback — der stärkste Lernfaktor</h3><div class="csub">Formell · Informell · Lob vs. Feedback</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ccfbf1;color:#0f766e;">💡</div><div class="al">Was ist Feedback — und was nicht?</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Effektives Feedback (Hattie)</div>Feedback beantwortet drei Fragen: <span class="ft">Feed Up</span> — Wohin geht mein Lernweg? (Ziel) · <span class="ft">Feed Back</span> — Wo stehe ich gerade? (Ist-Stand) · <span class="ft">Feed Forward</span> — Wie komme ich vom Ist zum Soll? (Nächste Schritte). Alle drei Ebenen sind nötig für wirksames Feedback.</div>
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#be123c;">Kein Feedback</div>„Gut gemacht!" · „Super!" · Eine Note ohne Kommentar. Kein Bezug zu Lernzielen, keine Handlungsanleitung.</div>
+          <div class="ci"><div class="cil" style="color:#15803d;">Echtes Feedback</div>„Du hast die Argumentationsstruktur klar aufgebaut. Im nächsten Schritt: Belege konkretisieren — z.B. aus Kapitel 3."</div>
+        </div>
+        <div class="warn"><div class="wl">⚠️ Lob ≠ Feedback</div>Für Belohnungen konnte die Forschung bestenfalls sehr geringe positive Effekte nachweisen — bei materiellen Belohnungen sogar negative (korrumpierender Effekt). Lob ist soziale Anerkennung — wichtig, aber kein Ersatz für lernbezogenes Feedback.</div>
+      </div></div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ccfbf1;color:#0f766e;">🎓</div><div class="al">Schülerfeedback — Rückmeldung über den eigenen Unterricht</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Schülerfeedback</div>Methodengestützter, systematischer Prozess, bei dem Schülerinnen und Schüler Rückmeldung zur Unterrichtsarbeit und zum Lernprozess geben. In Bayern: Referendare müssen Schülerfeedback mindestens zweimal in der Ausbildung einholen.</div>
+        <div class="ebox"><div class="el">✅ Gelingensbedingungen</div>Vertrauensvolles, angstfreies Klima · Anonymität wenn nötig · Klare, begrenzte Fragen · Ergebnisse werden an Schüler zurückgemeldet · Konsequenzen werden sichtbar umgesetzt.
+        </div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Einfache Methoden: Ampelkarte (grün/gelb/rot: „Ich habe alles verstanden / noch Fragen / nichts verstanden") · „Was hat geholfen / was hat gefehlt?" · Zielscheibe (verschiedene Kriterien visuell einschätzen).</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 BERATUNGSGESPRÄCHE -->
+<section class="section reveal" id="s6">
+  <div class="sh"><span class="sn">VI</span><span class="st">Beraten und Gespräche führen</span><span class="sa" style="background:#7c3aed;">Pädagogische Beratung · Gesprächsarten</span></div>
+  <div class="cg">
+    <div class="card" style="border-top-color:#7c3aed;">
+      <div class="ch"><h3 style="color:#7c3aed;">🤝 Pädagogische Beratungsgespräche</h3><div class="csub">Gesprächstypen · Phasen · Haltung</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#f5f3ff;color:#7c3aed;">💡</div><div class="al">Gesprächstypen — was ist das Ziel?</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Lehrkräfte führen verschiedene Arten von Gesprächen — mit unterschiedlichen Zielen:</div>
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#0369a1;">Beratungsgespräch</div>Ziel: Ursachen klären, Ressourcen aktivieren, Lösungswege finden (bei Leistungsabfall, persönlichen Belastungen)</div>
+          <div class="ci"><div class="cil" style="color:#15803d;">Informationsgespräch</div>Ziel: Sachliche Information geben (Leistungsstand, Übergangsempfehlung)</div>
+        </div>
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#b45309;">Kritikgespräch</div>Ziel: Fehlverhalten ansprechen, Konsequenzen klären (Regelverstoß, Unterrichtsstörung)</div>
+          <div class="ci"><div class="cil" style="color:#be123c;">Konflikt-/Vermittlungsgespräch</div>Ziel: Konfliktparteien vermitteln, akzeptable Lösungen finden (Streit zwischen Schülern)</div>
+        </div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Vor jedem Gespräch klären: Welcher Typ ist das? Was ist mein Ziel? Das bestimmt Gesprächsführungsstil und Haltung grundlegend.</div>
+      </div></div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#f5f3ff;color:#7c3aed;">📋</div><div class="al">Phasen eines Beratungsgesprächs</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">1</div><div class="sbody"><strong>Ankommen &amp; Beziehung herstellen:</strong> Wertschätzender Gesprächsbeginn, Dankbarkeit für Bereitschaft zum Gespräch</div></div>
+        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">2</div><div class="sbody"><strong>Problem formulieren &amp; erkunden:</strong> Wie sieht der andere die Situation? Aktives Zuhören (Rogers)</div></div>
+        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">3</div><div class="sbody"><strong>Ziele klären:</strong> Was soll durch das Gespräch erreicht werden?</div></div>
+        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">4</div><div class="sbody"><strong>Ressourcen aktivieren:</strong> Was funktioniert schon? Was hat in der Vergangenheit geholfen?</div></div>
+        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">5</div><div class="sbody"><strong>Lösungen erarbeiten:</strong> Gemeinsam Optionen entwickeln, nicht Vorgaben machen</div></div>
+        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">6</div><div class="sbody"><strong>Vereinbaren &amp; abschließen:</strong> Konkrete, verbindliche Vereinbarung. Wertschätzender Abschluss.</div></div>
+        <div class="note">Ressourcenorientierung statt Problemfokus: Der Blick auf Stärken und Möglichkeiten stärkt Selbstwirksamkeit. Unnötig langwierige Ursachenforschung kann lähmend wirken.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 LEISTUNG UND BEWERTUNG -->
+<section class="section reveal" id="s7">
+  <div class="sh"><span class="sn">VII</span><span class="st">Leistung erheben und bewerten</span><span class="sa" style="background:#be123c;">Funktionen · Gütekriterien · Diagnosefehler</span></div>
+  <div class="cg wide">
+    <div class="card" style="border-top-color:#be123c;">
+      <div class="ch"><h3 style="color:#be123c;">📊 Leistungsbewertung — Funktion und Spannung</h3><div class="csub">Leistungsbegriff · Lernsituation vs. Leistungssituation · Diagnosefehler</div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fff1f2;color:#be123c;">💡</div><div class="al">Funktionen von Leistungsfeststellungen</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Leistungserhebungen haben verschiedene Funktionen für verschiedene Beteiligte:</div>
+        <ul class="pl" style="margin-bottom:10px;">
+          <li><strong>Für Schüler:</strong> Rückmeldung über Lernfortschritt, Orientierung, Motivation</li>
+          <li><strong>Für Lehrkräfte:</strong> Diagnose des Lernstands, Anpassung des Unterrichts</li>
+          <li><strong>Für Eltern:</strong> Information über Leistungsstand, Grundlage für Förderung</li>
+          <li><strong>Für Schule/Gesellschaft:</strong> Selektion, Allokation, Zertifizierung</li>
+        </ul>
+        <div class="warn"><div class="wl">⚠️ Das grundlegende Spannungsfeld</div>Pädagogischer Auftrag: Alle Schüler fördern, individuelle Entwicklung unterstützen. Gesellschaftlicher Auftrag: Leistung differenzieren, Abschlüsse vergeben. Diese Spannung lässt sich nicht auflösen — sie muss professionell ausgehalten werden.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fff1f2;color:#be123c;">🔲</div><div class="al">Lernsituation vs. Leistungssituation — der entscheidende Unterschied</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#15803d;">Lernsituation</div>Keine Benotung · Fehler erlaubt und erwünscht · Prozess steht im Fokus · Aufgaben: Lern- und Übungsaufgaben</div>
+          <div class="ci"><div class="cil" style="color:#be123c;">Leistungssituation</div>Benotung · Kriterienbezogene Bewertung · Ergebnis steht im Fokus · Aufgaben: Prüfungsaufgaben</div>
+        </div>
+        <div class="fb"><div class="fl">🔑 Wichtig</div>Schülerinnen und Schüler müssen klar wissen, ob sie sich in einer Lern- oder Leistungssituation befinden. Die Lehrkraft ist verpflichtet, diese Grenze transparent und verlässlich zu kommunizieren. Nur so kann eine fehlerfreundliche Lernkultur entstehen.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Regeln aufstellen und konsequent einhalten: Übungsaufgaben werden niemals bewertet. Wer das bricht, zerstört das Vertrauen in die Lernumgebung.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fff1f2;color:#be123c;">🔬</div><div class="al">Gütekriterien von Leistungsfeststellungen</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Objektivität</div>Die Bewertung hängt nicht von der Person der Bewertenden ab. Gleiche Leistung sollte von verschiedenen Lehrkräften gleich bewertet werden. In der Praxis nur annähernd erreichbar.</div>
+        <div class="fb"><div class="fl">🔑 Reliabilität</div>Die Bewertung ist zuverlässig und konsistent. Gleiche Leistung wird zu verschiedenen Zeitpunkten gleich bewertet. Hohe intersubjektive Übereinstimmung.</div>
+        <div class="fb"><div class="fl">🔑 Validität</div>Die Leistungserhebung misst tatsächlich das, was gemessen werden soll. Ein Diktat misst keine freie Sprachkompetenz — geringe Validität für diesen Zweck.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fff1f2;color:#be123c;">⚠️</div><div class="al">Typische Diagnosefehler bei der Bewertung</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Lehrkräfte unterliegen systematischen Bewertungsfehlern — Kenntnis schützt nicht vor ihnen, ermöglicht aber Reflexion:</div>
+        <ul class="pl" style="margin-bottom:10px;">
+          <li><strong>Halo-Effekt:</strong> Bekannte Stärken/Schwächen strahlen auf aktuelle Bewertung ab</li>
+          <li><strong>Perseveration:</strong> Einmal gefasstes Urteil wird bei jeder neuen Erhebung bestätigt gesehen</li>
+          <li><strong>Kontrastfehler:</strong> Leistung nach hervorragender Arbeit erscheint schlechter als sie ist</li>
+          <li><strong>Erwartungseffekt:</strong> Pygmalion-Effekt wirkt auch bei Korrektur — erwartete Note beeinflusst Bewertung</li>
+          <li><strong>Tendenz zur Mitte:</strong> Extreme Noten (1 und 6) werden vermieden</li>
+        </ul>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Maßnahmen gegen Bewertungsfehler: Anonym korrigieren wenn möglich · Bewertungsraster/Erwartungshorizont vor Korrektur erstellen · Stichproben mit Kolleginnen und Kollegen abgleichen · Zwischen Korrekturgängen Pause machen.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer style="background:var(--sur2);border-top:1px solid var(--brd);padding:20px 32px;text-align:center;">
+  <div style="max-width:1100px;margin:0 auto;font-size:12px;color:var(--mut);">
+    Unterricht gestalten · Helmke · Hattie · Terhart · Bloom · Lernwirksamer Unterricht · Leistungsbewertung
+  </div>
+</footer>
+
+<script>
+function toggle(item){const b=item.querySelector('.abody'),o=item.classList.contains('open');item.classList.toggle('open',!o);b.classList.toggle('open',!o);}
+function scrollTo(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
+const secs=document.querySelectorAll('.section'),nbs=document.querySelectorAll('.nb');
+secs.forEach(s=>new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){const i=Array.from(secs).indexOf(en.target);nbs.forEach((b,j)=>{b.style.background=j===i?'#0f766e':'';b.style.color=j===i?'white':'';})}});},{threshold:0.25}).observe(s));
+document.querySelectorAll('.reveal').forEach(el=>new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('visible');});},{threshold:0.08}).observe(el));
+</script>
+</body>
+</html>

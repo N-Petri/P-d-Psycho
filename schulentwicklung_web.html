@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Schulentwicklung – Interaktiver Überblick</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#faf8f4;--sur:#fff;--sur2:#f3f0ea;--brd:#e2ddd4;--txt:#1c1917;--mut:#78716c;--acc:#be123c;--sh:0 2px 12px rgba(0,0,0,.07);}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6;}
+.nav{position:sticky;top:0;z-index:100;background:rgba(250,248,244,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--brd);padding:0 32px;}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:8px;height:52px;overflow-x:auto;scrollbar-width:none;}
+.nav-inner::-webkit-scrollbar{display:none;}
+.back-btn{font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;border:1.5px solid var(--brd);cursor:pointer;background:transparent;color:var(--mut);transition:all .2s;font-family:'DM Sans',sans-serif;text-decoration:none;display:flex;align-items:center;gap:4px;white-space:nowrap;}
+.back-btn:hover{background:var(--sur);color:var(--txt);}
+.nav-sep{color:var(--brd);}
+.nb{white-space:nowrap;font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;border:1.5px solid transparent;cursor:pointer;background:transparent;color:var(--mut);transition:all .2s;font-family:'DM Sans',sans-serif;}
+.nb:hover{color:var(--txt);border-color:var(--brd);background:var(--sur);}
+.hero{max-width:1100px;margin:0 auto;padding:52px 32px 32px;}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--acc);margin-bottom:10px;}
+h1{font-family:'Lora',serif;font-size:clamp(30px,4.5vw,50px);font-weight:700;line-height:1.1;letter-spacing:-.5px;margin-bottom:14px;}
+.hdesc{font-size:16px;color:var(--mut);max-width:580px;font-weight:300;line-height:1.7;margin-bottom:18px;}
+.throw{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+.thb{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;border:1.5px solid;}
+.thby{font-weight:400;font-size:10px;opacity:.65;}
+.main{max-width:1100px;margin:0 auto;padding:0 32px 80px;}
+.section{margin-bottom:52px;}
+.sh{display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid var(--txt);flex-wrap:wrap;row-gap:6px;}
+.sn{font-family:'Lora',serif;font-size:13px;color:var(--mut);flex-shrink:0;}
+.st{font-family:'Lora',serif;font-size:21px;font-weight:700;flex:1;}
+.sa{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;color:white;white-space:nowrap;flex-shrink:0;}
+.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:16px;}
+.cg.wide{grid-template-columns:repeat(auto-fill,minmax(450px,1fr));}
+.card{background:var(--sur);border:1px solid var(--brd);border-radius:12px;border-top-width:3px;overflow:hidden;box-shadow:var(--sh);}
+.ch{padding:14px 18px 11px;border-bottom:1px solid var(--brd);}
+.ch h3{font-family:'Lora',serif;font-size:15px;font-weight:700;margin-bottom:2px;line-height:1.3;}
+.ca{display:inline-block;font-size:10px;font-weight:700;padding:1px 7px;border-radius:10px;margin-bottom:4px;letter-spacing:.5px;color:white;}
+.csub{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.8px;}
+.ai{border-bottom:1px solid var(--brd);cursor:pointer;transition:background .15s;}
+.ai:last-child{border-bottom:none;}.ai:hover,.ai.open{background:var(--sur2);}
+.at{display:flex;align-items:center;gap:10px;padding:11px 18px;user-select:none;}
+.an{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;}
+.al{flex:1;font-size:13.5px;font-weight:600;line-height:1.3;}
+.aico{font-size:14px;color:var(--mut);transition:transform .25s;flex-shrink:0;}
+.ai.open .aico{transform:rotate(180deg);}
+.abody{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.4,0,.2,1);}
+.abody.open{max-height:1500px;}
+.ac{padding:6px 18px 16px 50px;}
+.ex{font-size:14px;color:#2c2825;line-height:1.75;margin-bottom:10px;}
+.ebox{background:#fff1f2;border-left:3px solid var(--acc);border-radius:0 6px 6px 0;padding:10px 14px;font-size:13px;color:#4c0519;line-height:1.6;margin-bottom:8px;}
+.ebox .el{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--acc);margin-bottom:4px;}
+.fb{background:#f0f4ff;border-left:3px solid #3730a3;border-radius:0 6px 6px 0;padding:9px 14px;font-size:13px;margin-bottom:8px;line-height:1.55;}
+.fb .fl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#3730a3;margin-bottom:3px;}
+.fb .ft{font-weight:700;color:#1e1b4b;}
+.tip{background:#fefce8;border-left:3px solid #ca8a04;border-radius:0 6px 6px 0;padding:9px 14px;font-size:13px;margin-bottom:8px;color:#422006;line-height:1.55;}
+.tip .tl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#ca8a04;margin-bottom:3px;}
+.warn{background:#fef9f0;border-left:3px solid #d97706;border-radius:0 6px 6px 0;padding:9px 14px;font-size:13px;margin-bottom:8px;color:#451a03;line-height:1.55;}
+.warn .wl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#d97706;margin-bottom:3px;}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
+.ci{background:var(--sur2);border-radius:6px;padding:9px 12px;}
+.ci .cil{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px;}
+ul.pl{list-style:none;padding:0;}
+ul.pl li{font-size:13.5px;padding:2.5px 0 2.5px 13px;position:relative;color:#2c2825;}
+ul.pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
+.note{font-size:12px;color:var(--mut);font-style:italic;margin-top:8px;padding-top:7px;border-top:1px solid var(--brd);}
+.stufe{display:flex;gap:8px;align-items:flex-start;padding:5px 7px;border-radius:6px;margin-bottom:5px;border:1px solid var(--brd);}
+.snum{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;flex-shrink:0;margin-top:1px;}
+.sbody{font-size:12.5px;line-height:1.45;}
+.sbody strong{display:block;font-weight:700;margin-bottom:1px;}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .5s,transform .5s;}
+.reveal.visible{opacity:1;transform:none;}
+@media(max-width:640px){.hero,.main{padding-left:18px;padding-right:18px;}.nav{padding:0 18px;}.cg,.cg.wide{grid-template-columns:1fr;}.cmp{grid-template-columns:1fr;}.ac{padding-left:18px;}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="back-btn" href="index.html">← Übersicht</a><span class="nav-sep">|</span>
+    <button class="nb" onclick="scrollTo('s1')">Schulentwicklung</button>
+    <button class="nb" onclick="scrollTo('s2')">Individuelle Förderung</button>
+    <button class="nb" onclick="scrollTo('s3')">Lerncoaching</button>
+    <button class="nb" onclick="scrollTo('s4')">Kollegiale Zusammenarbeit</button>
+    <button class="nb" onclick="scrollTo('s5')">Lehrergesundheit</button>
+    <button class="nb" onclick="scrollTo('s6')">Kooperation &amp; Partner</button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="eyebrow">Pädagogik · Interaktiver Überblick</div>
+  <h1>An der Entwicklung von Schule mitwirken</h1>
+  <p class="hdesc">Schulentwicklung, individuelle Förderung, kollegiale Zusammenarbeit und Lehrergesundheit — Schule ist mehr als Unterricht, und Lehrkräfte sind mehr als Unterrichtende.</p>
+  <div class="throw">
+    <span class="thb" style="color:#be123c;border-color:#be123c;">Schulentwicklung <span class="thby">Qualitätssicherung</span></span>
+    <span class="thb" style="color:#b45309;border-color:#b45309;">Individuelle Förderung <span class="thby">Lerncoaching</span></span>
+    <span class="thb" style="color:#0369a1;border-color:#0369a1;">Kollegiale Zusammenarbeit <span class="thby">Supervision</span></span>
+    <span class="thb" style="color:#15803d;border-color:#15803d;">Lehrergesundheit <span class="thby">Burnout-Prävention</span></span>
+  </div>
+</header>
+
+<main class="main">
+
+<!-- 1 SCHULENTWICKLUNG -->
+<section class="section reveal" id="s1">
+  <div class="sh"><span class="sn">I</span><span class="st">Schulentwicklung &amp; Qualitätssicherung</span><span class="sa" style="background:#be123c;">Drei Säulen · Qualitätszirkel</span></div>
+  <div class="cg wide">
+    <div class="card" style="border-top-color:#be123c;">
+      <div class="ch"><h3 style="color:#be123c;">🏗️ Was ist Schulentwicklung?</h3><div class="csub">Drei Säulen · Steuergruppen · Qualitätssicherung</div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fff1f2;color:#be123c;">💡</div><div class="al">Schulentwicklung — von der Anordnung zur Eigenverantwortung</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Schulentwicklung</div>Systematischer Prozess der Weiterentwicklung von Schule als Organisation. Nicht mehr top-down gesteuert, sondern: Schulen entwickeln sich eigenverantwortlich — begleitet und unterstützt durch externe Instanzen. Lehrkräfte sind aktive Gestalter — nicht nur Ausführende.</div>
+        <div class="ex">Schulentwicklung ruht auf drei Säulen, die sich gegenseitig bedingen:</div>
+        <div class="stufe"><div class="snum" style="background:#fff1f2;color:#be123c;">1</div><div class="sbody"><strong>Unterrichtsentwicklung:</strong> Qualität des Kerngeschäfts verbessern — Didaktik, Methodik, Differenzierung, Feedback</div></div>
+        <div class="stufe"><div class="snum" style="background:#fff1f2;color:#be123c;">2</div><div class="sbody"><strong>Personalentwicklung:</strong> Fortbildung, Supervision, kollegiale Beratung, Karriereentwicklung</div></div>
+        <div class="stufe"><div class="snum" style="background:#fff1f2;color:#be123c;">3</div><div class="sbody"><strong>Organisationsentwicklung:</strong> Strukturen, Prozesse, Kommunikation, Schulkultur, externe Kooperationen</div></div>
+        <div class="ebox"><div class="el">🔑 Warum alle drei Säulen nötig sind</div>Nur besserer Unterricht ohne bessere Strukturen: Insellösungen. Nur bessere Strukturen ohne besseren Unterricht: leere Organisation. Nur Personalentwicklung ohne Konsequenz im Unterricht: wirkungslose Fortbildung.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fff1f2;color:#be123c;">⚙️</div><div class="al">Steuergruppen und Qualitätszirkel</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Steuergruppe</div>Kleingruppe aus Lehrkräften, die Schulentwicklungsprozesse koordiniert, Initiativen aufgreift und Arbeitsschritte delegiert. Oft ergänzt durch Schüler- und Elternvertreter.</div>
+        <div class="fb"><div class="fl">🔑 Qualitätszirkel</div>Themenbezogene Arbeitsgruppe, die einen konkreten Entwicklungsbereich bearbeitet (z.B. Feedback-Kultur, Methodenkonzept, Digitalisierung). Zeitlich begrenzt, ergebnisorientiert.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Als Referendarin oder Referendar: Schulentwicklungsprozesse beobachten und verstehen. Wie werden Entscheidungen getroffen? Wer gestaltet? Welche Strukturen gibt es? Das ist eine Grundkompetenz für die spätere Berufsrolle.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fff1f2;color:#be123c;">📊</div><div class="al">Qualitätssicherung an Gymnasien</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Instrumente der Qualitätssicherung am Gymnasium:</div>
+        <ul class="pl" style="margin-bottom:10px;">
+          <li><strong>Selbstevaluation:</strong> Eigene Bestandsaufnahme der Schule in definierten Bereichen</li>
+          <li><strong>Externe Evaluation:</strong> Schulvisitation durch externe Experten (Qualitätsagentur)</li>
+          <li><strong>Vergleichsarbeiten / Abiturvergleich:</strong> Externe Leistungsvergleiche</li>
+          <li><strong>Schülerfeedback:</strong> Systematische Rückmeldung aus Lernerperspektive</li>
+          <li><strong>Unterrichtsbeobachtung:</strong> Kollegiale Hospitation, Unterrichtsreflexion</li>
+        </ul>
+        <div class="warn"><div class="wl">💡 Realistischer Blick auf Schulentwicklung</div>Entwicklungsarbeit braucht Idealismus und Realismus. Zu hohe Ziele oder zu hoher Aufwand bei zu geringem Nutzen wirken demotivierend. Kleine, sichtbare Erfolge sind wertvoller als große, unerreichbare Visionen.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 INDIVIDUELLE FÖRDERUNG -->
+<section class="section reveal" id="s2">
+  <div class="sh"><span class="sn">II</span><span class="st">Schülerinnen &amp; Schüler stützen — Individuelle Förderung</span><span class="sa" style="background:#b45309;">Enrichment · Tutoren · Förderkonzepte</span></div>
+  <div class="cg">
+    <div class="card" style="border-top-color:#b45309;">
+      <div class="ch"><h3 style="color:#b45309;">🌱 Individuelle Förderung auf Schulebene</h3><div class="csub">Schwächere stützen · Begabte fördern · Enrichment vs. Akzeleration</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fef3c7;color:#b45309;">💡</div><div class="al">Was ist individuelle Förderung auf Schulebene?</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Individuelle Förderung</div>Gezielte, passgenaue Unterstützung einzelner Schülerinnen und Schüler jenseits des Klassenunterrichts. Umfasst sowohl Förderung leistungsschwächerer als auch leistungsstarker und besonders begabter Schüler.</div>
+        <div class="ebox"><div class="el">📋 Förderangebote am Gymnasium (Beispiele)</div>
+          Intensivierungsstunden (Pflichtangebot für vertiefende Übung) · Förderkurse in bestimmten Fächern · Nachhilfe durch Tutoren · Begabtenförderung durch Enrichment · Schülerakademien und Olympiaden · Lerncoaching.
+        </div>
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#15803d;">Enrichment</div>Erweiterung des Lernangebots in die Breite und Tiefe. Schüler bleiben in ihrer Jahrgangsstufe. Pädagogisch schonender.</div>
+          <div class="ci"><div class="cil" style="color:#0369a1;">Akzeleration</div>Zeitliche Beschleunigung: Überspringen von Jahrgangsstufen, Frühstudium. Soziale Aspekte müssen berücksichtigt werden.</div>
+        </div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Individuelle Förderung auf Schulebene erfordert Koordination: Wer kennt welchen Schüler am besten? Wie werden Förderbedürfnisse identifiziert? Wie werden Maßnahmen abgestimmt? Das setzt schulweite Kommunikationsstrukturen voraus.</div>
+      </div></div></div>
+    </div>
+
+    <div class="card" style="border-top-color:#b45309;">
+      <div class="ch"><h3 style="color:#b45309;">👥 Tutoren- und Mentorensysteme</h3><div class="csub">Peer-Lernen · Soziales Lernen · Schulidentifikation</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fef3c7;color:#b45309;">💡</div><div class="al">Tutoren vs. Mentoren — der Unterschied</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#b45309;">Tutor/in</div>Ältere Schülerin / älterer Schüler. Freiwillig. Unterstützt jüngere bei Lernbegleitung, Betreuung und als Vertrauensperson.</div>
+          <div class="ci"><div class="cil" style="color:#0369a1;">Mentor/in</div>Mitglied des Schulkollegiums oder der Elternschaft. Begleitet Schüler in besonderen Situationen im persönlichen Gespräch.</div>
+        </div>
+        <div class="ebox"><div class="el">✅ Mehrwert von Tutorensystemen</div>
+          Soziales Lernen und Schulidentifikation stärken · Jüngere Schüler profitieren von altersnahen Erklärungen · Tutoren entwickeln Verantwortungsbewusstsein und Führungskompetenzen · Lernwirksam für beide Seiten (Protégé-Effekt).
+        </div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Tutoren brauchen Vorbereitung — nicht jeder gute Schüler ist ein guter Tutor. Schulung in Gesprächsführung, Erklärstrategien und Umgang mit schwierigen Situationen ist wichtig.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 LERNCOACHING -->
+<section class="section reveal" id="s3">
+  <div class="sh"><span class="sn">III</span><span class="st">Lerncoaching &amp; Peer-Mediation</span><span class="sa" style="background:#0369a1;">Systemische Beratung · Konfliktlösung</span></div>
+  <div class="cg">
+    <div class="card" style="border-top-color:#0369a1;">
+      <div class="ch"><h3 style="color:#0369a1;">🎯 Lerncoaching — was ist das?</h3><div class="csub">Lernbegleitung · Metakognition · Eigenverantwortung</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0f2fe;color:#0369a1;">💡</div><div class="al">Lerncoaching — Definition und Abgrenzung</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Lerncoaching</div>Systematische Begleitung von Schülerinnen und Schülern bei der Entwicklung ihrer Lernfähigkeit. Nicht Nachhilfe (Inhaltsvermittlung), sondern Förderung von Lernstrategien, Metakognition und Selbstregulation.</div>
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#be123c;">Nachhilfe</div>Inhalt erklären und üben. „Ich zeige dir, wie das geht." Direkte Wissensvermittlung.</div>
+          <div class="ci"><div class="cil" style="color:#0369a1;">Lerncoaching</div>Lernprozess reflektieren. „Wie lernst du? Was hindert dich?" Förderung von Eigenverantwortung.</div>
+        </div>
+        <div class="ebox"><div class="el">📋 Themen im Lerncoaching</div>
+          Lernorganisation und Zeitmanagement · Lernstrategien (s. Lernpsychologie) · Prüfungsangst und Stressmanagement · Motivation und Zielsetzung · Selbstwirksamkeit stärken.
+        </div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Lerncoaching setzt Vertrauen und Freiwilligkeit voraus. Als Lehrkraft: ressourcenorientiert vorgehen, Stärken des Schülers in den Vordergrund stellen, keine Ratschläge geben, sondern durch Fragen zur Reflexion anregen.</div>
+      </div></div></div>
+    </div>
+
+    <div class="card" style="border-top-color:#0369a1;">
+      <div class="ch"><h3 style="color:#0369a1;">🤝 Peer-Mediation</h3><div class="csub">Schüler als Vermittler · Konfliktlösung</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0f2fe;color:#0369a1;">💡</div><div class="al">Was ist Peer-Mediation?</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Peer-Mediation</div>Schülerinnen und Schüler (Peer-Mediatoren) werden ausgebildet, um bei Konflikten zwischen Mitschülerinnen und Mitschülern als neutrale Vermittler zu fungieren. Sie leiten einen strukturierten Mediationsprozess, ohne selbst zu entscheiden.</div>
+        <div class="ebox"><div class="el">✅ Vorteile der Peer-Mediation</div>
+          Akzeptanz: Lösungen von Gleichaltrigen werden oft besser angenommen als von Erwachsenen · Eigenverantwortung: Konfliktparteien erarbeiten selbst Lösungen · Kompetenzentwicklung: Mediatoren lernen Gesprächsführung und Empathie · Entlastung: Lehrkräfte werden von Alltagskonflikten entlastet.
+        </div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Peer-Mediation funktioniert nur mit solider Ausbildung der Mediatoren und klarer Einbindung ins Schulkonzept. Nicht jeder Konflikt eignet sich für Peer-Mediation (z.B. Mobbing: systemisches Problem, nicht Zwei-Personen-Konflikt).</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 KOLLEGIALE ZUSAMMENARBEIT -->
+<section class="section reveal" id="s4">
+  <div class="sh"><span class="sn">IV</span><span class="st">Lehrkräfte stärken — Kollegiale Zusammenarbeit</span><span class="sa" style="background:#7c3aed;">Kollegiale Fallbesprechung · Supervision · Hospitation</span></div>
+  <div class="cg wide">
+    <div class="card" style="border-top-color:#7c3aed;">
+      <div class="ch"><h3 style="color:#7c3aed;">🤝 Kollegiale Zusammenarbeit — Formen und Nutzen</h3><div class="csub">Teamarbeit · Fallbesprechung · Unterrichtsreflexion</div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#f5f3ff;color:#7c3aed;">💡</div><div class="al">Warum ist Kollegiale Zusammenarbeit so wichtig?</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Der Lehrerberuf wird oft als isoliert erlebt: Jede Lehrkraft in ihrer Klasse, jeder für sich. Kollegiale Zusammenarbeit durchbricht diese Isolation — und ist nachweislich eine der wirksamsten Maßnahmen für Unterrichtsentwicklung und Lehrergesundheit.</div>
+        <div class="ebox"><div class="el">✅ Formen kollegialer Zusammenarbeit</div>
+          Fachschaftsarbeit (gemeinsame Materialentwicklung) · Jahrgangsstufenteams · Kollegiale Fallbesprechung · Unterrichtshospitation · Tandem-Teaching · Supervision · Qualitätszirkel.
+        </div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Kollegiale Zusammenarbeit muss institutionell verankert sein — sie entsteht selten „von selbst". Schulleitung, feste Zeitfenster und eine Kultur des Vertrauens sind Voraussetzungen.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#f5f3ff;color:#7c3aed;">🔍</div><div class="al">Kollegiale Fallbesprechung — strukturierte Beratung</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Kollegiale Fallbesprechung</div>Strukturiertes Beratungsformat, bei dem eine Lehrkraft (Fallgeber) einen konkreten beruflichen Fall vorstellt, und eine Gruppe von Kolleginnen und Kollegen (Beratergruppe) unterstützende Perspektiven und Ideen einbringt. Keine Bewertung, keine Ratschläge — nur Fragen und Angebote.</div>
+        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">1</div><div class="sbody"><strong>Falldarstellung:</strong> Fallgeber beschreibt Situation — maximal 5 Minuten</div></div>
+        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">2</div><div class="sbody"><strong>Klärungsfragen:</strong> Beratergruppe stellt Verständnisfragen (keine Bewertungen)</div></div>
+        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">3</div><div class="sbody"><strong>Perspektivwechsel:</strong> Beratergruppe bespricht den Fall (Fallgeber hört zu)</div></div>
+        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">4</div><div class="sbody"><strong>Resonanz:</strong> Fallgeber gibt Rückmeldung — was hat geholfen?</div></div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Kollegiale Fallbesprechung ist besonders wirksam bei herausfordernden Schülern, Elternkonflikten, eigener Unsicherheit. Voraussetzung: absolute Vertraulichkeit und gegenseitiger Respekt.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#f5f3ff;color:#7c3aed;">👁️</div><div class="al">Unterrichtshospitation &amp; kollegiale Unterrichtsreflexion</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Kollegiale Hospitation</div>Gegenseitiges Besuchen von Unterrichtsstunden — nicht zur Beurteilung, sondern zur gemeinsamen Reflexion und Entwicklung. Feedback folgt vereinbarten Kriterien.</div>
+        <div class="ebox"><div class="el">✅ Wirksamkeit</div>Kollegiale Unterrichtsbeobachtung ist eine der wirksamsten Methoden der Unterrichtsentwicklung — aber am wenigsten verbreitet (Kultur der geschlossenen Tür). Wer seinen Unterricht zeigt, braucht Mut — und Vertrauen ins Kollegium.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Beobachtungsfokus vorab vereinbaren: „Ich möchte, dass du schaust, wie ich auf Wortmeldungen reagiere" — nicht: „Beobachte alles". Das macht Feedback konkreter und weniger bedrohlich.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#f5f3ff;color:#7c3aed;">🔄</div><div class="al">Supervision — externe professionelle Begleitung</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Supervision</div>Professionelle Begleitung beruflicher Prozesse durch externe Fachkräfte (Supervisorinnen oder Supervisoren). Ziel: Reflexion, Entlastung, Kompetenzentwicklung. Fokus auf berufliche Rolle und Beziehungen — nicht Therapie.</div>
+        <div class="ex">Formen: Einzelsupervision · Gruppensupervision · Teamsupervision. Supervision ist besonders nützlich in belastenden Situationen (schwierige Klassen, Konflikte, Burnout-Gefahr), aber auch als Prävention wertvoll.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Supervision ist kein Zeichen von Schwäche — es ist professionelle Selbstfürsorge. In anderen helfenden Berufen (Soziale Arbeit, Therapie) ist Supervision Pflicht. Schule entdeckt dieses Instrument zunehmend.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 LEHRERGESUNDHEIT -->
+<section class="section reveal" id="s5">
+  <div class="sh"><span class="sn">V</span><span class="st">Lehrergesundheit — Burnout-Prävention &amp; Selbstfürsorge</span><span class="sa" style="background:#15803d;">Salutogenese · Ressourcen · Work-Life-Balance</span></div>
+  <div class="cg wide">
+    <div class="card" style="border-top-color:#15803d;">
+      <div class="ch"><h3 style="color:#15803d;">❤️ Lehrergesundheit — ein zentrales Berufsthema</h3><div class="csub">Belastungen · Burnout · Prävention</div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#dcfce7;color:#15803d;">💡</div><div class="al">Belastungen im Lehrberuf — was ist spezifisch?</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Der Lehrberuf ist mit spezifischen Belastungsfaktoren verbunden, die ihn von anderen Berufen unterscheiden:</div>
+        <ul class="pl" style="margin-bottom:10px;">
+          <li><strong>Emotionale Erschöpfung:</strong> Ständiger Kontakt mit vielen Menschen, emotionaler Dauereinsatz</li>
+          <li><strong>Rollenkonflikte:</strong> Gleichzeitig Förderer, Beurteiler, Erzieher, Berater sein</li>
+          <li><strong>Mangelnde Kontrolle:</strong> Viele Anforderungen von außen (Lehrplan, Eltern, Schulleitung)</li>
+          <li><strong>Soziale Isolation:</strong> Wenig Austausch mit Kolleginnen und Kollegen</li>
+          <li><strong>Wirkungsunsicherheit:</strong> Erfolge des Unterrichts sind selten unmittelbar sichtbar</li>
+        </ul>
+        <div class="fb"><div class="fl">🔑 Burnout</div>Zustand chronischer emotionaler Erschöpfung, Depersonalisation (emotionale Distanzierung, Zynismus) und vermindertem Wirksamkeitserleben. Burnout ist nicht Schwäche — es ist eine Reaktion auf anhaltende Überlastung ohne ausreichende Erholung.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#dcfce7;color:#15803d;">🌱</div><div class="al">Salutogenese — was erhält gesund?</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Salutogenese</div>(Antonovsky) — Gesundheitswissenschaftlicher Ansatz, der fragt: Was erhält Menschen gesund — auch unter Belastung? Im Gegensatz zur Pathogenese (Was macht krank?). Zentrales Konzept: Kohärenzgefühl.</div>
+        <div class="fb"><div class="fl">🔑 Kohärenzgefühl</div>Drei Komponenten nach Antonovsky: <span class="ft">Verstehbarkeit</span> (Ich verstehe, was auf mich zukommt) · <span class="ft">Handhabbarkeit</span> (Ich habe Ressourcen, damit umzugehen) · <span class="ft">Sinnhaftigkeit</span> (Es lohnt sich, Energie zu investieren). Hohe Ausprägung = psychische Resilienz.</div>
+        <div class="ebox"><div class="el">🔍 Schutzfaktoren für Lehrkräfte</div>
+          Starke Kollegiumsgemeinschaft · Sinnerleben im Beruf · Selbstwirksamkeitserleben · Klare Grenzen zwischen Beruf und Freizeit · Regelmäßige Erholung · Kontrollüberzeugung · Professionelle Unterstützung (Supervision) · Hobbies und Ausgleich.
+        </div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Lehrergesundheit ist kein privates, sondern ein professionelles Thema. Eine erschöpfte Lehrkraft unterrichtet schlechter, bindet Ressourcen durch Krankheit und modelliert für Schüler: Selbstaufopferung ist Normalzustand. Selbstfürsorge ist professionelle Verantwortung.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#dcfce7;color:#15803d;">🛠️</div><div class="al">Prävention — was konkret hilft</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Maßnahmen auf verschiedenen Ebenen:</div>
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#15803d;">Individuelle Ebene</div>Zeit- und Selbstmanagement · Grenzen setzen (auch vor Elternanfragen) · Regenerationsphasen · Sport und körperliche Aktivität · Soziale Unterstützung suchen</div>
+          <div class="ci"><div class="cil" style="color:#0369a1;">Schulische Ebene</div>Kollegiale Unterstützung institutionalisieren · Supervision anbieten · Aufgaben fair verteilen · Entlastungsangebote schaffen · Wertschätzungskultur pflegen</div>
+        </div>
+        <div class="warn"><div class="wl">💡 Frühwarnsignale erkennen</div>Schlafprobleme · Anhaltende Erschöpfung trotz Erholung · Zunehmender Zynismus gegenüber Schülern · Gefühl der Wirkungslosigkeit · Rückzug von Kolleginnen und Kollegen · Körperliche Beschwerden ohne Befund. Frühzeitig Hilfe suchen — Prävention ist einfacher als Behandlung.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 KOOPERATION -->
+<section class="section reveal" id="s6">
+  <div class="sh"><span class="sn">VI</span><span class="st">Mit schulischen und außerschulischen Partnern kooperieren</span><span class="sa" style="background:#0891b2;">Schulnetzwerk · Berufs- &amp; Lebensorientierung</span></div>
+  <div class="cg">
+    <div class="card" style="border-top-color:#0891b2;">
+      <div class="ch"><h3 style="color:#0891b2;">🌐 Kooperationen — Schule öffnet sich</h3><div class="csub">Externe Partner · Berufsorientierung · Außerschulische Lernorte</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0f9ff;color:#0891b2;">💡</div><div class="al">Warum Kooperation mit externen Partnern?</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Schule kann nicht alle Bildungsziele alleine erfüllen. Kooperationen mit außerschulischen Partnern erweitern das Angebot, öffnen Perspektiven und verknüpfen schulisches Lernen mit außerschulischer Realität.</div>
+        <div class="ebox"><div class="el">📋 Kooperationspartner (Beispiele)</div>
+          Universitäten und Hochschulen (Wissenschaftspropädeutik, Frühstudium) · Betriebe und Unternehmen (Berufsorientierung, Praktika) · Kultureinrichtungen (Theater, Museum, Bibliothek) · Soziale Einrichtungen (Freiwilligenarbeit) · Außerschulische Lernorte (Umweltzentren, Gedenkstätten).
+        </div>
+        <div class="fb"><div class="fl">🔑 Berufliche Orientierung</div>Fächerübergreifendes Bildungsziel: Schülerinnen und Schüler lernen die Arbeitswelt kennen, erkunden eigene Interessen und Stärken, entwickeln realistische Berufsperspektiven. Instrumente: Praktika, Berufserkundungen, Portfolio, Berufsberatung.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Kooperationen brauchen Pflege: klare Absprachen, gegenseitige Erwartungen, verbindliche Rollen. Nicht jede Kooperation ist sinnvoll — Qualität vor Quantität. Und: Kooperationen sollten in den Unterricht eingebettet sein, nicht als Zusatz daneben stehen.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer style="background:var(--sur2);border-top:1px solid var(--brd);padding:20px 32px;text-align:center;">
+  <div style="max-width:1100px;margin:0 auto;font-size:12px;color:var(--mut);">
+    Schulentwicklung · Individuelle Förderung · Lerncoaching · Peer-Mediation · Kollegiale Beratung · Supervision · Lehrergesundheit · Antonovsky
+  </div>
+</footer>
+
+<script>
+function toggle(item){const b=item.querySelector('.abody'),o=item.classList.contains('open');item.classList.toggle('open',!o);b.classList.toggle('open',!o);}
+function scrollTo(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
+const secs=document.querySelectorAll('.section'),nbs=document.querySelectorAll('.nb');
+secs.forEach(s=>new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){const i=Array.from(secs).indexOf(en.target);nbs.forEach((b,j)=>{b.style.background=j===i?'#be123c':'';b.style.color=j===i?'white':'';})}});},{threshold:0.25}).observe(s));
+document.querySelectorAll('.reveal').forEach(el=>new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('visible');});},{threshold:0.08}).observe(el));
+</script>
+</body>
+</html>

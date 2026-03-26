@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Klassen verstehen und führen – Interaktiver Überblick</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#faf8f4;--sur:#fff;--sur2:#f3f0ea;--brd:#e2ddd4;--txt:#1c1917;--mut:#78716c;--acc:#b45309;--sh:0 2px 12px rgba(0,0,0,.07);}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6;}
+.nav{position:sticky;top:0;z-index:100;background:rgba(250,248,244,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--brd);padding:0 32px;}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:8px;height:52px;overflow-x:auto;scrollbar-width:none;}
+.nav-inner::-webkit-scrollbar{display:none;}
+.back-btn{font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;border:1.5px solid var(--brd);cursor:pointer;background:transparent;color:var(--mut);transition:all .2s;font-family:'DM Sans',sans-serif;text-decoration:none;display:flex;align-items:center;gap:4px;white-space:nowrap;}
+.back-btn:hover{background:var(--sur);color:var(--txt);}
+.nav-sep{color:var(--brd);}
+.nb{white-space:nowrap;font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;border:1.5px solid transparent;cursor:pointer;background:transparent;color:var(--mut);transition:all .2s;font-family:'DM Sans',sans-serif;}
+.nb:hover{color:var(--txt);border-color:var(--brd);background:var(--sur);}
+.hero{max-width:1100px;margin:0 auto;padding:52px 32px 32px;}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--acc);margin-bottom:10px;}
+h1{font-family:'Lora',serif;font-size:clamp(30px,4.5vw,50px);font-weight:700;line-height:1.1;letter-spacing:-.5px;margin-bottom:14px;}
+.hdesc{font-size:16px;color:var(--mut);max-width:580px;font-weight:300;line-height:1.7;margin-bottom:18px;}
+.throw{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+.thb{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;border:1.5px solid;}
+.thby{font-weight:400;font-size:10px;opacity:.65;}
+.main{max-width:1100px;margin:0 auto;padding:0 32px 80px;}
+.section{margin-bottom:52px;}
+.sh{display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid var(--txt);flex-wrap:wrap;row-gap:6px;}
+.sn{font-family:'Lora',serif;font-size:13px;color:var(--mut);flex-shrink:0;}
+.st{font-family:'Lora',serif;font-size:21px;font-weight:700;flex:1;}
+.sa{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;color:white;white-space:nowrap;flex-shrink:0;}
+.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:16px;}
+.cg.wide{grid-template-columns:repeat(auto-fill,minmax(450px,1fr));}
+.card{background:var(--sur);border:1px solid var(--brd);border-radius:12px;border-top-width:3px;overflow:hidden;box-shadow:var(--sh);}
+.ch{padding:14px 18px 11px;border-bottom:1px solid var(--brd);}
+.ch h3{font-family:'Lora',serif;font-size:15px;font-weight:700;margin-bottom:2px;line-height:1.3;}
+.ca{display:inline-block;font-size:10px;font-weight:700;padding:1px 7px;border-radius:10px;margin-bottom:4px;letter-spacing:.5px;color:white;}
+.csub{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.8px;}
+.ai{border-bottom:1px solid var(--brd);cursor:pointer;transition:background .15s;}
+.ai:last-child{border-bottom:none;}.ai:hover,.ai.open{background:var(--sur2);}
+.at{display:flex;align-items:center;gap:10px;padding:11px 18px;user-select:none;}
+.an{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;}
+.al{flex:1;font-size:13.5px;font-weight:600;line-height:1.3;}
+.aico{font-size:14px;color:var(--mut);transition:transform .25s;flex-shrink:0;}
+.ai.open .aico{transform:rotate(180deg);}
+.abody{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.4,0,.2,1);}
+.abody.open{max-height:1500px;}
+.ac{padding:6px 18px 16px 50px;}
+.ex{font-size:14px;color:#2c2825;line-height:1.75;margin-bottom:10px;}
+.ebox{background:#fef9f0;border-left:3px solid var(--acc);border-radius:0 6px 6px 0;padding:10px 14px;font-size:13px;color:#451a03;line-height:1.6;margin-bottom:8px;}
+.ebox .el{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--acc);margin-bottom:4px;}
+.fb{background:#f0f4ff;border-left:3px solid #3730a3;border-radius:0 6px 6px 0;padding:9px 14px;font-size:13px;margin-bottom:8px;line-height:1.55;}
+.fb .fl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#3730a3;margin-bottom:3px;}
+.fb .ft{font-weight:700;color:#1e1b4b;}
+.tip{background:#fefce8;border-left:3px solid #ca8a04;border-radius:0 6px 6px 0;padding:9px 14px;font-size:13px;margin-bottom:8px;color:#422006;line-height:1.55;}
+.tip .tl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#ca8a04;margin-bottom:3px;}
+.warn{background:#fff1f2;border-left:3px solid #e11d48;border-radius:0 6px 6px 0;padding:9px 14px;font-size:13px;margin-bottom:8px;color:#4c0519;line-height:1.55;}
+.warn .wl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#e11d48;margin-bottom:3px;}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
+.ci{background:var(--sur2);border-radius:6px;padding:9px 12px;}
+.ci .cil{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px;}
+ul.pl{list-style:none;padding:0;}
+ul.pl li{font-size:13.5px;padding:2.5px 0 2.5px 13px;position:relative;color:#2c2825;}
+ul.pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
+.note{font-size:12px;color:var(--mut);font-style:italic;margin-top:8px;padding-top:7px;border-top:1px solid var(--brd);}
+.stufe{display:flex;gap:8px;align-items:flex-start;padding:5px 7px;border-radius:6px;margin-bottom:5px;border:1px solid var(--brd);}
+.snum{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;flex-shrink:0;margin-top:1px;}
+.sbody{font-size:12.5px;line-height:1.45;}
+.sbody strong{display:block;font-weight:700;margin-bottom:1px;}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .5s,transform .5s;}
+.reveal.visible{opacity:1;transform:none;}
+@media(max-width:640px){.hero,.main{padding-left:18px;padding-right:18px;}.nav{padding:0 18px;}.cg,.cg.wide{grid-template-columns:1fr;}.cmp{grid-template-columns:1fr;}.ac{padding-left:18px;}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="back-btn" href="index.html">← Übersicht</a><span class="nav-sep">|</span>
+    <button class="nb" onclick="scrollTo('s1')">Autorität &amp; Führung</button>
+    <button class="nb" onclick="scrollTo('s2')">Classroom Management</button>
+    <button class="nb" onclick="scrollTo('s3')">Regeln &amp; Rituale</button>
+    <button class="nb" onclick="scrollTo('s4')">Werte &amp; Normen</button>
+    <button class="nb" onclick="scrollTo('s5')">Gruppendynamik</button>
+    <button class="nb" onclick="scrollTo('s6')">Soziales Lernen</button>
+    <button class="nb" onclick="scrollTo('s7')">Herausfordernde Situationen</button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="eyebrow">Pädagogik · Interaktiver Überblick</div>
+  <h1>Klassen verstehen und führen</h1>
+  <p class="hdesc">Autorität, Classroom-Management, Regeln, Rituale, Gruppendynamiken und soziales Lernen — mit konkreten Techniken und pädagogischen Hintergründen für den Schulalltag.</p>
+  <div class="throw">
+    <span class="thb" style="color:#b45309;border-color:#b45309;">Kounin <span class="thby">Classroom Management</span></span>
+    <span class="thb" style="color:#7c3aed;border-color:#7c3aed;">Tuckman <span class="thby">Gruppenentwicklung</span></span>
+    <span class="thb" style="color:#0369a1;border-color:#0369a1;">Autorität &amp; Disziplin <span class="thby">Führungskonzepte</span></span>
+    <span class="thb" style="color:#be123c;border-color:#be123c;">Soziales Lernen <span class="thby">Klassengemeinschaft</span></span>
+  </div>
+</header>
+
+<main class="main">
+
+<!-- 1 AUTORITÄT -->
+<section class="section reveal" id="s1">
+  <div class="sh"><span class="sn">I</span><span class="st">Autorität, Führung &amp; Disziplin</span><span class="sa" style="background:#b45309;">Grundkonzepte der Klassenführung</span></div>
+  <div class="cg wide">
+    <div class="card" style="border-top-color:#b45309;">
+      <div class="ch"><h3 style="color:#b45309;">👑 Was bedeutet Autorität heute?</h3><div class="csub">Personale vs. funktionale Autorität · Führungsstile</div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fef3c7;color:#b45309;">💡</div><div class="al">Autorität — Wandel und Bedeutung</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Autorität</span> — Vom Lateinischen „auctoritas": Ansehen, Einfluss, der aufgrund von Kompetenz, Persönlichkeit oder Position entsteht. Autorität hat jemand — sie muss verdient werden. Sie unterscheidet sich von bloßer Machtausübung.</div>
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#b45309;">Personale Autorität</div>Entsteht durch Persönlichkeit, Kompetenz, Authentizität und Beziehungsqualität. Nachhaltig wirksam, weil intrinsisch anerkannt.</div>
+          <div class="ci"><div class="cil" style="color:#7c3aed;">Funktionale Autorität</div>Entsteht durch Position und Amt (z.B. Lehrkraft). Gibt einen Rahmen — reicht allein aber nicht für gute Klassenführung.</div>
+        </div>
+        <div class="warn"><div class="wl">⚠️ Autorität ≠ Autorismus</div>Autoritärer Führungsstil (Gehorsamkeit durch Angst) schädigt Beziehungen und intrinsische Motivation. Klare, konsequente Autorität auf Basis von Respekt ist hingegen lernförderlich. Der Unterschied liegt in der Haltung: Macht über jemanden vs. Verantwortung für jemanden.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Personale Autorität entsteht durch: Authentizität, klare Haltung, Fachkompetenz, Konsequenz und Fairness, echtes Interesse an den Schülerinnen und Schülern. Lehrkräfte, die respektiert werden wollen, müssen selbst Respekt zeigen.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fef3c7;color:#b45309;">📏</div><div class="al">Disziplin — Selbstkontrolle und Ordnung</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Disziplin</span> — Im personalen Sinn: Selbstkontrolle, die eine Ordnung anerkennt und eigene Bedürfnisse im Hinblick auf gesetzte Ziele zurückstellen kann. Im situativen Sinn: Die definierte Ordnung in einem Klassenraum.</div>
+        <div class="ex">Disziplin als Erziehungsziel ist nicht Gehorsam — es ist Selbstregulation. Das Ziel ist nicht der Schüler, der still ist, weil die Lehrkraft da ist. Das Ziel ist der Schüler, der still ist, weil er gelernt hat, seinen eigenen Lernprozess zu steuern.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>„Disziplinprobleme" sind oft Symptome — nicht Ursachen. Langeweile, Überforderung, fehlende Beziehung, erlernte Hilflosigkeit: all das erzeugt Störungen. Wer die Ursache adressiert, löst nachhaltig. Wer nur das Symptom bekämpft, erschöpft sich im Kampf.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 CLASSROOM MANAGEMENT -->
+<section class="section reveal" id="s2">
+  <div class="sh"><span class="sn">II</span><span class="st">Classroom-Management nach Kounin</span><span class="sa" style="background:#0369a1;">Jacob Kounin (1912–1995)</span></div>
+  <div class="cg wide">
+    <div class="card" style="border-top-color:#0369a1;">
+      <div class="ch"><span class="ca" style="background:#0369a1;">Kounin</span><h3 style="color:#0369a1;">🎯 Prävention vor Reaktion — die 7 Techniken</h3><div class="csub">Allgegenwärtigkeit · Reibungslosigkeit · Gruppenaktivierung</div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0f2fe;color:#0369a1;">💡</div><div class="al">Das überraschende Ergebnis — Prävention entscheidet</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Kounins Kernbefund: Nicht die Reaktion auf Störungen unterscheidet gute von schlechten Lehrkräften — sondern wie gut sie Störungen verhindern. Gutes Classroom-Management ist primär präventiv.</div>
+        <div class="fb"><div class="fl">🔑 Classroom-Management</div>Alle Maßnahmen zur Schaffung und Aufrechterhaltung einer lernförderlichen Unterrichtsumgebung. Umfasst: Raumgestaltung, Regeln, Routinen, Übergänge und Reaktion auf Störungen — aber der Schwerpunkt liegt auf Prävention.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0f2fe;color:#0369a1;">👁️</div><div class="al">1. Allgegenwärtigkeit — „with-it-ness"</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Allgegenwärtigkeit</div>Lehrkräfte wissen jederzeit, was im Klassenraum passiert — und signalisieren das den Schülerinnen und Schülern. „Sie hat Augen im Hinterkopf." Zwei Teilfähigkeiten: <span class="ft">Timing</span> (früh genug reagieren) und <span class="ft">Targeting</span> (den richtigen Schüler ansprechen).</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Positionierung im Raum: Nicht dauerhaft an der Tafel stehen. Raum abschreiten, Augenkontakt mit allen halten. Beim Erklären auch kurze Blicke in alle Winkel des Raums — das signalisiert Allgegenwärtigkeit, ohne zu überwachen.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0f2fe;color:#0369a1;">🔄</div><div class="al">2. Überlappung — zwei Dinge gleichzeitig</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Überlappung</div>Fähigkeit, mehrere Unterrichtsvorgänge gleichzeitig zu managen. Einem Schüler helfen und gleichzeitig die gesamte Klasse im Blick behalten. Ein Gespräch führen und nonverbal auf eine Störung in der Klasse reagieren.</div>
+        <div class="ebox"><div class="el">💡 Beispiel</div>Während die Lehrkraft einem Schüler am Pult hilft, schaut sie kurz auf und stellt fest, dass zwei Schüler hinten flüstern. Ein ruhiger Blickkontakt unterbricht das Flüstern — ohne das Gespräch am Pult zu unterbrechen. Das ist Überlappung.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0f2fe;color:#0369a1;">🌊</div><div class="al">3 &amp; 4. Reibungslosigkeit &amp; Schwung</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Reibungslosigkeit</div>Unterricht verläuft ohne unnötige Stockungen, Pausen oder abrupte Wechsel. Materialien sind vorbereitet. Übergänge zwischen Phasen sind fließend. Keine langen Wartezeiten.</div>
+        <div class="fb"><div class="fl">🔑 Schwung</div>Angemessenes Unterrichtstempo — weder zu langsam (Langeweile → Störungen) noch zu schnell (Überforderung). Der Unterrichtsfluss trägt die Klasse mit.</div>
+        <div class="warn"><div class="wl">⚠️ „Ruptur" — der häufigste Fehler</div>Rupturen sind unnötige Unterbrechungen des Unterrichtsflusses: Zu lange bei einem Schüler verweilen (Klasse wartet gelangweilt) · Suchen nach Materialien · Abschweifungen vom Thema · Zu lange Erklärungen · Unterricht beenden, bevor die Zeit um ist.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0f2fe;color:#0369a1;">👥</div><div class="al">5 &amp; 6. Gruppenaktivierung &amp; Abwechslung</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Gruppenaktivierung</div>Alle Schülerinnen und Schüler gleichzeitig aktiv halten — nicht nur den, der gerade drankommt. Alle rechnen mit, alle schreiben auf, Partnerarbeit. Cold Calling (zufälliges Drannehmen) hält alle in Bereitschaft.</div>
+        <div class="fb"><div class="fl">🔑 Abwechslungsreichtum</div>Methodenvielfalt verhindert Monotonie und Desinteresse. Herausforderungsniveau: weder zu leicht (Langeweile) noch zu schwer (Frustration). Beides erzeugt Störungen.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Methodenwechsel alle 15–20 Minuten. Sicherstellen, dass auch stille Schüler aktiv sind — nicht nur die, die sich von selbst melden. Think-Pair-Share, Exit Tickets, Mini-Whiteboard-Antworten aktivieren alle gleichzeitig.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0f2fe;color:#0369a1;">🎚️</div><div class="al">7. Prinzip der geringsten Intervention</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Prinzip der geringsten Intervention</div>Bei Störungen immer mit dem kleinstmöglichen Eingriff beginnen — proportional zur Störung. Nicht jede Reaktion muss explizit sein.</div>
+        <div class="stufe"><div class="snum" style="background:#e0f2fe;color:#0369a1;">1</div><div class="sbody"><strong>Nonverbal</strong> — Blickkontakt, Nähe aufsuchen, Pause machen: unterbricht viele Störungen ohne ein Wort</div></div>
+        <div class="stufe"><div class="snum" style="background:#e0f2fe;color:#0369a1;">2</div><div class="sbody"><strong>Verbal-dezent</strong> — Name nennen, kurze Aufforderung, leise Ansprache beim Vorbeigehen</div></div>
+        <div class="stufe"><div class="snum" style="background:#e0f2fe;color:#0369a1;">3</div><div class="sbody"><strong>Explizit</strong> — Deutliche Aufforderung, Konsequenzen ansprechen — nur wenn 1 und 2 nicht wirken</div></div>
+        <div class="warn"><div class="wl">⚠️ Direkt auf Stufe 3 zu springen beschämt öffentlich, erzeugt Trotz und eskaliert. Und: Der stärkste Hebel verliert seine Wirkung, wenn er zu oft eingesetzt wird.</div></div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0f2fe;color:#0369a1;">📐</div><div class="al">Sitzordnung als Classroom-Management-Instrument</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Die Sitzordnung beeinflusst Kommunikationsmöglichkeiten, Aufmerksamkeit und Kooperation direkt. Drei Grundformen:</div>
+        <ul class="pl" style="margin-bottom:10px;">
+          <li><strong>Bankreihen:</strong> Optimal für Frontalunterricht, guter Blick zum Medium (Tafel/Beamer)</li>
+          <li><strong>U-Form/Hufeisenform:</strong> Ermöglicht Blickkontakt aller — gut für Diskussionen</li>
+          <li><strong>Gruppenform (Cluster):</strong> Optimal für kooperatives Lernen, erschwert Frontalunterricht</li>
+        </ul>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Sitzordnung der Unterrichtsmethode anpassen — nicht umgekehrt. Schülerinnen und Schüler können in die Gestaltung einbezogen werden. Sitzordnungsänderungen können Gruppenkonstellationen bewusst aufbrechen oder stärken.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 REGELN UND RITUALE -->
+<section class="section reveal" id="s3">
+  <div class="sh"><span class="sn">III</span><span class="st">Regeln &amp; Rituale</span><span class="sa" style="background:#b45309;">Orientierung und Sicherheit</span></div>
+  <div class="cg">
+    <div class="card" style="border-top-color:#b45309;">
+      <div class="ch"><h3 style="color:#b45309;">📋 Regeln — warum und wie?</h3><div class="csub">Erarbeitung · Einhaltung · Konsequenz</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fef3c7;color:#b45309;">💡</div><div class="al">Was sind Regeln — und warum braucht man sie?</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Regeln</div>Regeln sind Übereinkünfte, die das menschliche Zusammenleben erleichtern. Sie müssen begründet werden und aus einem transparenten Prozess hervorgehen. Regeln zeigen Grenzen auf und weisen auf mögliche Folgen von Regelübertretungen (Sanktionen) hin.</div>
+        <div class="ebox"><div class="el">✅ Merkmale guter Schulregeln</div>
+          Wenige, klare, positive Formulierungen · Für alle verständlich und nachvollziehbar · Konsequent eingehalten · Regelbruch wird immer thematisiert · Regelkonformes Verhalten wird anerkannt · Schülerinnen und Schüler sind bei der Erarbeitung beteiligt.
+        </div>
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#be123c;">Schlechte Regel</div>„Es ist verboten, während des Unterrichts zu reden." (negativ, zu weit, nicht durchsetzbar)</div>
+          <div class="ci"><div class="cil" style="color:#15803d;">Gute Regel</div>„Wir lassen einander ausreden." (positiv, konkret, begründbar)</div>
+        </div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Regeln sollten nicht nur aufgehängt, sondern regelmäßig besprochen und evaluiert werden. „Sind unsere Regeln noch sinnvoll? Halten wir sie ein? Was muss angepasst werden?" Das stärkt Verantwortungsbewusstsein.</div>
+      </div></div></div>
+    </div>
+
+    <div class="card" style="border-top-color:#b45309;">
+      <div class="ch"><h3 style="color:#b45309;">🕯️ Rituale — Sicherheit durch Wiederkehr</h3><div class="csub">Funktion · Beispiele · Beziehungsgestaltung</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fef3c7;color:#b45309;">💡</div><div class="al">Warum sind Rituale so wirksam?</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Rituale</div>Wiederkehrende, symbolisch aufgeladene Handlungsabläufe, die Sicherheit, Orientierung und Gemeinschaftsgefühl stiften. Rituale wirken auf zwei Ebenen: äußerlich (Ordnung und Struktur) und innerlich (Fokussierung, Bereitschaft, Zugehörigkeit).</div>
+        <div class="ebox"><div class="el">📋 Beispiele für Unterrichtsrituale</div>
+          Begrüßung im Stehen zu Stundenbeginn · Stille Startaufgabe in den ersten Minuten · Festes Feedbackformat am Stundenende · Wochenbeginn-Runde: „Was war positiv letzte Woche?" · Geburtstage anerkennen · Gemeinsames Aufräumen zum Abschluss.
+        </div>
+        <div class="ex">Rituale als Beziehungsgestaltung: Die Lehrkraft signalisiert bei Beachtung bestimmter Abläufe: Sie nimmt die Schülerinnen und Schüler wahr, achtet ihre Belange und schafft bewusst gemeinsame Erfahrungen.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Rituale brauchen Zeit, um zu wirken — und Konsequenz. Ein Ritual, das mal gilt und mal nicht, ist keins. Gleichzeitig: Rituale dürfen nicht zur Leerstelle werden. Ihr Sinn muss erkennbar bleiben.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 WERTE UND NORMEN IN DER KLASSE -->
+<section class="section reveal" id="s4">
+  <div class="sh"><span class="sn">IV</span><span class="st">Werte &amp; Normen in der Klassenführung</span><span class="sa" style="background:#7c3aed;">Wertebildung · Vorbild</span></div>
+  <div class="cg">
+    <div class="card" style="border-top-color:#7c3aed;">
+      <div class="ch"><h3 style="color:#7c3aed;">🌱 Wertebildung in der Klasse</h3><div class="csub">Grenzen · Freiheit · Vorbild</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#f5f3ff;color:#7c3aed;">💡</div><div class="al">Grenzen als Freiheitsbedingung</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Wertebildung in der Klassenführung verfolgt das Ziel: Durch das Setzen von Grenzen ein Mehr an Freiheit für alle zu ermöglichen. Ohne anerkannte Grenzen kommt es zu Machtkämpfen — mit Grenzen entsteht Raum für Entwicklung.</div>
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Wertebildung</span> — Nicht Wertevermittlung (von außen aufzwingen), sondern Werte-Entwicklung: Der Prozess, durch den Schülerinnen und Schüler eigene, internalisierte Werte herausbilden. Ziel ist selbstbestimmtes Verhalten auf Basis einer werteorientierten Haltung.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Die Lehrkraft als Vorbild ist unvermeidlich. Wie sie mit Ungerechtigkeit umgeht, wie sie Fehler behandelt, wie sie streitet und versöhnt: All das ist gelebte Werteerziehung — auch dann, wenn nichts darüber geredet wird.</div>
+      </div></div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#f5f3ff;color:#7c3aed;">👩‍🏫</div><div class="al">Aufgaben von Klassenlehrkräften</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Klassenlehrkräfte haben erweiterte Aufgaben über das Unterrichten hinaus:</div>
+        <ul class="pl" style="margin-bottom:10px;">
+          <li>Beziehungen zu jedem Einzelnen und zur Gruppe aufbauen</li>
+          <li>Gruppenentwicklung unterstützen und Sozialverhalten fördern</li>
+          <li>Überblick über Leistungsentwicklungen aller Schüler haben</li>
+          <li>Elternkontakte koordinieren und Erziehungspartnerschaft gestalten</li>
+          <li>Klassenkonferenzen vorbereiten und koordinieren</li>
+          <li>Schülerinnen und Schüler bei persönlichen Belastungen beraten</li>
+          <li>Selbständigkeit und Partizipation fördern</li>
+        </ul>
+        <div class="note">Die Klassenleitung ist keine zusätzliche Aufgabe — sie ist der Rahmen, in dem alle anderen Aufgaben wirksamer werden können.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 GRUPPENDYNAMIK -->
+<section class="section reveal" id="s5">
+  <div class="sh"><span class="sn">V</span><span class="st">Gruppendynamiken erkennen und gestalten</span><span class="sa" style="background:#0369a1;">Tuckman · Lewin · Rollenkonzept</span></div>
+  <div class="cg">
+    <div class="card" style="border-top-color:#0369a1;">
+      <div class="ch"><h3 style="color:#0369a1;">👥 Wie entwickelt sich eine Klasse?</h3><div class="csub">Tuckman-Modell · Rollen · Kohäsion</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0f2fe;color:#0369a1;">📈</div><div class="al">Tuckmans 5 Phasen der Gruppenentwicklung</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="stufe"><div class="snum" style="background:#e0f2fe;color:#0369a1;">1</div><div class="sbody"><strong>Forming — Orientierung:</strong> Unsicherheit, Höflichkeit, Abhängigkeit von der Lehrkraft. Schüler prüfen, was erlaubt ist.</div></div>
+        <div class="stufe"><div class="snum" style="background:#fde68a;color:#b45309;">2</div><div class="sbody"><strong>Storming — Konflikte:</strong> Machtkämpfe, Rollenklärung, Subgruppen. Ist normal und notwendig — kein Anzeichen für Versagen der Lehrkraft.</div></div>
+        <div class="stufe"><div class="snum" style="background:#e0f2fe;color:#0369a1;">3</div><div class="sbody"><strong>Norming — Zusammenwachsen:</strong> Gemeinsame Normen entstehen, Vertrauen wächst, erste echte Kooperation.</div></div>
+        <div class="stufe"><div class="snum" style="background:#dcfce7;color:#15803d;">4</div><div class="sbody"><strong>Performing — Hochleistung:</strong> Effektive Zusammenarbeit, Flexibilität in Rollen, Kreativität und Produktivität.</div></div>
+        <div class="stufe"><div class="snum" style="background:#f0f9ff;color:#0369a1;">5</div><div class="sbody"><strong>Adjourning — Abschluss:</strong> Auflösung am Schuljahresende. Emotionen: Stolz, Trauer, Erleichterung.</div></div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Teambuilding zu Schuljahresbeginn beschleunigt Forming und erleichtert Storming. Gezielte Kennenlernaktivitäten, kooperative Aufgaben in heterogenen Gruppen, gemeinsame Erlebnisse stärken die Gruppenentwicklung.</div>
+      </div></div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0f2fe;color:#0369a1;">🎭</div><div class="al">Rollen in der Klasse — formal und informell</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Formale Rollen</div>Klassensprecher, Schülersprecher, Tutoren: Offiziell zugewiesene Verantwortungen. Sie strukturieren Partizipation und geben Schülern Gestaltungsmacht.</div>
+        <div class="fb"><div class="fl">🔑 Informelle Rollen</div>Entstehen spontan: Meinungsführer, Außenseiter, Clown, Streber, Vermittler. Informelle Rollen sind oft mächtiger als formale — sie entstehen aus der Gruppendynamik.</div>
+        <div class="ebox"><div class="el">👁️ Rollenbewusstsein als Lehrkraft</div>Welche Schüler haben welche Rollen in der Klasse? Wer ist Meinungsführer? Wer wird marginalisiert? Dieses Wissen ist entscheidend für effektives pädagogisches Handeln — z.B. bei Mobbing-Prävention oder Gruppenbildung im Unterricht.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Informelle Rollen können aktiv gestaltet werden: Wechselnde Gruppenkonstellationen, neue Verantwortungen für Außenseiter, bewusste Stärkung von Benachteiligten. Das erfordert Beobachtungsgabe und pädagogisches Fingerspitzengefühl.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 SOZIALES LERNEN -->
+<section class="section reveal" id="s6">
+  <div class="sh"><span class="sn">VI</span><span class="st">Soziales Lernen in Schulklassen</span><span class="sa" style="background:#15803d;">Kooperatives Lernen · Gemeinschaft</span></div>
+  <div class="cg">
+    <div class="card" style="border-top-color:#15803d;">
+      <div class="ch"><h3 style="color:#15803d;">🤝 Soziales Lernen — was, wie und warum?</h3><div class="csub">Soziale Kompetenzen · Kooperation · Peer-Lernen</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#dcfce7;color:#15803d;">💡</div><div class="al">Was ist soziales Lernen?</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Soziales Lernen</div>Erwerb sozialer Kompetenzen durch gezielte Reflexion, Übung und Erfahrung in der Gruppe. Umfasst: Kommunikation, Kooperation, Konfliktlösung, Empathie, Verantwortungsübernahme.</div>
+        <div class="ex">Soziales Lernen ist kein Zusatzprogramm — es geschieht in jeder Unterrichtsstunde. Die Frage ist: Geschieht es bewusst gestaltet oder zufällig? Bewusste Gestaltung bedeutet: kooperative Lernformen, Gesprächsregeln, Feedbackformate, Konfliktbearbeitung.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Kooperative Lernformen (Partnerarbeit, Gruppenarbeit, Peer-Tutoring) sind nicht nur lernwirksam — sie sind zugleich Übungsfeld für soziale Kompetenzen. Klare Strukturen und Rollen in Gruppenarbeiten sind Voraussetzung, damit das Lernen produktiv ist.</div>
+      </div></div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#dcfce7;color:#15803d;">🔗</div><div class="al">Peer-Tutoring und Mentorensysteme</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Peer-Tutoring</div>Schülerinnen und Schüler unterstützen sich gegenseitig beim Lernen. Effektiv für beide Seiten: Die Tutoren festigen ihr Wissen durch Erklären (Protégé-Effekt), die Tutees profitieren von altersnahen Erklärungen.</div>
+        <div class="fb"><div class="fl">🔑 Tutorensystem</div>Ältere Schüler (Tutoren) begleiten jüngere — besonders beim Übergang in die neue Schulart. Soziales Lernen und Schulidentifikation werden gestärkt. Tutoren erhalten Verantwortung und entwickeln Führungskompetenzen.</div>
+        <div class="ebox"><div class="el">🔬 Forschungsbefund</div>Erklären ist eine der effektivsten Lernmethoden (s. Feynman-Technik in Lernpsychologie). Peer-Tutoring nutzt diesen Effekt: Wer erklärt, lernt am tiefsten.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 HERAUSFORDERNDE SITUATIONEN -->
+<section class="section reveal" id="s7">
+  <div class="sh"><span class="sn">VII</span><span class="st">Pädagogisches Handeln in herausfordernden Situationen</span><span class="sa" style="background:#be123c;">Konflikte · Störungen · Krisen</span></div>
+  <div class="cg wide">
+    <div class="card" style="border-top-color:#be123c;">
+      <div class="ch"><h3 style="color:#be123c;">⚡ Wenn der Unterricht schwierig wird</h3><div class="csub">Analyse · Handlungsoptionen · Deeskalation</div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fff1f2;color:#be123c;">🔍</div><div class="al">Herausfordernde Situationen — Analyse vor Reaktion</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Herausfordernde Situationen im Unterricht sind vielfältig: Kopf auf der Bank, Sachbeschädigung, Unpünktlichkeit, anhaltende Unruhe, Außenseiter, Verweigerung. Erfolgreiche Reaktion erfordert zunächst Analyse — nicht reflexartige Reaktion.</div>
+        <div class="fb"><div class="fl">🔑 Analytische Wahrnehmung</div>Bevor man handelt: Wer? Wann? Wo? Wie? Wie lange? Was ist der Kontext? Welche emotionale, kognitive und motivationale Situation liegt vor? Wie verhalte ich mich dazu?</div>
+        <div class="ebox"><div class="el">🌐 Alles hängt zusammen</div>Unterrichtsplanung, Autorität, Klassenklima, Gruppenentwicklung, individuelle Schülergeschichte — all das beeinflusst, warum ein Schüler den Kopf auf die Bank legt. Die Reaktion muss diese Komplexität berücksichtigen.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fff1f2;color:#be123c;">🔧</div><div class="al">Handlungsoptionen bei Störungen</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Reaktionsmöglichkeiten folgen dem Prinzip der geringsten Intervention (s. Kounin). Darüber hinaus gibt es spezifischere Handlungsoptionen:</div>
+        <ul class="pl" style="margin-bottom:10px;">
+          <li><strong>Ignorieren:</strong> Bei kurzen, einmaligen Störungen — sofern sie sich von selbst auflösen</li>
+          <li><strong>Ablenkung:</strong> Schüler durch eine interessante Aufgabe oder Frage zurückgewinnen</li>
+          <li><strong>Privatgespräch:</strong> Nach der Stunde — diskret, ohne öffentliche Bloßstellung</li>
+          <li><strong>Strukturanpassung:</strong> Wenn die Störung systemisch ist — Sitzordnung, Aufgaben, Tempo anpassen</li>
+          <li><strong>Externe Unterstützung:</strong> Bei ernsten Situationen: Schulleitung, Schulpsychologe</li>
+        </ul>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>„Netzwerken" als Lösungsweg: Herausfordernde Situationen nicht allein bewältigen. Klassenteam konsultieren, Klassenleitung einbeziehen, schulische Unterstützungssysteme nutzen. Kollegiale Fallbesprechung (s. Schulentwicklungsseite) ist ein wichtiges Werkzeug.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fff1f2;color:#be123c;">💬</div><div class="al">Gespräche mit Schülerinnen und Schülern in schwierigen Situationen</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Pädagogische Einzelgespräche mit Schülerinnen und Schülern folgen einer klaren Struktur:</div>
+        <div class="stufe"><div class="snum" style="background:#fff1f2;color:#be123c;">1</div><div class="sbody"><strong>Atmosphäre:</strong> Ruhiger, geschützter Rahmen — nicht im Klassenzimmer vor allen</div></div>
+        <div class="stufe"><div class="snum" style="background:#fff1f2;color:#be123c;">2</div><div class="sbody"><strong>Zuhören:</strong> Erst die Perspektive des Schülers hören — aktives Zuhören (Rogers)</div></div>
+        <div class="stufe"><div class="snum" style="background:#fff1f2;color:#be123c;">3</div><div class="sbody"><strong>Benennen:</strong> Eigene Wahrnehmung mit Ich-Botschaften (nicht anklagen)</div></div>
+        <div class="stufe"><div class="snum" style="background:#fff1f2;color:#be123c;">4</div><div class="sbody"><strong>Ressourcen:</strong> Was kann der Schüler? Was hat in der Vergangenheit geholfen?</div></div>
+        <div class="stufe"><div class="snum" style="background:#fff1f2;color:#be123c;">5</div><div class="sbody"><strong>Vereinbaren:</strong> Konkrete, realistische Vereinbarung für die nächste Situation</div></div>
+        <div class="note">Ressourcenorientierung: Den Blick auf vorhandene Fähigkeiten und Stärken stärkt Zuversicht und Selbstwirksamkeit. Langwierige Ursachenforschung kann lähmend wirken.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer style="background:var(--sur2);border-top:1px solid var(--brd);padding:20px 32px;text-align:center;">
+  <div style="max-width:1100px;margin:0 auto;font-size:12px;color:var(--mut);">
+    Klassen verstehen und führen · Kounin · Tuckman · Regeln & Rituale · Werteerziehung · Soziales Lernen
+  </div>
+</footer>
+
+<script>
+function toggle(item){const b=item.querySelector('.abody'),o=item.classList.contains('open');item.classList.toggle('open',!o);b.classList.toggle('open',!o);}
+function scrollTo(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
+const secs=document.querySelectorAll('.section'),nbs=document.querySelectorAll('.nb');
+secs.forEach(s=>new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){const i=Array.from(secs).indexOf(en.target);nbs.forEach((b,j)=>{b.style.background=j===i?'#b45309':'';b.style.color=j===i?'white':'';})}});},{threshold:0.25}).observe(s));
+document.querySelectorAll('.reveal').forEach(el=>new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('visible');});},{threshold:0.08}).observe(el));
+</script>
+</body>
+</html>

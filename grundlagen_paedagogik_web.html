@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grundlagen der Pädagogik – Interaktiver Überblick</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#faf8f4;--sur:#fff;--sur2:#f3f0ea;--brd:#e2ddd4;--txt:#1c1917;--mut:#78716c;--acc:#7c3aed;--sh:0 2px 12px rgba(0,0,0,.07);}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6;}
+.nav{position:sticky;top:0;z-index:100;background:rgba(250,248,244,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--brd);padding:0 32px;}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:8px;height:52px;overflow-x:auto;scrollbar-width:none;}
+.nav-inner::-webkit-scrollbar{display:none;}
+.back-btn{font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;border:1.5px solid var(--brd);cursor:pointer;background:transparent;color:var(--mut);transition:all .2s;font-family:'DM Sans',sans-serif;text-decoration:none;display:flex;align-items:center;gap:4px;white-space:nowrap;}
+.back-btn:hover{background:var(--sur);color:var(--txt);}
+.nav-sep{color:var(--brd);}
+.nb{white-space:nowrap;font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;border:1.5px solid transparent;cursor:pointer;background:transparent;color:var(--mut);transition:all .2s;font-family:'DM Sans',sans-serif;}
+.nb:hover{color:var(--txt);border-color:var(--brd);background:var(--sur);}
+.hero{max-width:1100px;margin:0 auto;padding:52px 32px 32px;}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--acc);margin-bottom:10px;}
+h1{font-family:'Lora',serif;font-size:clamp(30px,4.5vw,50px);font-weight:700;line-height:1.1;letter-spacing:-.5px;margin-bottom:14px;}
+.hdesc{font-size:16px;color:var(--mut);max-width:580px;font-weight:300;line-height:1.7;margin-bottom:18px;}
+.throw{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+.thb{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;border:1.5px solid;}
+.thby{font-weight:400;font-size:10px;opacity:.65;}
+.thgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:10px;margin-bottom:28px;}
+.thcard{background:var(--sur);border:1px solid var(--brd);border-radius:10px;padding:13px 15px;border-left-width:4px;box-shadow:var(--sh);}
+.thcard .thn{font-family:'Lora',serif;font-size:14px;font-weight:700;margin-bottom:1px;}
+.thcard .thy{font-size:10px;color:var(--mut);margin-bottom:6px;}
+.thcard .thk{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:3px;}
+.thcard .thd{font-size:12px;color:#4a4540;line-height:1.5;}
+.main{max-width:1100px;margin:0 auto;padding:0 32px 80px;}
+.section{margin-bottom:52px;}
+.sh{display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid var(--txt);flex-wrap:wrap;row-gap:6px;}
+.sn{font-family:'Lora',serif;font-size:13px;color:var(--mut);flex-shrink:0;}
+.st{font-family:'Lora',serif;font-size:21px;font-weight:700;flex:1;}
+.sa{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;color:white;white-space:nowrap;flex-shrink:0;}
+.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:16px;}
+.cg.wide{grid-template-columns:repeat(auto-fill,minmax(450px,1fr));}
+.card{background:var(--sur);border:1px solid var(--brd);border-radius:12px;border-top-width:3px;overflow:hidden;box-shadow:var(--sh);}
+.ch{padding:14px 18px 11px;border-bottom:1px solid var(--brd);}
+.ch h3{font-family:'Lora',serif;font-size:15px;font-weight:700;margin-bottom:2px;line-height:1.3;}
+.ca{display:inline-block;font-size:10px;font-weight:700;padding:1px 7px;border-radius:10px;margin-bottom:4px;letter-spacing:.5px;color:white;}
+.csub{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.8px;}
+.ai{border-bottom:1px solid var(--brd);cursor:pointer;transition:background .15s;}
+.ai:last-child{border-bottom:none;}.ai:hover,.ai.open{background:var(--sur2);}
+.at{display:flex;align-items:center;gap:10px;padding:11px 18px;user-select:none;}
+.an{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;}
+.al{flex:1;font-size:13.5px;font-weight:600;line-height:1.3;}
+.aico{font-size:14px;color:var(--mut);transition:transform .25s;flex-shrink:0;}
+.ai.open .aico{transform:rotate(180deg);}
+.abody{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.4,0,.2,1);}
+.abody.open{max-height:1500px;}
+.ac{padding:6px 18px 16px 50px;}
+.ex{font-size:14px;color:#2c2825;line-height:1.75;margin-bottom:10px;}
+.ebox{background:#f5f3ff;border-left:3px solid var(--acc);border-radius:0 6px 6px 0;padding:10px 14px;font-size:13px;color:#2e1065;line-height:1.6;margin-bottom:8px;}
+.ebox .el{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--acc);margin-bottom:4px;}
+.fb{background:#f0f4ff;border-left:3px solid #3730a3;border-radius:0 6px 6px 0;padding:9px 14px;font-size:13px;margin-bottom:8px;line-height:1.55;}
+.fb .fl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#3730a3;margin-bottom:3px;}
+.fb .ft{font-weight:700;color:#1e1b4b;}
+.tip{background:#fefce8;border-left:3px solid #ca8a04;border-radius:0 6px 6px 0;padding:9px 14px;font-size:13px;margin-bottom:8px;color:#422006;line-height:1.55;}
+.tip .tl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#ca8a04;margin-bottom:3px;}
+.warn{background:#fff1f2;border-left:3px solid #e11d48;border-radius:0 6px 6px 0;padding:9px 14px;font-size:13px;margin-bottom:8px;color:#4c0519;line-height:1.55;}
+.warn .wl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#e11d48;margin-bottom:3px;}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
+.ci{background:var(--sur2);border-radius:6px;padding:9px 12px;}
+.ci .cil{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px;}
+ul.pl{list-style:none;padding:0;}
+ul.pl li{font-size:13.5px;padding:2.5px 0 2.5px 13px;position:relative;color:#2c2825;}
+ul.pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
+.note{font-size:12px;color:var(--mut);font-style:italic;margin-top:8px;padding-top:7px;border-top:1px solid var(--brd);}
+.stufe{display:flex;gap:8px;align-items:flex-start;padding:5px 7px;border-radius:6px;margin-bottom:5px;border:1px solid var(--brd);}
+.snum{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;flex-shrink:0;margin-top:1px;}
+.sbody{font-size:12.5px;line-height:1.45;}
+.sbody strong{display:block;font-weight:700;margin-bottom:1px;}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .5s,transform .5s;}
+.reveal.visible{opacity:1;transform:none;}
+@media(max-width:640px){.hero,.main{padding-left:18px;padding-right:18px;}.nav{padding:0 18px;}.cg,.cg.wide{grid-template-columns:1fr;}.cmp{grid-template-columns:1fr;}.ac{padding-left:18px;}.thgrid{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="back-btn" href="index.html">← Übersicht</a><span class="nav-sep">|</span>
+    <button class="nb" onclick="scrollTo('s0')">Grundbegriffe</button>
+    <button class="nb" onclick="scrollTo('s1')">Gymnasiales Selbstverständnis</button>
+    <button class="nb" onclick="scrollTo('s2')">Anthropologie &amp; Bildung</button>
+    <button class="nb" onclick="scrollTo('s3')">Werteerziehung</button>
+    <button class="nb" onclick="scrollTo('s4')">Erziehungspartnerschaft</button>
+    <button class="nb" onclick="scrollTo('s5')">Heterogenität &amp; Inklusion</button>
+    <button class="nb" onclick="scrollTo('s6')">Digitale Bildung</button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="eyebrow">Pädagogik · Interaktiver Überblick</div>
+  <h1>Grundlagen der Pädagogik</h1>
+  <p class="hdesc">Bildung und Erziehung am Gymnasium — von anthropologischen Grundlagen über Werteerziehung bis zu Erziehungspartnerschaft und Heterogenität. Alle Fachbegriffe erklärt, direkt anwendbar.</p>
+  <div class="throw">
+    <span class="thb" style="color:#7c3aed;border-color:#7c3aed;">Bildung &amp; Erziehung <span class="thby">Grundbegriffe</span></span>
+    <span class="thb" style="color:#0369a1;border-color:#0369a1;">Kant · Humboldt · Klafki <span class="thby">Bildungstheorien</span></span>
+    <span class="thb" style="color:#15803d;border-color:#15803d;">Erziehungspartnerschaft <span class="thby">Eltern &amp; Schule</span></span>
+    <span class="thb" style="color:#b45309;border-color:#b45309;">Heterogenität &amp; Inklusion <span class="thby">Vielfalt gestalten</span></span>
+  </div>
+</header>
+
+<main class="main">
+
+<!-- 0 GRUNDBEGRIFFE -->
+<section class="section reveal" id="s0">
+  <div class="sh"><span class="sn">0</span><span class="st">Grundbegriffe: Erziehung, Bildung, Sozialisation</span><span class="sa" style="background:#7c3aed;">Kernbegriffe der Pädagogik</span></div>
+  <div class="cg wide">
+    <div class="card" style="border-top-color:#7c3aed;">
+      <div class="ch"><h3 style="color:#7c3aed;">📚 Die drei Kernbegriffe im Überblick</h3><div class="csub">Erziehung · Bildung · Sozialisation</div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#f5f3ff;color:#7c3aed;">💡</div><div class="al">Erziehung — intentionale Einflussnahme</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Erziehung</span> — Intentionale, zielgerichtete Einflussnahme auf die Persönlichkeitsentwicklung eines Menschen. Sie ist planvoll, hat Adressaten (Erziehende und Zu-Erziehende) und verfolgt Ziele. Erziehung setzt immer ein Machtgefälle voraus — und damit auch Verantwortung.</div>
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#7c3aed;">Intentionale Erziehung</div>Bewusst, geplant, zielgerichtet. Beispiel: Lehrkraft erklärt Regeln des respektvollen Umgangs und bespricht sie mit der Klasse.</div>
+          <div class="ci"><div class="cil" style="color:#92400e;">Funktionale Erziehung</div>Unbewusst, durch Vorbild und Atmosphäre. Beispiel: Schüler lernen Umgangsformen durch Beobachtung der Lehrkraft.</div>
+        </div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Lehrkräfte erziehen immer — auch wenn sie es nicht beabsichtigen (funktionale Erziehung). Wie sie mit Fehlern umgehen, wie sie Konflikte lösen, wie sie Schüler ansprechen: all das ist Erziehung.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#f5f3ff;color:#7c3aed;">🌱</div><div class="al">Bildung — mehr als Wissen</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Bildung</span> — Der Prozess der Formung und Entwicklung der menschlichen Persönlichkeit durch Auseinandersetzung mit der Welt. Bildung geht über Wissenserwerb hinaus: Sie befähigt zur kritischen Reflexion, zur Urteils- und Entscheidungsfähigkeit und zur mündigen Teilhabe an Gesellschaft und Demokratie.</div>
+        <div class="fb"><div class="fl">🔑 Humboldtscher Bildungsbegriff</div>Wilhelm von Humboldt (1767–1835): Bildung als „Verknüpfung unseres Ich mit der Welt". Nicht Nützlichkeit, sondern Persönlichkeitsentwicklung steht im Zentrum. Bildung hat einen Eigenwert — unabhängig von ökonomischer Verwertbarkeit.</div>
+        <div class="fb"><div class="fl">🔑 Klafkis kategoriale Bildung</div>Wolfgang Klafki (1927–2016): Bildung als doppelseitiger Erschließungsprozess. Das Allgemeine (Inhalte der Welt) erschließt sich dem Subjekt — und das Subjekt erschließt sich das Allgemeine. Exemplarisches Lernen: Das Einzelne erschließt das Allgemeine.</div>
+        <div class="ebox"><div class="el">📋 Schlüsselprobleme nach Klafki</div>Epochaltypische Schlüsselprobleme sind gesellschaftlich bedeutsame Themen, die jeden Menschen betreffen: Friedensfrage, Umwelt, soziale Ungleichheit, Demokratie, technischer Wandel. Bildung muss diese Probleme thematisieren.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#f5f3ff;color:#7c3aed;">🌐</div><div class="al">Sozialisation — Einbindung in die Gesellschaft</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Sozialisation</span> — Prozess der Eingliederung eines Individuums in die Gesellschaft durch Übernahme von Normen, Werten und Verhaltensweisen. Im Unterschied zur Erziehung ist Sozialisation oft unbewusst und durch das gesamte soziale Umfeld bedingt.</div>
+        <div class="ebox"><div class="el">🔗 Verhältnis der drei Begriffe</div>
+          Sozialisation ist der weiteste Begriff — sie umfasst alle Einflüsse der Gesellschaft.<br>
+          Erziehung ist intentionaler Teil der Sozialisation.<br>
+          Bildung ist das Ergebnis — die Persönlichkeit, die durch Erziehung und Sozialisation entsteht.
+        </div>
+        <div class="note">Hurrelmanns Sozialisationsmodell (s. Entwicklungspsychologie): Schule ist eine der vier zentralen Sozialisationsinstanzen — neben Familie, Gleichaltrigen und Medien.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 1 GYMNASIALES SELBSTVERSTÄNDNIS -->
+<section class="section reveal" id="s1">
+  <div class="sh"><span class="sn">I</span><span class="st">Das gymnasiale Selbstverständnis</span><span class="sa" style="background:#0369a1;">LehrplanPLUS · Art. 131 BV</span></div>
+  <div class="cg">
+    <div class="card" style="border-top-color:#0369a1;">
+      <div class="ch"><h3 style="color:#0369a1;">🏛️ Auftrag des Gymnasiums</h3><div class="csub">Bildungs- und Erziehungsauftrag · Kompetenzen</div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0f2fe;color:#0369a1;">📜</div><div class="al">Art. 131 Bayerische Verfassung — Bildungsziele</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Artikel 131 der Bayerischen Verfassung legt fest: „Die Schulen sollen nicht nur Wissen und Können vermitteln, sondern auch Herz und Charakter bilden." Damit ist der doppelte Auftrag formuliert: Qualifikation UND Persönlichkeitsbildung.</div>
+        <div class="fb"><div class="fl">🔑 Oberste Bildungsziele (Art. 131)</div>Ehrfurcht vor Gott · Achtung der Würde des Menschen · Selbstbeherrschung · Verantwortungsgefühl · Hilfsbereitschaft · Aufgeschlossenheit für alles Wahre, Gute und Schöne · Verantwortungsbewusstsein für Natur und Umwelt · Geist der Demokratie.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Das Gymnasium bereitet nicht nur aufs Abitur vor — es hat den Auftrag zur Persönlichkeitsbildung. Das bedeutet: Fächerübergreifende Bildungsziele, Wertebildung und soziale Kompetenz sind gleichrangig mit Fachwissen.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0f2fe;color:#0369a1;">🎯</div><div class="al">Kompetenzorientierung im LehrplanPLUS</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Kompetenz</span> — „Fähigkeit, Fertigkeiten und Bereitschaft, Wissen und Können in sich verändernden Situationen selbstständig und verantwortungsvoll anzuwenden" (Weinert). Kompetenz ist mehr als Wissen — sie umfasst das Können in realen Situationen.</div>
+        <div class="ex">LehrplanPLUS unterscheidet vier Kompetenzbereiche: <strong>Sachkompetenz</strong> (Fachwissen), <strong>Methodenkompetenz</strong> (Lern- und Arbeitstechniken), <strong>Selbstkompetenz</strong> (Selbststeuerung, Reflexion) und <strong>Sozialkompetenz</strong> (Kommunikation, Zusammenarbeit).</div>
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Wissenschaftspropädeutik</span> — Vorbereitung auf wissenschaftliches Denken und Arbeiten. Besonderes Ziel des Gymnasiums: Abstraktionsvermögen, Modelldenken, theoretische Durchdringung von Sachverhalten.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Kompetenzorientierter Unterricht fragt nicht: „Was habe ich unterrichtet?" sondern „Was können die Schülerinnen und Schüler jetzt?" — Shift from teaching to learning.</div>
+      </div></div></div>
+    </div>
+
+    <div class="card" style="border-top-color:#0369a1;">
+      <div class="ch"><h3 style="color:#0369a1;">⚖️ Spannungsfelder im gymnasialen Alltag</h3><div class="csub">Heterogene Erwartungen · Rollenvielfalt der Lehrkraft</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0f2fe;color:#0369a1;">💡</div><div class="al">Widersprüchliche Erwartungen an das Gymnasium</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">An das Gymnasium richten verschiedene Gruppen sehr unterschiedliche Erwartungen — die sich nicht selten widersprechen:</div>
+        <ul class="pl" style="margin-bottom:10px;">
+          <li><strong>Universitäten</strong> erwarten wissenschaftspropädeutische Vorbereitung</li>
+          <li><strong>Wirtschaft</strong> erwartet motivierte, kompetente Schulabgänger mit Berufsorientierung</li>
+          <li><strong>Erziehungsberechtigte</strong> erwarten individuelle Förderung und sicheres Abitur</li>
+          <li><strong>Politik</strong> erwartet mündige, demokratiefähige Bürgerinnen und Bürger</li>
+          <li><strong>Schülerinnen und Schüler</strong> erwarten interessante Inhalte und soziales Miteinander</li>
+        </ul>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Die Lehrkraft muss diese verschiedenen Erwartungen balancieren — ohne einen Auftrag zu vernachlässigen. Reflexion der eigenen Rollenvorstellung ist deshalb Teil professioneller Kompetenz.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 ANTHROPOLOGIE UND BILDUNGSBEGRIFF -->
+<section class="section reveal" id="s2">
+  <div class="sh"><span class="sn">II</span><span class="st">Anthropologie &amp; pädagogischer Bildungsbegriff</span><span class="sa" style="background:#7c3aed;">Philosophische Grundlagen</span></div>
+  <div class="cg wide">
+    <div class="card" style="border-top-color:#7c3aed;">
+      <div class="ch"><span class="ca" style="background:#7c3aed;">Anthropologie</span><h3 style="color:#7c3aed;">🧍 Der Mensch als Person — pädagogische Grundhaltung</h3><div class="csub">Innere Differenz · Würde · Autonomie</div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#f5f3ff;color:#7c3aed;">💡</div><div class="al">Das Menschenbild als Fundament pädagogischen Handelns</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Anthropologie in der Pädagogik</div>Pädagogisches Handeln basiert immer auf einem Bild vom Menschen: Was ist ein Mensch? Was braucht er, um zu werden, was er sein kann? Dieses Menschenbild — explizit oder implizit — bestimmt Erziehungsziele und Methoden.</div>
+        <div class="fb"><div class="fl">🔑 Innere Differenz</div>Der Mensch ist ein Wesen der „inneren Differenz": Er ist nicht einfach mit seiner Natur identisch, sondern kann sich zu sich selbst und zu seiner Umwelt verhalten. Daraus folgen Reflexionsfähigkeit, Freiheit, Autonomie, Verantwortung, Moralität, Kreativität.</div>
+        <div class="ebox"><div class="el">🏫 Konsequenz für die Pädagogik</div>Pädagogik bedeutet: Menschen als Personen mit unbedingter Würde anzuerkennen und ihnen die Wertschätzung entgegenzubringen, die es ihnen ermöglicht, sich als eigenständige Personen zu entwickeln. Kein Schüler darf auf seine Leistung, Herkunft oder sein Verhalten reduziert werden.</div>
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Mündigkeit</span> (Kant) — Ziel aller Erziehung: „Sapere aude!" — Habe den Mut, dich deines eigenen Verstandes zu bedienen. Mündige Menschen denken selbst, urteilen kritisch und handeln verantwortlich. Das ist der Kern des Bildungsauftrags.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#f5f3ff;color:#7c3aed;">🎨</div><div class="al">Ästhetische Bildung — Schönheit, Kunst und Schulalltag</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Ästhetische Bildung</span> — Bildung durch und für die Begegnung mit Kunst, Schönheit und Kultur. Ästhetische Erfahrungen ermöglichen eine besondere Form der Welterschließung, die durch rein kognitive Zugänge nicht ersetzt werden kann.</div>
+        <div class="ex">Ästhetische Bildung umfasst: Musik, bildende Kunst, Theater, Literatur, Film, Design, Architektur. Sie fördert Empathie, Imaginationsfähigkeit, Kreativität und das Wahrnehmen von Ambiguität — Kompetenzen, die im 21. Jahrhundert zentral sind.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Ästhetische Erfahrungen können nicht erzwungen werden — aber Raum und Zeit für sie müssen im Schulalltag bewusst geschaffen werden. Auch „Schönheit" in der Raumgestaltung, in Präsentationen und im Miteinander ist ästhetische Bildung.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 WERTEERZIEHUNG -->
+<section class="section reveal" id="s3">
+  <div class="sh"><span class="sn">III</span><span class="st">Werteerziehung &amp; Moralentwicklung</span><span class="sa" style="background:#be123c;">Kohlberg · Lind</span></div>
+  <div class="cg">
+    <div class="card" style="border-top-color:#be123c;">
+      <div class="ch"><span class="ca" style="background:#be123c;">Werte &amp; Normen</span><h3 style="color:#be123c;">⚖️ Was sind Werte — und wie werden sie vermittelt?</h3><div class="csub">Wertebegriff · Normen · Moralisches Urteilen</div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fff1f2;color:#be123c;">💡</div><div class="al">Werte vs. Normen — ein wichtiger Unterschied</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Werte</span> — Überzeugungen, was gut, richtig oder erstrebenswert ist. Werte sind internalisiert, relativ stabil und handlungsleitend. Beispiele: Gerechtigkeit, Respekt, Ehrlichkeit, Solidarität.</div>
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Normen</span> — Konkrete Verhaltensregeln, die aus Werten abgeleitet werden. Normen legen fest, was in einer Gemeinschaft als angemessen oder unangemessen gilt. Normen können explizit (Schulordnung) oder implizit (Klassenklima) sein.</div>
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#be123c;">Wert</div>„Respekt" — eine grundlegende Überzeugung über den richtigen Umgang mit anderen</div>
+          <div class="ci"><div class="cil" style="color:#7c3aed;">Norm</div>„Wir lassen jeden ausreden" — konkrete Verhaltensregel, die aus dem Wert Respekt abgeleitet ist</div>
+        </div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fff1f2;color:#be123c;">🧠</div><div class="al">Moralische Erziehung — zwischen Vermittlung und Entwicklung</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Zwei Grundpositionen der Werteerziehung stehen sich gegenüber:</div>
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#b45309;">Wertevermittlung</div>Werte werden direkt gelehrt und eingeübt. Vorteil: klare Orientierung. Risiko: Moralkonformismus ohne Einsicht.</div>
+          <div class="ci"><div class="cil" style="color:#15803d;">Moralkompetenz</div>Schüler lernen, moralische Probleme selbst zu durchdenken und Lösungen zu finden. Ziel: autonomes moralisches Urteilen (Kohlberg, Lind).</div>
+        </div>
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Moralkompetenz</span> (Lind) — Die Fähigkeit, moralische Probleme und Konflikte durch Denken und Diskussion zu lösen — statt durch Gewalt, Betrug oder Unterwerfung. Moralisches Wissen allein garantiert kein moralisches Handeln.</div>
+        <div class="ebox"><div class="el">🔬 Dilemma-Methode (Kohlberg)</div>Moralische Dilemmas sind Situationen, in denen jede Lösung gegen ein moralisches Prinzip verstößt. Durch Diskussion dieser Dilemmas entwickeln Schüler ihr moralisches Urteilsvermögen. Die bekannteste: Das Heinz-Dilemma (Kohlberg) — Darf Heinz die Medizin stehlen, um seine Frau zu retten?</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Werteerziehung findet nicht nur im Ethik- oder Religionsunterricht statt — sie ist in jedem Fach und in jeder Interaktion präsent. Wie Lehrkräfte mit Ungerechtigkeit umgehen, wie sie Fehler behandeln, wie sie Konflikte lösen: das ist gelebte Werteerziehung.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fff1f2;color:#be123c;">📋</div><div class="al">Schritte der Wertearbeit im Unterricht</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="stufe"><div class="snum" style="background:#fff1f2;color:#be123c;">1</div><div class="sbody"><strong>Wahrnehmen:</strong> Situationen erkennen, in denen Werte eine Rolle spielen</div></div>
+        <div class="stufe"><div class="snum" style="background:#fff1f2;color:#be123c;">2</div><div class="sbody"><strong>Benennen:</strong> Werte explizit machen und in Sprache fassen</div></div>
+        <div class="stufe"><div class="snum" style="background:#fff1f2;color:#be123c;">3</div><div class="sbody"><strong>Reflektieren:</strong> Eigene Werte hinterfragen, verschiedene Perspektiven einnehmen</div></div>
+        <div class="stufe"><div class="snum" style="background:#fff1f2;color:#be123c;">4</div><div class="sbody"><strong>Abwägen:</strong> Konflikte zwischen Werten erkennen und Entscheidungen begründen</div></div>
+        <div class="stufe"><div class="snum" style="background:#fff1f2;color:#be123c;">5</div><div class="sbody"><strong>Handeln:</strong> Konsequenzen ziehen, Werte im konkreten Verhalten zeigen</div></div>
+        <div class="stufe"><div class="snum" style="background:#fff1f2;color:#be123c;">6</div><div class="sbody"><strong>Im Dialog bleiben:</strong> Wertearbeit ist ein nie abgeschlossener Prozess</div></div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 ERZIEHUNGSPARTNERSCHAFT -->
+<section class="section reveal" id="s4">
+  <div class="sh"><span class="sn">IV</span><span class="st">Erziehungspartnerschaft — Schule und Eltern</span><span class="sa" style="background:#15803d;">Art. 74 BayEUG</span></div>
+  <div class="cg">
+    <div class="card" style="border-top-color:#15803d;">
+      <div class="ch"><h3 style="color:#15803d;">🤝 Erziehungspartnerschaft — Grundlagen &amp; Gelingensbedingungen</h3><div class="csub">Rechtliche Grundlage · Kommunikation · Elterngespräche</div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#dcfce7;color:#15803d;">💡</div><div class="al">Was ist Erziehungspartnerschaft? Rechtliche Grundlage</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Erziehungspartnerschaft</span> — Kooperatives Verhältnis zwischen Schule und Erziehungsberechtigten im gemeinsamen Auftrag der Erziehung und Bildung von Kindern und Jugendlichen. Nicht Konkurrenz, sondern Zusammenarbeit auf Augenhöhe.</div>
+        <div class="ex">Art. 74 BayEUG verpflichtet Schule und Erziehungsberechtigte zur Zusammenarbeit: „Schule und Erziehungsberechtigte erfüllen ihren Erziehungsauftrag in gegenseitiger Abstimmung." Die primäre Erziehungsverantwortung liegt bei den Eltern — die Schule ist subsidiär.</div>
+        <div class="ebox"><div class="el">🔄 Vom Elternabend zur Erziehungspartnerschaft</div>Traditionelle Elternabende = Informationsveranstaltung (Einbahn). Erziehungspartnerschaft = Dialog auf Augenhöhe: Eltern werden als Experten für ihr Kind ernstgenommen. Schule und Familie verfolgen gemeinsam das Wohl des Kindes.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#dcfce7;color:#15803d;">📞</div><div class="al">Gelingende Elterngespräche — was macht den Unterschied?</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Gelingende Elterngespräche verbinden fünf Grundhaltungen (nach Hennig &amp; Ehinger):</div>
+        <ul class="pl" style="margin-bottom:10px;">
+          <li><strong>Partnerschaftlichkeit:</strong> Keine Hierarchie, gegenseitiger Respekt</li>
+          <li><strong>Ressourcenorientierung:</strong> Stärken des Kindes in den Vordergrund stellen</li>
+          <li><strong>Lösungsorientierung:</strong> Nicht nach Schuld suchen, sondern Wege nach vorne finden</li>
+          <li><strong>Einfühlungsvermögen:</strong> Die Sorgen der Eltern ernst nehmen</li>
+          <li><strong>Systemisches Denken:</strong> Das Kind im Kontext seiner Lebenssituation verstehen</li>
+        </ul>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Die häufigste Fehlerquelle in Elterngesprächen: Die Beziehungsebene wird ignoriert (s. Watzlawick). Eltern, die defensiv oder angriffslustig wirken, haben oft Angst um ihr Kind — nicht böse Absicht. Zuerst Empathie zeigen, dann Sachfragen klären.</div>
+        <div class="warn"><div class="wl">⚠️ Häufiger Fehler</div>Elterngespräche ohne klare Zielsetzung beginnen. Immer vorher klären: Was ist das Ziel dieses Gesprächs? Information geben? Beratung anbieten? Vereinbarungen treffen? Das Ziel beeinflusst den Gesprächsstil grundlegend.</div>
+      </div></div></div>
+    </div>
+
+    <div class="card" style="border-top-color:#15803d;">
+      <div class="ch"><h3 style="color:#15803d;">🏫 Schule als System — aus pädagogischer Sicht</h3><div class="csub">Systemtheorie · Fächerübergreifende Ziele</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#dcfce7;color:#15803d;">⚙️</div><div class="al">Fächerübergreifende Bildungs- und Erziehungsziele</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Fächerübergreifende Bildungsziele</span> — Ziele, die nicht einem einzelnen Fach zugeordnet sind, sondern in allen Fächern verfolgt werden: Politische Bildung, Medienkompetenz, Gesundheitserziehung, Berufs- und Lebensorientierung, Bildung für nachhaltige Entwicklung, interkulturelle Bildung.</div>
+        <div class="ex">Diese Ziele erfordern kooperatives Handeln aller Lehrkräfte — sie können nicht von einem Fach allein geleistet werden. Das setzt schulweite Absprachen und eine gemeinsame pädagogische Haltung voraus.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Als Referendarin oder Referendar fragen: „Wie trägt mein Unterricht zu den fächerübergreifenden Bildungszielen bei?" Das ist keine Zusatzaufgabe — es ist Teil des Kernauftrags.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 HETEROGENITÄT UND INKLUSION -->
+<section class="section reveal" id="s5">
+  <div class="sh"><span class="sn">V</span><span class="st">Heterogenität &amp; Inklusion</span><span class="sa" style="background:#b45309;">UN-BRK · Salamanca · Individuelle Förderung</span></div>
+  <div class="cg wide">
+    <div class="card" style="border-top-color:#b45309;">
+      <div class="ch"><h3 style="color:#b45309;">🌈 Heterogenität als Normalfall — und als Chance</h3><div class="csub">Vielfalt · Differenzierung · Individuelle Förderung</div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fef3c7;color:#b45309;">💡</div><div class="al">Was ist Heterogenität? — Dimensionen und Bedeutung</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Heterogenität</span> — Unterschiedlichkeit von Schülerinnen und Schülern hinsichtlich relevanter Merkmale. Heterogenität ist kein Problem, das gelöst werden muss — sie ist der Normalfall in jeder Klasse.</div>
+        <div class="ex">Dimensionen der Heterogenität: Leistungsstand und Lerngeschwindigkeit · Sprachliche Kompetenzen (Deutsch als Erst-/Zweitsprache) · Sozioökonomischer Hintergrund · Kulturelle und religiöse Zugehörigkeit · Genderidentität · Förderbedarf und Hochbegabung · Motivation und Lernstile.</div>
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#be123c;">Heterogenität als Belastung</div>Wenn alle das Gleiche zur gleichen Zeit lernen sollen: überfordert die einen, unterfordert die anderen.</div>
+          <div class="ci"><div class="cil" style="color:#15803d;">Heterogenität als Ressource</div>Wenn Unterschiede produktiv gemacht werden: gegenseitiges Lernen, diverse Perspektiven, Vorbereitung auf plurale Gesellschaft.</div>
+        </div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Innere Differenzierung ist der Schlüssel: unterschiedliche Aufgaben, Niveaus, Zugänge und Lernwege für verschiedene Schülerinnen und Schüler — innerhalb desselben Unterrichts. Das ist aufwändig, aber nachweislich wirksamer als „teaching to the middle".</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fef3c7;color:#b45309;">🤲</div><div class="al">Inklusion — Recht auf gemeinsames Lernen</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Inklusion</span> — Alle Kinder und Jugendlichen haben das Recht, gemeinsam zu lernen — unabhängig von Behinderung, Förderebedarf oder anderen Merkmalen. Das System passt sich dem Kind an, nicht umgekehrt (s. auch Sozialpsychologie-Seite).</div>
+        <div class="fb"><div class="fl">🔑 Rechtliche Grundlage</div>UN-Behindertenrechtskonvention (2006, in Deutschland 2009 ratifiziert): Art. 24 verpflichtet zu einem inklusiven Bildungssystem. Salamanca-Erklärung (1994): „Schulen für alle" als internationales Bekenntnis.</div>
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#b45309;">Integration</div>Schüler mit Förderbedarf werden in Regelklassen aufgenommen — müssen sich aber anpassen. System bleibt unverändert.</div>
+          <div class="ci"><div class="cil" style="color:#15803d;">Inklusion</div>System wird so umgestaltet, dass es alle aufnehmen kann. Individuelle Lernpläne, barrierefreie Materialien, Teamteaching.</div>
+        </div>
+        <div class="ebox"><div class="el">🏫 Inklusion am Gymnasium</div>Inklusion am Gymnasium bedeutet: Zusammenarbeit mit Sonderpädagogen, individuelle Lernzielvereinbarungen, differenzierte Leistungserhebungen (Nachteilsausgleich), barrierefreie Unterrichtsmaterialien, Sensibilisierung aller Beteiligten.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fef3c7;color:#b45309;">📊</div><div class="al">Individuelle Förderung — Diagnose und Maßnahmen</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Individuelle Förderung</span> — Gezielte Unterstützung einzelner Schülerinnen und Schüler entsprechend ihrer spezifischen Stärken, Schwächen und Lernvoraussetzungen. Umfasst Förderung von Leistungsschwachen UND Begabtenförderung.</div>
+        <div class="ex">Strategien der Begabtenförderung: <strong>Enrichment</strong> (Erweiterung des Lernangebots — tiefere, breitere Inhalte) vs. <strong>Akzeleration</strong> (Überspringen von Jahrgangsstufen, Frühstudium). Enrichment ist die häufigere und pädagogisch schonendere Form.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Individuelle Förderung beginnt mit Diagnose: Was kann diese Schülerin schon? Was braucht dieser Schüler als nächsten Schritt? Das Förderkonzept einer Schule legt fest, welche Unterstützungsangebote es gibt: Intensivierungsstunden, Förderkurse, Tutorensysteme, Lerncoaching.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 DIGITALE BILDUNG -->
+<section class="section reveal" id="s6">
+  <div class="sh"><span class="sn">VI</span><span class="st">Bildung und Erziehung im digitalen Kontext</span><span class="sa" style="background:#0891b2;">Medienkompetenz · KMK-Strategie</span></div>
+  <div class="cg">
+    <div class="card" style="border-top-color:#0891b2;">
+      <div class="ch"><h3 style="color:#0891b2;">💻 Digitale Bildung — mehr als Technik</h3><div class="csub">Medienkompetenz · Chancen und Risiken · Datenschutz</div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0f2fe;color:#0891b2;">💡</div><div class="al">Was ist Medienkompetenz? — Dimensionen nach Baacke</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Medienkompetenz</span> (Baacke, 1996) — Kompetenz im Umgang mit Medien in vier Dimensionen: <span class="ft">Medienkunde</span> (Wissen über Medien), <span class="ft">Medienkritik</span> (kritische Analyse von Medieninhalten), <span class="ft">Mediennutzung</span> (aktive, sinnvolle Nutzung) und <span class="ft">Mediengestaltung</span> (eigene Inhalte erstellen).</div>
+        <div class="ex">Die KMK-Strategie „Bildung in der digitalen Welt" (2016) formuliert sechs Kompetenzbereiche für alle Schüler: Suchen und Verarbeiten · Kommunizieren und Kooperieren · Produzieren und Präsentieren · Schützen und sicher Agieren · Problemlösen und Handeln · Analysieren und Reflektieren.</div>
+        <div class="ebox"><div class="el">⚠️ Chancen und Risiken digitaler Medien</div>
+          <strong>Chancen:</strong> Individualisierung, kooperatives Lernen, globale Vernetzung, Zugang zu Wissen, neue Lernformen (Flipped Classroom, Gamification).<br>
+          <strong>Risiken:</strong> Ablenkung, Fake News, Datenschutzverletzungen, Cybermobbing, Suchtpotenzial, digitale Spaltung (ungleicher Zugang).
+        </div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Digitale Bildung ist nicht „Technologieeinsatz im Unterricht" — sie ist kritische Auseinandersetzung mit digitalen Medien als Teil des Bildungsauftrags. Schülerinnen und Schüler müssen lernen, Informationen zu bewerten, Algorithmen zu verstehen und verantwortungsvoll mit Daten umzugehen.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0f2fe;color:#0891b2;">🔄</div><div class="al">Flipped Classroom — Lernen neu denken</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Flipped Classroom</span> (Inverted Classroom) — Umkehrung des traditionellen Unterrichts: Inhaltsvermittlung findet zu Hause statt (Video, Text), Anwendung, Vertiefung und Diskussion finden im Unterricht statt. Präsenzzeit wird für aktives Arbeiten genutzt, nicht für Frontalvortrag.</div>
+        <div class="ebox"><div class="el">✅ Vorteile</div>Jeder lernende kann Erklärungen im eigenen Tempo wiederholen. Präsenzzeit wird für Fragen, Diskussion und Anwendung genutzt. Mehr Zeit für individuelle Unterstützung.</div>
+        <div class="warn"><div class="wl">⚠️ Voraussetzungen</div>Schüler müssen zuhause tatsächlich die Inhalte vorbereiten. Nicht alle haben gleiche technische Zugänge (digitale Ungleichheit). Qualität der Lernmaterialien ist entscheidend.</div>
+      </div></div></div>
+    </div>
+
+    <div class="card" style="border-top-color:#0891b2;">
+      <div class="ch"><h3 style="color:#0891b2;">🏫 Ganztagsschule — Chancen und Herausforderungen</h3><div class="csub">Schulformen · Soziale Funktion</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0f2fe;color:#0891b2;">💡</div><div class="al">Ganztagsschule — Modelle und pädagogischer Mehrwert</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Ganztagsschule</div>Schule, die über den regulären Unterricht hinaus Betreuung, Förderung und Freizeitangebote am Nachmittag anbietet. In Bayern: offene (freiwillig) vs. gebundene (verpflichtend) Form.</div>
+        <div class="ebox"><div class="el">📋 Pädagogischer Mehrwert</div>Mehr Zeit für individuelles Lernen und Förderung · Abbau von Bildungsungleichheit durch gleiche Ausgangsbedingungen · Soziales Lernen im gemeinsamen Alltag · Entlastung von Familien · Stärkung außerschulischer Kompetenzen (Sport, Musik, Kunst).</div>
+        <div class="warn"><div class="wl">⚠️ Herausforderungen</div>Mehrerbelastung für Lehrkräfte · Koordination mit außerschulischen Partnern · Qualitätssicherung der Nachmittagsangebote · Vereinbarkeit mit familiärem Alltag.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer style="background:var(--sur2);border-top:1px solid var(--brd);padding:20px 32px;text-align:center;">
+  <div style="max-width:1100px;margin:0 auto;font-size:12px;color:var(--mut);">
+    Grundlagen der Pädagogik · Kant · Humboldt · Klafki · Kohlberg · Lind · Baacke · Art. 131 BV · LehrplanPLUS
+  </div>
+</footer>
+
+<script>
+function toggle(item){const b=item.querySelector('.abody'),o=item.classList.contains('open');item.classList.toggle('open',!o);b.classList.toggle('open',!o);}
+function scrollTo(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
+const secs=document.querySelectorAll('.section'),nbs=document.querySelectorAll('.nb');
+secs.forEach(s=>new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){const i=Array.from(secs).indexOf(en.target);nbs.forEach((b,j)=>{b.style.background=j===i?'#7c3aed':'';b.style.color=j===i?'white':'';})}});},{threshold:0.25}).observe(s));
+document.querySelectorAll('.reveal').forEach(el=>new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('visible');});},{threshold:0.08}).observe(el));
+</script>
+</body>
+</html>
