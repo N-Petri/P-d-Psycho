@@ -45,8 +45,8 @@ h1{font-family:'Lora',serif;font-size:clamp(30px,4.5vw,50px);font-weight:700;lin
 .aico{font-size:14px;color:var(--mut);transition:transform .25s;flex-shrink:0;}
 .ai.open .aico{transform:rotate(180deg);}
 .abody{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.4,0,.2,1);}
-.abody.open{max-height:1500px;}
-.ac{padding:6px 18px 16px 50px;}
+.abody.open{max-height:4000px;}
+.ac{padding:6px 18px 16px 50px;overflow-wrap:break-word;word-break:break-word;}
 .ex{font-size:14px;color:#2c2825;line-height:1.75;margin-bottom:10px;}
 .ebox{background:#fff1f2;border-left:3px solid var(--acc);border-radius:0 6px 6px 0;padding:10px 14px;font-size:13px;color:#4c0519;line-height:1.6;margin-bottom:8px;}
 .ebox .el{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--acc);margin-bottom:4px;}
@@ -81,6 +81,8 @@ ul.pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
     <button class="nb" onclick="scrollTo('s2')">Individuelle Förderung</button>
     <button class="nb" onclick="scrollTo('s3')">Lerncoaching</button>
     <button class="nb" onclick="scrollTo('s4')">Kollegiale Zusammenarbeit</button>
+    <button class="nb" onclick="scrollTo('s4b')">Fallbesprechung</button>
+    <button class="nb" onclick="scrollTo('s4c')">Unterrichtsreflexion</button>
     <button class="nb" onclick="scrollTo('s5')">Lehrergesundheit</button>
     <button class="nb" onclick="scrollTo('s6')">Kooperation &amp; Partner</button>
   </div>
@@ -107,9 +109,23 @@ ul.pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
     <div class="card" style="border-top-color:#be123c;">
       <div class="ch"><h3 style="color:#be123c;">🏗️ Was ist Schulentwicklung?</h3><div class="csub">Drei Säulen · Steuergruppen · Qualitätssicherung</div></div>
 
-      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fff1f2;color:#be123c;">💡</div><div class="al">Schulentwicklung — von der Anordnung zur Eigenverantwortung</div><span class="aico">▾</span></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fff1f2;color:#be123c;">💡</div><div class="al">Top-down vs. Bottom-up — zwei Steuerungslogiken</div><span class="aico">▾</span></div>
       <div class="abody"><div class="ac">
-        <div class="fb"><div class="fl">🔑 Schulentwicklung</div>Systematischer Prozess der Weiterentwicklung von Schule als Organisation. Nicht mehr top-down gesteuert, sondern: Schulen entwickeln sich eigenverantwortlich — begleitet und unterstützt durch externe Instanzen. Lehrkräfte sind aktive Gestalter — nicht nur Ausführende.</div>
+        <div class="fb"><div class="fl">🔑 Top-down</div>Entwicklung wird von oben angeordnet und durchgesetzt — durch Gesetze, Erlässe, zentrale Vorgaben. Historisches Beispiel: König Friedrich Wilhelm I. führte 1717 die allgemeine Schulpflicht per Erlass durch, gegen erhebliche Widerstände in der Bevölkerung. Der Staat hatte Mittel — und setzte sie ein.</div>
+        <div class="fb"><div class="fl">🔑 Bottom-up</div>Die „lernende Schule" (Meyer 2015): Mitarbeiterinnen und Mitarbeiter definieren Entwicklungsaufgaben selbst, stellen den Ressourcenbedarf fest und leiten ihn an die Entscheidungsebene weiter. Die Realisierung liegt in der Hand der Menschen vor Ort.</div>
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#be123c;">Top-down</div>Vorteil: klare Verbindlichkeit, Reichweite. Nachteil: geringe lokale Passung, Widerstand bei Betroffenen.</div>
+          <div class="ci"><div class="cil" style="color:#15803d;">Bottom-up</div>Vorteil: hohe Akzeptanz, passgenaue Lösungen. Nachteil: langsamer, abhängig von lokaler Initiative.</div>
+        </div>
+        <div class="ebox"><div class="el">🔑 Druck und Zug</div>Wirksame Schulentwicklung kombiniert beides: <strong>Druck von oben</strong> (§ 9b LDO: Schulentwicklung als Pflichtaufgabe; Bildungsstandards; externe Evaluation) und <strong>Zug von unten</strong> (engagierte Lehrkräfte, die gemeinsam Visionen entwickeln und Unterrichtsalltag verbessern wollen).</div>
+        <div class="note">Forschung zeigt: Reformprogramme haben umso größere Erfolgschancen, je stärker lokale Interessen getroffen werden, je stärker Mitbestimmung lokaler Teams ist und je mehr der Projektzuschnitt an lokale Bedingungen angepasst wird. (Buhren &amp; Rolff 2012)</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fff1f2;color:#be123c;">🏛️</div><div class="al">Schulentwicklung und Qualitätssicherung — zwei Seiten einer Medaille</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Schulentwicklung und Qualitätssicherung greifen ineinander — das Vorgehen bei beiden ist gleich: Ist-Stand diagnostizieren → Soll-Stand definieren → Prozess planen, umsetzen, evaluieren → neue Ziele setzen.</div>
+        <div class="fb"><div class="fl">🔑 Schulentwicklung</div>Begreift Schule als lernende Organisation. Ist ein systematischer, langfristiger und zyklischer Prozess mit dem Ziel, die Qualität von Unterricht und Erziehung nachweisbar zu steigern. Wird gestaltet durch alle beteiligten Gruppen (Lehrkräfte, Schulleitung, Schülerschaft, Eltern). Wird von der Schulleitung gefordert und gefördert.</div>
+        <div class="fb"><div class="fl">🔑 Qualitätssicherung</div>Maßnahmen auf verschiedenen Ebenen: bundesweite Bildungsstandards (KMK) · Bildungsmonitoring durch PISA, PIRLS, TIMSS · gemeinsamer Abiturprüfungsaufgaben-Pool · VERA 3 und VERA 8 · bayernweite Jahrgangsstufentests in Deutsch, Englisch, Latein, NuT und Mathematik.</div>
         <div class="ex">Schulentwicklung ruht auf drei Säulen, die sich gegenseitig bedingen:</div>
         <div class="stufe"><div class="snum" style="background:#fff1f2;color:#be123c;">1</div><div class="sbody"><strong>Unterrichtsentwicklung:</strong> Qualität des Kerngeschäfts verbessern — Didaktik, Methodik, Differenzierung, Feedback</div></div>
         <div class="stufe"><div class="snum" style="background:#fff1f2;color:#be123c;">2</div><div class="sbody"><strong>Personalentwicklung:</strong> Fortbildung, Supervision, kollegiale Beratung, Karriereentwicklung</div></div>
@@ -117,24 +133,40 @@ ul.pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
         <div class="ebox"><div class="el">🔑 Warum alle drei Säulen nötig sind</div>Nur besserer Unterricht ohne bessere Strukturen: Insellösungen. Nur bessere Strukturen ohne besseren Unterricht: leere Organisation. Nur Personalentwicklung ohne Konsequenz im Unterricht: wirkungslose Fortbildung.</div>
       </div></div></div>
 
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fff1f2;color:#be123c;">👥</div><div class="al">Die 10 Rollen als Akteure der Unterrichtsentwicklung (Meyer)</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">In Schulentwicklungsprozessen nehmen Lehrkräfte unterschiedliche Rollen ein. Hilbert Meyer (2015, S. 122 f.) unterscheidet zehn solcher Rollen — alle haben trotz ironischer Formulierung sowohl positive als auch negative Seiten. Es geht um Verhaltensweisen in der Schulentwicklung, nicht im Klassenzimmer. Wichtig: Niemand ist auf eine Rolle festgelegt.</div>
+        <div class="stufe"><div class="snum" style="background:#fff1f2;color:#be123c;">1</div><div class="sbody"><strong>Die „Träumer":</strong> Unverzichtbare Ideengeber für eine Vision guten Unterrichts. Ohne Träumer gibt es keine Richtung.</div></div>
+        <div class="stufe"><div class="snum" style="background:#fff1f2;color:#be123c;">2</div><div class="sbody"><strong>Die „Häuptlinge":</strong> Zumeist, aber längst nicht immer die Schulleiter — diejenigen, die Entwicklungsprozesse formal führen.</div></div>
+        <div class="stufe"><div class="snum" style="background:#fff1f2;color:#be123c;">3</div><div class="sbody"><strong>Die „Indianer":</strong> Ohne sie können die Häuptlinge nichts ausrichten — die engagierten Kolleginnen und Kollegen, die die Arbeit tragen.</div></div>
+        <div class="stufe"><div class="snum" style="background:#fff1f2;color:#be123c;">4</div><div class="sbody"><strong>Die „Strippenzieher":</strong> Führen im Hintergrund Regie — informal sehr einflussreich, oft unterschätzt.</div></div>
+        <div class="stufe"><div class="snum" style="background:#fff1f2;color:#be123c;">5</div><div class="sbody"><strong>Die „Pioniere":</strong> Finden einfach Spaß daran, etwas Neues auszuprobieren — wichtig als Innovationsmotor.</div></div>
+        <div class="stufe"><div class="snum" style="background:#fff1f2;color:#be123c;">6</div><div class="sbody"><strong>Die „Schrauber":</strong> Basteln und tüfteln gerne — setzen Ideen konkret um und optimieren Prozesse.</div></div>
+        <div class="stufe"><div class="snum" style="background:#fff1f2;color:#be123c;">7</div><div class="sbody"><strong>Die „Schluris":</strong> Profitieren von der Arbeit der Kolleginnen und Kollegen — ohne aktiv beizutragen. Jedes Kollegium kennt sie.</div></div>
+        <div class="stufe"><div class="snum" style="background:#fff1f2;color:#be123c;">8</div><div class="sbody"><strong>Die „Trittbrettfahrer":</strong> Springen im letzten Moment auf die fahrende Straßenbahn auf — und lauern, ob sie besser wieder abspringen.</div></div>
+        <div class="stufe"><div class="snum" style="background:#fff1f2;color:#be123c;">9</div><div class="sbody"><strong>Die „Bedenkenträger":</strong> Von deren Widerstand das ganze Kollegium lernen kann — kritische Fragen sichern Qualität, solange sie konstruktiv eingebracht werden.</div></div>
+        <div class="stufe"><div class="snum" style="background:#fff1f2;color:#be123c;">10</div><div class="sbody"><strong>Die „Betonköpfe":</strong> Haben schlicht keine Lust und vielleicht keine Kraft zur Entwicklungsarbeit. Meyer bemerkt, dass auch diese Bezeichnung nicht passend erscheint — hinter jedem Widerstand stehen Gründe.</div></div>
+        <div class="warn"><div class="wl">⚠️ Wichtiger Hinweis (Meyer)</div>Diese Rollenbilder warnen vor entwicklungsverhindernden Etikettierungen. Jeder muss die Möglichkeit haben, aus Rollenklischees auszusteigen. Lehrkräfte können sich gleichzeitig in mehreren Rollen bewegen. Pure Harmonie wäre weder realistisch noch wünschenswert.</div>
+      </div></div></div>
+
       <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fff1f2;color:#be123c;">⚙️</div><div class="al">Steuergruppen und Qualitätszirkel</div><span class="aico">▾</span></div>
       <div class="abody"><div class="ac">
-        <div class="fb"><div class="fl">🔑 Steuergruppe</div>Kleingruppe aus Lehrkräften, die Schulentwicklungsprozesse koordiniert, Initiativen aufgreift und Arbeitsschritte delegiert. Oft ergänzt durch Schüler- und Elternvertreter.</div>
+        <div class="fb"><div class="fl">🔑 Steuergruppe</div>Kleingruppe aus Lehrkräften, die Schulentwicklungsprozesse koordiniert, Initiativen aufgreift und Arbeitsschritte in verschiedene Gremien delegiert. Oft ergänzt durch Schüler- und Elternvertreter.</div>
         <div class="fb"><div class="fl">🔑 Qualitätszirkel</div>Themenbezogene Arbeitsgruppe, die einen konkreten Entwicklungsbereich bearbeitet (z.B. Feedback-Kultur, Methodenkonzept, Digitalisierung). Zeitlich begrenzt, ergebnisorientiert.</div>
         <div class="tip"><div class="tl">🏫 Schulpraxis</div>Als Referendarin oder Referendar: Schulentwicklungsprozesse beobachten und verstehen. Wie werden Entscheidungen getroffen? Wer gestaltet? Welche Strukturen gibt es? Das ist eine Grundkompetenz für die spätere Berufsrolle.</div>
       </div></div></div>
 
-      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fff1f2;color:#be123c;">📊</div><div class="al">Qualitätssicherung an Gymnasien</div><span class="aico">▾</span></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fff1f2;color:#be123c;">📊</div><div class="al">Qualitätssicherung an Gymnasien — Instrumente</div><span class="aico">▾</span></div>
       <div class="abody"><div class="ac">
         <div class="ex">Instrumente der Qualitätssicherung am Gymnasium:</div>
         <ul class="pl" style="margin-bottom:10px;">
           <li><strong>Selbstevaluation:</strong> Eigene Bestandsaufnahme der Schule in definierten Bereichen</li>
           <li><strong>Externe Evaluation:</strong> Schulvisitation durch externe Experten (Qualitätsagentur)</li>
-          <li><strong>Vergleichsarbeiten / Abiturvergleich:</strong> Externe Leistungsvergleiche</li>
+          <li><strong>Vergleichsarbeiten / Abiturvergleich:</strong> Externe Leistungsvergleiche (VERA 3 und 8, Jahrgangsstufentests)</li>
           <li><strong>Schülerfeedback:</strong> Systematische Rückmeldung aus Lernerperspektive</li>
           <li><strong>Unterrichtsbeobachtung:</strong> Kollegiale Hospitation, Unterrichtsreflexion</li>
         </ul>
-        <div class="warn"><div class="wl">💡 Realistischer Blick auf Schulentwicklung</div>Entwicklungsarbeit braucht Idealismus und Realismus. Zu hohe Ziele oder zu hoher Aufwand bei zu geringem Nutzen wirken demotivierend. Kleine, sichtbare Erfolge sind wertvoller als große, unerreichbare Visionen.</div>
+        <div class="warn"><div class="wl">💡 Realistischer Blick auf Schulentwicklung</div>Entwicklungsarbeit braucht Idealismus und Realismus. Nichts wird so umgesetzt, wie es geplant war — Nachsteuern ist normal. Kleine, sichtbare Erfolge sind wertvoller als große, unerreichbare Visionen. Und: Es braucht Gelassenheit, um die häufig erst mit großer zeitlicher Verzögerung sich zeigenden Erfolge abwarten zu können.</div>
       </div></div></div>
     </div>
   </div>
@@ -157,6 +189,20 @@ ul.pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
           <div class="ci"><div class="cil" style="color:#0369a1;">Akzeleration</div>Zeitliche Beschleunigung: Überspringen von Jahrgangsstufen, Frühstudium. Soziale Aspekte müssen berücksichtigt werden.</div>
         </div>
         <div class="tip"><div class="tl">🏫 Schulpraxis</div>Individuelle Förderung auf Schulebene erfordert Koordination: Wer kennt welchen Schüler am besten? Wie werden Förderbedürfnisse identifiziert? Wie werden Maßnahmen abgestimmt? Das setzt schulweite Kommunikationsstrukturen voraus.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fef3c7;color:#b45309;">📚</div><div class="al">Intensivierungsstunden (S.226f) — Förderung im Stundenplan</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Intensivierungsstunden</div>In Intensivierungsstunden werden kleinere Lerngruppen (halbe Klassenstärke) in den Kernfächern unterrichtet. Diese Stunden sind fest in den Stundenplan eingebunden. Sie dienen nicht der Vermittlung neuer Lehrplaninhalte, sondern sollen individuelle Lernprozesse durch Üben, Festigen und Vertiefen sowie durch Klären offener Fragen unterstützen. Fachspezifische Lern- und Arbeitstechniken gehören ebenfalls dazu.</div>
+        <div class="ebox"><div class="el">📋 Wichtige Merkmale</div>
+          Keine Leistungserhebungen in Intensivierungsstunden · Keine Hausaufgaben · Verpflichtend für alle Schülerinnen und Schüler (in geringem Umfang) — unabhängig von der individuellen Leistungsfähigkeit · Lehrkräfte müssen daher die gesamte Leistungsbreite beachten und auch Aufgaben zur Förderung leistungsstärkerer Schüler stellen.
+        </div>
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#15803d;">Modelle</div>Wöchentlich oder vierzehntägig · Blockmodell (z.B. 4 dreistündige Sitzungen in 6 Wochen) · Lernwerkstatt: Lehrkräfte als Experten in Fenstern, Schüler kommen mit individuellen Fragen</div>
+          <div class="ci"><div class="cil" style="color:#0369a1;">Ab Mittelstufe</div>Häufig nicht mehr für alle verpflichtend, sondern gezieltes Angebot für Schüler mit Leistungsproblemen in bestimmten Fächern — oft problemorientiert quer durch verschiedene Klassen</div>
+        </div>
+        <div class="warn"><div class="wl">⚠️ Besondere pädagogische Herausforderung</div>Wenn die Lehrkraft nicht im regulären Klassenverband unterrichtet: Der Bedarf muss zielgerichtet ermittelt werden, Schülerpersönlichkeiten rasch erfasst werden. Besonderes Fingerspitzengefühl ist nötig, um Schüler mit Leistungsproblemen und möglicher Frustration wieder zu motivieren.</div>
+        <div class="tip"><div class="tl">🏫 Lernwerkstatt als Variante</div>Lehrkräfte stehen als Fachexperten in festgelegten Zeitfenstern zur Verfügung. Schüler wählen selbst, wann und an wen sie sich mit ihren Fragen wenden. Hohe Autonomie der Lernenden wirkt motivierend — sie müssen selbst entscheiden, welches Problem sie haben und wer helfen kann.</div>
       </div></div></div>
     </div>
 
@@ -221,35 +267,101 @@ ul.pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
       <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#f5f3ff;color:#7c3aed;">💡</div><div class="al">Warum ist Kollegiale Zusammenarbeit so wichtig?</div><span class="aico">▾</span></div>
       <div class="abody"><div class="ac">
         <div class="ex">Der Lehrerberuf wird oft als isoliert erlebt: Jede Lehrkraft in ihrer Klasse, jeder für sich. Kollegiale Zusammenarbeit durchbricht diese Isolation — und ist nachweislich eine der wirksamsten Maßnahmen für Unterrichtsentwicklung und Lehrergesundheit.</div>
-        <div class="ebox"><div class="el">✅ Formen kollegialer Zusammenarbeit</div>
-          Fachschaftsarbeit (gemeinsame Materialentwicklung) · Jahrgangsstufenteams · Kollegiale Fallbesprechung · Unterrichtshospitation · Tandem-Teaching · Supervision · Qualitätszirkel.
+        <div class="fb"><div class="fl">🔑 Gelingensbedingungen</div>Von den Teammitgliedern selbst als erreichbar eingeschätzte Ziele · Feste Kommunikationszeiten im Stundenplan verankert · Gegenseitiger Respekt und Vertrauen in die Expertise des anderen · Wahrung des pädagogischen Freiraums der einzelnen Lehrkraft · Transparente Erwartungen, Verantwortlichkeiten, Dokumentation.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Kollegiale Zusammenarbeit muss institutionell verankert sein — sie entsteht selten „von selbst". Die intendierte Entlastung erfordert zunächst Zeit und kognitive/emotionale Investitionen, bevor sie sich auszahlt.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#f5f3ff;color:#7c3aed;">📊</div><div class="al">Drei Niveaustufen der Kooperation (Gräsel et al.)</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Die Stufen der Kooperation (nach Gräsel et al., in: Richter &amp; Pant 2016) lassen sich an Gymnasien konkret wiederfinden — sie unterscheiden sich im Grad der gemeinsamen Ziele und gegenseitigen Abhängigkeit:</div>
+        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">1</div><div class="sbody"><strong>Austausch:</strong> Weitergabe von Informationen und Materialien; keine Abstimmung über gemeinsame Ziele erforderlich; hohe Autonomie für alle; loses „Nebeneinanderher-Arbeiten" (Meyer 2015). Beispiele: Informieren über besuchte Fortbildungsveranstaltungen in Fachsitzungen · gelegentlicher Austausch von Unterrichtsmaterialien · die an allen Gymnasien gegebene lockere Form der Zusammenarbeit.</div></div>
+        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">2</div><div class="sbody"><strong>Arbeitsteilige Kooperation:</strong> Eine Arbeitsteilung zulassende Aufgabe, gemeinsames Ziel, Absprachen zum Vorgehen, gemeinsame Auswertung; weitgehende Autonomie bei den Teilaufgaben. Beispiele: Erstellen und Korrigieren von Prüfungsaufgaben · arbeitsteiliges Vorbereiten von Unterrichtseinheiten in jahrgangsstufenbezogenen Fachteams · Vorbereitung fächerübergreifender Projekte.</div></div>
+        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">3</div><div class="sbody"><strong>Ko-Konstruktion:</strong> Intensivere Zusammenarbeit mit dem Ziel, „sich gemeinsam neues Wissen anzueignen, ein Problem gemeinsam zu lösen oder ein Produkt zu entwickeln" (Richter &amp; Pant 2016). Beispiele: Steuerungsgruppen · kollegiale Hospitation mit Absprachen zu Zielen, Beobachtungsschwerpunkten und Feedback · gemeinsame Planung von Unterrichtseinheiten in Fachteams.</div></div>
+        <div class="warn"><div class="wl">⚠️ Ambivalenz der Kooperation</div>Zusammenarbeit stellt „eine bedeutsame Ressource im Berufsalltag dar und kann sich unmittelbar auf die erlebte Freude am Beruf auswirken" — birgt aber „zeitgleich das Risiko, belastend zu wirken und die emotionale Erschöpfung zu verstärken." (Schwartz 2014) Kooperation ist kein Allheilmittel.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#f5f3ff;color:#7c3aed;">🔍</div><div class="al">Kollegiale Fallbesprechung — Grundlagen und Haltung</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Kollegiale Fallbesprechung</div>Strukturiertes Beratungsformat, bei dem eine fallgebende Person einen konkreten beruflichen Fall vorstellt, und eine Fallbesprechungsgruppe mit forschender Haltung unterstützende Perspektiven einbringt. Die Gruppe ist ein offener „Resonanzraum" (König &amp; Schattenhofer), der die Perspektiven weitet. Keine Ratschläge — Handlungsmöglichkeiten werden erarbeitet, nicht vorgeschrieben.</div>
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#7c3aed;">Drei Rollen</div>Fallgebende Person · Mitglieder der Fallbesprechungsgruppe · Leitung der Fallbesprechung (wechselt von Sitzung zu Sitzung)</div>
+          <div class="ci"><div class="cil" style="color:#be123c;">Grundvoraussetzungen</div>Verbindliche Teilnahme · Verschwiegenheit · Bereitschaft, eigene Fälle einzubringen · Offenheit für den strukturierten Ablauf</div>
         </div>
-        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Kollegiale Zusammenarbeit muss institutionell verankert sein — sie entsteht selten „von selbst". Schulleitung, feste Zeitfenster und eine Kultur des Vertrauens sind Voraussetzungen.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Zu Beginn zwei bis drei Sitzungen unter Hinzuziehung eines Supervisors oder erfahrenen Leiters durchführen. Gruppenvertrag schließen: Vertraulichkeit, Regelmäßigkeit, gegenseitige Bereitschaft zum Falleinbringen.</div>
       </div></div></div>
 
-      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#f5f3ff;color:#7c3aed;">🔍</div><div class="al">Kollegiale Fallbesprechung — strukturierte Beratung</div><span class="aico">▾</span></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#f5f3ff;color:#7c3aed;">📋</div><div class="al">Die 9 Schritte der Kollegialen Fallbesprechung (S.241/242)</div><span class="aico">▾</span></div>
       <div class="abody"><div class="ac">
-        <div class="fb"><div class="fl">🔑 Kollegiale Fallbesprechung</div>Strukturiertes Beratungsformat, bei dem eine Lehrkraft (Fallgeber) einen konkreten beruflichen Fall vorstellt, und eine Gruppe von Kolleginnen und Kollegen (Beratergruppe) unterstützende Perspektiven und Ideen einbringt. Keine Bewertung, keine Ratschläge — nur Fragen und Angebote.</div>
-        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">1</div><div class="sbody"><strong>Falldarstellung:</strong> Fallgeber beschreibt Situation — maximal 5 Minuten</div></div>
-        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">2</div><div class="sbody"><strong>Klärungsfragen:</strong> Beratergruppe stellt Verständnisfragen (keine Bewertungen)</div></div>
-        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">3</div><div class="sbody"><strong>Perspektivwechsel:</strong> Beratergruppe bespricht den Fall (Fallgeber hört zu)</div></div>
-        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">4</div><div class="sbody"><strong>Resonanz:</strong> Fallgeber gibt Rückmeldung — was hat geholfen?</div></div>
-        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Kollegiale Fallbesprechung ist besonders wirksam bei herausfordernden Schülern, Elternkonflikten, eigener Unsicherheit. Voraussetzung: absolute Vertraulichkeit und gegenseitiger Respekt.</div>
-      </div></div></div>
-
-      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#f5f3ff;color:#7c3aed;">👁️</div><div class="al">Unterrichtshospitation &amp; kollegiale Unterrichtsreflexion</div><span class="aico">▾</span></div>
-      <div class="abody"><div class="ac">
-        <div class="fb"><div class="fl">🔑 Kollegiale Hospitation</div>Gegenseitiges Besuchen von Unterrichtsstunden — nicht zur Beurteilung, sondern zur gemeinsamen Reflexion und Entwicklung. Feedback folgt vereinbarten Kriterien.</div>
-        <div class="ebox"><div class="el">✅ Wirksamkeit</div>Kollegiale Unterrichtsbeobachtung ist eine der wirksamsten Methoden der Unterrichtsentwicklung — aber am wenigsten verbreitet (Kultur der geschlossenen Tür). Wer seinen Unterricht zeigt, braucht Mut — und Vertrauen ins Kollegium.</div>
-        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Beobachtungsfokus vorab vereinbaren: „Ich möchte, dass du schaust, wie ich auf Wortmeldungen reagiere" — nicht: „Beobachte alles". Das macht Feedback konkreter und weniger bedrohlich.</div>
+        <div class="ex">Das Ablaufschema folgt einem Grundmuster, das vorschnelle Handlungsvorschläge vermeidet und die Fallschilderung schrittweise in eine strukturierte Problemlösung überführt:</div>
+        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">1</div><div class="sbody"><strong>Einstieg und Rückblick auf die vorhergehende Sitzung:</strong> Wie hat die vorhergehende Fallbesprechung nachgewirkt? Was hat sich verändert? Wo gibt es noch offene Punkte? Ggf. kann ein früherer Fall nochmals eingebracht werden.</div></div>
+        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">2</div><div class="sbody"><strong>Sammeln anliegender Fälle und Auswahl:</strong> Kurze, skizzenhafte Vorstellung aller aktuell anliegenden Fragestellungen. Die Gruppe wählt aus — nach Dringlichkeit, Belastung oder Relevanz für alle. Jeder Fall kann auf einem Moderationszettel festgehalten werden.</div></div>
+        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">3</div><div class="sbody"><strong>Erzählung des Falls:</strong> Die fallgebende Person erzählt ohne Unterbrechung eine konkrete, anschauliche Situation. Vorbereitung: Welchen Titel könnte die Schilderung haben? Welche Personen sind beteiligt? Welche Vorgeschichte gibt es? Welche Lösungsversuche wurden bereits unternommen? Die Gruppe lässt den Fall auf sich wirken, achtet auf Körpersprache und Stimme. Am Ende: vorläufiger Auftrag an die Gruppe.</div></div>
+        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">4</div><div class="sbody"><strong>Nachfragen der Fallbesprechungsgruppe:</strong> Nur Sachfragen zur Klärung von Verständnisfragen — keine (verdeckten) Annahmen, Meinungen oder Eindrücke. Die Leitung unterbindet Hypothesen, Erklärungsversuche und Ratschläge.</div></div>
+        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">5</div><div class="sbody"><strong>Rückmeldungen der Fallbesprechungsgruppe:</strong> Alle Eindrücke, Assoziationen, Gedanken, Gefühle, Identifikationen, Erklärungsansätze und Ideen werden eingebracht. Beiträge werden so stehen gelassen wie sie sind — kein Widerspruch, keine Diskussion. Die fallgebende Person hört nur zu.</div></div>
+        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">6</div><div class="sbody"><strong>Stellungnahme der fallgebenden Person:</strong> Was war neu und erhellend? Was fiel besonders auf? Was bewegte? Was löste Unbehagen oder Widerstand aus? Mögliche Schlüsselthemen oder -aufgaben benennen. Ggf. Auftrag an die Gruppe neu formulieren.</div></div>
+        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">7</div><div class="sbody"><strong>Erarbeitung von Handlungsmöglichkeiten:</strong> Brainstorming der Gruppe — möglichst viele Ideen, auch Ungewöhnliches ist erlaubt. Ideen auf Moderationskarten festhalten. Die fallgebende Person hört nur zu — kein Kommentieren, kein Relativieren.</div></div>
+        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">8</div><div class="sbody"><strong>Formulierung des konkreten nächsten Schritts:</strong> Die fallgebende Person wählt ein bis zwei Handlungsschritte, die sie sich vorstellen kann auszuprobieren. Ggf. können diese in kurzen Rollenspielen erprobt werden. Festlegen: wann, wo, Kriterien für Erfolg.</div></div>
+        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">9</div><div class="sbody"><strong>Abschlussrunde und Sharing:</strong> Die Gruppe tauscht sich darüber aus, was der Fall bei ihr ausgelöst hat, welche Impulse gesetzt wurden — und was jede Person selbst mitnimmt.</div></div>
+        <div class="note">Die Leitung wacht über Zeit und zielorientierte Arbeitsweise. Zielpunkt ist immer der konkrete nächste Schritt — nicht die schnelle Lösung komplexer Fälle.</div>
       </div></div></div>
 
       <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#f5f3ff;color:#7c3aed;">🔄</div><div class="al">Supervision — externe professionelle Begleitung</div><span class="aico">▾</span></div>
       <div class="abody"><div class="ac">
-        <div class="fb"><div class="fl">🔑 Supervision</div>Professionelle Begleitung beruflicher Prozesse durch externe Fachkräfte (Supervisorinnen oder Supervisoren). Ziel: Reflexion, Entlastung, Kompetenzentwicklung. Fokus auf berufliche Rolle und Beziehungen — nicht Therapie.</div>
-        <div class="ex">Formen: Einzelsupervision · Gruppensupervision · Teamsupervision. Supervision ist besonders nützlich in belastenden Situationen (schwierige Klassen, Konflikte, Burnout-Gefahr), aber auch als Prävention wertvoll.</div>
+        <div class="fb"><div class="fl">🔑 Supervision</div>Professionelle Begleitung beruflicher Prozesse durch externe ausgebildete Supervisorinnen oder Supervisoren. Ziel: Reflexion, Entlastung, Kompetenzentwicklung. Fokus auf berufliche Rolle und Beziehungen — keine Therapie.</div>
+        <div class="ex">Formen: Einzelsupervision · Gruppensupervision · Teamsupervision. Supervision ist besonders nützlich in belastenden Situationen, aber auch als Prävention wertvoll.</div>
+        <div class="fb"><div class="fl">🔑 Abgrenzung zur Kollegialen Fallbesprechung</div>Bei der Supervision liegt die Leitung in der Hand eines ausgebildeten Supervisors, der methodische Akzente setzt und Dynamiken in der Fallbesprechungssituation aufgreift. Fallbesprechungsgruppen bauen vor allem auf die Feldkompetenz und den Erfahrungsschatz der Kolleginnen und Kollegen.</div>
         <div class="tip"><div class="tl">🏫 Schulpraxis</div>Supervision ist kein Zeichen von Schwäche — es ist professionelle Selbstfürsorge. In anderen helfenden Berufen (Soziale Arbeit, Therapie) ist Supervision Pflicht. Schule entdeckt dieses Instrument zunehmend.</div>
       </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4c KOLLEGIALE UNTERRICHTSREFLEXION -->
+<section class="section reveal" id="s4c">
+  <div class="sh"><span class="sn">IV c</span><span class="st">Kollegiale Unterrichtsreflexion</span><span class="sa" style="background:#7c3aed;">4.3.3 · Hospitation · Vorgespräch · Reflexion</span></div>
+  <div class="cg wide">
+    <div class="card" style="border-top-color:#7c3aed;">
+      <div class="ch"><h3 style="color:#7c3aed;">👁️ Kollegiale Unterrichtsreflexion — Unterricht gemeinsam weiterentwickeln</h3><div class="csub">Vorgespräch · Beobachtung · Reflexionsgespräch</div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#f5f3ff;color:#7c3aed;">💡</div><div class="al">Was ist kollegiale Unterrichtsreflexion — und warum?</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Kollegiale Unterrichtsreflexion</div>Verbindet kollegiale Hospitation (Unterrichtsbesuch) mit strukturierter Reflexion — auf Basis lösungs- und ressourcenorientierter Beratung. Ausgangspunkt ist stets ein persönliches Anliegen der Lehrkraft, deren Unterricht beobachtet wird. Kein Beurteilungsinstrument — sondern ein Entwicklungsinstrument.</div>
+        <div class="ebox"><div class="el">✅ Wozu kollegiale Unterrichtsreflexion?</div>
+          Isolation der Lehrkraft aufbrechen · Andere Perspektive auf das eigene Unterrichtsgeschehen eröffnen · Kollegialen Austausch über Unterricht fördern · Unterrichtsqualität durch gegenseitige Unterstützung sichern · Professionalisierung auf Basis partnerschaftlicher Zusammenarbeit.
+        </div>
+        <div class="warn"><div class="wl">⚠️ Wichtige Grundbedingungen</div>Kollegiale Hospitation ist von der dienstlichen Beurteilung unabhängig durchzuführen. Sie setzt gegenseitiges Vertrauen voraus. Deshalb sollen Hospitationspartner einander frei wählen können. Die Schulleitung regt an, drängt aber nicht auf.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#f5f3ff;color:#7c3aed;">1️⃣</div><div class="al">Phase 1 — Das Vorgespräch</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Das Vorgespräch hat fünf Schritte:</div>
+        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">1</div><div class="sbody"><strong>Ermittlung des Anliegens:</strong> Der Berater bzw. die Beraterin befragt die Lehrkraft zur bestehenden Situation und ermittelt gemeinsam mit ihr ein Anliegen, das der Hospitation zugrunde liegen soll.</div></div>
+        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">2</div><div class="sbody"><strong>Formulierung des Anliegens:</strong> Die Lehrkraft formuliert das Anliegen aus der eigenen Perspektive, z.B. „Ich möchte den Unterrichtsablauf zügiger gestalten" oder „Ich benötige Anregungen für eine zielführende Fragetechnik". Orientierung an Kennzeichen gelingenden Unterrichts oder an Beobachtungsbögen (z.B. ISB-Portal „Gymnasium 2030").</div></div>
+        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">3</div><div class="sbody"><strong>Ermittlung der Ressourcen (positive Ausnahmen):</strong> In welchen Situationen war das Gewünschte bereits sichtbar — auch nur kurz oder ansatzweise? Welche Ressourcen haben diese Ausnahme ermöglicht? Welche Lösungsversuche wurden bereits unternommen?</div></div>
+        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">4</div><div class="sbody"><strong>Formulierung konkreter Beobachtungsaufträge:</strong> Aus den Vorüberlegungen werden objektiv fassbare Beobachtungsschwerpunkte abgeleitet. Wichtig: gemeinsame Festlegung, die die Lehrkraft mitträgt — sie soll den Prozess zur eigenen Weiterentwicklung selbst steuern können.</div></div>
+        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">5</div><div class="sbody"><strong>Terminvereinbarung:</strong> Termine für die Unterrichtsbeobachtung (Phase 2) und das Reflexionsgespräch (Phase 3) festlegen.</div></div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#f5f3ff;color:#7c3aed;">2️⃣</div><div class="al">Phase 2 — Der Unterrichtsbesuch</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Beobachtung</div>Auf Grundlage der gemeinsam erarbeiteten Beobachtungsaufträge beobachtet der Berater bzw. die Beraterin den Unterricht. Konzentration auf konkrete Wahrnehmungen im Zusammenhang mit dem vereinbarten Anliegen. Eine Bewertung wird stets zurückgestellt.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Den Beobachtungsfokus vorab scharf eingrenzen — nicht alles beobachten, sondern einen klar definierten Aspekt. Beispiel: „Ich schaue, wie du auf Wortmeldungen reagierst" — nicht: „Ich beobachte den Unterricht allgemein." Das macht Feedback konkreter und weniger bedrohlich.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#f5f3ff;color:#7c3aed;">3️⃣</div><div class="al">Phase 3 — Das Reflexionsgespräch</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Im gemeinsam bestimmten, geschützten Rahmen läuft das Reflexionsgespräch in folgenden Schritten ab:</div>
+        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">①</div><div class="sbody"><strong>Anliegen wiederholen:</strong> Das Beratungsanliegen der Lehrkraft wird noch einmal benannt.</div></div>
+        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">②</div><div class="sbody"><strong>Selbstwahrnehmung der Lehrkraft:</strong> Die Lehrkraft äußert zuerst ihre eigene Wahrnehmung zur besprochenen Stunde in Bezug auf das Anliegen.</div></div>
+        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">③</div><div class="sbody"><strong>Beobachtungen schildern:</strong> Der Berater schildert seine Wahrnehmungen — mit besonderer Hervorhebung von Gelingendem als Ressource, die weiterentwickelt werden kann.</div></div>
+        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">④</div><div class="sbody"><strong>Handlungsoptionen sammeln:</strong> Beide sammeln gemeinsam Möglichkeiten, die zur Erfüllung des Anliegens beitragen.</div></div>
+        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">⑤</div><div class="sbody"><strong>Konkreter nächster Schritt:</strong> Die Lehrkraft legt fest, welche Handlungsmöglichkeit sie als nächstes umsetzen möchte.</div></div>
+        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">⑥</div><div class="sbody"><strong>Folgegespräch:</strong> In einem späteren Gespräch kann und soll die Wirkung der angewandten Optionen wiederum reflektiert werden.</div></div>
+        <div class="ebox"><div class="el">✅ Wirksamkeit</div>Kollegiale Unterrichtsbeobachtung ist eine der wirksamsten Methoden der Unterrichtsentwicklung — aber am wenigsten verbreitet (Kultur der geschlossenen Tür). Wer seinen Unterricht zeigt, braucht Mut — und Vertrauen ins Kollegium. Empathie, Wertschätzung, Echtheit und Offenheit sind die Grundhaltungen auf beiden Seiten.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
     </div>
   </div>
 </section>
@@ -320,7 +432,7 @@ ul.pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
 
 <footer style="background:var(--sur2);border-top:1px solid var(--brd);padding:20px 32px;text-align:center;">
   <div style="max-width:1100px;margin:0 auto;font-size:12px;color:var(--mut);">
-    Schulentwicklung · Individuelle Förderung · Lerncoaching · Peer-Mediation · Kollegiale Beratung · Supervision · Lehrergesundheit · Antonovsky
+    Schulentwicklung · Top-down/Bottom-up · 10 Rollen (Meyer) · Intensivierungsstunden · Individuelle Förderung · Lerncoaching · Peer-Mediation · Austausch/Kooperation/Ko-Konstruktion · Kollegiale Fallbesprechung (9 Schritte) · Kollegiale Unterrichtsreflexion · Supervision · Lehrergesundheit · Antonovsky
   </div>
 </footer>
 
@@ -328,7 +440,7 @@ ul.pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
 function toggle(item){const b=item.querySelector('.abody'),o=item.classList.contains('open');item.classList.toggle('open',!o);b.classList.toggle('open',!o);}
 function scrollTo(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
 const secs=document.querySelectorAll('.section'),nbs=document.querySelectorAll('.nb');
-secs.forEach(s=>new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){const i=Array.from(secs).indexOf(en.target);nbs.forEach((b,j)=>{b.style.background=j===i?'#be123c':'';b.style.color=j===i?'white':'';})}});},{threshold:0.25}).observe(s));
+secs.forEach(s=>new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){const i=Array.from(secs).indexOf(en.target);nbs.forEach((b,j)=>{b.style.background=j===i?'#be123c':'';b.style.color=j===i?'white':'';})}});},{threshold:0.15}).observe(s));
 document.querySelectorAll('.reveal').forEach(el=>new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('visible');});},{threshold:0.08}).observe(el));
 </script>
 </body>
