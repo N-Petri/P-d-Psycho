@@ -107,9 +107,59 @@ ul.pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .5s,transform .5s;}
 .reveal.visible{opacity:1;transform:none;}
 @media(max-width:640px){.hero,.main{padding-left:18px;padding-right:18px;}.nav{padding:0 18px;}.cg,.cg.wide{grid-template-columns:1fr;}.cmp{grid-template-columns:1fr;}.ac{padding-left:18px;}.thgrid{grid-template-columns:1fr 1fr;}}
+
+.th-modal-bg{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.55);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .25s;}
+.th-modal-bg.open{opacity:1;pointer-events:all;}
+.th-modal{background:var(--sur);border-radius:16px;max-width:640px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.25);transform:translateY(16px);transition:transform .25s;}
+.th-modal-bg.open .th-modal{transform:translateY(0);}
+.th-modal-top{display:flex;align-items:flex-start;gap:14px;padding:20px 20px 14px;border-bottom:1px solid var(--brd);}
+.th-modal-color{width:6px;border-radius:3px;align-self:stretch;flex-shrink:0;}
+.th-modal-meta{flex:1;}
+.th-modal-name{font-family:'Lora',serif;font-size:19px;font-weight:700;margin-bottom:2px;}
+.th-modal-years{font-size:11px;color:var(--mut);margin-bottom:5px;}
+.th-modal-tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 9px;border-radius:12px;letter-spacing:.5px;color:white;}
+.th-modal-close{width:30px;height:30px;border-radius:50%;border:1px solid var(--brd);background:transparent;cursor:pointer;font-size:16px;color:var(--mut);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;font-family:'DM Sans',sans-serif;}
+.th-modal-close:hover{background:var(--sur2);color:var(--txt);}
+.th-modal-body{padding:18px 20px 22px;}
+.th-modal-body .ex{font-size:14px;color:#2c2825;line-height:1.75;margin-bottom:10px;}
+.th-modal-body .fb{background:#f0f4ff;border-left:3px solid #3730a3;border-radius:0 6px 6px 0;padding:9px 14px;font-size:13px;margin-bottom:8px;line-height:1.55;}
+.th-modal-body .fl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#3730a3;margin-bottom:3px;}
+.th-modal-body .ft{font-weight:700;color:#1e1b4b;}
+.th-modal-body .ebox{border-left:3px solid;border-radius:0 6px 6px 0;padding:9px 14px;font-size:13px;margin-bottom:8px;line-height:1.55;}
+.th-modal-body .el{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;}
+.th-modal-body .tip{background:#fefce8;border-left:3px solid #ca8a04;border-radius:0 6px 6px 0;padding:9px 14px;font-size:13px;margin-bottom:8px;color:#422006;line-height:1.55;}
+.th-modal-body .tl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#ca8a04;margin-bottom:3px;}
+.th-modal-body .stufe{display:flex;gap:8px;align-items:flex-start;padding:5px 7px;border-radius:6px;margin-bottom:5px;border:1px solid var(--brd);}
+.th-modal-body .snum{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;flex-shrink:0;margin-top:1px;}
+.th-modal-body .sbody{font-size:12.5px;line-height:1.45;}
+.th-modal-body .sbody strong{display:block;font-weight:700;margin-bottom:1px;}
+.th-modal-body .cmp{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
+.th-modal-body .ci{background:var(--sur2);border-radius:6px;padding:9px 12px;}
+.th-modal-body .cil{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px;}
+ul.th-pl{list-style:none;padding:0;margin-bottom:10px;}
+ul.th-pl li{font-size:13.5px;padding:2.5px 0 2.5px 13px;position:relative;color:#2c2825;}
+ul.th-pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
+.th-modal-note{font-size:12px;color:var(--mut);font-style:italic;margin-top:8px;padding-top:7px;border-top:1px solid var(--brd);}
+.thcard{cursor:pointer;transition:box-shadow .15s,transform .15s;}
+.thcard:hover{box-shadow:0 4px 20px rgba(0,0,0,.13);transform:translateY(-2px);}
 </style>
 </head>
 <body>
+
+<div class="th-modal-bg" id="thModalBg" onclick="closeThModal(event)">
+  <div class="th-modal" id="thModal">
+    <div class="th-modal-top">
+      <div class="th-modal-color" id="thModalColor"></div>
+      <div class="th-modal-meta">
+        <div class="th-modal-name" id="thModalName"></div>
+        <div class="th-modal-years" id="thModalYears"></div>
+        <span class="th-modal-tag" id="thModalTag"></span>
+      </div>
+      <button class="th-modal-close" onclick="document.getElementById('thModalBg').classList.remove('open')">×</button>
+    </div>
+    <div class="th-modal-body" id="thModalBody"></div>
+  </div>
+</div>
 
 <audio id="mainAudio" preload="none"><source src="hoerbuch_lernpsychologie.mp3" type="audio/mpeg"></audio>
 <div class="audio-bar" id="audioBar">
@@ -162,14 +212,14 @@ ul.pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
 <section class="section reveal" id="s0">
   <div class="sh"><span class="sn">0</span><span class="st">Die Theoretiker auf einen Blick</span></div>
   <div class="thgrid">
-    <div class="thcard" style="border-left-color:#b45309;"><div class="thn">Heckhausen &amp; Rheinberg</div><div class="thy">Dt. Motivationspsychologen · 20. Jh.</div><div class="thk" style="color:#b45309;">Motivation &amp; Handlung</div><div class="thd">Rubikon-Modell: Wann wird aus einem Wunsch eine Handlung? Rheinbergs Rahmenmodell erklärt Motivationsquellen im Unterricht.</div></div>
-    <div class="thcard" style="border-left-color:#be123c;"><div class="thn">Bernard Weiner</div><div class="thy">US-Psychologe · geb. 1935</div><div class="thk" style="color:#be123c;">Attributionstheorie</div><div class="thd">Warum glauben wir, dass wir erfolgreich oder gescheitert sind? 3-dimensionales Modell der Ursachenzuschreibung mit direktem Einfluss auf Motivation.</div></div>
-    <div class="thcard" style="border-left-color:#0369a1;"><div class="thn">Carol Dweck</div><div class="thy">US-Psychologin · geb. 1946</div><div class="thk" style="color:#0369a1;">Implicit Theories / Mindset</div><div class="thd">Fixed vs. Growth Mindset: Die eigene Überzeugung über Fähigkeiten bestimmt maßgeblich, wie man mit Misserfolg umgeht.</div></div>
-    <div class="thcard" style="border-left-color:#0f766e;"><div class="thn">Hermann Ebbinghaus</div><div class="thy">Dt. Psychologe · 1850–1909</div><div class="thk" style="color:#0f766e;">Gedächtnis &amp; Vergessen</div><div class="thd">Erster Experimentator des Gedächtnisses. Entdeckte die Vergessenskurve durch jahrelange Selbstversuche mit sinnlosen Silben.</div></div>
-    <div class="thcard" style="border-left-color:#6d28d9;"><div class="thn">B. F. Skinner</div><div class="thy">US-Psychologe · 1904–1990</div><div class="thk" style="color:#6d28d9;">Operantes Konditionieren</div><div class="thd">Verhalten entsteht durch Konsequenzen. 4 Verstärkungstypen — positive/negative Verstärkung, positive/negative Bestrafung.</div></div>
-    <div class="thcard" style="border-left-color:#db2777;"><div class="thn">Albert Bandura</div><div class="thy">Kanad.-US-Psychologe · 1925–2021</div><div class="thk" style="color:#db2777;">Modelllernen</div><div class="thd">Menschen lernen durch Beobachtung. 4 Teilprozesse nötig, damit Modelllernen wirkt. Auch Begründer der Selbstwirksamkeits-Theorie.</div></div>
-    <div class="thcard" style="border-left-color:#7c3aed;"><div class="thn">Lev Vygotski</div><div class="thy">Sowjet. Psychologe · 1896–1934</div><div class="thk" style="color:#7c3aed;">Zone der nächsten Entwicklung</div><div class="thd">Lernen geschieht am besten im Bereich knapp über dem aktuellen Können — mit sozialer Unterstützung (Scaffolding).</div></div>
-    <div class="thcard" style="border-left-color:#0891b2;"><div class="thn">John Hattie</div><div class="thy">Neuseeländ. Bildungsforscher · geb. 1950</div><div class="thk" style="color:#0891b2;">Visible Learning</div><div class="thd">Größte Metaanalyse im Bildungsbereich (800+ Studien). Feedback und kognitive Aktivierung zählen zu den wirksamsten Lernfaktoren.</div></div>
+    <div class="thcard" style="border-left-color:#b45309;" onclick="showTheorist('lp-heckhausen')"><div class="thn">Heckhausen &amp; Rheinberg</div><div class="thy">Dt. Motivationspsychologen · 20. Jh.</div><div class="thk" style="color:#b45309;">Motivation &amp; Handlung</div><div class="thd">Rubikon-Modell: Wann wird aus einem Wunsch eine Handlung? Rheinbergs Rahmenmodell erklärt Motivationsquellen im Unterricht.</div></div>
+    <div class="thcard" style="border-left-color:#be123c;" onclick="showTheorist('lp-weiner')"><div class="thn">Bernard Weiner</div><div class="thy">US-Psychologe · geb. 1935</div><div class="thk" style="color:#be123c;">Attributionstheorie</div><div class="thd">Warum glauben wir, dass wir erfolgreich oder gescheitert sind? 3-dimensionales Modell der Ursachenzuschreibung mit direktem Einfluss auf Motivation.</div></div>
+    <div class="thcard" style="border-left-color:#0369a1;" onclick="showTheorist('lp-dweck')"><div class="thn">Carol Dweck</div><div class="thy">US-Psychologin · geb. 1946</div><div class="thk" style="color:#0369a1;">Implicit Theories / Mindset</div><div class="thd">Fixed vs. Growth Mindset: Die eigene Überzeugung über Fähigkeiten bestimmt maßgeblich, wie man mit Misserfolg umgeht.</div></div>
+    <div class="thcard" style="border-left-color:#0f766e;" onclick="showTheorist('lp-ebbinghaus')"><div class="thn">Hermann Ebbinghaus</div><div class="thy">Dt. Psychologe · 1850–1909</div><div class="thk" style="color:#0f766e;">Gedächtnis &amp; Vergessen</div><div class="thd">Erster Experimentator des Gedächtnisses. Entdeckte die Vergessenskurve durch jahrelange Selbstversuche mit sinnlosen Silben.</div></div>
+    <div class="thcard" style="border-left-color:#6d28d9;" onclick="showTheorist('lp-skinner')"><div class="thn">B. F. Skinner</div><div class="thy">US-Psychologe · 1904–1990</div><div class="thk" style="color:#6d28d9;">Operantes Konditionieren</div><div class="thd">Verhalten entsteht durch Konsequenzen. 4 Verstärkungstypen — positive/negative Verstärkung, positive/negative Bestrafung.</div></div>
+    <div class="thcard" style="border-left-color:#db2777;" onclick="showTheorist('lp-bandura')"><div class="thn">Albert Bandura</div><div class="thy">Kanad.-US-Psychologe · 1925–2021</div><div class="thk" style="color:#db2777;">Modelllernen</div><div class="thd">Menschen lernen durch Beobachtung. 4 Teilprozesse nötig, damit Modelllernen wirkt. Auch Begründer der Selbstwirksamkeits-Theorie.</div></div>
+    <div class="thcard" style="border-left-color:#7c3aed;" onclick="showTheorist('lp-vygotski')"><div class="thn">Lev Vygotski</div><div class="thy">Sowjet. Psychologe · 1896–1934</div><div class="thk" style="color:#7c3aed;">Zone der nächsten Entwicklung</div><div class="thd">Lernen geschieht am besten im Bereich knapp über dem aktuellen Können — mit sozialer Unterstützung (Scaffolding).</div></div>
+    <div class="thcard" style="border-left-color:#0891b2;" onclick="showTheorist('lp-hattie')"><div class="thn">John Hattie</div><div class="thy">Neuseeländ. Bildungsforscher · geb. 1950</div><div class="thk" style="color:#0891b2;">Visible Learning</div><div class="thd">Größte Metaanalyse im Bildungsbereich (800+ Studien). Feedback und kognitive Aktivierung zählen zu den wirksamsten Lernfaktoren.</div></div>
   </div>
 </section>
 
@@ -209,23 +259,31 @@ ul.pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
       <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fef3c7;color:#b45309;">🌊</div><div class="al">Das Rubikon-Modell — von der Absicht zur Handlung</div><span class="aico">▾</span></div>
       <div class="abody"><div class="ac">
         <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Rubikon-Modell</span> (Heckhausen &amp; Gollwitzer, 1987) — Modell, das erklärt, wie aus einem Wunsch eine Handlung wird. Benannt nach Caesars Entscheidung, den Rubikon zu überqueren — der Punkt, ab dem es kein Zurück gibt.</div>
-        <div class="stufe" style="background:#fffbeb;border-color:#fde68a;"><div class="snum" style="background:#fef3c7;color:#b45309;">1</div><div class="sbody"><strong>Prädezisionale Phase — Abwägen</strong>Man überlegt: Soll ich dieses Ziel überhaupt verfolgen? Wünsche konkurrieren miteinander. Man ist noch offen für alle Informationen.</div></div>
-        <div class="stufe" style="background:#fffbeb;border-color:#fde68a;"><div class="snum" style="background:#fef3c7;color:#b45309;">2</div><div class="sbody"><strong>Präaktionale Phase — Planen (nach dem Rubikon)</strong>Entscheidung ist gefallen. Nun wird geplant: Wann? Wie? Was brauche ich? Ziel ist jetzt verbindlich.</div></div>
-        <div class="stufe" style="background:#fffbeb;border-color:#fde68a;"><div class="snum" style="background:#fef3c7;color:#b45309;">3</div><div class="sbody"><strong>Aktionale Phase — Handeln</strong>Die Handlung wird ausgeführt. Hindernisse werden überwunden. Fokus auf das Ziel.</div></div>
-        <div class="stufe" style="background:#fffbeb;border-color:#fde68a;"><div class="snum" style="background:#fef3c7;color:#b45309;">4</div><div class="sbody"><strong>Postaktionale Phase — Bewerten</strong>War die Handlung erfolgreich? Was hat geholfen, was nicht? Diese Bewertung beeinflusst zukünftige Motivation (s. Attribution).</div></div>
-        <div class="ebox"><div class="el">🎓 Schulbeispiel</div>Schüler steht vor einer Hausarbeit: (1) Überlegt, ob er sie wirklich schreiben will. (2) Entscheidet "Ich mache das" und plant Zeitplan. (3) Schreibt aktiv. (4) Bewertet danach: "Hat der Aufwand sich gelohnt?" — Diese Bewertung bestimmt, ob er beim nächsten Mal wieder motiviert ist.</div>
+        <div class="stufe" style="background:#fffbeb;border-color:#fde68a;"><div class="snum" style="background:#fef3c7;color:#b45309;">1</div><div class="sbody"><strong>Abwägephase</strong> — Man überlegt: Soll ich dieses Ziel verfolgen? Wünsche konkurrieren miteinander. Man ist noch offen und unentschlossen. Entscheidend: Wünschbarkeit &amp; Realisierbarkeit.</div></div>
+        <div class="stufe" style="background:#fffbeb;border-color:#fde68a;"><div class="snum" style="background:#fef3c7;color:#b45309;">2</div><div class="sbody"><strong>Planungsphase</strong> (nach dem Rubikon) — Entscheidung ist gefallen, Ziel ist verbindlich. Nun wird geplant: Wann? Wie? Womit? Abschirmung konkurrierender Ziele beginnt.</div></div>
+        <div class="stufe" style="background:#fffbeb;border-color:#fde68a;"><div class="snum" style="background:#fef3c7;color:#b45309;">3</div><div class="sbody"><strong>Handlungsphase</strong> — Die Handlung wird ausgeführt. Hindernisse werden überwunden. Fokus liegt auf Umsetzung und Anstrengungsregulation.</div></div>
+        <div class="stufe" style="background:#fffbeb;border-color:#fde68a;"><div class="snum" style="background:#fef3c7;color:#b45309;">4</div><div class="sbody"><strong>Bewertungsphase</strong> — War die Handlung erfolgreich? Was hat geholfen, was nicht? Diese Bewertung beeinflusst direkt zukünftige Motivation (→ Kausalattribution).</div></div>
+        <div class="ebox"><div class="el">🎓 Schulbeispiel</div>Schüler vor einer Hausarbeit: (1) Überlegt, ob er sie schreiben will. (2) Entscheidet „Ich mache das" und plant Zeitplan. (3) Schreibt aktiv. (4) Bewertet: „Hat der Aufwand sich gelohnt?" — Diese Bewertung bestimmt, ob er beim nächsten Mal wieder motiviert ist.</div>
       </div></div></div>
 
-      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fef3c7;color:#b45309;">📊</div><div class="al">Rheinbergs Rahmenmodell — was Motivation im Unterricht beeinflusst</div><span class="aico">▾</span></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fef3c7;color:#b45309;">📊</div><div class="al">Rahmenmodell der Motivation beim Lernen — alle Einflussfaktoren</div><span class="aico">▾</span></div>
       <div class="abody"><div class="ac">
-        <div class="ex">Falko Rheinberg beschreibt vier zentrale Quellen der Lernmotivation im Unterricht — die Lehrkraft kann alle vier aktiv beeinflussen:</div>
-        <ul class="pl" style="margin-bottom:10px;">
-          <li><strong>Situationsreiz:</strong> Ist die Aufgabe selbst interessant und ansprechend?</li>
-          <li><strong>Instrumentalität:</strong> Nützt das Gelernte für persönlich wichtige Ziele (Beruf, Alltag)?</li>
-          <li><strong>Inzentive der Tätigkeit:</strong> Macht das Tun selbst Spaß, auch unabhängig vom Ergebnis?</li>
-          <li><strong>Erwartung × Wert:</strong> Glaube ich, dass ich es schaffe? Und ist es mir überhaupt wichtig?</li>
-        </ul>
-        <div class="tip"><div class="tl">🏫 Schulpraxis</div>"Warum lernen wir das überhaupt?" ist keine Frechheit — es ist eine berechtigte Frage nach Instrumentalität. Wer sie beantwortet ("In welchen Berufen brauchst du das?"), steigert die Motivation messbar.</div>
+        <div class="ex">Das <strong>Rahmenmodell der Motivation beim Lernen</strong> (Rheinberg &amp; Heckhausen, 1998) zeigt, wie die vier Phasen des Rubikon-Modells mit konkreten Einflussfaktoren zusammenwirken. Es ist kein eigenes Phasenmodell, sondern eine Erweiterung des Rubikon-Modells.</div>
+        <div class="fb"><div class="fl">🔑 In der Person liegende Faktoren</div>
+          <span class="ft">Grundbedürfnisse</span> (Deci &amp; Ryan): Autonomie, Kompetenz, soziale Eingebundenheit. Werden diese erfüllt, entsteht intrinsische Motivation.<br>
+          <span class="ft">Wertbezogene Tendenzen / Ziele:</span> Was ist dem Schüler wichtig? Lernziele (Verstehen) vs. Leistungsziele (Besser-sein) vs. Arbeitsvermeidung.
+        </div>
+        <div class="fb"><div class="fl">🔑 Abwägephase: Erwartungs-Wert-Modell (Eccles)</div>
+          In der Abwägephase entscheidet die <span class="ft">Verknüpfung</span> von zwei Komponenten:<br>
+          <strong>Erwartungskomponente:</strong> Glaube ich, dass ich die Handlung erfolgreich ausführen kann? (Selbstwirksamkeit, Erfolgserwartung)<br>
+          <strong>Wertkomponente:</strong> Ist mir das Ergebnis wichtig? Hat es Interesse, Nützlichkeit, Bedeutung für mich?<br>
+          → Nur wenn beide positiv sind, entsteht starke Motivation.
+        </div>
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#b45309;">Hohes Interesse, niedriges Zutrauen</div>„Das Thema ist spannend, aber ich werde es sowieso nicht schaffen." → Motivation trotzdem niedrig.</div>
+          <div class="ci"><div class="cil" style="color:#15803d;">Hohes Zutrauen, hoher Wert</div>„Ich kann das — und es ist mir wichtig." → Starke Motivation, Ausdauer bei Hindernissen.</div>
+        </div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>„Warum lernen wir das?" = Frage nach dem Wert/Instrumentalität. Wer sie beantwortet, steigert die Motivation. Selbstwirksamkeit stärken durch erreichbare Erfolgserlebnisse. Lernziele statt Leistungsziele betonen — Growth Mindset.</div>
       </div></div></div>
     </div>
   </div>
@@ -499,6 +557,185 @@ ul.pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
   </div>
 </section>
 
+<!-- 8 EINFLUSSFAKTOREN AUF LERNEN -->
+<section class="section reveal" id="s8">
+  <div class="sh"><span class="sn">VIII</span><span class="st">Einflussfaktoren auf Lernen — systemisch und multikausial</span><span class="sa" style="background:#2d6a4f;">LK 91–96</span></div>
+  <div class="cg wide">
+    <div class="card" style="border-top-color:#2d6a4f;">
+      <div class="ch"><h3 style="color:#2d6a4f;">🌐 Was beeinflusst Lernerfolg?</h3><div class="csub">Systemische Perspektive · Multikausalität · Vorwissen · Intelligenz</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#d1fae5;color:#2d6a4f;">💡</div><div class="al">Die vier Einflussbereiche auf Lernen</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Der Akademiebericht beschreibt <strong>vier Einflussbereiche</strong>, die Lernerfolg gleichzeitig und in Wechselwirkung miteinander bestimmen:</div>
+        <div class="stufe"><div class="snum" style="background:#d1fae5;color:#2d6a4f;">1</div><div class="sbody"><strong>Lerngegenstand:</strong> Passt der Stoff zum Vorwissen des Schülers? Ist er anschaulich aufbereitet? Ist das Niveau angemessen? Positiv: motivierte Zuwendung → erfolgreiche Bewältigung. Negativ: Abneigung, Überforderung.</div></div>
+        <div class="stufe"><div class="snum" style="background:#d1fae5;color:#2d6a4f;">2</div><div class="sbody"><strong>Soziale Beziehungen:</strong> Klassenlehrkraft, Eltern, Peers. Positiv: Förderung und Ermutigung steigern Motivation. Negativ: Ablehnung durch Lehrkraft, Zweifel der Eltern, Ausgrenzung durch Peers hemmem Lernen.</div></div>
+        <div class="stufe"><div class="snum" style="background:#d1fae5;color:#2d6a4f;">3</div><div class="sbody"><strong>Sozial-emotionale Voraussetzungen:</strong> Der Schüler selbst — Selbstkonzept, emotionale Stabilität, Frustrationstoleranz. Positiv: Engagement und Freude. Negativ: Selbstzweifel, Enttäuschung, beginnende Unlust.</div></div>
+        <div class="stufe"><div class="snum" style="background:#d1fae5;color:#2d6a4f;">4</div><div class="sbody"><strong>Person des Lernenden:</strong> Vorwissen, Intelligenz, Lernstrategien, Arbeitsverhalten und -haltung. Die kognitiven und metakognitiven Ressourcen, die der Schüler mitbringt.</div></div>
+        <div class="fb"><div class="fl">🔑 Systemische Perspektive</div>Alle vier Bereiche stehen in direktem Zusammenhang und steter Wechselwirkung: Geschehnisse im Elternhaus, in der Klasse, in der Peergroup — sie beeinflussen sich gegenseitig.</div>
+        <div class="fb"><div class="fl">🔑 Multikausalität</div>Erfolge und Misserfolge sind immer in mehreren Bereichen gleichzeitig begründet und verstärken sich in Regelkreisläufen gegenseitig — positiv wie negativ.</div>
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#2d6a4f;">Positiver Kreislauf</div>Gutes Vorwissen → Neues verstehen → Erfolgserlebnis → Motivation → mehr Engagement → noch besseres Verständnis</div>
+          <div class="ci"><div class="cil" style="color:#be123c;">Negativer Kreislauf</div>Lücken im Vorwissen → Neues nicht verstehen → Misserfolg → Selbstzweifel → weniger Einsatz → größere Lücken</div>
+        </div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Systemisches Denken: Nicht nach dem einen Grund für Leistungsabfall suchen, sondern alle vier Bereiche in den Blick nehmen. Eine Lehrkraft kann an vielen Stellen gleichzeitig ansetzen.</div>
+      </div></div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#d1fae5;color:#2d6a4f;">🧠</div><div class="al">Vorwissen als zentraler kognitiver Faktor</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Vorwissen (LK 98)</div>Überdauernde Repräsentationsinhalte des Langzeitgedächtnisses. Vorwissen ist die wichtigste Vorbedingung für weiteres Lernen — es ermöglicht schnelle Mobilisierung weiterer Lernressourcen, effiziente Integration neuer Informationen, schnelle Entscheidung über Relevanz und effiziente Problemlösungen.</div>
+        <div class="ebox"><div class="el">🔗 Funktionen von Vorwissen</div>
+          Schnelle Entscheidung: Ist diese neue Information für mich relevant? ·
+          Aktivierung passender Konzepte aus dem Langzeitgedächtnis ·
+          Integration: Neues kann an Bekanntes angedockt werden ·
+          Effiziente Problemlösung: Frühere Erfahrungen übertragen ·
+          Motivation: Anknüpfungspunkte erzeugen Interesse
+        </div>
+        <div class="fb"><div class="fl">🔑 Intelligenz</div>„Die Fähigkeit, aus Erfahrungen zu lernen, Probleme zu lösen und Wissen einzusetzen, um sich an neue Situationen anzupassen" (Myers). Intelligenz ist nicht fix — sie verändert sich mit dem Anregungsgrad der Lernumgebung (→ Growth Mindset). Unterscheidung: <span class="ft">Fluide Intelligenz</span> (allgemeines Schlussfolgern, Denkgeschwindigkeit) vs. <span class="ft">Kristalline Intelligenz</span> (erworbenes Wissen, Sprachverstehen, Erfahrung).</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Unterrichtsstunden immer mit Vorwissensaktivierung beginnen: „Was wisst ihr schon zu diesem Thema?" — das ist kein netter Einstieg, sondern lernwirksame Neuropsychologie. Neues muss an Bekanntes andocken können, sonst bleibt es unverstanden.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 9 HOCHBEGABUNG -->
+<section class="section reveal" id="s9">
+  <div class="sh"><span class="sn">IX</span><span class="st">Hochbegabung &amp; Underachievement</span><span class="sa" style="background:#0369a1;">LK 103–109 · Enrichment · Akzeleration</span></div>
+  <div class="cg">
+    <div class="card" style="border-top-color:#0369a1;">
+      <div class="ch"><h3 style="color:#0369a1;">⭐ Hochbegabung — was sie ist und was nicht</h3><div class="csub">Definition · Underachievement · Förderstrategien</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0f2fe;color:#0369a1;">💡</div><div class="al">Was ist Hochbegabung?</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Hochbegabung</div>Überdurchschnittlich hohe intellektuelle Fähigkeiten (IQ &gt; 130, ca. 2,5% der Bevölkerung), die sich nicht automatisch in guten Schulleistungen niederschlagen. Hochbegabung kann in Teilbereichen ausgeprägt sein (mathematisch, sprachlich, musikalisch, sportlich).</div>
+        <div class="warn"><div class="wl">⚠️ Häufiges Missverständnis</div>Hochbegabte Schüler sind nicht zwangsläufig Leistungsträger. Hochbegabung schützt nicht vor schulischen Problemen — im Gegenteil: Underachievement ist bei Hochbegabten besonders häufig.</div>
+      </div></div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0f2fe;color:#0369a1;">⚠️</div><div class="al">Underachievement — wenn Begabung und Leistung auseinanderfallen</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Underachievement</div>Systematische Diskrepanz zwischen (hohem) Potenzial und tatsächlich erbrachter Leistung. Oft verbunden mit: schlechtem Lernverhalten, Leistungsvermeidung (zu leichte oder zu schwere Aufgaben wählen), Unaufmerksamkeit, Antriebsarmut — bei gleichzeitig überdurchschnittlicher Intelligenz.</div>
+        <div class="ebox"><div class="el">🔄 Der Teufelskreis des Underachievements</div>
+          Kein Entwickeln von Fähigkeiten und Kompetenzen → kein Erfolgserlebnis → sinkende Motivation → noch weniger Einsatz → kein Entwickeln… Ein sachzentrierter, anspruchsvoller Unterricht ist der Ansatz, diesen Kreislauf zu durchbrechen.
+        </div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Hochbegabte, die durch den Unterricht nicht gefordert werden, verhalten sich oft störend oder verweigern — nicht aus Bösartigkeit, sondern aus Unterforderung. Die Diagnose „Hochbegabung mit Underachievement" erfordert spezifische Fördermaßnahmen, nicht Disziplinmaßnahmen.</div>
+      </div></div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0f2fe;color:#0369a1;">🚀</div><div class="al">Förderstrategien: Enrichment vs. Akzeleration</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#15803d;">Enrichment</div>Anreicherung des Lernstoffs in die Breite und Tiefe. Schüler bleibt in der Altersgruppe. Individuell auf Interessen zugeschnitten. Pädagogisch schonender.</div>
+          <div class="ci"><div class="cil" style="color:#0369a1;">Akzeleration</div>Zeitliche Beschleunigung: Überspringen von Klassen, Frühstudium, Drehtürenmodell. Höhere Anforderungen — soziale Aspekte müssen bedacht werden.</div>
+        </div>
+        <div class="fb"><div class="fl">🔑 Drehtürenmodell</div>Schüler verlässt zeitweise den regulären Unterricht, um an eigenen Projekten oder außerschulischen Förderangeboten zu arbeiten, und kehrt dann zurück. Erfordert Protokoll der Eigenarbeit und Nacharbeiten des versäumten Stoffs.</div>
+        <div class="ebox"><div class="el">📋 Außerschulische Angebote</div>
+          Schülerakademien · Frühstudium an Universitäten · Ferienseminare · Wettbewerbe (Olympiaden, Jugend forscht) · Förderangebote von Hochschulen und Vereinen.
+        </div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 LERNTHEORIEN: MODELLLERNEN -->
+<section class="section reveal" id="s10">
+  <div class="sh"><span class="sn">X</span><span class="st">Lerntheorien vertieft — Modelllernen &amp; Konditionieren</span><span class="sa" style="background:#db2777;">LK 119–128 · Bandura · Skinner · Pawlow</span></div>
+  <div class="cg">
+    <div class="card" style="border-top-color:#db2777;">
+      <div class="ch"><h3 style="color:#db2777;">🎬 Modelllernen — Lernen durch Beobachtung</h3><div class="csub">Bandura · 4 Teilprozesse · Schulpraxis</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fce7f3;color:#db2777;">💡</div><div class="al">Ableitungen für die Unterrichtspraxis</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Das Modelllernen (LK 123/126) hat besonders viele direkte Konsequenzen für Lehrkräfte — denn Lehrkräfte sind immer Modelle, ob sie es wollen oder nicht.</div>
+        <div class="ebox"><div class="el">🎯 Was Lehrkräfte als Modell vorleben können</div>
+          <strong>Im sozialen Bereich:</strong> Umgang mit Sprache · Unterstützung und Teamfähigkeit · Umgang mit Konflikten · Emotionsregulation (Wie reagiere ich auf Fehler? Auf Kritik?)<br><br>
+          <strong>Im Lern- und Arbeitsbereich:</strong> Pünktlichkeit · Haltung gegenüber Aufgaben · Demonstration von Lernstrategien · Herangehen an schwierige Fragen · Selbstregulation
+        </div>
+        <div class="fb"><div class="fl">🔑 Lautes Denken als Modelllernen</div>Wenn eine Lehrkraft ihren eigenen Denkprozess verbalisiert — „Ich bin jetzt unsicher, wie ich das angehen soll... erst schaue ich, was ich weiß, dann überlege ich..." — modelliert sie kognitive Strategien, die Schüler direkt übernehmen können. Das ist eine der wirksamsten Methoden der Lernstrategie-Vermittlung.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Eigene Fehler offen zeigen und als Lernchancen rahmen: „Das war falsch — jetzt überlege ich, warum." Das modelliert Growth Mindset und Fehlerkultur gleichzeitig. Schüler beobachten das.</div>
+      </div></div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fce7f3;color:#db2777;">⚡</div><div class="al">Klassisches &amp; operantes Konditionieren — Schulkonsequenzen</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Klassisches Konditionieren (Pawlow) im Unterricht</div>Emotionale Reaktionen auf schulische Situationen können konditioniert sein: Ein Schüler, der wiederholt in einer bestimmten Klasse beschämt wurde, reagiert auf diese Klasse mit Angst — auch wenn der ursprüngliche Auslöser nicht mehr da ist. Prüfungsangst kann durch klassisches Konditionieren entstehen.</div>
+        <div class="fb"><div class="fl">🔑 Operantes Konditionieren (Skinner) — Ableitungen</div>Gezieltes Verstärken erwünschten Verhaltens durch Lob: individuell, schülerbezogen, nachvollziehbar, informativ (was konkret gelungen ist).<br>
+        Kontinuierliches Verstärken zu Beginn, dann intermittierendes Verstärken (macht Verhalten löschungsresistenter).<br>
+        Vermeiden von Lob für Leistungen ohne Anstrengung (korrumpierender Effekt).<br>
+        Positive Verstärkung hat Vorrang vor Bestrafung: Bestrafung unterdrückt Verhalten kurzfristig, erzeugt aber Ausweichstrategien und hemmt intrinsische Motivation.</div>
+        <div class="warn"><div class="wl">⚠️ Negative Verstärkung ≠ Bestrafung</div>Negative Verstärkung <em>erhöht</em> die Verhaltenswahrscheinlichkeit durch Entfernen von etwas Unangenehmem. Beispiel: Schüler engagiert sich besonders → Hausaufgaben entfallen. Das ist Belohnung — kein Entzug.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 LERNSTILE UND LERNKREISLAUF -->
+<section class="section reveal" id="s11">
+  <div class="sh"><span class="sn">XI</span><span class="st">Lernstile &amp; Lernkreislauf nach Kolb</span><span class="sa" style="background:#6d28d9;">LK 129–133 · Kolb · 4 Lernstile</span></div>
+  <div class="cg">
+    <div class="card" style="border-top-color:#6d28d9;">
+      <div class="ch"><h3 style="color:#6d28d9;">🔄 Der Lernkreislauf — Lernen als Prozess</h3><div class="csub">Kolbs 4 Phasen · 4 Lernstile · Schulkonsequenzen</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ede9fe;color:#6d28d9;">💡</div><div class="al">Kolbs Lernkreislauf — Lernen auf Erfahrung beruhend</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Lernkreislauf (Kolb, 1984)</div>Lernen ist ein fortlaufender, auf Erfahrung beruhender Prozess in vier Phasen. Niemand steigt immer an derselben Phase ein — aber jeder hat eine bevorzugte Einstiegsphase, was zum Lernstil wird.</div>
+        <div class="stufe"><div class="snum" style="background:#ede9fe;color:#6d28d9;">1</div><div class="sbody"><strong>Konkrete Erfahrung (Phase 1):</strong> Etwas wird erlebt, erfahren, gemacht — Handlung und Sinneseindrücke stehen im Vordergrund.</div></div>
+        <div class="stufe"><div class="snum" style="background:#ede9fe;color:#6d28d9;">2</div><div class="sbody"><strong>Reflektierende Beobachtung (Phase 2):</strong> Die Erfahrung wird bedacht, betrachtet, aus verschiedenen Perspektiven beobachtet. Was ist passiert? Warum?</div></div>
+        <div class="stufe"><div class="snum" style="background:#ede9fe;color:#6d28d9;">3</div><div class="sbody"><strong>Abstrakte Begriffsbildung (Phase 3):</strong> Aus der Beobachtung werden Konzepte, Theorien, Regeln abgeleitet — abstraktes Begreifen.</div></div>
+        <div class="stufe"><div class="snum" style="background:#ede9fe;color:#6d28d9;">4</div><div class="sbody"><strong>Aktives Ausprobieren / Experimentieren (Phase 4):</strong> Das Gelernte wird in neuen Situationen angewendet — führt zu neuer konkreter Erfahrung (Kreis schließt sich).</div></div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Der Lernkreislauf als Unterrichtsstruktur: Einstieg mit konkreter Erfahrung (Experiment, Beispiel) → Reflexion (Diskussion) → Theorie → Anwendung. Diese Reihenfolge entspricht dem natürlichen Lernprozess und ist für alle Lernstile zugänglich.</div>
+      </div></div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ede9fe;color:#6d28d9;">🎨</div><div class="al">Die 4 Lernstile — und warum man sie kennen sollte</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Je nachdem, in welchen Phasen jemand am liebsten eintritt und verweilt, entstehen unterschiedliche Lernstile:</div>
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#db2777;">Divergierer (Ph. 1+2)</div>Stärke: Kreativität, Fantasie, viele Ideen. Lernt gerne durch Beobachten und Brainstormen. Bevorzugt breite Fragestellungen.</div>
+          <div class="ci"><div class="cil" style="color:#0369a1;">Assimilierer (Ph. 2+3)</div>Stärke: Theoriebildung, logisches Denken. Lernt gerne durch Lesen und Konzepte erarbeiten. Bevorzugt Modelle und Systeme.</div>
+        </div>
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#0f766e;">Konvergierer (Ph. 3+4)</div>Stärke: Problemlösung, praktische Anwendung. Lernt gerne durch Ausprobieren und Testen. Bevorzugt konkrete, lösbare Probleme.</div>
+          <div class="ci"><div class="cil" style="color:#b45309;">Akkomodierer (Ph. 4+1)</div>Stärke: Flexibilität, Anpassung, Handeln unter Unsicherheit. Lernt gerne durch Machen und Improvisieren. Bevorzugt neue Erfahrungen.</div>
+        </div>
+        <div class="ebox"><div class="el">⚠️ Kritik an Lernstil-Konzepten</div>Die Forschung zeigt: Lernstile als feste, diagnostizierbare Kategorien sind wissenschaftlich nicht belegt. Es gibt keine robuste Evidenz, dass Unterricht, der auf den „Lernstil" eines Schülers zugeschnitten ist, bessere Ergebnisse erzeugt. Was wirkt: <strong>Methodenvielfalt</strong>, die alle Phasen des Lernkreislaufs anspricht, und <strong>kognitiv aktivierender</strong> Unterricht für alle.</div>
+        <div class="note">Kognitiv aktivierender Unterricht hilft allen Schülerinnen und Schülern — unabhängig vom Lernstil. Die Stärke von Kolbs Modell liegt in der Unterrichtsstruktur (Kreislauf), nicht in der Schülerdiagnose.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 12 LERNSTRATEGIEN -->
+<section class="section reveal" id="s12">
+  <div class="sh"><span class="sn">XII</span><span class="st">Lernstrategien — alle vier Typen</span><span class="sa" style="background:#2d6a4f;">LK 135–143 · Kognitive · Metakognitive · Ressourcenstrategien</span></div>
+  <div class="cg wide">
+    <div class="card" style="border-top-color:#2d6a4f;">
+      <div class="ch"><h3 style="color:#2d6a4f;">🧠 Lernstrategien systematisch</h3><div class="csub">Kognitive · Metakognitive · Motivationsstrategien · Ressourcenstrategien</div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#d1fae5;color:#2d6a4f;">1</div><div class="al">Kognitive Lernstrategien — mit dem Stoff arbeiten</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Kognitive Lernstrategien</div>Direkte Bearbeitung des Lernstoffs. Ziel: Verstehen, Behalten, Verknüpfen.</div>
+        <div class="ex"><strong>Organisieren und Strukturieren:</strong> Tabellen, Diagramme, Skizzen, Mindmaps, Cluster anfertigen · Eigene Zusammenfassungen als Fließtext oder Mindmap erstellen · Unterstreichen und Markieren wichtiger Stellen.</div>
+        <div class="ex"><strong>Elaborieren (Vertiefen):</strong> Fächerübergreifendes Verknüpfen von Wissen · Neues mit Vorwissen in Beziehung setzen · Praktische Anwendung von Wissen · Eigene Beispiele erfinden · Inhalte erklären, als würde man sie einem anderen beibringen (Feynman-Technik).</div>
+        <div class="ex"><strong>Kritisches Hinterfragen:</strong> Logik des Stoffs überprüfen · Eigene Hypothesen aufstellen · Quellen und Argumente vergleichen.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Retrieval Practice (aktiver Abruf) ist eine der wirksamsten kognitiven Strategien überhaupt: Stoff ohne Vorlage aufschreiben, Selbsttests machen, Fragen aus dem Gedächtnis beantworten. Das Gehirn stärkt Gedächtnisspuren durch aktives Abrufen, nicht durch erneutes Lesen.</div>
+      </div></div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#d1fae5;color:#2d6a4f;">2</div><div class="al">Metakognitive Lernstrategien — über das eigene Lernen nachdenken</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Metakognitive Strategien</div>Aufbau und Erweiterung von Wissen über das eigene Lernen: Wie funktioniert mein Gedächtnis? Was sind meine Stärken und Schwächen beim Lernen? Welche Methode hilft mir bei welchem Stoff?</div>
+        <div class="ex">Konkrete Techniken: Eigenes Lernen mit dem Lernen guter Lerner vergleichen · Lernaufgaben auf verschiedene Arten lösen und Effektivität prüfen · Selbstüberwachung: „Habe ich das wirklich verstanden, oder kann ich es nur wiederholen?" · Lernziele vor dem Lernen setzen, danach überprüfen.</div>
+        <div class="ebox"><div class="el">🔑 Metacognition (Flavell, 1976)</div>Denken über das eigene Denken. Umfasst: <span style="font-weight:700">Metakognitives Wissen</span> (was weiß ich über mein Lernen?) und <span style="font-weight:700">Metakognitive Kontrolle</span> (wie steuere ich meinen Lernprozess?). Einer der stärksten Prädiktoren für Schulerfolg — stärker als IQ.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Lerntagebücher, Reflexionsphasen nach Klassenarbeiten, Peer-Feedback auf Lernprozesse — nicht nur auf Ergebnisse. „Was hättest du beim nächsten Mal anders gemacht?" ist eine metakognitive Frage.</div>
+      </div></div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#d1fae5;color:#2d6a4f;">3</div><div class="al">Motivationsstrategien — Antrieb aufrechterhalten</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Motivationsstrategien</div>Situationsbezogene Strategien zur Aufrechterhaltung der Lernmotivation — besonders bei schwierigen oder uninteressanten Aufgaben.</div>
+        <ul class="pl" style="margin-bottom:10px;">
+          <li><strong>Selbstbelohnung:</strong> Angemessene Belohnung nach Zielerreichung einplanen</li>
+          <li><strong>Gewinn im Fokus behalten:</strong> Perspektiven guten Abschlusses vergegenwärtigen · Gefühl von Erfolg erinnern</li>
+          <li><strong>Erleben des eigenen Könnens:</strong> Bereits Erreichtes bewusst machen · Aufwand variieren und Ergebnisse vergleichen</li>
+          <li><strong>Selbstwertschützende Attribution:</strong> Misserfolg auf veränderbare Faktoren zurückführen, nicht auf feste Eigenschaften</li>
+        </ul>
+      </div></div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#d1fae5;color:#2d6a4f;">4</div><div class="al">Ressourcenstrategien — äußere Bedingungen optimieren</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Ressourcenstrategien (Stützstrategien)</div>Optimierung der äußeren Rahmenbedingungen des Lernens — oft unterschätzt, aber wirkungsvoll.</div>
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#2d6a4f;">Lernort</div>Ablenkungsfreier, fester, ergonomischer Arbeitsplatz · Kein Handy, keine Benachrichtigungen · Feste Lernzeiten</div>
+          <div class="ci"><div class="cil" style="color:#0369a1;">Lernen mit anderen</div>Lernpartnerschaft · Diskussion über Unterrichtsinhalte · Gegenseitiges Erklären · Hilfe suchen bei Problemen</div>
+        </div>
+        <div class="ex"><strong>Informationssuche:</strong> Fragen bei fehlendem Verständnis stellen · Zusätzliche Quellen recherchieren · Informationen aus mindestens zwei Quellen verifizieren.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Lernstrategien explizit unterrichten — sie entwickeln sich nicht von selbst. Schülerinnen und Schüler lernen, wie Lernen funktioniert, nur wenn es ihnen jemand zeigt. Das ist eine der wirksamsten Investitionen der Lehrkraft.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
 </main>
 
 <footer style="background:var(--sur2);border-top:1px solid var(--brd);padding:20px 32px;text-align:center;">
@@ -537,6 +774,125 @@ hs.addEventListener('input',()=>{audio.currentTime=hs.value;});
 const secs=document.querySelectorAll('.section'),nbs=document.querySelectorAll('.nb');
 secs.forEach(s=>new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){const i=Array.from(secs).indexOf(en.target);nbs.forEach((b,j)=>{b.classList.toggle('active',j===i);b.style.background=j===i?ACCENT:'';b.style.color=j===i?'white':'';})}});},{threshold:0.25}).observe(s));
 document.querySelectorAll('.reveal').forEach(el=>new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('visible');});},{threshold:0.08}).observe(el));
+
+const TH_DATA = {
+  'lp-heckhausen': {
+    name: 'Heckhausen & Rheinberg',
+    years: 'Dt. Motivationspsychologen · Heinz Heckhausen (1926–1988) · Falko Rheinberg (geb. 1944)',
+    tag: 'Motivation & Handlung',
+    color: '#b45309',
+    body: `<div class="ex">Heinz Heckhausen und Peter Gollwitzer entwickelten das <strong>Rubikon-Modell der Handlungsphasen</strong> — benannt nach dem Fluss, den Caesar überschritt und damit eine unumkehrbare Entscheidung traf. Das Modell erklärt, wie aus einem bloßen Wunsch eine tatsächliche Handlung wird.</div>
+    <div class="ex"><strong>Die vier Phasen:</strong></div>
+    <div class="stufe"><div class="snum" style="background:#fef3c7;color:#b45309;">1</div><div class="sbody"><strong>Abwägephase:</strong> Man wägt verschiedene Ziele und Wünsche gegeneinander ab. Offen für alle Möglichkeiten. Die Frage lautet: Soll ich das verfolgen?</div></div>
+    <div class="stufe"><div class="snum" style="background:#fef3c7;color:#b45309;">2</div><div class="sbody"><strong>Planungsphase (nach dem Rubikon):</strong> Die Entscheidung ist gefallen. Man plant: Wann? Wie? Womit? Der Rubikon ist überschritten.</div></div>
+    <div class="stufe"><div class="snum" style="background:#fef3c7;color:#b45309;">3</div><div class="sbody"><strong>Handlungsphase:</strong> Die Handlung wird ausgeführt. Hindernisse werden überwunden. Fokus liegt auf Umsetzung.</div></div>
+    <div class="stufe"><div class="snum" style="background:#fef3c7;color:#b45309;">4</div><div class="sbody"><strong>Bewertungsphase:</strong> War es erfolgreich? Hat es sich gelohnt? Diese Bewertung beeinflusst direkt die zukünftige Motivation.</div></div>
+    <div class="fb"><div class="fl">🔑 Rheinbergs Rahmenmodell</div>Falko Rheinberg beschrieb vier Motivationsquellen im Unterricht: <span class="ft">Situationsreiz</span> (ist die Aufgabe interessant?), <span class="ft">Instrumentalität</span> (nützt das für eigene Ziele?), <span class="ft">intrinsische Motivation</span> (macht es Freude?) und <span class="ft">Kompetenzerwartung</span> (glaube ich, dass ich es schaffe?).</div>
+    <div class="tip"><div class="tl">🏫 Schulpraxis</div>„Warum lernen wir das überhaupt?" ist eine Frage nach Instrumentalität — keine Frechheit, sondern legitim. Wer sie beantwortet, steigert die Motivation messbar. Lernziele transparent kommunizieren.</div>`
+  },
+  'lp-weiner': {
+    name: 'Bernard Weiner',
+    years: 'US-amerikanischer Psychologe · geb. 1935 · Pionier der Attributionstheorie',
+    tag: 'Attributionstheorie',
+    color: '#be123c',
+    body: `<div class="ex"><strong>Attribution</strong> bedeutet Kausalzuschreibung — die subjektive Erklärung, warum etwas passiert ist. Weiner beschreibt drei unabhängige Dimensionen.</div>
+    <div class="fb"><div class="fl">🔑 Dimension 1: Kausallokalisation</div>Liegt die Ursache <span class="ft">internal</span> (in mir) oder <span class="ft">external</span> (außerhalb) von mir? „Ich bin zu dumm" vs. „Die Aufgabe war zu schwer."</div>
+    <div class="fb"><div class="fl">🔑 Dimension 2: Stabilität</div>Ist die Ursache <span class="ft">stabil</span> (dauerhaft) oder <span class="ft">variabel</span> (veränderbar)? „Ich bin grundsätzlich schlecht in Mathe" vs. „Ich habe dieses Mal zu wenig geübt."</div>
+    <div class="fb"><div class="fl">🔑 Dimension 3: Kontrollierbarkeit</div>Kann ich die Ursache selbst beeinflussen? Anstrengung ist kontrollierbar — Begabung gilt oft als unkontrollierbar.</div>
+    <div class="ebox" style="background:#fff1f2;border-color:#be123c;color:#4c0519;"><div class="el" style="color:#be123c;">⚠️ Ungünstiges Attributionsmuster</div>Misserfolg <strong>internal, stabil, unkontrollierbar</strong> erklären: „Ich bin zu dumm und das ändert sich nie." → Erlernte Hilflosigkeit, kein Versuch mehr.</div>
+    <div class="ebox" style="background:#f0fdf4;border-color:#15803d;color:#14532d;"><div class="el" style="color:#15803d;">✅ Günstiges Muster</div>Misserfolg <strong>internal, variabel, kontrollierbar</strong>: „Ich habe nicht genug gelernt — beim nächsten Mal früher anfangen." → Anstrengung steigt.</div>
+    <div class="tip"><div class="tl">🏫 Schulpraxis</div>Feedback so formulieren, dass Erfolge auf Anstrengung und Strategie zurückgeführt werden — nicht auf Begabung. „Du hast hart geübt, deshalb hat es geklappt" fördert günstige Attribution.</div>`
+  },
+  'lp-dweck': {
+    name: 'Carol Dweck',
+    years: 'US-amerikanische Psychologin · geb. 1946 · Stanford University',
+    tag: 'Fixed vs. Growth Mindset',
+    color: '#0369a1',
+    body: `<div class="fb"><div class="fl">🔑 Fixed Mindset</div>Überzeugung, dass Intelligenz und Fähigkeiten <span class="ft">angeboren und unveränderbar</span> sind. „Ich bin einfach nicht gut in Mathe." Misserfolg = Beweis mangelnder Begabung → Vermeidung schwieriger Aufgaben.</div>
+    <div class="fb"><div class="fl">🔑 Growth Mindset</div>Überzeugung, dass Fähigkeiten durch Anstrengung, Strategie und Feedback <span class="ft">entwickelt werden können</span>. „Ich bin noch nicht gut in Mathe." Misserfolg = Feedback und Lernchance → Ausdauer und Entwicklung.</div>
+    <div class="ebox" style="background:#eff6ff;border-color:#0369a1;color:#1e3a5f;"><div class="el" style="color:#0369a1;">🔬 Das berühmte Experiment</div>Dweck ließ Kinder nach einem Test entweder für ihre <strong>Intelligenz</strong> loben („Du bist so klug!") oder für ihre <strong>Anstrengung</strong> („Du hast wirklich hart gearbeitet!"). Die „Intelligenz"-Kinder wählten danach einfachere Aufgaben — um ihr Image zu schützen. Die „Anstrengungs"-Kinder wählten schwierigere Aufgaben — weil sie herausfinden wollten, wie weit sie kommen.</div>
+    <div class="cmp"><div class="ci"><div class="cil" style="color:#be123c;">Vermeiden</div>Fixed Mindset: Herausforderungen meiden, aufgeben bei Hindernissen, Erfolg anderer als Bedrohung</div><div class="ci"><div class="cil" style="color:#0369a1;">Wachsen</div>Growth Mindset: Herausforderungen suchen, Ausdauer bei Hindernissen, Erfolg anderer als Inspiration</div></div>
+    <div class="tip"><div class="tl">🏫 Schulpraxis</div>Niemals für Intelligenz loben — immer für Anstrengung, Strategie und Fortschritt. Fehlerfreundliche Unterrichtskultur etablieren. „Noch nicht" statt „nicht" — die Sprache des Growth Mindset.</div>
+    <div class="th-modal-note">Zusammenhang: Dweck verbindet Attribution (Weiner) mit Lernzielorientierung. Growth Mindset → internal, variabel, kontrollierbare Attribution → höhere Motivation.</div>`
+  },
+  'lp-ebbinghaus': {
+    name: 'Hermann Ebbinghaus',
+    years: 'Dt. Psychologe · 1850–1909 · Pionier der experimentellen Gedächtnisforschung',
+    tag: 'Gedächtnis & Vergessen',
+    color: '#0f766e',
+    body: `<div class="ex">Hermann Ebbinghaus war der erste, der das Gedächtnis <strong>experimentell</strong> untersuchte — durch jahrelange Selbstversuche mit Listen sinnloser Silben wie „DAX", „BUP", „ZOL". Er lernte Listen auswendig, wartete verschiedene Zeitspannen und maß, wie viel er wieder lernen musste.</div>
+    <div class="fb"><div class="fl">🔑 Die Vergessenskurve</div>Neu Gelerntes wird ohne Wiederholung <span class="ft">sehr schnell</span> vergessen — besonders in den ersten Stunden nach dem Lernen. Die Kurve flacht danach ab.</div>
+    <div class="ebox" style="background:#f0fdfa;border-color:#0f766e;color:#042f2e;"><div class="el" style="color:#0f766e;">📊 Vergessen in Zahlen</div>Nach 1 Stunde: ~50% vergessen<br>Nach 1 Tag: ~70% vergessen<br>Nach 1 Woche: ~80% vergessen<br>Nach 1 Monat: ~90% vergessen — ohne Wiederholung.</div>
+    <div class="fb"><div class="fl">🔑 Spaced Repetition — verteiltes Lernen</div>Gegenmittel: Wiederholung in <span class="ft">wachsenden Zeitabständen</span>. Heute, morgen, in 3 Tagen, in einer Woche, in zwei Wochen. Diese Methode „verflacht" die Vergessenskurve erheblich und verankert Wissen im Langzeitgedächtnis.</div>
+    <div class="ebox" style="background:#f0fdfa;border-color:#0f766e;color:#042f2e;"><div class="el" style="color:#0f766e;">🔑 Spacing-Effekt</div>Verteiltes Lernen über mehrere Wochen ist langfristig deutlich wirksamer als Massen-Lernen kurz vor der Prüfung (Bulimie-Lernen). Das Wissen des Massen-Lernens verblasst schnell.</div>
+    <div class="tip"><div class="tl">🏫 Schulpraxis</div>Kurze Wiederholungsphasen zu Beginn jeder Stunde sind kein Zeitverlust — sie sind wirksame Lernförderung. Exit Tickets am Stundenende aktivieren Retrieval und verstärken die Gedächtnisspur.</div>`
+  },
+  'lp-skinner': {
+    name: 'B. F. Skinner',
+    years: 'US-amerikanischer Psychologe · 1904–1990 · Begründer des radikalen Behaviorismus',
+    tag: 'Operantes Konditionieren',
+    color: '#6d28d9',
+    body: `<div class="ex">Burrhus Frederic Skinner entwickelte das Konzept des <strong>operanten Konditionierens</strong>: Verhalten wird durch seine Konsequenzen geformt. Verhaltensweisen, die angenehme Folgen haben, werden häufiger. Verhaltensweisen mit unangenehmen Folgen werden seltener.</div>
+    <div class="fb"><div class="fl">🔑 Die 4 Verstärkungstypen</div>Zwei Dimensionen: positiv/negativ (wird etwas hinzugefügt oder entfernt?) × Verstärkung/Bestrafung (steigt oder sinkt das Verhalten?)</div>
+    <div class="stufe"><div class="snum" style="background:#dcfce7;color:#15803d;">+</div><div class="sbody"><strong>Positive Verstärkung:</strong> Angenehmen Reiz hinzufügen → Verhalten steigt. Beispiel: Lob für gute Mitarbeit → häufigere Mitarbeit.</div></div>
+    <div class="stufe"><div class="snum" style="background:#dcfce7;color:#15803d;">−</div><div class="sbody"><strong>Negative Verstärkung:</strong> Unangenehmen Reiz entfernen → Verhalten steigt. Beispiel: Hausaufgaben erlassen wenn Schüler sich besonders engagiert. ⚠️ Nicht dasselbe wie Bestrafung!</div></div>
+    <div class="stufe"><div class="snum" style="background:#fee2e2;color:#be123c;">+</div><div class="sbody"><strong>Positive Bestrafung:</strong> Unangenehmen Reiz hinzufügen → Verhalten sinkt. Beispiel: Nachsitzen nach Regelverletzung.</div></div>
+    <div class="stufe"><div class="snum" style="background:#fee2e2;color:#be123c;">−</div><div class="sbody"><strong>Negative Bestrafung:</strong> Angenehmen Reiz entfernen → Verhalten sinkt. Beispiel: Spielzeit entziehen nach Störung.</div></div>
+    <div class="ebox" style="background:#f5f3ff;border-color:#6d28d9;color:#2e1065;"><div class="el" style="color:#6d28d9;">⚠️ Wichtige Unterscheidung</div><strong>Negative Verstärkung ≠ Bestrafung.</strong> Negative Verstärkung <em>erhöht</em> die Verhaltenswahrscheinlichkeit — durch Entfernen von etwas Unangenehmem. Das ist einer der häufigsten Begriffsirrtümer in der Pädagogik.</div>
+    <div class="tip"><div class="tl">🏫 Schulpraxis</div>Positive Verstärkung ist langfristig wirksamer als Bestrafung. Bestrafung unterdrückt Verhalten kurzfristig, erzeugt aber Ausweichstrategien und hemmt intrinsische Motivation. Für komplexe, kreative Aufgaben ist extrinsische Verstärkung kontraproduktiv (korrumpierender Effekt).</div>`
+  },
+  'lp-bandura': {
+    name: 'Albert Bandura',
+    years: 'Kanad.-US-amerikanischer Psychologe · 1925–2021 · Stanford University',
+    tag: 'Modelllernen & Selbstwirksamkeit',
+    color: '#db2777',
+    body: `<div class="ex">Albert Bandura zeigte: Menschen lernen durch <strong>Beobachtung</strong> — ohne selbst handeln oder direkte Konsequenzen erleben zu müssen. Das nennt er Modelllernen oder Beobachtungslernen.</div>
+    <div class="fb"><div class="fl">🔑 Die 4 Teilprozesse des Modelllernens</div>Alle vier Prozesse müssen zusammenwirken, damit beobachtetes Verhalten übernommen wird:</div>
+    <div class="stufe"><div class="snum" style="background:#fce7f3;color:#db2777;">1</div><div class="sbody"><strong>Aufmerksamkeitsprozess:</strong> Das Modell muss überhaupt wahrgenommen werden. Attraktive, kompetente, ähnliche Modelle erhalten mehr Aufmerksamkeit.</div></div>
+    <div class="stufe"><div class="snum" style="background:#fce7f3;color:#db2777;">2</div><div class="sbody"><strong>Gedächtnisprozess:</strong> Das Beobachtete muss als mentale Repräsentation gespeichert werden. Symbolische Codierung erleichtert das.</div></div>
+    <div class="stufe"><div class="snum" style="background:#fce7f3;color:#db2777;">3</div><div class="sbody"><strong>Reproduktionsprozess:</strong> Man muss motorisch und kognitiv in der Lage sein, das Verhalten auszuführen.</div></div>
+    <div class="stufe"><div class="snum" style="background:#fce7f3;color:#db2777;">4</div><div class="sbody"><strong>Motivationsprozess:</strong> Es muss einen Anreiz geben, das Verhalten zu zeigen — direkte Verstärkung, stellvertretende Verstärkung oder Selbstverstärkung.</div></div>
+    <div class="fb"><div class="fl">🔑 Selbstwirksamkeit (Bandura, 1977)</div>Die Überzeugung, durch eigenes Handeln Ziele erreichen zu können. Stärkste Quellen: eigene Erfolgserlebnisse, Beobachtung ähnlicher Personen beim Erfolg, soziale Überzeugung, physiologische Ruhe.</div>
+    <div class="tip"><div class="tl">🏫 Schulpraxis</div>Lehrkräfte sind immer Modelle — auch wenn sie es nicht beabsichtigen. Lautes Denken, offener Umgang mit eigenen Fehlern, Coping-Verhalten zeigen: all das wird beobachtet und kann übernommen werden.</div>`
+  },
+  'lp-vygotski': {
+    name: 'Lev Vygotski',
+    years: 'Sowjet. Psychologe · 1896–1934 · Kulturhistorische Schule der Psychologie',
+    tag: 'Zone der nächsten Entwicklung',
+    color: '#7c3aed',
+    body: `<div class="ex">Lev Vygotski starb mit 37 Jahren an Tuberkulose — hinterließ aber ein Werk, das die Pädagogik grundlegend beeinflusst. Sein Kerngedanke: <strong>Lernen ist sozial</strong>. Kognitive Entwicklung entsteht zuerst zwischen Menschen, dann im Individuum.</div>
+    <div class="fb"><div class="fl">🔑 Zone der nächsten Entwicklung (ZnE)</div>Der Bereich zwischen dem, was jemand <span class="ft">alleine</span> kann, und dem, was er <span class="ft">mit kompetenter Unterstützung</span> erreichen kann. Optimal wirksames Lernen findet genau in dieser Zone statt — weder zu leicht noch zu schwer.</div>
+    <div class="ebox" style="background:#f5f3ff;border-color:#7c3aed;color:#2e1065;"><div class="el" style="color:#7c3aed;">🎯 Die drei Bereiche</div><strong>Komfortzone:</strong> Was der Schüler alleine kann — hier passiert wenig Lernen.<br><strong>Zone der nächsten Entwicklung:</strong> Knapp über dem aktuellen Können — hier passiert das meiste Lernen.<br><strong>Frustrationszone:</strong> Weit über dem aktuellen Können — Überforderung, kein Lernen.</div>
+    <div class="fb"><div class="fl">🔑 Scaffolding</div>Das Lerngerüst: gezielte, schrittweise Unterstützung in der ZnE, die bei <span class="ft">wachsender Kompetenz</span> systematisch wieder abgebaut wird. Wie ein Baugerüst: während des Baus notwendig, danach entfernt.</div>
+    <div class="ebox" style="background:#f5f3ff;border-color:#7c3aed;color:#2e1065;"><div class="el" style="color:#7c3aed;">💡 Scaffolding in der Praxis</div>Gestufte Hilfen: zuerst komplettes Lösungsbeispiel, dann Beispiel mit Lücken, dann nur Struktur, dann offene Aufgabe. Das Gerüst wird schrittweise entfernt, wenn der Schüler sicherer wird.</div>
+    <div class="tip"><div class="tl">🏫 Schulpraxis</div>Aufgaben sollten in der ZnE liegen — herausfordernd aber bewältigbar. Differenzierung bedeutet, für jeden Schüler die individuelle ZnE zu treffen. Peer-Learning nutzt Vygotski: Schüler in der ZnE des anderen als natürliche Scaffolding-Quellen.</div>`
+  },
+  'lp-hattie': {
+    name: 'John Hattie',
+    years: 'Neuseeland. Bildungsforscher · geb. 1950 · University of Melbourne',
+    tag: 'Visible Learning',
+    color: '#0891b2',
+    body: `<div class="ex">John Hatties <strong>Visible Learning</strong> (2009) ist die bislang größte Metaanalyse der Bildungsforschung: über 800 Metaanalysen, mehr als 240 Millionen Schülerinnen und Schüler, über 250 Einflussfaktoren auf Schulleistung.</div>
+    <div class="fb"><div class="fl">🔑 Effektgröße d</div>Hattie vergleicht alles mit einer gemeinsamen Maßzahl: Cohens d. Durchschnitt aller Faktoren: <span class="ft">d = 0,40</span>. Faktoren über 0,40 sind überdurchschnittlich wirksam — die „Zone des Wünschenswerten".</div>
+    <div class="ebox" style="background:#ecfeff;border-color:#0891b2;color:#0c4a6e;"><div class="el" style="color:#0891b2;">📊 Top-Faktoren (Auswahl)</div>Feedback d=0,73 · Lehrkraft-Schüler-Beziehung d=0,72 · Metakognition d=0,69 · Direkte Instruktion d=0,59 · Lernzielorientierung d=0,56 · Conceptual Change d=0,99</div>
+    <div class="ebox" style="background:#fff1f2;border-color:#be123c;color:#4c0519;"><div class="el" style="color:#be123c;">⬇ Wenig wirksam oder negativ</div>Klassengröße d=0,21 · Lernstile anpassen d=0,41 · Offenes Entdecken ohne Struktur d=0,17 · Sommerferien d=−0,02</div>
+    <div class="fb"><div class="fl">🔑 Effektives Feedback (Hatties 3 Fragen)</div><span class="ft">Feed Up:</span> Wohin geht mein Lernweg? · <span class="ft">Feed Back:</span> Wo stehe ich gerade? · <span class="ft">Feed Forward:</span> Was sind meine nächsten Schritte?</div>
+    <div class="th-modal-note">Kritik: Metaanalysen sind methodisch komplex. Hattie selbst betont: Es kommt auf das Wie an. Ein schlecht implementierter „High-Effect-Faktor" kann schlechter sein als gut gemachter traditioneller Unterricht.</div>`
+  }
+};
+
+function showTheorist(id){
+  const t=TH_DATA[id];if(!t)return;
+  document.getElementById('thModalName').textContent=t.name;
+  document.getElementById('thModalYears').textContent=t.years;
+  document.getElementById('thModalTag').textContent=t.tag;
+  document.getElementById('thModalTag').style.background=t.color;
+  document.getElementById('thModalColor').style.background=t.color;
+  document.getElementById('thModalBody').innerHTML=t.body;
+  document.getElementById('thModalBg').classList.add('open');
+}
+function closeThModal(e){if(e.target===document.getElementById('thModalBg'))document.getElementById('thModalBg').classList.remove('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('thModalBg').classList.remove('open');});
 </script>
 </body>
 </html>

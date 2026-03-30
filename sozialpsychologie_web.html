@@ -107,9 +107,59 @@ ul.pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .5s,transform .5s;}
 .reveal.visible{opacity:1;transform:none;}
 @media(max-width:640px){.hero,.main{padding-left:18px;padding-right:18px;}.nav{padding:0 18px;}.cg,.cg.wide{grid-template-columns:1fr;}.cmp{grid-template-columns:1fr;}.ac{padding-left:18px;}.thgrid{grid-template-columns:1fr 1fr;}}
+
+.th-modal-bg{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.55);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .25s;}
+.th-modal-bg.open{opacity:1;pointer-events:all;}
+.th-modal{background:var(--sur);border-radius:16px;max-width:640px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.25);transform:translateY(16px);transition:transform .25s;}
+.th-modal-bg.open .th-modal{transform:translateY(0);}
+.th-modal-top{display:flex;align-items:flex-start;gap:14px;padding:20px 20px 14px;border-bottom:1px solid var(--brd);}
+.th-modal-color{width:6px;border-radius:3px;align-self:stretch;flex-shrink:0;}
+.th-modal-meta{flex:1;}
+.th-modal-name{font-family:'Lora',serif;font-size:19px;font-weight:700;margin-bottom:2px;}
+.th-modal-years{font-size:11px;color:var(--mut);margin-bottom:5px;}
+.th-modal-tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 9px;border-radius:12px;letter-spacing:.5px;color:white;}
+.th-modal-close{width:30px;height:30px;border-radius:50%;border:1px solid var(--brd);background:transparent;cursor:pointer;font-size:16px;color:var(--mut);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;font-family:'DM Sans',sans-serif;}
+.th-modal-close:hover{background:var(--sur2);color:var(--txt);}
+.th-modal-body{padding:18px 20px 22px;}
+.th-modal-body .ex{font-size:14px;color:#2c2825;line-height:1.75;margin-bottom:10px;}
+.th-modal-body .fb{background:#f0f4ff;border-left:3px solid #3730a3;border-radius:0 6px 6px 0;padding:9px 14px;font-size:13px;margin-bottom:8px;line-height:1.55;}
+.th-modal-body .fl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#3730a3;margin-bottom:3px;}
+.th-modal-body .ft{font-weight:700;color:#1e1b4b;}
+.th-modal-body .ebox{border-left:3px solid;border-radius:0 6px 6px 0;padding:9px 14px;font-size:13px;margin-bottom:8px;line-height:1.55;}
+.th-modal-body .el{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;}
+.th-modal-body .tip{background:#fefce8;border-left:3px solid #ca8a04;border-radius:0 6px 6px 0;padding:9px 14px;font-size:13px;margin-bottom:8px;color:#422006;line-height:1.55;}
+.th-modal-body .tl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#ca8a04;margin-bottom:3px;}
+.th-modal-body .stufe{display:flex;gap:8px;align-items:flex-start;padding:5px 7px;border-radius:6px;margin-bottom:5px;border:1px solid var(--brd);}
+.th-modal-body .snum{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;flex-shrink:0;margin-top:1px;}
+.th-modal-body .sbody{font-size:12.5px;line-height:1.45;}
+.th-modal-body .sbody strong{display:block;font-weight:700;margin-bottom:1px;}
+.th-modal-body .cmp{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
+.th-modal-body .ci{background:var(--sur2);border-radius:6px;padding:9px 12px;}
+.th-modal-body .cil{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px;}
+ul.th-pl{list-style:none;padding:0;margin-bottom:10px;}
+ul.th-pl li{font-size:13.5px;padding:2.5px 0 2.5px 13px;position:relative;color:#2c2825;}
+ul.th-pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
+.th-modal-note{font-size:12px;color:var(--mut);font-style:italic;margin-top:8px;padding-top:7px;border-top:1px solid var(--brd);}
+.thcard{cursor:pointer;transition:box-shadow .15s,transform .15s;}
+.thcard:hover{box-shadow:0 4px 20px rgba(0,0,0,.13);transform:translateY(-2px);}
 </style>
 </head>
 <body>
+
+<div class="th-modal-bg" id="thModalBg" onclick="closeThModal(event)">
+  <div class="th-modal" id="thModal">
+    <div class="th-modal-top">
+      <div class="th-modal-color" id="thModalColor"></div>
+      <div class="th-modal-meta">
+        <div class="th-modal-name" id="thModalName"></div>
+        <div class="th-modal-years" id="thModalYears"></div>
+        <span class="th-modal-tag" id="thModalTag"></span>
+      </div>
+      <button class="th-modal-close" onclick="document.getElementById('thModalBg').classList.remove('open')">×</button>
+    </div>
+    <div class="th-modal-body" id="thModalBody"></div>
+  </div>
+</div>
 
 <audio id="mainAudio" preload="none"><source src="hoerbuch_sozialpsychologie.mp3" type="audio/mpeg"></audio>
 <div class="audio-bar" id="audioBar">
@@ -131,6 +181,7 @@ ul.pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
     <button class="nb" onclick="scrollTo('s1')">Wahrnehmung</button>
     <button class="nb" onclick="scrollTo('s2')">Gruppen</button>
     <button class="nb" onclick="scrollTo('s3')">Mobbing</button>
+    <button class="nb" onclick="scrollTo('s4a')">Ausgrenzung</button>
     <button class="nb" onclick="scrollTo('s4')">Classroom</button>
     <button class="nb" onclick="scrollTo('s5')">Watzlawick</button>
     <button class="nb" onclick="scrollTo('s6')">Schulz von Thun</button>
@@ -162,15 +213,15 @@ ul.pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
 <section class="section reveal" id="s0">
   <div class="sh"><span class="sn">0</span><span class="st">Die Theoretiker auf einen Blick</span></div>
   <div class="thgrid">
-    <div class="thcard" style="border-left-color:#be123c;"><div class="thn">Fritz Heider</div><div class="thy">Österr.-US-Psychologe · 1896–1988</div><div class="thk" style="color:#be123c;">Attribution &amp; Wahrnehmung</div><div class="thd">Begründer der Attributionstheorie. Entdeckte den fundamentalen Attributionsfehler: Wir überschätzen Charakter, unterschätzen Situation.</div></div>
-    <div class="thcard" style="border-left-color:#dc2626;"><div class="thn">Robert Rosenthal</div><div class="thy">US-Psychologe · geb. 1933</div><div class="thk" style="color:#dc2626;">Pygmalion-Effekt</div><div class="thd">Zeigte: Lehrererwartungen beeinflussen Schülerleistungen messbar. Erwartungen werden unbewusst kommuniziert und wirken als selbsterfüllende Prophezeiung.</div></div>
-    <div class="thcard" style="border-left-color:#b45309;"><div class="thn">Bruce Tuckman</div><div class="thy">US-Psychologe · 1938–2016</div><div class="thk" style="color:#b45309;">Gruppenentwicklung</div><div class="thd">5-Phasen-Modell der Gruppenentwicklung: Forming, Storming, Norming, Performing, Adjourning. Zeigt: Konflikte sind normal und notwendig.</div></div>
-    <div class="thcard" style="border-left-color:#92400e;"><div class="thn">Solomon Asch</div><div class="thy">US-Psychologe · 1907–1996</div><div class="thk" style="color:#92400e;">Konformitätsdruck</div><div class="thd">Zeigte im Linienexperiment: Selbst bei offensichtlich falschen Antworten passen sich 75% der Probanden der Gruppe an.</div></div>
-    <div class="thcard" style="border-left-color:#15803d;"><div class="thn">Dan Olweus</div><div class="thy">Norweg. Psychologe · 1931–2020</div><div class="thk" style="color:#15803d;">Mobbing-Forschung</div><div class="thd">Pionier der Mobbing-Forschung. Definierte Mobbing mit 4 Kriterien, entwickelte das erste systematische Anti-Mobbing-Programm.</div></div>
-    <div class="thcard" style="border-left-color:#0369a1;"><div class="thn">Jacob Kounin</div><div class="thy">US-Pädagoge · 1912–1995</div><div class="thk" style="color:#0369a1;">Classroom-Management</div><div class="thd">Überraschendes Ergebnis: Nicht Reaktion auf Störungen entscheidet, sondern Prävention. 7 Techniken wirksamen Classroom-Managements.</div></div>
-    <div class="thcard" style="border-left-color:#3730a3;"><div class="thn">Paul Watzlawick</div><div class="thy">Österr. Kommunikationstheoretiker · 1921–2007</div><div class="thk" style="color:#3730a3;">5 Axiome der Kommunikation</div><div class="thd">"Man kann nicht nicht kommunizieren." 5 Grundgesetze menschlicher Kommunikation — Grundlage jeder Gesprächsanalyse.</div></div>
-    <div class="thcard" style="border-left-color:#6d28d9;"><div class="thn">Friedemann Schulz von Thun</div><div class="thy">Dt. Kommunikationspsychologe · geb. 1944</div><div class="thk" style="color:#6d28d9;">4-Ohren-Modell</div><div class="thd">Jede Nachricht enthält vier Botschaften. Viele Missverständnisse entstehen, weil Sender und Empfänger verschiedene Ebenen betonen.</div></div>
-    <div class="thcard" style="border-left-color:#0f766e;"><div class="thn">Carl Rogers</div><div class="thy">US-Psychologe · 1902–1987</div><div class="thk" style="color:#0f766e;">Humanistische Gesprächsführung</div><div class="thd">3 Grundhaltungen: Empathie, Kongruenz, Wertschätzung. Begründer des personenzentrierten Gesprächs. Grundlage moderner Beratungsarbeit.</div></div>
+    <div class="thcard" style="border-left-color:#be123c;" onclick="showTheorist('sp-heider')"><div class="thn">Fritz Heider</div><div class="thy">Österr.-US-Psychologe · 1896–1988</div><div class="thk" style="color:#be123c;">Attribution &amp; Wahrnehmung</div><div class="thd">Begründer der Attributionstheorie. Entdeckte den fundamentalen Attributionsfehler: Wir überschätzen Charakter, unterschätzen Situation.</div></div>
+    <div class="thcard" style="border-left-color:#dc2626;" onclick="showTheorist('sp-rosenthal')"><div class="thn">Robert Rosenthal</div><div class="thy">US-Psychologe · geb. 1933</div><div class="thk" style="color:#dc2626;">Pygmalion-Effekt</div><div class="thd">Zeigte: Lehrererwartungen beeinflussen Schülerleistungen messbar. Erwartungen werden unbewusst kommuniziert und wirken als selbsterfüllende Prophezeiung.</div></div>
+    <div class="thcard" style="border-left-color:#b45309;" onclick="showTheorist('sp-tuckman')"><div class="thn">Bruce Tuckman</div><div class="thy">US-Psychologe · 1938–2016</div><div class="thk" style="color:#b45309;">Gruppenentwicklung</div><div class="thd">5-Phasen-Modell der Gruppenentwicklung: Forming, Storming, Norming, Performing, Adjourning. Zeigt: Konflikte sind normal und notwendig.</div></div>
+    <div class="thcard" style="border-left-color:#92400e;" onclick="showTheorist('sp-asch')"><div class="thn">Solomon Asch</div><div class="thy">US-Psychologe · 1907–1996</div><div class="thk" style="color:#92400e;">Konformitätsdruck</div><div class="thd">Zeigte im Linienexperiment: Selbst bei offensichtlich falschen Antworten passen sich 75% der Probanden der Gruppe an.</div></div>
+    <div class="thcard" style="border-left-color:#15803d;" onclick="showTheorist('sp-olweus')"><div class="thn">Dan Olweus</div><div class="thy">Norweg. Psychologe · 1931–2020</div><div class="thk" style="color:#15803d;">Mobbing-Forschung</div><div class="thd">Pionier der Mobbing-Forschung. Definierte Mobbing mit 4 Kriterien, entwickelte das erste systematische Anti-Mobbing-Programm.</div></div>
+    <div class="thcard" style="border-left-color:#0369a1;" onclick="showTheorist('sp-kounin')"><div class="thn">Jacob Kounin</div><div class="thy">US-Pädagoge · 1912–1995</div><div class="thk" style="color:#0369a1;">Classroom-Management</div><div class="thd">Überraschendes Ergebnis: Nicht Reaktion auf Störungen entscheidet, sondern Prävention. 7 Techniken wirksamen Classroom-Managements.</div></div>
+    <div class="thcard" style="border-left-color:#3730a3;" onclick="showTheorist('sp-watzlawick')"><div class="thn">Paul Watzlawick</div><div class="thy">Österr. Kommunikationstheoretiker · 1921–2007</div><div class="thk" style="color:#3730a3;">5 Axiome der Kommunikation</div><div class="thd">"Man kann nicht nicht kommunizieren." 5 Grundgesetze menschlicher Kommunikation — Grundlage jeder Gesprächsanalyse.</div></div>
+    <div class="thcard" style="border-left-color:#6d28d9;" onclick="showTheorist('sp-schulzvthun')"><div class="thn">Friedemann Schulz von Thun</div><div class="thy">Dt. Kommunikationspsychologe · geb. 1944</div><div class="thk" style="color:#6d28d9;">4-Ohren-Modell</div><div class="thd">Jede Nachricht enthält vier Botschaften. Viele Missverständnisse entstehen, weil Sender und Empfänger verschiedene Ebenen betonen.</div></div>
+    <div class="thcard" style="border-left-color:#0f766e;" onclick="showTheorist('sp-rogers')"><div class="thn">Carl Rogers</div><div class="thy">US-Psychologe · 1902–1987</div><div class="thk" style="color:#0f766e;">Humanistische Gesprächsführung</div><div class="thd">3 Grundhaltungen: Empathie, Kongruenz, Wertschätzung. Begründer des personenzentrierten Gesprächs. Grundlage moderner Beratungsarbeit.</div></div>
   </div>
 </section>
 
@@ -194,21 +245,33 @@ ul.pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
         <div class="tip"><div class="tl">🏫 Schulpraxis</div>Vor jeder Schlussfolgerung über Verhalten fragen: "Was könnte situational bedingt sein?" Erst nach diesem Schritt sinnvoll urteilen. Das verändert auch Gesprächshaltung mit Eltern und Schülern grundlegend.</div>
       </div></div></div>
 
-      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ffe4e6;color:#be123c;">🌟</div><div class="al">Pygmalion-Effekt — Erwartungen formen Leistung</div><span class="aico">▾</span></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ffe4e6;color:#be123c;">🌟</div><div class="al">Pygmalion-Effekt &amp; Andorra-Effekt — Erwartungen formen Leistung</div><span class="aico">▾</span></div>
       <div class="abody"><div class="ac">
-        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Pygmalion-Effekt</span> (Rosenthal &amp; Jacobson, 1968) — Selbsterfüllende Prophezeiung: Die Erwartung eines Lehrers an einen Schüler beeinflusst, wie der Lehrer mit diesem Schüler interagiert — und damit tatsächlich dessen Leistung.</div>
-        <div class="ebox"><div class="el">🔬 Das Experiment</div>Rosenthal und Jacobson teilten Lehrern mit, welche Schüler "intellektuelle Blüher" seien (zufällig ausgewählt). Ein Jahr später hatten diese Schüler tatsächlich deutlich mehr Leistungsfortschritte gemacht. Die Lehrkräfte wussten nicht, dass sie manipuliert worden waren — sie hatten unbewusst anders mit diesen Kindern interagiert.</div>
-        <div class="ex">Mechanismen des Pygmalion-Effekts: Mehr Augenkontakt und Lächeln · Nähe und Wärme · Schwerere Aufgaben und höhere Erwartungen · Mehr und konstruktiveres Feedback · Länger auf Antworten warten (Wait Time).</div>
-        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Golem-Effekt</span> — Die negative Version: Niedrige Erwartungen führen zu niedrigerer Leistung. Besonders relevant für Schüler mit Migrationshintergrund, aus sozioökonomisch schwachen Verhältnissen oder mit ungünstiger Vorgeschichte.</div>
-        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Hohe, faire Erwartungen an alle — unabhängig von Herkunft, Aussehen, Sozialstatus. Regelmäßig innehalten: "Habe ich bei diesem Schüler unbewusst niedrigere Erwartungen?" Wait Time (Wartezeit nach Frage) erhöhen: Mindestens 3 Sekunden warten, bevor die nächste Frage gestellt wird.</div>
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Pygmalion-Effekt</span> (Rosenthal &amp; Jacobson, 1968) — <strong>Positive</strong> Erwartungen an eine Person bestätigen sich selbst: Die Lehrkraft erwartet viel, interagiert unbewusst förderlicher — und die Leistung steigt tatsächlich. Selbsterfüllende Prophezeiung durch positive Vorannahmen.</div>
+        <div class="ebox"><div class="el">🔬 Das Experiment</div>Rosenthal und Jacobson teilten Lehrkräften mit, welche Schüler in diesem Jahr „intellektuelle Blüher" seien — in Wirklichkeit zufällig ausgewählt. Ein Jahr später hatten diese Kinder deutlich mehr Fortschritte gemacht. Die Lehrkräfte hatten unbewusst anders mit ihnen interagiert: mehr Wärme, schwerere Aufgaben, konstruktiveres Feedback, längere Wartezeit.</div>
+        <div class="fb"><div class="fl">🔑 Andorra-Effekt (= Golem-Effekt)</div>Die <strong>negative</strong> Umkehrung des Pygmalion-Effekts: <span class="ft">Negative</span> Erwartungen führen zu niedrigerer Leistung. Benannt nach Max Frischs Drama „Andorra", in dem ein junger Mann durch kollektive negative Zuschreibungen zu dem gemacht wird, was man in ihm sieht. Im Akademiebericht wird dieser Effekt als <em>Andorra-Effekt</em> bezeichnet — in der internationalen Literatur ist auch <em>Golem-Effekt</em> geläufig, beide meinen dasselbe Phänomen.</div>
+        <div class="ebox"><div class="el">🏫 Schulbeispiel</div>Eine Lehrkraft übernimmt eine neue Klasse und hört im Lehrerzimmer: „Die 9b ist hoffnungslos." Sie betritt den Raum mit niedrigeren Erwartungen — wartet kürzer auf Antworten, gibt weniger anspruchsvolle Aufgaben, lobt seltener. Die Klasse „bestätigt" die Vorannahme — der Andorra-Effekt hat gewirkt.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Hohe, faire Erwartungen an alle — unabhängig von Ruf, Herkunft oder Vorgeschichte. Wait Time aktiv erhöhen (mind. 3 Sekunden). Klassen nie durch fremde Erzählungen vorverurteilen — erst selbst beobachten.</div>
       </div></div></div>
 
-      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ffe4e6;color:#be123c;">🔆</div><div class="al">Halo-Effekt, Etikettierung &amp; Vorurteile</div><span class="aico">▾</span></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ffe4e6;color:#be123c;">🔆</div><div class="al">Alle Wahrnehmungsverzerrungen im Überblick</div><span class="aico">▾</span></div>
       <div class="abody"><div class="ac">
-        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Halo-Effekt</span> (Thorndike, 1920) — Eine bekannte Eigenschaft einer Person "strahlt" auf die Wahrnehmung anderer Eigenschaften ab. Hübsche Menschen gelten als intelligenter; ordentliche Schüler als fleißiger; gut gekleidete Bewerber als kompetenter.</div>
-        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Stereotyp</span> — Vereinfachtes, verallgemeinertes Bild einer Gruppe. Kognitive Abkürzung: Spart Denkenergie, führt aber zu Fehlurteilen. Oft unbewusst aktiviert.</div>
-        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Etikettierung</span> (labeling) — Das Zuschreiben einer Eigenschaft ("der faule Schüler", "die Problemklasse") führt dazu, dass die Person oder Gruppe sich entsprechend verhält. Das Label verändert Erwartungen — und damit Verhalten (s. Pygmalion).</div>
-        <div class="warn"><div class="wl">⚠️ Schulkonsequenz</div>Kollegiumsgespräche wie "Die 9b ist eine Katastrophenklasse" sind kontraproduktiv — sie erzeugen negative Erwartungen, die dann in der Klasse wirken. Lieber: konkrete, situationsbezogene Beschreibungen.</div>
+        <div class="ex">Der Akademiebericht unterscheidet zwei Hauptkategorien von Wahrnehmungsfehlern im Schulalltag:</div>
+        <div class="fb"><div class="fl">🔑 Kategorie 1: Erwartungseffekte &amp; Etikettierungen</div>
+          <span class="ft">Pygmalion-/Andorra-Effekt</span> — positive/negative Erwartungen bestätigen sich (s. oben).<br>
+          <span class="ft">Etikettierung (Labeling)</span> — Das Zuschreiben einer Eigenschaft („der faule Schüler", „die Problemklasse") verändert Erwartungen und damit Verhalten. Das Label wird zur selbsterfüllenden Prophezeiung.<br>
+          <span class="ft">Stereotypisierung</span> — Vereinfachte Gruppenbilder führen zu voreiligen Schlüssen, z.B. über Schüler bestimmter Herkunft oder sozialer Schicht.
+        </div>
+        <div class="fb"><div class="fl">🔑 Kategorie 2: Reihenfolge- &amp; Zusammenhangsfehler</div>
+          <span class="ft">Halo-Effekt</span> — Eine Eigenschaft „strahlt" auf alle anderen ab: ordentliche Schüler gelten als fleißig, hübsche als kompetenter. Auch umgekehrt: ein schlechter Ersteindruck überstrahlt alles Positive (Reverse-Halo).<br>
+          <span class="ft">Primacy-Effekt</span> — Der erste Eindruck prägt die gesamte Wahrnehmung dauerhaft. Ein in der ersten Stunde besonders aktiver Schüler wird dauerhaft besser eingeschätzt.<br>
+          <span class="ft">Recency-Effekt</span> — Das Zuletzt Wahrgenommene hat ein unverhältnismäßig starkes Gewicht, z.B. eine schlechte Antwort kurz vor Schuljahresende.<br>
+          <span class="ft">Zusammenhangsfehler</span> — Zwei Merkmale, die häufig zusammen auftreten, werden fälschlich als kausal verknüpft angesehen, z.B. „Wer ordentlich schreibt, denkt auch ordentlich."
+        </div>
+        <div class="ebox"><div class="el">🛡️ Gegenmaßnahmen (Akademiebericht)</div>
+          Subjektivität der eigenen Wahrnehmung bewusst machen · Selbst- und Fremdwahrnehmung abgleichen · Schülernamen bei Korrekturen möglichst nicht beachten · „Querkorrektur" (erst alle Aufgabe 1, dann alle Aufgabe 2) · Fragehäufigkeit gleichmäßig auf alle Schüler verteilen · Bewertungskriterien vor der Korrektur schriftlich festlegen.
+        </div>
+        <div class="warn"><div class="wl">⚠️ Schulkonsequenz</div>Kollegiumsgespräche wie „Die 9b ist eine Katastrophenklasse" sind kontraproduktiv — sie erzeugen den Andorra-Effekt bei allen nachfolgenden Lehrkräften. Lieber: konkrete, situationsbezogene Beschreibungen ohne Generalurteile.</div>
       </div></div></div>
 
       <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ffe4e6;color:#be123c;">🔄</div><div class="al">Subjektive Interpunktion — wer hat angefangen?</div><span class="aico">▾</span></div>
@@ -227,10 +290,31 @@ ul.pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
   <div class="cg">
     <div class="card" style="border-top-color:#b45309;">
       <div class="ch"><span class="ca" style="background:#b45309;">Tuckman</span><h3 style="color:#b45309;">🤝 Gruppenentwicklung — 5 Phasen</h3><div class="csub">Forming · Storming · Norming · Performing · Adjourning</div></div>
-      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fef3c7;color:#b45309;">💡</div><div class="al">Was macht eine Gruppe zur Gruppe?</div><span class="aico">▾</span></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fef3c7;color:#b45309;">💡</div><div class="al">Was macht eine Gruppe zur Gruppe? — Arten und Strukturen</div><span class="aico">▾</span></div>
       <div class="abody"><div class="ac">
-        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Gruppe</span> (sozialpsychologisch) — Zwei oder mehr Personen, die miteinander interagieren, gemeinsame Ziele haben, sich als Mitglieder einer Gruppe wahrnehmen und durch Normen und Rollen verbunden sind. Eine Schulklasse ist nicht automatisch eine Gruppe — sie muss es erst werden.</div>
-        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Kohäsion</span> — Zusammenhaltskraft einer Gruppe. Wie stark identifizieren sich Mitglieder mit der Gruppe? Hohe Kohäsion erhöht Zufriedenheit — kann aber auch Konformitätsdruck und Groupthink erzeugen.</div>
+        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Gruppe</span> — Zwei oder mehr Personen, die miteinander interagieren, gemeinsame Ziele haben, sich als Mitglieder wahrnehmen und durch Normen, Rollen und ein Wir-Gefühl verbunden sind. Eine Schulklasse ist nicht automatisch eine Gruppe — sie muss es erst werden.</div>
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#b45309;">Formelle Gruppe</div>Mitgliedschaft von außen festgelegt (Zwangsgruppe): Schulklasse, Arbeitsgruppe. Ziele und Regeln vorgegeben.</div>
+          <div class="ci"><div class="cil" style="color:#15803d;">Informelle Gruppe</div>Mitgliedschaft frei gewählt: Freundesgruppe, Clique. Spontan, persönliche Bedürfnisse im Vordergrund.</div>
+        </div>
+        <div class="fb"><div class="fl">🔑 Gruppenstruktur</div>Jede Gruppe entwickelt eine Struktur aus: <span class="ft">Rollen</span> (wer tut was), <span class="ft">Normen</span> (was gilt als angemessen), <span class="ft">Wir-Gefühl / Kohäsion</span> (Zusammenhaltskraft), <span class="ft">Kommunikationsmustern</span> (formell und informell) und <span class="ft">Gruppenklima</span> (emotionale Grundstimmung).</div>
+        <div class="fb"><div class="fl">🔑 Gruppenbildungsprozess</div>Aus einem Zusammentreffen von Individuen mit unterschiedlichen Erfahrungen, Wahrnehmungen, Kognitionen, Emotionen und Erwartungen entsteht durch <span class="ft">Vergleichsprozesse</span> (Annäherung/Abgrenzung) und <span class="ft">Interaktionsprozesse</span> (Wir-Gefühl, Konflikte) schrittweise eine Gruppe mit eigenen Regeln und Normen.</div>
+      </div></div></div>
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fef3c7;color:#b45309;">🏫</div><div class="al">Die Klasse als Gruppe — besondere Merkmale</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="fb"><div class="fl">🔑 Die Schulklasse als Sonderfall</div>Die Schulklasse ist eine <span class="ft">Großgruppe</span> mit Subgruppen, gleichzeitig eine <span class="ft">formelle Zwangsgruppe</span> (Mitgliedschaft nicht freiwillig) mit <span class="ft">informellen Untergruppen</span> (Freundschaftsgruppen, Cliquen). Sie ist geprägt durch:</div>
+        <ul class="pl" style="margin-bottom:10px;">
+          <li><strong>Charakteristika der Schüler:</strong> Herkunft, Fähigkeiten, Einstellungen, Vorerfahrungen</li>
+          <li><strong>Vorgegebene Rahmenbedingungen:</strong> Klassengröße, Stundenplan, Sitzordnung, Leistungsziele, Lehrerzuteilung</li>
+        </ul>
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#b45309;">Vertikale Klassenstruktur</div>Macht und Einfluss: Anführer, Mitläufer, Außenseiter (Alpha, Gamma, Omega nach Schindler)</div>
+          <div class="ci"><div class="cil" style="color:#0369a1;">Horizontale Klassenstruktur</div>Aufgabenverteilung und Rollen: Klassenclown, Streber, Vermittler, Schüchterne</div>
+        </div>
+        <div class="ebox"><div class="el">🔍 Gruppenanalyse: Was Lehrkräfte beobachten sollten</div>
+          Wer redet mit wem? Wer wird isoliert? Wer hat informelle Führung? Welche Normen gelten implizit? — Systematische Beobachtung in freien Situationen (Gruppenspiele, Projekttage, Pausen) liefert die zuverlässigsten Einblicke.
+        </div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Sitzordnung, Gruppenbildung und Rollenverteilung bewusst gestalten. Subgruppen aufbrechen oder stärken je nach pädagogischem Ziel. Außenseiter durch gezielte Verantwortungsübertragung integrieren. Klassenklima regelmäßig reflektieren — z.B. im Klassenrat.</div>
       </div></div></div>
       <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fef3c7;color:#b45309;">📈</div><div class="al">Tuckmans 5 Phasen der Gruppenentwicklung</div><span class="aico">▾</span></div>
       <div class="abody"><div class="ac">
@@ -316,9 +400,58 @@ ul.pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
   </div>
 </section>
 
+<!-- 4 AUSGRENZUNG -->
+<section class="section reveal" id="s4a">
+  <div class="sh"><span class="sn">III b</span><span class="st">Umgang mit Ausgrenzung</span><span class="sa" style="background:#7c3aed;">LK 175–180 · Prävention &amp; Intervention</span></div>
+  <div class="cg wide">
+    <div class="card" style="border-top-color:#7c3aed;">
+      <div class="ch"><h3 style="color:#7c3aed;">🤲 Ausgrenzung erkennen und gegensteuern</h3><div class="csub">Auslöser · Verstärker · Präventive Maßnahmen · Integration</div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#f5f3ff;color:#7c3aed;">🔍</div><div class="al">Auslöser und Verstärker von Ausgrenzung</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Ausgrenzung entsteht nicht zufällig — sie hat typische Auslöser und wird durch Gruppendynamiken verstärkt:</div>
+        <div class="fb"><div class="fl">🔑 Auslöser</div>
+          Neue Klassenzusammensetzung (Übergang, Klassenwechsel) · Veränderte Sitzordnung · Machtgefälle in der Gruppe · Normen, Rollen- und Statuserwartungen der Klasse · Versuche der Anpassung, die scheitern oder als anders wahrgenommen werden.
+        </div>
+        <div class="fb"><div class="fl">🔑 Verstärkungsmechanismus</div>Ausgrenzung entsteht im Kreislauf: Eine Norm oder Rollenerwartung in der Gruppe → der Schüler versucht, sich anzupassen → scheitert oder weicht ab → Gruppe grenzt aus → Ausgrenzung festigt sich als Rollenzuschreibung (Andorra-Effekt). Auch Sitzordnung und Machtgefälle wirken als dauerhafter Verstärker.
+        </div>
+        <div class="warn"><div class="wl">⚠️ Abgrenzung: Ausgrenzung ≠ Mobbing</div>Ausgrenzung ist nicht immer Mobbing. Ausgrenzung kann situativ, kurzfristig oder ohne ausdrückliche Absicht entstehen. Mobbing setzt Absicht, Wiederholung und Machtungleichgewicht voraus. Beides erfordert Intervention — aber unterschiedliche.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#f5f3ff;color:#7c3aed;">🛡️</div><div class="al">Prävention — Ausgrenzung vorbeugen</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Präventive Maßnahmen wirken auf Gruppen- und Beziehungsebene:</div>
+        <ul class="pl" style="margin-bottom:10px;">
+          <li><strong>Werteerziehung:</strong> Explizites Thematisieren von Respekt, Zugehörigkeit und Fairness im Klassenkontext</li>
+          <li><strong>Verbindliche Klassenregeln:</strong> Klare Normen gegen Ausgrenzung — erarbeitet und getragen von der Klasse</li>
+          <li><strong>Geeignete Sitzordnung:</strong> Bewusste Entscheidung, wer neben wem sitzt — Isolation aktiv aufbrechen</li>
+          <li><strong>Schaffen von Voraussetzungen für gelingende Inklusion:</strong> Ressourcen und Strukturen für Teilhabe aller</li>
+          <li><strong>Anregung zu konstruktiven Lösungen bei Konflikten:</strong> Klassenrat, Mediationsangebote</li>
+        </ul>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Präventiv heißt: nicht warten, bis Ausgrenzung sichtbar wird. Beim Schuljahresbeginn aktiv Klassengemeinschaft gestalten, Teambuilding einsetzen, Außenseiter früh in verantwortungsvolle Rollen bringen. Das ist pädagogische Praxis, nicht Sozialromantik.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#f5f3ff;color:#7c3aed;">🤝</div><div class="al">Intervention — Integration aktiv unterstützen</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Wenn Ausgrenzung bereits besteht, braucht es gezielte Intervention auf Gruppen- und Einzelebene:</div>
+        <ul class="pl" style="margin-bottom:10px;">
+          <li><strong>Klassenrat oder Klassengespräch:</strong> Beziehungsaspekte innerhalb der Gruppe offen ansprechen</li>
+          <li><strong>Einzelgespräche:</strong> Sowohl mit dem ausgegrenzten Schüler als auch mit zentralen Figuren der Gruppe</li>
+          <li><strong>Verantwortungsvoller Umgang mit Gruppenprozessen:</strong> Positive Einwirkung auf Normen und Rollenverteilung</li>
+          <li><strong>Ressourcenorientierung:</strong> Stärken des ausgegrenzten Schülers sichtbar machen und einsetzen</li>
+        </ul>
+        <div class="ebox"><div class="el">🔍 Systematische Analyse</div>
+          Gezielte Suche nach Situationen für Gruppenanalyse: Regeln aushandeln, Gruppenspiele, Projekttage, selbstgewählte Arbeitsgruppen. In freien Situationen beobachten: Wer bleibt allein? Wer wird nicht gewählt? Das Muster erkennen ist der erste Schritt zur Intervention.
+        </div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Integration bedeutet nicht: alle müssen befreundet sein. Es bedeutet: niemand wird systematisch ausgeschlossen oder allein gelassen. Das ist ein erreichbares, konkretes Ziel — und eine Kernaufgabe der Klassenführung.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
 <!-- 4 CLASSROOM -->
 <section class="section reveal" id="s4">
-  <div class="sh"><span class="sn">IV</span><span class="st">Classroom-Management</span><span class="sa" style="background:#0369a1;">Kounin (1912–1995)</span><button class="spb" data-chapter="ch4" onclick="playChapter('ch4')"><span class="spbi">▶</span> Kapitel hören</button></div>
+  <div class="sh"><span class="sn">V</span><span class="st">Classroom-Management</span><span class="sa" style="background:#0369a1;">Kounin (1912–1995)</span><button class="spb" data-chapter="ch4" onclick="playChapter('ch4')"><span class="spbi">▶</span> Kapitel hören</button></div>
   <div class="cg wide">
     <div class="card" style="border-top-color:#0369a1;">
       <div class="ch"><span class="ca" style="background:#0369a1;">Kounin</span><h3 style="color:#0369a1;">🎯 7 Techniken — und das überraschende Ergebnis</h3><div class="csub">Prävention vor Reaktion · Prinzip geringster Intervention</div></div>
@@ -543,6 +676,131 @@ hs.addEventListener('input',()=>{audio.currentTime=hs.value;});
 const secs=document.querySelectorAll('.section'),nbs=document.querySelectorAll('.nb');
 secs.forEach(s=>new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){const i=Array.from(secs).indexOf(en.target);nbs.forEach((b,j)=>{b.classList.toggle('active',j===i);b.style.background=j===i?ACCENT:'';b.style.color=j===i?'white':'';})}});},{threshold:0.25}).observe(s));
 document.querySelectorAll('.reveal').forEach(el=>new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('visible');});},{threshold:0.08}).observe(el));
+
+const TH_DATA = {
+  'sp-heider': {
+    name: 'Fritz Heider',
+    years: 'Österr.-US-amerikanischer Psychologe · 1896–1988 · University of Kansas',
+    tag: 'Attribution & Wahrnehmung',
+    color: '#be123c',
+    body: `<div class="ex">Fritz Heider begründete die <strong>Attributionstheorie</strong>: die wissenschaftliche Untersuchung, wie Menschen Ursachen für Ereignisse und Verhalten erklären. Er stellte fest, dass soziale Wahrnehmung nicht neutral ist — wir interpretieren immer.</div>
+    <div class="fb"><div class="fl">🔑 Fundamentaler Attributionsfehler</div>Die Tendenz, das Verhalten anderer auf deren <span class="ft">Charakter</span> zurückzuführen und dabei <span class="ft">situationale Faktoren</span> zu unterschätzen. Bei uns selbst kehrt sich das um: eigenes Verhalten erklären wir lieber situational.</div>
+    <div class="ebox" style="background:#fff1f2;border-color:#be123c;color:#4c0519;"><div class="el" style="color:#be123c;">💡 Klassisches Beispiel</div>Schüler kommt zu spät → Lehrkraft denkt: „Er ist unzuverlässig" (Charakter). Lehrkraft kommt zu spät → denkt: „Der Stau war unausweichlich" (Situation). Gleiche Verhaltensweise — völlig verschiedene Erklärung.</div>
+    <div class="tip"><div class="tl">🏫 Schulpraxis</div>Vor jeder Schlussfolgerung über Schülerverhalten fragen: „Was könnte situational bedingt sein?" Schlechte Noten, Störungen, Rückzug — was steckt dahinter? Die Gegenfrage schützt vor unfairen Urteilen.</div>
+    <div class="th-modal-note">Quellenhinweis: Heider ist der Begründer der Attributionstheorie und interpersonalen Wahrnehmung — Konzepte, die im Akademiebericht unter Soziale Wahrnehmung (LK 159–164) behandelt werden. Sein Name erscheint im Akademiebericht nicht immer explizit. Weiner (→ Lernpsychologie, LK 77–90) übernahm und spezialisierte die Attributionstheorie auf schulische Lern- und Leistungskontexte. Beide Konzepte gehören also zusammen, sind aber in verschiedenen Kapiteln verortet.</div>`
+  },
+  'sp-rosenthal': {
+    name: 'Robert Rosenthal',
+    years: 'US-amerikanischer Psychologe · geb. 1933 · University of California Riverside',
+    tag: 'Pygmalion-Effekt',
+    color: '#dc2626',
+    body: `<div class="ex">Robert Rosenthal und Lenore Jacobson zeigten 1968 in einem bahnbrechenden Experiment: <strong>Lehrererwartungen beeinflussen Schülerleistungen messbar</strong> — ohne dass es den Lehrkräften bewusst war.</div>
+    <div class="ebox" style="background:#fff1f2;border-color:#dc2626;color:#4c0519;"><div class="el" style="color:#dc2626;">🔬 Das Pygmalion-Experiment</div>Lehrkräften wurde mitgeteilt, welche Schüler in diesem Jahr „intellektuelle Blüher" sein würden — in Wirklichkeit zufällig ausgewählt. Ein Jahr später hatten diese Kinder deutlich mehr Fortschritte gemacht. Die Lehrkräfte hatten unbewusst anders interagiert.</div>
+    <div class="fb"><div class="fl">🔑 Wie der Effekt wirkt</div>Hohe Erwartungen führen zu: mehr Augenkontakt und Wärme, schwereren Aufgaben, konstruktiverem Feedback, längerer Wartezeit nach Fragen (mind. 3 Sekunden), mehr Ermutigung nach Fehlern.</div>
+    <div class="fb"><div class="fl">🔑 Golem-Effekt</div>Die negative Umkehrung: Niedrige Erwartungen → niedrigere Leistung. Besonders gefährlich bei Schülern mit „schwierigem Ruf", Migrationshintergrund oder niedrigem sozioökonomischem Status.</div>
+    <div class="tip"><div class="tl">🏫 Schulpraxis</div>Hohe, faire Erwartungen an alle — unabhängig von Herkunft, Aussehen oder Vorgeschichte. Regelmäßig innehalten: „Habe ich bei diesem Schüler unbewusst niedrigere Erwartungen?" Das ist professionelle Selbstreflexion.</div>`
+  },
+  'sp-tuckman': {
+    name: 'Bruce Tuckman',
+    years: 'US-amerikanischer Psychologe · 1938–2016 · Ohio State University',
+    tag: 'Gruppenentwicklung',
+    color: '#b45309',
+    body: `<div class="ex">Bruce Tuckman beschrieb 1965 vier Phasen der Gruppenentwicklung, die er 1977 um eine fünfte ergänzte. Das Modell gilt bis heute als einer der einflussreichsten Beiträge zur Gruppendynamik.</div>
+    <div class="stufe"><div class="snum" style="background:#e0f2fe;color:#0369a1;">1</div><div class="sbody"><strong>Forming — Orientierung:</strong> Unsicherheit, höfliches Verhalten, Abhängigkeit von der Führungsperson. Schüler testen aus, was erlaubt ist.</div></div>
+    <div class="stufe"><div class="snum" style="background:#fde68a;color:#b45309;">2</div><div class="sbody"><strong>Storming — Konflikte:</strong> Machtkämpfe, Rollenklärung, Subgruppen. Diese Phase ist normal und notwendig — keine Gruppe überspringt sie gesund.</div></div>
+    <div class="stufe"><div class="snum" style="background:#dcfce7;color:#15803d;">3</div><div class="sbody"><strong>Norming — Zusammenwachsen:</strong> Gemeinsame Normen entstehen, Vertrauen wächst, erste echte Kooperation möglich.</div></div>
+    <div class="stufe"><div class="snum" style="background:#dcfce7;color:#15803d;">4</div><div class="sbody"><strong>Performing — Hochleistung:</strong> Effektive Zusammenarbeit, Flexibilität in Rollen, Kreativität und Produktivität.</div></div>
+    <div class="stufe"><div class="snum" style="background:#f3f4f6;color:#6b7280;">5</div><div class="sbody"><strong>Adjourning — Abschluss:</strong> Auflösung der Gruppe. Emotionen: Stolz, Trauer, Erleichterung.</div></div>
+    <div class="tip"><div class="tl">🏫 Schulpraxis</div>Storming im ersten Schulhalbjahr ist kein Versagen. Gezielte Teambuilding-Aktivitäten zu Schuljahresbeginn beschleunigen Forming und erleichtern Storming. Die Phasen zu kennen hilft, nicht zu früh einzugreifen.</div>`
+  },
+  'sp-asch': {
+    name: 'Solomon Asch',
+    years: 'US-amerikanischer Psychologe · 1907–1996 · Swarthmore College',
+    tag: 'Konformitätsdruck',
+    color: '#92400e',
+    body: `<div class="ex">Solomon Aschs Linienexperiment von 1951 ist eines der berühmtesten Experimente der Sozialpsychologie. Es zeigte: Menschen passen ihr Urteil der Gruppe an — selbst wenn sie es besser wissen.</div>
+    <div class="ebox" style="background:#fef3c7;border-color:#92400e;color:#451a03;"><div class="el" style="color:#92400e;">🔬 Das Experiment</div>Probanden sollten die Länge von Linien vergleichen — eine eindeutige Aufgabe mit klarer richtiger Antwort. Alle anderen Teilnehmer im Raum (von Asch beauftragt) gaben bewusst falsche Antworten. Ergebnis: <strong>75% der echten Probanden gaben mindestens einmal eine falsche Antwort</strong>. Ohne Gruppendruck lagen fast alle richtig.</div>
+    <div class="fb"><div class="fl">🔑 Konformitätsdruck</div>Die Tendenz, das eigene Verhalten oder Urteil dem der Gruppe anzupassen — um Ablehnung zu vermeiden — <span class="ft">selbst wenn man es besser weiß</span>. Zwei Formen: normativer Druck (Ablehnung vermeiden) und informativer Druck (Gruppe als Informationsquelle).</div>
+    <div class="ebox" style="background:#fef3c7;border-color:#92400e;color:#451a03;"><div class="el" style="color:#92400e;">🏫 Klassenraum-Konsequenz</div>Wenn die implizite Norm lautet: „Wer sich meldet, ist uncool" — dann werden sich viele Schüler anpassen, obwohl sie die Antwort wissen. Anonyme Methoden (Kärtchen, digitale Tools) reduzieren Konformitätsdruck deutlich.</div>
+    <div class="tip"><div class="tl">🏫 Schulpraxis</div>Positive Klassennormen müssen explizit etabliert und gepflegt werden. Einzelne Schüler bestärken, die gegen den Strom schwimmen. Cold Calling reduziert Konformitätsdruck bei Wortmeldungen.</div>`
+  },
+  'sp-olweus': {
+    name: 'Dan Olweus',
+    years: 'Norweg. Psychologe · 1931–2020 · Universität Bergen · Pionier der Mobbing-Forschung',
+    tag: 'Mobbing-Forschung',
+    color: '#15803d',
+    body: `<div class="ex">Dan Olweus begründete die wissenschaftliche Mobbing-Forschung. Er entwickelte die erste klar operationale Definition von Mobbing und das erste systematische Anti-Mobbing-Programm, das heute in über 40 Ländern eingesetzt wird.</div>
+    <div class="fb"><div class="fl">🔑 Olweus' Definition: 4 Kriterien</div>Mobbing liegt vor, wenn alle vier Kriterien erfüllt sind: <span class="ft">Absicht</span> (bewusst schädigend), <span class="ft">Wiederholung</span> (nicht einmalig), <span class="ft">Machtungleichgewicht</span> (Opfer kann sich nicht wirksam wehren), <span class="ft">Ausgrenzungscharakter</span> (systematische Isolation).</div>
+    <div class="ebox" style="background:#f0fdf4;border-color:#15803d;color:#14532d;"><div class="el" style="color:#15803d;">🎭 Die 4 Rollen im Mobbing-System</div><strong>Täter:</strong> Initiieren bewusst · <strong>Unterstützer:</strong> Machen mit, oft aus Konformitätsdruck · <strong>Verstärker:</strong> Lachen, schauen zu, bestätigen das Verhalten · <strong>Bystander:</strong> Beobachten passiv oder greifen ein</div>
+    <div class="ebox" style="background:#fff1f2;border-color:#be123c;color:#4c0519;"><div class="el" style="color:#be123c;">⚠️ Mobbing ist ein Systemphänomen</div>Interventionen, die sich nur auf Täter und Opfer konzentrieren, greifen zu kurz. Die Bystander und Verstärker sind der Schlüssel. Wer das Zuschauen aufbricht, unterbricht das System.</div>
+    <div class="tip"><div class="tl">🏫 Schulpraxis</div>Bystander-Effekt explizit thematisieren. Klare Klassenregeln zu Mobbing. Bei Verdacht: dokumentieren, Schulleitung einbeziehen, Eltern informieren, schulpsychologische Unterstützung. Bei Cyber-Mobbing: Screenshots sichern, Plattformen melden.</div>`
+  },
+  'sp-kounin': {
+    name: 'Jacob Kounin',
+    years: 'US-amerikanischer Pädagoge · 1912–1995 · Wayne State University',
+    tag: 'Classroom-Management',
+    color: '#0369a1',
+    body: `<div class="ex">Jacob Kounins überraschendes Ergebnis: Nicht die <em>Reaktion</em> auf Störungen unterscheidet effektive von ineffektiven Lehrkräften — sondern wie gut sie Störungen <strong>verhindern</strong>. Gutes Classroom-Management ist primär präventiv.</div>
+    <div class="stufe"><div class="snum" style="background:#e0f2fe;color:#0369a1;">1</div><div class="sbody"><strong>Allgegenwärtigkeit (with-it-ness):</strong> Lehrkraft weiß jederzeit, was im Klassenraum passiert und signalisiert das. Zwei Teilfähigkeiten: Timing (früh genug) und Targeting (den richtigen Schüler).</div></div>
+    <div class="stufe"><div class="snum" style="background:#e0f2fe;color:#0369a1;">2</div><div class="sbody"><strong>Überlappung:</strong> Mehrere Unterrichtsvorgänge gleichzeitig managen — einem Schüler helfen und die Klasse im Blick behalten.</div></div>
+    <div class="stufe"><div class="snum" style="background:#e0f2fe;color:#0369a1;">3</div><div class="sbody"><strong>Reibungslosigkeit & Schwung:</strong> Unterrichtsfluss ohne unnötige Pausen oder Rupturen. Angemessenes Tempo.</div></div>
+    <div class="stufe"><div class="snum" style="background:#e0f2fe;color:#0369a1;">4</div><div class="sbody"><strong>Gruppenaktivierung:</strong> Alle Schüler gleichzeitig aktiv halten — nicht nur den, der gerade drankommt.</div></div>
+    <div class="stufe"><div class="snum" style="background:#e0f2fe;color:#0369a1;">5</div><div class="sbody"><strong>Abwechslungsreichtum & Herausforderung:</strong> Monotonie und Über-/Unterforderung erzeugen Störungen.</div></div>
+    <div class="fb"><div class="fl">🔑 Prinzip der geringsten Intervention</div>Bei Störungen immer mit dem kleinstmöglichen Eingriff beginnen: nonverbal → verbal-dezent → explizit. Direkt auf Stufe 3 zu springen beschämt öffentlich und eskaliert.</div>
+    <div class="tip"><div class="tl">🏫 Schulpraxis</div>Raum abschreiten statt dauerhaft vor der Tafel stehen. Kounins Techniken sind erlernbar — aber sie brauchen Bewusstheit und Übung.</div>`
+  },
+  'sp-watzlawick': {
+    name: 'Paul Watzlawick',
+    years: 'Österr. Kommunikationstheoretiker & Psychotherapeut · 1921–2007 · Palo Alto, USA',
+    tag: '5 Kommunikations-Axiome',
+    color: '#3730a3',
+    body: `<div class="ex">Paul Watzlawick formulierte fünf Grundgesetze menschlicher Kommunikation — die sogenannten Axiome. Sie gelten in jeder Interaktion, ob man es will oder nicht.</div>
+    <div class="stufe"><div class="snum" style="background:#e0e7ff;color:#3730a3;">1</div><div class="sbody"><strong>Man kann nicht nicht kommunizieren.</strong> Jedes Verhalten hat Mitteilungscharakter — auch Schweigen, Wegsehen, Unbeweglichkeit.</div></div>
+    <div class="stufe"><div class="snum" style="background:#e0e7ff;color:#3730a3;">2</div><div class="sbody"><strong>Jede Kommunikation hat Inhalts- und Beziehungsaspekt.</strong> Das <em>Was</em> (Inhalt) und das <em>Wie</em> (Beziehung, Tonfall). Der Beziehungsaspekt rahmt den Inhaltsaspekt ein.</div></div>
+    <div class="stufe"><div class="snum" style="background:#e0e7ff;color:#3730a3;">3</div><div class="sbody"><strong>Kommunikation ist Ursache und Wirkung gleichzeitig.</strong> Subjektive Interpunktion: Jeder erlebt sich als Reaktion, nie als Auslöser. Kreislaufdynamik in Konflikten.</div></div>
+    <div class="stufe"><div class="snum" style="background:#e0e7ff;color:#3730a3;">4</div><div class="sbody"><strong>Digitale und analoge Modalitäten.</strong> Digital = Wortsprache (präzise, eindeutig). Analog = Körpersprache, Tonfall (mehrdeutig, emotional). Widerspruch → Gehirn vertraut dem Analogen.</div></div>
+    <div class="stufe"><div class="snum" style="background:#e0e7ff;color:#3730a3;">5</div><div class="sbody"><strong>Symmetrische oder komplementäre Kommunikation.</strong> Symmetrisch = auf Augenhöhe. Komplementär = hierarchisch unterschiedlich (Lehrkraft–Schüler).</div></div>
+    <div class="tip"><div class="tl">🏫 Schulpraxis</div>Axiom 2: Wenn ein Gespräch kriselt, liegt das Problem meist auf der Beziehungsebene, nicht auf der Inhaltsebene. Axiom 4: „Ich bin nicht wütend" bei rotem Gesicht und gepresster Stimme wird nicht geglaubt.</div>`
+  },
+  'sp-schulzvthun': {
+    name: 'Friedemann Schulz von Thun',
+    years: 'Dt. Kommunikationspsychologe · geb. 1944 · Universität Hamburg',
+    tag: '4-Ohren-Modell & Inneres Team',
+    color: '#6d28d9',
+    body: `<div class="ex">Friedemann Schulz von Thun entwickelte das <strong>Nachrichtenquadrat</strong> (4-Ohren-Modell): Jede Nachricht enthält gleichzeitig vier Botschaften.</div>
+    <div class="cmp"><div class="ci"><div class="cil" style="color:#0369a1;">Sachinhalt</div>Was ich sachlich mitteile. Die reine Information.</div><div class="ci"><div class="cil" style="color:#be123c;">Selbstoffenbarung</div>Was ich über mich preisgebe — meine Gefühle, meinen Zustand.</div></div>
+    <div class="cmp"><div class="ci"><div class="cil" style="color:#6d28d9;">Beziehungsseite</div>Wie ich zum Empfänger stehe — Wertschätzung oder Herablassung.</div><div class="ci"><div class="cil" style="color:#15803d;">Appell</div>Was ich vom Empfänger möchte — explizit oder implizit.</div></div>
+    <div class="ebox" style="background:#f5f3ff;border-color:#6d28d9;color:#2e1065;"><div class="el" style="color:#6d28d9;">💡 Klassisches Beispiel</div>Beifahrerin: „Die Ampel ist grün." Sachinhalt: neutral. Aber auf dem Beziehungsohr des Fahrers: „Du fährst schlecht." Auf dem Appellohr: „Fahr endlich los!" Missverständnisse entstehen, weil Sender und Empfänger verschiedene Ebenen betonen.</div>
+    <div class="fb"><div class="fl">🔑 Das Innere Team</div>Menschen sind innerlich keine Einheit — sie sind ein Ensemble verschiedener innerer Stimmen mit unterschiedlichen Bedürfnissen. Vor einem schwierigen Gespräch melden sich gleichzeitig: der Friedfertige, der Gerechtigkeitssinn, der Erschöpfte, der Professionelle. Diese Spannung kennen → handlungsfähiger werden.</div>
+    <div class="tip"><div class="tl">🏫 Schulpraxis</div>Elterngespräch: „Zu Hause kann mein Sohn das immer." Beziehungsseite gehört: „Sie sind das Problem." Antwort mit Metakommunikation: „Ich höre, dass Sie sich Sorgen machen — das nehme ich als gemeinsamen Ausgangspunkt."</div>`
+  },
+  'sp-rogers': {
+    name: 'Carl Rogers',
+    years: 'US-amerikanischer Psychologe & Psychotherapeut · 1902–1987 · Begründer der humanistischen Psychologie',
+    tag: 'Personenzentrierte Gesprächsführung',
+    color: '#0f766e',
+    body: `<div class="ex">Carl Rogers begründete die <strong>personenzentrierte Psychotherapie</strong> und Gesprächsführung. Sein Grundgedanke: Jeder Mensch trägt die Ressourcen zur Selbstentfaltung in sich — wenn die Bedingungen stimmen. Die Aufgabe des Gesprächsführenden ist nicht Diagnose und Anweisung, sondern das Schaffen dieser Bedingungen.</div>
+    <div class="fb"><div class="fl">🔑 Drei Grundhaltungen</div>Diese drei Haltungen sind keine Techniken — sie sind innere Einstellungen:</div>
+    <div class="stufe"><div class="snum" style="background:#ccfbf1;color:#0f766e;">1</div><div class="sbody"><strong>Empathie:</strong> Die Innenwelt des anderen aus seiner Perspektive verstehen. Nicht Mitleid — echtes Mitgefühl. Durch seine Augen sehen, ohne das eigene Urteil zu verlieren.</div></div>
+    <div class="stufe"><div class="snum" style="background:#ccfbf1;color:#0f766e;">2</div><div class="sbody"><strong>Kongruenz (Echtheit):</strong> Authentisch und echt sein. Keine Rolle spielen, keine Fassade. Was ich fühle und was ich zeige, stimmen überein.</div></div>
+    <div class="stufe"><div class="snum" style="background:#ccfbf1;color:#0f766e;">3</div><div class="sbody"><strong>Bedingungslose positive Wertschätzung:</strong> Den anderen als Person annehmen — unabhängig von seinem Verhalten. „Ich schätze dich, auch wenn ich dein Verhalten nicht akzeptiere." Grundlage für Vertrauen.</div></div>
+    <div class="fb"><div class="fl">🔑 Aktives Zuhören</div>Zuhören mit voller Aufmerksamkeit. Verbalisieren (Gehörtes zurückspiegeln), Paraphrasieren (Inhalt zusammenfassen), offene Fragen stellen, Schweigen aushalten. Ziel: verstehen, nicht antworten.</div>
+    <div class="tip"><div class="tl">🏫 Schulpraxis</div>Rogers' Haltungen gelten für alle Gespräche: Beratungsgespräch, Elterngespräch, Kritikgespräch. Die Beziehungsqualität entscheidet, ob das Gespräch wirkt — unabhängig von der Methode.</div>`
+  }
+};
+
+function showTheorist(id){
+  const t=TH_DATA[id];if(!t)return;
+  document.getElementById('thModalName').textContent=t.name;
+  document.getElementById('thModalYears').textContent=t.years;
+  document.getElementById('thModalTag').textContent=t.tag;
+  document.getElementById('thModalTag').style.background=t.color;
+  document.getElementById('thModalColor').style.background=t.color;
+  document.getElementById('thModalBody').innerHTML=t.body;
+  document.getElementById('thModalBg').classList.add('open');
+}
+function closeThModal(e){if(e.target===document.getElementById('thModalBg'))document.getElementById('thModalBg').classList.remove('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('thModalBg').classList.remove('open');});
 </script>
 </body>
 </html>
