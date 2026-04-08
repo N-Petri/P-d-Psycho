@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pädagogik-Karussell – Prüfungsvorbereitung</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0e0e0f;
+  --surface: #161618;
+  --surface2: #1e1e22;
+  --border: rgba(255,255,255,0.07);
+  --border-strong: rgba(255,255,255,0.14);
+  --text: #e8e4d9;
+  --muted: #7d7a72;
+  --accent: #c8a96e;
+  --accent-dim: rgba(200,169,110,0.15);
+  --accent-border: rgba(200,169,110,0.35);
+
+  --s1: #a78bfa; --s1d: rgba(167,139,250,0.12); --s1b: rgba(167,139,250,0.3);
+  --s2: #60a5fa; --s2d: rgba(96,165,250,0.12); --s2b: rgba(96,165,250,0.3);
+  --s3: #34d399; --s3d: rgba(52,211,153,0.12); --s3b: rgba(52,211,153,0.3);
+  --s4: #60a5fa; --s4d: rgba(96,165,250,0.12); --s4b: rgba(96,165,250,0.3);
+  --s5: #a78bfa; --s5d: rgba(167,139,250,0.12); --s5b: rgba(167,139,250,0.3);
+  --s6: #f87171; --s6d: rgba(248,113,113,0.12); --s6b: rgba(248,113,113,0.3);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── HEADER ── */
+header {
+  border-bottom: 1px solid var(--border);
+  padding: 18px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--surface);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.logo {
+  font-family: 'Lora', serif;
+  font-size: 17px;
+  color: var(--accent);
+  letter-spacing: 0.01em;
+}
+.logo span { color: var(--muted); font-weight: 400; font-style: italic; }
+.header-right { display: flex; align-items: center; gap: 16px; }
+.timer-btn {
+  background: none;
+  border: 1px solid var(--border-strong);
+  color: var(--muted);
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: 'DM Mono', monospace;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.timer-btn:hover { border-color: var(--accent-border); color: var(--accent); }
+.timer-btn.active { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+#timer-display { font-family: 'DM Mono', monospace; font-size: 22px; color: var(--accent); min-width: 60px; text-align: right; }
+
+/* ── LAYOUT ── */
+.layout {
+  display: flex;
+  flex: 1;
+}
+
+/* ── SIDEBAR ── */
+aside {
+  width: 260px;
+  min-width: 260px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 61px;
+  height: calc(100vh - 61px);
+  overflow-y: auto;
+}
+.sidebar-title {
+  padding: 20px 20px 12px;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-family: 'DM Mono', monospace;
+}
+.station-nav { list-style: none; padding: 0 10px 20px; }
+.station-nav li {
+  margin-bottom: 4px;
+}
+.station-btn {
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  transition: background 0.15s;
+  color: var(--muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13.5px;
+  line-height: 1.35;
+}
+.station-btn:hover { background: rgba(255,255,255,0.04); color: var(--text); }
+.station-btn.active { background: var(--accent-dim); color: var(--accent); }
+.station-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  border: 1px solid;
+  margin-top: 1px;
+  flex-shrink: 0;
+  font-weight: 500;
+}
+.station-btn[data-s="1"] .station-num { border-color: var(--s1b); color: var(--s1); background: var(--s1d); }
+.station-btn[data-s="2"] .station-num { border-color: var(--s2b); color: var(--s2); background: var(--s2d); }
+.station-btn[data-s="3"] .station-num { border-color: var(--s3b); color: var(--s3); background: var(--s3d); }
+.station-btn[data-s="4"] .station-num { border-color: var(--s4b); color: var(--s4); background: var(--s4d); }
+.station-btn[data-s="5"] .station-num { border-color: var(--s5b); color: var(--s5); background: var(--s5d); }
+.station-btn[data-s="6"] .station-num { border-color: var(--s6b); color: var(--s6); background: var(--s6d); }
+.station-btn.active[data-s="1"] { background: var(--s1d); color: var(--s1); }
+.station-btn.active[data-s="2"] { background: var(--s2d); color: var(--s2); }
+.station-btn.active[data-s="3"] { background: var(--s3d); color: var(--s3); }
+.station-btn.active[data-s="4"] { background: var(--s4d); color: var(--s4); }
+.station-btn.active[data-s="5"] { background: var(--s5d); color: var(--s5); }
+.station-btn.active[data-s="6"] { background: var(--s6d); color: var(--s6); }
+
+.sidebar-divider { border: none; border-top: 1px solid var(--border); margin: 8px 10px 16px; }
+.sidebar-mini-title {
+  padding: 0 20px 10px;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-family: 'DM Mono', monospace;
+}
+.question-nav { list-style: none; padding: 0 10px 16px; }
+.question-nav li { margin-bottom: 3px; }
+.q-btn {
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  line-height: 1.4;
+  transition: all 0.15s;
+}
+.q-btn:hover { background: rgba(255,255,255,0.04); color: var(--text); }
+
+/* ── MAIN ── */
+main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 40px 48px 80px;
+  max-width: 860px;
+}
+
+/* ── STATION HEADER ── */
+.station-header {
+  margin-bottom: 36px;
+  animation: fadeUp 0.3s ease;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.station-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid;
+  margin-bottom: 14px;
+}
+.station-title {
+  font-family: 'Lora', serif;
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1.25;
+  margin-bottom: 10px;
+}
+.station-subtitle {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.station-subtitle em { color: var(--accent); font-style: normal; font-weight: 500; }
+
+/* ── EINSTIEG BANNER ── */
+.einstieg-banner {
+  border: 1px solid var(--accent-border);
+  background: var(--accent-dim);
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 13.5px;
+  color: var(--accent);
+  margin-bottom: 32px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.einstieg-banner .icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+/* ── SECTION ── */
+.section { margin-bottom: 40px; }
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── THEORY CARDS ── */
+.theory-grid { display: flex; flex-direction: column; gap: 12px; }
+.theory-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.theory-card:hover { border-color: var(--border-strong); }
+.theory-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  cursor: pointer;
+  user-select: none;
+  gap: 12px;
+}
+.theory-card-header:hover { background: rgba(255,255,255,0.02); }
+.theory-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.theorist-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 9px;
+  border-radius: 20px;
+  border: 1px solid;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.theory-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.theory-key {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.toggle-icon {
+  font-size: 18px;
+  color: var(--muted);
+  transition: transform 0.25s;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.theory-card.open .toggle-icon { transform: rotate(45deg); }
+.theory-body {
+  display: none;
+  padding: 0 18px 18px;
+  border-top: 1px solid var(--border);
+}
+.theory-card.open .theory-body { display: block; }
+.theory-body ul {
+  list-style: none;
+  padding: 12px 0 0;
+}
+.theory-body ul li {
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--text);
+  padding: 5px 0 5px 16px;
+  position: relative;
+  border-bottom: 1px solid var(--border);
+}
+.theory-body ul li:last-child { border-bottom: none; }
+.theory-body ul li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--muted);
+  font-size: 11px;
+}
+.theory-body ul li strong { color: var(--accent); font-weight: 500; }
+.theory-body ul li em { color: var(--muted); font-style: italic; }
+
+/* ── STEP CARD (Palzkill) ── */
+.steps { display: flex; flex-direction: column; gap: 8px; }
+.step {
+  display: flex;
+  gap: 14px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--surface);
+  transition: border-color 0.2s;
+}
+.step:hover { border-color: var(--border-strong); }
+.step-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--accent);
+  background: var(--accent-dim);
+  border: 1px solid var(--accent-border);
+  border-radius: 5px;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.step-content { flex: 1; }
+.step-title { font-size: 13.5px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+.step-desc { font-size: 12.5px; color: var(--muted); line-height: 1.6; }
+.step-desc strong { color: var(--text); }
+.step-example {
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: var(--surface2);
+  border-radius: 6px;
+  font-size: 12px;
+  color: var(--muted);
+  font-style: italic;
+  border-left: 2px solid var(--accent-border);
+}
+
+/* ── TABLE ── */
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin-top: 4px;
+}
+.info-table th {
+  text-align: left;
+  padding: 10px 14px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-family: 'DM Mono', monospace;
+  font-weight: 400;
+  border-bottom: 1px solid var(--border);
+}
+.info-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  line-height: 1.55;
+  vertical-align: top;
+}
+.info-table tr:last-child td { border-bottom: none; }
+.info-table td:first-child { color: var(--accent); font-weight: 500; white-space: nowrap; }
+.info-table td:nth-child(2) { color: var(--text); }
+.info-table td:nth-child(3) { color: var(--muted); font-size: 12px; }
+.table-wrap {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+/* ── QUOTE ── */
+.quote-block {
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  padding: 14px 18px;
+  background: var(--surface);
+  margin: 14px 0;
+}
+.quote-block blockquote {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text);
+}
+.quote-block cite {
+  display: block;
+  margin-top: 8px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  font-style: normal;
+}
+
+/* ── FORMULATION BOX ── */
+.formulation {
+  background: var(--surface2);
+  border: 1px solid var(--accent-border);
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 10px;
+}
+.formulation-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+.formulation p {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--text);
+}
+
+/* ── CONNECTION CARDS ── */
+.connections { display: flex; gap: 10px; margin-top: 4px; }
+.conn-card {
+  flex: 1;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  background: var(--surface);
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+.conn-card strong { color: var(--text); display: block; margin-bottom: 4px; font-size: 13px; }
+
+/* ── NAV FOOTER ── */
+.nav-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+.nav-arrow {
+  background: none;
+  border: 1px solid var(--border-strong);
+  color: var(--muted);
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.nav-arrow:hover { border-color: var(--accent-border); color: var(--accent); }
+.nav-arrow:disabled { opacity: 0.3; cursor: default; }
+.nav-dots { display: flex; gap: 6px; }
+.nav-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--border-strong);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.nav-dot.active { background: var(--accent); transform: scale(1.3); }
+
+/* ── OVERVIEW PAGE ── */
+.overview-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 36px;
+}
+.overview-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  background: var(--surface);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.overview-card:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+.ov-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.ov-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 3px;
+  border: 1px solid;
+}
+.ov-title { font-size: 15px; font-weight: 500; margin-bottom: 6px; color: var(--text); }
+.ov-authors { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.carousel-hint {
+  text-align: center;
+  padding: 32px;
+  border: 1px dashed var(--border-strong);
+  border-radius: 12px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+.carousel-hint strong { color: var(--text); display: block; margin-bottom: 8px; font-size: 16px; font-family: 'Lora', serif; font-style: italic; }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 760px) {
+  aside { display: none; }
+  main { padding: 24px 20px 60px; }
+  .overview-grid { grid-template-columns: 1fr; }
+  .connections { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Pädagogik<span> · Prüfungskarussell</span></div>
+  <div class="header-right">
+    <div id="timer-display">10:00</div>
+    <button class="timer-btn" id="timer-btn" onclick="toggleTimer()">⏱ Timer</button>
+  </div>
+</header>
+
+<div class="layout">
+<aside>
+  <div class="sidebar-title">Stationen</div>
+  <ul class="station-nav">
+    <li><button class="station-btn" data-s="0" onclick="goTo(0)"><span class="station-num">●</span><span>Übersicht & Karussell</span></button></li>
+    <li><button class="station-btn" data-s="1" onclick="goTo(1)"><span class="station-num">①</span><span>Gesprächseinstieg</span></button></li>
+    <li><button class="station-btn" data-s="2" onclick="goTo(2)"><span class="station-num">②</span><span>Diagnose & Gespräch</span></button></li>
+    <li><button class="station-btn" data-s="3" onclick="goTo(3)"><span class="station-num">③</span><span>Klassendynamik</span></button></li>
+    <li><button class="station-btn" data-s="4" onclick="goTo(4)"><span class="station-num">④</span><span>Unterricht anpassen</span></button></li>
+    <li><button class="station-btn" data-s="5" onclick="goTo(5)"><span class="station-num">⑤</span><span>Mündigkeit & Werte</span></button></li>
+    <li><button class="station-btn" data-s="6" onclick="goTo(6)"><span class="station-num">⑥</span><span>System. Vernetzung</span></button></li>
+  </ul>
+  <hr class="sidebar-divider">
+  <div class="sidebar-mini-title">Einstiegsfragen</div>
+  <ul class="question-nav">
+    <li><button class="q-btn" onclick="goTo(1)">„Was sagen Sie zuerst?"</button></li>
+    <li><button class="q-btn" onclick="goTo(2)">„Was bedeutet die Beziehung?"</button></li>
+    <li><button class="q-btn" onclick="goTo(3)">„Welche Rolle spielt die Klasse?"</button></li>
+    <li><button class="q-btn" onclick="goTo(4)">„Was ändern Sie im Unterricht?"</button></li>
+    <li><button class="q-btn" onclick="goTo(5)">„Was ist das Ziel? Was ist Bildung?"</button></li>
+    <li><button class="q-btn" onclick="goTo(6)">„Wen beziehen Sie ein?"</button></li>
+  </ul>
+</aside>
+
+<main id="main-content"></main>
+</div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────
+const STATIONS = [
+  // 0: Overview
+  {
+    id: 0, tag: '● Karussell', color: 'var(--accent)', colorDim: 'var(--accent-dim)', colorBorder: 'var(--accent-border)',
+  },
+  // 1
+  {
+    id: 1, tag: '① Grundlagen Pädagogik', color: 'var(--s1)', colorDim: 'var(--s1d)', colorBorder: 'var(--s1b)',
+    title: 'Gesprächseinstieg',
+    subtitle: 'Einstiegsfrage: <em>„Was würden Sie im Gespräch zuerst zum Schüler sagen?"</em>',
+    einstieg: '⭐ Klassischer Prüfungs-Einstieg – hier beginnt das Karussell. Antwort: Ich schaffe zunächst einen geschützten Rahmen und trete dem Schüler mit echter Haltung entgegen – bevor ich spreche, entscheide ich, wie ich bin.',
+    theories: [
+      {
+        author: 'Rogers', life: '1902–1987', name: 'Personenzentrierter Ansatz', key: 'Grundhaltung des Gesprächs',
+        color: 'var(--s1)', colorDim: 'var(--s1d)', colorBorder: 'var(--s1b)',
+        points: [
+          '<strong>Empathie:</strong> Die Welt des Schülers von innen verstehen – nicht bewerten, sondern nachvollziehen.',
+          '<strong>Kongruenz (Echtheit):</strong> Authentisch sein; keine aufgesetzte Rolle – echtes Vertrauen entsteht nur durch Echtheit.',
+          '<strong>Bedingungslose Wertschätzung:</strong> Den Schüler als Person anerkennen, unabhängig vom Verhalten – keine Zustimmung zum Fehlverhalten, sondern Anerkennung seiner Würde.',
+          '<em>Praxistest:</em> Bin ich gerade ruhig und präsent genug für dieses Gespräch? Wenn nicht – kurze Pause einlegen.',
+        ]
+      },
+      {
+        author: 'Berne', life: '1910–1970', name: 'Transaktionsanalyse – Ich-Zustände', key: 'Gesprächsebene bewusst steuern',
+        color: 'var(--s1)', colorDim: 'var(--s1d)', colorBorder: 'var(--s1b)',
+        points: [
+          '<strong>Eltern-Ich:</strong> Wertend / fürsorglich → aktiviert beim Schüler das Kind-Ich (Gegenwehr oder Anpassung).',
+          '<strong>Erwachsenen-Ich:</strong> Rational, sachorientiert → Gesprächspartner auf Augenhöhe.',
+          '<strong>Kind-Ich:</strong> Spontan, reaktiv → entsteht, wenn ich anklagend spreche.',
+          '<strong>Ziel:</strong> Erwachsenen-zu-Erwachsenen-Kommunikation halten. <em>Ich-Botschaft</em> statt <em>Du-Botschaft</em>.',
+          '<em>Prüfungsformulierung:</em> „Ich halte das Gespräch auf Erwachsenen-Ebene im Sinne der Transaktionsanalyse nach Berne."',
+        ]
+      },
+      {
+        author: 'Gordon', life: '1918–2002', name: 'Kommunikation auf Augenhöhe', key: 'Methode III – keine Gewinner/Verlierer',
+        color: 'var(--s1)', colorDim: 'var(--s1d)', colorBorder: 'var(--s1b)',
+        points: [
+          'Der Schüler ist kein Objekt der Belehrung, sondern ernstzunehmender Gesprächspartner.',
+          '<strong>Methode III:</strong> Lösung, die beide Seiten tragen können – kein Sieger, kein Verlierer.',
+          'Aktives Zuhören: Paraphrasieren, nicht unterbrechen, Schweigen aushalten.',
+          '<em>Typischer Fehler:</em> Zu schnell in die Lösungsphase gehen, bevor der Schüler sich gehört fühlt.',
+        ]
+      },
+      {
+        author: 'Kant / Humboldt', life: '—', name: 'Menschenbild als Fundament', key: 'Würde und Autonomie',
+        color: 'var(--s1)', colorDim: 'var(--s1d)', colorBorder: 'var(--s1b)',
+        points: [
+          '<strong>Kant – Mündigkeit:</strong> „Sapere aude!" – Ziel aller Erziehung ist die Fähigkeit zum selbstständigen Denken.',
+          '<strong>Humboldt – Bildung:</strong> „Verknüpfung unseres Ich mit der Welt" – Persönlichkeitsentwicklung hat Eigenwert.',
+          'Kein Schüler darf auf sein Verhalten oder seine Leistung reduziert werden – innere Differenz des Menschen.',
+          'Das Menschenbild bestimmt <em>wie</em> ich ein Gespräch führe – Haltung vor Technik.',
+        ]
+      },
+    ],
+    rahmen: {
+      title: 'Der richtige Rahmen',
+      items: [
+        { label: 'Ort', desc: 'Ruhig, geschützt, unter vier Augen – nie vor der Klasse oder zwischen Tür und Angel' },
+        { label: 'Einstieg', desc: 'Ich-Botschaft: „Ich habe in den letzten Wochen beobachtet, dass ..." – keine Anklage, kein Vorwurf' },
+        { label: 'Ziel', desc: 'Nicht Sanktionieren, sondern Vertrauen aufbauen – was steckt hinter dem Verhalten?' },
+        { label: 'Fehler', desc: 'Du-Botschaft: „Du machst nie mit" → bewertend, aktiviert Widerstand sofort' },
+      ]
+    },
+    formulation: '„Im Gespräch trete ich dem Schüler zunächst mit echter Haltung entgegen – Empathie, Kongruenz und bedingungslose Wertschätzung nach Rogers. Ich führe das Gespräch auf Erwachsenen-Ebene nach Berne und spreche mit einer Ich-Botschaft an, was ich konkret beobachtet habe. Mein Menschenbild nach Kant und Humboldt macht klar: Dieser Schüler ist eine Person mit unbedingter Würde – nicht reduzierbar auf sein Verhalten."',
+    next: 2, prev: null,
+    transitionTo: '→ Diese Vertrauensbasis ist das Fundament für eine echte Diagnose – denn nur wer sich gehört fühlt, öffnet sich.',
+  },
+  // 2
+  {
+    id: 2, tag: '② Unterricht gestalten', color: 'var(--s2)', colorDim: 'var(--s2d)', colorBorder: 'var(--s2b)',
+    title: 'Diagnose & Gespräch',
+    subtitle: 'Einstiegsfrage: <em>„Welche Bedeutung hat die Lehrer-Schüler-Beziehung für den Lernerfolg?"</em>',
+    einstieg: '🔬 Wissenschaftlich stärkste Antwort: Hattie d = 0,72. Die Beziehungsqualität ist kein Nice-to-have – sie ist empirisch der wirksamste einzelne Faktor.',
+    theories: [
+      {
+        author: 'Hattie', life: 'Visible Learning 2013', name: 'Lehrer-Schüler-Beziehung & Feedback', key: 'd = 0,72 / d = 0,73',
+        color: 'var(--s2)', colorDim: 'var(--s2d)', colorBorder: 'var(--s2b)',
+        points: [
+          '<strong>Methodik:</strong> Über 800 Metaanalysen, 240 Mio. Schülerinnen und Schüler; Benchmark d = 0,40.',
+          '<strong>Lehrer-Schüler-Beziehung: d = 0,72</strong> – fast doppelt so wirksam wie Durchschnitt.',
+          '<strong>Feedback: d = 0,73</strong> – stärkster aktiv steuerbarer Unterrichtsfaktor.',
+          '<strong>Kernsatz:</strong> „Teachers need to know their impact." – Rückmeldung läuft in beide Richtungen.',
+          '<em>Vergleich:</em> Hausaufgaben d = 0,29 / Klassenwiederholung d = –0,13.',
+          'Das Gespräch mit dem Schüler ist mein wichtigstes Diagnoseinstrument: Woher weiß ich sonst, ob ich wirke?',
+        ]
+      },
+      {
+        author: 'Rogers', life: '1902–1987', name: 'Aktives Zuhören im Gespräch', key: 'Empathie als Methode',
+        color: 'var(--s2)', colorDim: 'var(--s2d)', colorBorder: 'var(--s2b)',
+        points: [
+          'Paraphrasieren: „Wenn ich dich richtig verstehe, dann ..."',
+          'Schweigen aushalten – der Schüler braucht Zeit, Stille ist kein Fehler.',
+          'In Phase 2 (Zuhören) <em>nicht beraten</em> – erst vollständig verstehen, dann lösen.',
+          '<strong>Wichtig:</strong> Aktives Zuhören ist keine Technik, sondern Ausdruck echter Empathie.',
+        ]
+      },
+    ],
+    palzkill: {
+      steps: [
+        { num: 1, title: 'Begrüßung & Gesprächsanlass', desc: 'Geschützter Rahmen, Anlass mit <strong>Ich-Botschaft</strong> benennen.', example: '„Ich habe beobachtet, dass du dich in letzter Zeit weniger beteiligst – früher hattest du oft starke Beiträge."' },
+        { num: 2, title: 'Problem verstehen – aktives Zuhören', desc: 'Offene W-Frage stellen, nicht unterbrechen, paraphrasieren. <strong>Noch nicht beraten.</strong>', example: '„Was ist da los?" – dann vollständig zuhören, Schweigen aushalten.' },
+        { num: 3, title: 'Ressourcen erfragen', desc: 'Stärken sichtbar machen, Problemfixierung verhindern.', example: '„Wann läuft es besser? Was hat dir früher geholfen? Was klappt noch gut?"' },
+        { num: 4, title: 'Zielklärung & gemeinsame Lösungen', desc: 'Schüler wählt aus Optionen → Autonomie nach Deci & Ryan stärkt Umsetzung.', example: 'Kurz-, mittel-, langfristige Ziele gemeinsam entwickeln.' },
+        { num: 5, title: 'Vereinbarung & Folgegespräch', desc: 'Konkrete, beobachtbare Vereinbarung – ggf. als <strong>Lernvertrag</strong>. Termin festlegen.', example: '„Wir schauen in zwei Wochen gemeinsam, wie es läuft." – kein Druckmittel, sondern Sicherheitsnetz.' },
+      ]
+    },
+    table: {
+      title: 'Drei Grundbedürfnisse nach Deci & Ryan – Diagnose im Gespräch',
+      headers: ['Bedürfnis', 'Verletzt, wenn ...', 'Konsequenz'],
+      rows: [
+        ['Autonomie', 'Schüler erlebt keine Selbstwirksamkeit, alles wird vorgegeben', 'Aufgaben mit Wahlmöglichkeiten; Schüler entscheidet'],
+        ['Kompetenz', 'Schüler erlebt dauerndes Scheitern, keine Erfolgserlebnisse', 'Niveau anpassen; Dweck: Anstrengung loben, nicht Begabung'],
+        ['Soziale Einbindung', 'Schüler fühlt sich ausgegrenzt, nicht zur Klasse gehörig', 'Gruppenstruktur überdenken; Tuckman-Phase analysieren'],
+      ]
+    },
+    diagnoseFehler: [
+      { label: 'Halo-Effekt', desc: 'Bekannte Leistung strahlt auf Gespräch ab → aktiv offen bleiben für Überraschungen.' },
+      { label: 'Perseveration', desc: 'Erstes Urteil wird immer bestätigt → mehrere Gespräche führen, Bild überprüfen.' },
+      { label: 'Vorschnelle Ratschläge', desc: 'Zu früh in die Lösungsphase → Phase 2 (Zuhören) bewusst aushalten.' },
+    ],
+    lernsit: 'Im Gespräch bin ich <strong>nicht Bewerter, sondern Unterstützer</strong>. Was der Schüler hier anvertraut, darf niemals als Grundlage für Notengebung dienen – sonst zerstöre ich das Vertrauen dauerhaft.',
+    formulation: '„Die Lehrer-Schüler-Beziehung ist nach Hattie mit d = 0,72 der stärkste einzelne Einflussfaktor auf den Lernerfolg – stärker als fast alle Methoden. Im Gespräch orientiere ich mich am Musterverlauf A nach Palzkill: zuerst zuhören, dann Ressourcen erfragen, dann gemeinsam Ziele entwickeln. Das Gespräch ist zugleich Diagnoseinstrument: Ich prüfe, welches der drei Grundbedürfnisse nach Deci und Ryan unterversorgt ist."',
+    next: 3, prev: 1,
+    transitionTo: '→ Was ich im Gespräch erfahre, zeigt mir: Wie ist dieser Schüler in die Klasse eingebettet? Das führt zur Klassendynamik.',
+  },
+  // 3
+  {
+    id: 3, tag: '③ Klasse führen', color: 'var(--s3)', colorDim: 'var(--s3d)', colorBorder: 'var(--s3b)',
+    title: 'Klassendynamik',
+    subtitle: 'Einstiegsfrage: <em>„Welche Rolle spielt die Klasse als Gruppe für diesen Schüler?"</em>',
+    einstieg: '👥 Die Klasse ist kein neutrales Lernumfeld – sie ist ein soziales System mit eigener Dynamik. Mein Handeln im Einzelgespräch hat keine Wirkung, wenn ich das Gruppengefüge nicht verstehe.',
+    theories: [
+      {
+        author: 'Tuckman', life: '1965', name: 'Phasenmodell der Gruppenentwicklung', key: 'Forming → Storming → Norming → Performing → Adjourning',
+        color: 'var(--s3)', colorDim: 'var(--s3d)', colorBorder: 'var(--s3b)',
+        points: [
+          '<strong>Forming:</strong> Orientierung, Unsicherheit – Klärung, ob Zugehörigkeit sicher und lohnend ist.',
+          '<strong>Storming:</strong> Machtkämpfe, Rangordnung – konstruktive Konfliktlösungen statt Bestrafung Einzelner.',
+          '<strong>Norming:</strong> Regeln wirken, Konflikte werden leichter gelöst – Verantwortung schrittweise übertragen.',
+          '<strong>Performing:</strong> Hochfunktionale Gruppe – individuelle Stärken werden eingebracht.',
+          '<em>Wichtig:</em> In welcher Phase ist <em>diese</em> Klasse? Je nach Phase brauche ich andere Führungsstrategien.',
+        ]
+      },
+      {
+        author: 'Schindler', life: '—', name: 'Rollenmodell Alpha/Beta/Gamma/Omega', key: 'Positionen in der Gruppe',
+        color: 'var(--s3)', colorDim: 'var(--s3d)', colorBorder: 'var(--s3b)',
+        points: [
+          '<strong>Alpha:</strong> Leitfigur – zieht die Gruppe in eine Richtung.',
+          '<strong>Beta:</strong> Experte / kritischer Berater des Alpha.',
+          '<strong>Gamma:</strong> Masse – angepasst, orientiert sich an Alpha.',
+          '<strong>Omega:</strong> Sündenbock / Außenseiter – trägt den Widerspruch der Gruppe.',
+          '<em>Meine Aufgabe:</em> Rollen sind nicht fix – Rollenwechsel ermöglichen, <strong>keine Etikettierung</strong>.',
+          'Wo steht [Schüler] in diesem System? Omega-Rolle kann Verhaltensauffälligkeiten erklären.',
+        ]
+      },
+      {
+        author: 'Kounin', life: '1912–1995', name: 'Classroom-Management – 7 Techniken', key: 'Prävention vor Reaktion',
+        color: 'var(--s3)', colorDim: 'var(--s3d)', colorBorder: 'var(--s3b)',
+        points: [
+          '<strong>Kernbefund:</strong> Gute Lehrkräfte unterscheiden sich nicht durch ihre Reaktion auf Störungen – sondern durch ihre <em>Verhinderung</em> von Störungen.',
+          '<strong>Withitness:</strong> „Augen im Hinterkopf" – Timing (früh genug) und Targeting (richtiger Schüler).',
+          '<strong>Overlapping:</strong> Einem Schüler helfen und gleichzeitig die Klasse im Blick behalten.',
+          '<strong>Momentum:</strong> Angemessenes Tempo – weder Langeweile noch Überforderung.',
+          '<strong>Group Focus:</strong> Erst Frage an alle, dann Name nennen – alle rechnen mit Beteiligung.',
+          '<strong>Avoiding Mock Participation:</strong> Scheinteilnahme aufbrechen: „Erkläre das in eigenen Worten."',
+        ]
+      },
+    ],
+    proaktiv: {
+      title: 'Proaktive Strategien (Lehmann 2013)',
+      items: [
+        { label: 'Beziehungsebene', desc: 'Selbstsicheres, zugewandtes Auftreten; Nähe und Distanz balancieren; selektive Authentizität.' },
+        { label: 'Disziplin-Management', desc: 'Regeln gemeinsam aushandeln; Rituale pflegen; Peer-Mediation einrichten.' },
+        { label: 'Unterrichtsebene', desc: 'Lernen an Bedürfnissen orientieren: Eingebundenheit, Autonomie, Kompetenz (Deci & Ryan).' },
+      ]
+    },
+    formulation: '„Die Klasse ist ein soziales System – ich analysiere, in welcher Phase nach Tuckman sie sich befindet, und welche Rolle der Schüler nach Schindlers Modell einnimmt. Mein präventives Handeln orientiert sich an Kounins Classroom-Management: Withitness, Group Focus, konsequente Rituale. Denn: Gute Lehrkräfte verhindern Störungen – sie reagieren nicht nur auf sie."',
+    next: 4, prev: 2,
+    transitionTo: '→ Was folgt aus dieser Analyse konkret für meinen Unterricht – was ändere ich didaktisch und methodisch?',
+  },
+  // 4
+  {
+    id: 4, tag: '④ Unterricht gestalten', color: 'var(--s4)', colorDim: 'var(--s4d)', colorBorder: 'var(--s4b)',
+    title: 'Unterricht anpassen',
+    subtitle: 'Einstiegsfrage: <em>„Was würden Sie in Ihrem Unterricht konkret ändern?"</em>',
+    einstieg: '🎯 Methodenwechsel allein reicht nicht. Entscheidend ist die Tiefenstruktur: kognitive Aktivierung, Motivierung, Beziehungsqualität. Ich benenne konkret, was und warum.',
+    theories: [
+      {
+        author: 'Helmke', life: '2012', name: '10 Qualitätsbereiche lernwirksamen Unterrichts', key: 'Prozess- und Produktqualität',
+        color: 'var(--s4)', colorDim: 'var(--s4d)', colorBorder: 'var(--s4b)',
+        points: [
+          '<strong>Tiefenstruktur vs. Oberflächenstruktur:</strong> Methode (sichtbar) ≠ Lernerfolg; Kognitive Aktivierung und Beziehungsqualität sind entscheidend.',
+          '<strong>Lernförderliches Klima:</strong> Respekt, Fehlerfreundlichkeit, Fürsorge – Fehler als Lerngegenstand, nicht als Makel.',
+          '<strong>Motivierung:</strong> Lebensweltbezug herstellen – nicht abstrakt, sondern aus der Welt des Schülers.',
+          '<strong>Schülerorientierung:</strong> Interessen und Fragen der Schüler einbeziehen.',
+          '<strong>Aktivierung:</strong> Kognitive Herausforderung – nicht Reproduktion, sondern Anwendung auf neue Situationen.',
+          '<em>Blindflug-Falle:</em> Wer nur auf Ergebnisse schaut, verliert den Weg – wer nur auf den Weg schaut, verliert das Ziel.',
+        ]
+      },
+      {
+        author: 'Deci & Ryan', life: '—', name: 'Selbstbestimmungstheorie', key: 'Autonomie · Kompetenz · Einbindung',
+        color: 'var(--s4)', colorDim: 'var(--s4d)', colorBorder: 'var(--s4b)',
+        points: [
+          'Intrinsische Motivation entsteht, wenn alle drei Grundbedürfnisse erfüllt sind.',
+          '<strong>Autonomie:</strong> Wahlmöglichkeiten bei Aufgaben; Schüler trifft Entscheidungen.',
+          '<strong>Kompetenz:</strong> Anforderungsniveau passend – kleine Erfolge, schrittweise Steigerung.',
+          '<strong>Soziale Einbindung:</strong> Zugehörigkeit zur Klasse spürbar machen; kooperative Lernformen.',
+          'Wenn ein Bedürfnis dauerhaft frustriert ist, bricht die intrinsische Motivation ein – ich identifiziere welches.',
+        ]
+      },
+      {
+        author: 'Dweck', life: '1998', name: 'Growth Mindset – Lob und Motivation', key: 'Anstrengung, nicht Begabung',
+        color: 'var(--s4)', colorDim: 'var(--s4d)', colorBorder: 'var(--s4b)',
+        points: [
+          '<strong>Fixed Mindset:</strong> „Ich bin halt nicht gut in Mathe." → Begabungsloben fördert diesen Glauben.',
+          '<strong>Growth Mindset:</strong> Intelligenz ist entwickelbar durch Anstrengung und Strategie.',
+          'Lob immer auf <strong>Anstrengung und Strategie</strong> richten: „Du hast eine gute Methode gewählt."',
+          'Fehler als Lernchance rahmen: „Interessant – was führt dich zu diesem Gedanken?"',
+          '<em>Prüfungsrelevanz:</em> Dweck erklärt, warum Notenschutz allein nicht hilft – Selbstbild muss sich ändern.',
+        ]
+      },
+      {
+        author: 'Keller', life: '2010', name: 'ARCS-Modell der Motivierung', key: 'Aufmerksamkeit · Relevanz · Zuversicht · Zufriedenheit',
+        color: 'var(--s4)', colorDim: 'var(--s4d)', colorBorder: 'var(--s4b)',
+        points: [
+          '<strong>A – Aufmerksamkeit:</strong> Überraschung, Neugier, Variation wecken.',
+          '<strong>R – Relevanz:</strong> Warum ist das für <em>mich</em> wichtig? Persönlicher Bezug herstellen.',
+          '<strong>Z – Zuversicht:</strong> Kompetenzerleben aufbauen – Schüler muss glauben, dass er es schaffen kann.',
+          '<strong>Z – Zufriedenheit:</strong> Erfolgserlebnisse sichern; Ergebnis muss sich lohnen.',
+          '<em>Im Fall:</em> Oft ist Z(uversicht) das Problem – gezielte kleine Erfolgserlebnisse zuerst.',
+        ]
+      },
+    ],
+    formulation: '„Im Unterricht setze ich drei Schwerpunkte: erstens lernförderliches Klima nach Helmke – Fehlerfreundlichkeit als Norm, nicht als Ausnahme. Zweitens überprüfe ich nach Deci und Ryan, welches Grundbedürfnis unterversorgt ist – meist Kompetenz oder Autonomie. Drittens lobe ich nach Dweck Anstrengung und Strategie, nicht Begabung, damit der Schüler ein Growth Mindset entwickeln kann."',
+    next: 5, prev: 3,
+    transitionTo: '→ All das dient einem übergeordneten Ziel – dem Bildungsauftrag, der tiefer liegt als jede Methode.',
+  },
+  // 5
+  {
+    id: 5, tag: '⑤ Grundlagen Pädagogik', color: 'var(--s5)', colorDim: 'var(--s5d)', colorBorder: 'var(--s5b)',
+    title: 'Mündigkeit & Werte',
+    subtitle: 'Einstiegsfrage: <em>„Was ist das übergeordnete pädagogische Ziel?" oder „Was verstehen Sie unter Bildung?"</em>',
+    einstieg: '🎓 Hier verankern wir das gesamte Handeln im Bildungsauftrag. Dieser Schüler ist nicht ein Problem zu lösen – er ist eine Person auf dem Weg zur Mündigkeit.',
+    theories: [
+      {
+        author: 'Kant', life: '1724–1804', name: 'Mündigkeit als oberstes Erziehungsziel', key: '„Sapere aude!"',
+        color: 'var(--s5)', colorDim: 'var(--s5d)', colorBorder: 'var(--s5b)',
+        points: [
+          '„Sapere aude!" – Habe den Mut, dich deines eigenen Verstandes zu bedienen.',
+          'Mündigkeit = Fähigkeit zum selbstständigen Denken, kritischen Urteilen, verantwortlichem Handeln.',
+          'Nicht Gehorsam ist das Ziel – sondern Autonomie.',
+          '<em>Konsequenz:</em> Alles, was ich tue – Gespräch, Unterricht, Klassenführung – dient letztlich der Mündigkeit dieses Schülers.',
+          'Disziplin als Selbstregulation, nicht als Fremdkontrolle – nach Kounin.',
+        ]
+      },
+      {
+        author: 'Humboldt', life: '1767–1835', name: 'Bildungsbegriff', key: 'Persönlichkeit, nicht Nützlichkeit',
+        color: 'var(--s5)', colorDim: 'var(--s5d)', colorBorder: 'var(--s5b)',
+        points: [
+          'Bildung als „Verknüpfung unseres Ich mit der Welt".',
+          'Nicht ökonomische Verwertbarkeit, sondern Persönlichkeitsentwicklung als Zentrum.',
+          'Bildung hat einen <strong>Eigenwert</strong> – unabhängig davon, ob sie nützlich ist.',
+          '<em>Spannungsfeld am Gymnasium:</em> Universität will Wissenschaftspropädeutik, Wirtschaft will Kompetenz, Schüler wollen Sinn – ich balanciere.',
+        ]
+      },
+      {
+        author: 'Klafki', life: '1927–2016', name: 'Kategoriale Bildung & Schlüsselprobleme', key: 'Das Einzelne erschließt das Allgemeine',
+        color: 'var(--s5)', colorDim: 'var(--s5d)', colorBorder: 'var(--s5b)',
+        points: [
+          '<strong>Kategoriale Bildung:</strong> Doppelseitiger Erschließungsprozess – das Allgemeine erschließt sich dem Subjekt, und das Subjekt erschließt sich das Allgemeine.',
+          '<strong>Exemplarisches Lernen:</strong> Das Einzelne (dieser Schüler, dieser Fall) erschließt das Allgemeine (Sozialisation, Gymnasium, Erziehungsauftrag).',
+          '<strong>Schlüsselprobleme:</strong> Soziale Ungleichheit, Ausgrenzung, Identitätsfindung – das sind keine abstrakten Themen; sie sind in diesem Klassenzimmer present.',
+          '<em>Prüfungskniff:</em> Den konkreten Fall als „Schlüssel" nutzen – er erschließt die gesamte pädagogische Theorie.',
+        ]
+      },
+      {
+        author: 'Art. 131 BV + Lind', life: 'Bayerische Verfassung / Moralkompetenz', name: 'Rechtlicher Bildungsauftrag & Moralentwicklung', key: 'Herz und Charakter bilden',
+        color: 'var(--s5)', colorDim: 'var(--s5d)', colorBorder: 'var(--s5b)',
+        points: [
+          '<strong>Art. 131 BV:</strong> „Schulen sollen nicht nur Wissen und Können vermitteln, sondern auch Herz und Charakter bilden."',
+          'Doppelter Auftrag: Qualifikation UND Persönlichkeitsbildung – ich lebe das im Umgang mit diesem Fall.',
+          '<strong>Lind – Moralkompetenz:</strong> Nicht Regelkonformität erzwingen, sondern Urteilsfähigkeit entwickeln.',
+          '<strong>Kohlberg – Dilemma-Methode:</strong> Moralisches Urteilen durch Diskussion fördern – nicht durch Dekret.',
+          '<strong>Wertevermittlung vs. Moralkompetenz:</strong> Direkte Wertevermittlung birgt das Risiko von Moralkonformismus ohne Einsicht.',
+        ]
+      },
+    ],
+    formulation: '„Das übergeordnete Ziel meines Handelns ist Mündigkeit im Sinne Kants – Sapere aude. Dieser Schüler soll nicht funktionieren, er soll selbst denken lernen. Bildung nach Humboldt hat einen Eigenwert, unabhängig von Verwertbarkeit. Der konkrete Fall erschließt nach Klafki das Allgemeine: Er zeigt mir, wo Sozialisation gelingt und wo sie Unterstützung braucht. Art. 131 der Bayerischen Verfassung verpflichtet mich dazu: Herz und Charakter bilden, nicht nur Wissen vermitteln."',
+    next: 6, prev: 4,
+    transitionTo: '→ Und ich tue das nicht allein – dieses Handeln ist eingebettet in eine Schulgemeinschaft, die ich aktiv nutzen muss.',
+  },
+  // 6
+  {
+    id: 6, tag: '⑥ Schulentwicklung', color: 'var(--s6)', colorDim: 'var(--s6d)', colorBorder: 'var(--s6b)',
+    title: 'Systemische Vernetzung',
+    subtitle: 'Einstiegsfrage: <em>„Wen würden Sie einbeziehen?" oder „Wie reflektieren Sie Ihr Handeln?"</em>',
+    einstieg: '🔗 Ich bin kein Einzelkämpfer. Professionelle Verantwortung bedeutet: Netzwerke nutzen, Grenzen kennen, Selbstfürsorge praktizieren.',
+    theories: [
+      {
+        author: 'Meyer', life: '2015', name: 'Drei Säulen der Schulentwicklung', key: 'Unterricht · Personal · Organisation',
+        color: 'var(--s6)', colorDim: 'var(--s6d)', colorBorder: 'var(--s6b)',
+        points: [
+          '<strong>Unterrichtsentwicklung:</strong> Dieser Fall informiert meine didaktische Weiterentwicklung – was lerne ich daraus für zukünftigen Unterricht?',
+          '<strong>Personalentwicklung:</strong> Kollegiale Fallbesprechung, Supervision – ich suche aktiv professionellen Austausch.',
+          '<strong>Organisationsentwicklung:</strong> Welche schulischen Strukturen unterstützen mich – und welche fehlen?',
+          '<em>Warum alle drei:</em> Nur Unterrichtsentwicklung → Insellösungen; nur Strukturen → leere Organisation; nur Fortbildung → wirkungslos ohne Transfer.',
+        ]
+      },
+      {
+        author: 'König & Schattenhofer', life: '—', name: 'Kollegiale Fallbesprechung', key: 'Forschende Haltung, Resonanzraum',
+        color: 'var(--s6)', colorDim: 'var(--s6d)', colorBorder: 'var(--s6b)',
+        points: [
+          'Fallberatung mit Kolleginnen und Kollegen → meine blinden Flecken werden sichtbar.',
+          '<strong>Forschende Haltung:</strong> Ich bringe den Fall ohne Vorannahme ein – nicht um Recht zu bekommen, sondern um zu lernen.',
+          '<strong>Resonanzraum:</strong> Emotionale Reaktionen der Gruppe zeigen, was im Fall mitschwingen könnte.',
+          'Supervision: bei anhaltend schwierigen Fällen professionelle externe Unterstützung suchen.',
+        ]
+      },
+      {
+        author: 'Antonovsky', life: '—', name: 'Salutogenese & Kohärenzgefühl', key: 'Was hält Lehrkräfte gesund?',
+        color: 'var(--s6)', colorDim: 'var(--s6d)', colorBorder: 'var(--s6b)',
+        points: [
+          '<strong>Verstehbarkeit:</strong> Ich verstehe, was auf mich zukommt – die Welt ist strukturiert und vorhersehbar.',
+          '<strong>Handhabbarkeit:</strong> Ich habe Ressourcen, damit umzugehen – ich bin nicht hilflos.',
+          '<strong>Sinnhaftigkeit:</strong> Es lohnt sich, Energie zu investieren – meine Arbeit hat Bedeutung.',
+          '<em>Konsequenz:</em> Selbstfürsorge ist keine Schwäche, sondern <strong>professionelle Verantwortung</strong>.',
+          'Eine erschöpfte Lehrkraft unterrichtet schlechter und modelliert: Selbstaufopferung ist normal.',
+        ]
+      },
+      {
+        author: 'Hillert / AGIL', life: '2016', name: 'Infernalisches Quartett der Stressentstehung', key: 'Un-Achtsamkeit · Un-Denkbarkeit · Un-Möglichkeit · Un-Erholung',
+        color: 'var(--s6)', colorDim: 'var(--s6d)', colorBorder: 'var(--s6b)',
+        points: [
+          '<strong>Un-Denkbarkeit erkennen:</strong> Welche alternativen Handlungsweisen schließe ich aus – obwohl sie helfen würden?',
+          '<strong>Un-Erholung:</strong> Regeneration nicht versagen – sie ist Teil der Professionalität.',
+          '<em>Konkretes Ziel:</em> 80% erreichbar, alltagsnah, positiv formuliert, in eigener Hand.',
+          'Frühwarnsignale erkennen: anhaltende Erschöpfung, Zynismus, Rückzug – frühzeitig Hilfe suchen.',
+        ]
+      },
+      {
+        author: 'Terhart / Baumert & Kunter', life: '2007/2006', name: 'Professionelle Kompetenz', key: 'Fachwissen · Fachdidaktik · päd. Wissen',
+        color: 'var(--s6)', colorDim: 'var(--s6d)', colorBorder: 'var(--s6b)',
+        points: [
+          'Professionalität beruht auf einer Mischung aus Wissen, Können und Haltung.',
+          '<strong>Pädagogisches Wissen, Fachdidaktik und Fachwissen</strong> müssen in der konkreten Situation zusammenwirken.',
+          'Reflexion der eigenen Rollenvorstellung ist Teil professioneller Kompetenz.',
+          '<em>Prüfungsrelevanz:</em> Ich zeige, dass ich nicht nur reagiere, sondern mein Handeln theoriegeleitet reflektiere.',
+        ]
+      },
+    ],
+    kooperation: {
+      items: [
+        { label: 'Beratungslehrkraft', desc: 'Bei tiefergehenden Problemen: Motivationsverlust mit psychischen Anzeichen, Rückzug, Ausgrenzung.' },
+        { label: 'Schulpsychologischer Dienst', desc: 'Bei Verdacht auf Mobbing, Depression, Essstörungen, familiäre Krisen.' },
+        { label: 'Elterngespräch (Hennig/Ehinger)', desc: 'Eltern als Partner, nicht Schuldige; Grundhaltungen respektieren; transparent kommunizieren.' },
+        { label: 'Kollegium', desc: 'Kollegiale Fallbesprechung; Jahrgangsteam; gemeinsame Strategien entwickeln.' },
+      ]
+    },
+    formulation: '„Ich handle nicht als Einzelkämpfer. Professionelle Verantwortung bedeutet: Netzwerke nutzen. Bei tiefergehenden Problemen ziehe ich die Beratungslehrkraft oder den Schulpsychologischen Dienst hinzu. Ich suche die kollegiale Fallbesprechung nach König und Schattenhofer, um meine blinden Flecken zu sehen. Und: Selbstfürsorge nach Antonovsky ist nicht Luxus – eine erschöpfte Lehrkraft unterrichtet schlechter. Das bringt mich zurück zu Station ①: zu einem neuen Gespräch mit dem Schüler – auf Augenhöhe, mit Würde und mit Richtung."',
+    next: null, prev: 5,
+    transitionTo: '↺ Und damit schließt sich das Karussell – zurück zu ①, zum nächsten Gespräch mit dem Schüler.',
+  },
+];
+
+// ── STATE ──────────────────────────────────────────────────────────────────
+let current = 0;
+let timerInterval = null;
+let timerSeconds = 600;
+let timerRunning = false;
+
+// ── TIMER ──────────────────────────────────────────────────────────────────
+function toggleTimer() {
+  const btn = document.getElementById('timer-btn');
+  if (timerRunning) {
+    clearInterval(timerInterval);
+    timerRunning = false;
+    btn.textContent = '⏱ Timer';
+    btn.classList.remove('active');
+  } else {
+    timerSeconds = 600;
+    updateTimerDisplay();
+    timerRunning = true;
+    btn.textContent = '◼ Stop';
+    btn.classList.add('active');
+    timerInterval = setInterval(() => {
+      timerSeconds--;
+      updateTimerDisplay();
+      if (timerSeconds <= 0) {
+        clearInterval(timerInterval);
+        timerRunning = false;
+        btn.textContent = '⏱ Timer';
+        btn.classList.remove('active');
+        document.getElementById('timer-display').textContent = 'Zeit!';
+        document.getElementById('timer-display').style.color = 'var(--s6)';
+      }
+    }, 1000);
+  }
+}
+function updateTimerDisplay() {
+  const m = Math.floor(timerSeconds / 60);
+  const s = timerSeconds % 60;
+  document.getElementById('timer-display').textContent = `${m}:${s.toString().padStart(2,'0')}`;
+  const ratio = timerSeconds / 600;
+  document.getElementById('timer-display').style.color = ratio > 0.4 ? 'var(--accent)' : ratio > 0.15 ? '#f59e0b' : 'var(--s6)';
+}
+
+// ── NAVIGATION ──────────────────────────────────────────────────────────────
+function goTo(idx) {
+  current = idx;
+  document.querySelectorAll('.station-btn').forEach(b => {
+    b.classList.toggle('active', parseInt(b.dataset.s) === idx);
+  });
+  render();
+  document.getElementById('main-content').scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({ top: 0 });
+}
+
+function toggleCard(card) {
+  card.classList.toggle('open');
+}
+
+// ── RENDER ──────────────────────────────────────────────────────────────────
+function render() {
+  const el = document.getElementById('main-content');
+  if (current === 0) { el.innerHTML = renderOverview(); return; }
+  const s = STATIONS[current];
+  el.innerHTML = renderStation(s);
+}
+
+function renderOverview() {
+  return `
+  <div class="station-header" style="animation:fadeUp 0.3s ease">
+    <div class="station-tag" style="color:var(--accent);border-color:var(--accent-border);background:var(--accent-dim)">Pädagogik-Karussell · Prüfungsvorbereitung</div>
+    <h1 class="station-title">Das Karussell</h1>
+    <p class="station-subtitle">6 Stationen, kreisförmig verbunden. Je nach Einstiegsfrage beginnst du an einer anderen Station und läufst den Kreis durch.</p>
+  </div>
+  <div class="carousel-hint" style="margin-bottom:32px">
+    <strong>Grundprinzip der kreisförmigen Argumentation</strong>
+    Egal wo du einsteigst – du hast immer einen Übergang zur nächsten Station. So kannst du nach 10 Minuten zum Ausgangspunkt zurückkehren, ohne abgehackt zu wirken. Die Prüferin hört: strukturiertes, theoriegeleitetes Denken.
+  </div>
+  <div class="overview-grid">
+    ${STATIONS.slice(1).map(s => `
+    <div class="overview-card" onclick="goTo(${s.id})">
+      <div class="ov-tag" style="color:${s.color}">
+        <span class="ov-num" style="color:${s.color};border-color:${s.colorBorder};background:${s.colorDim}">${s.id}</span>
+        ${s.tag.replace(/^[⑥⑤④③②①] /, '')}
+      </div>
+      <div class="ov-title">${s.title}</div>
+      <div class="ov-authors">${s.theories.map(t => t.author).join(' · ')}</div>
+    </div>`).join('')}
+  </div>
+  <div class="section">
+    <div class="section-label">Einstiegsfragen → Station</div>
+    <div class="table-wrap">
+      <table class="info-table">
+        <thead><tr><th>Prüfungsfrage</th><th>Einstieg bei</th></tr></thead>
+        <tbody>
+          <tr><td>„Was würden Sie zuerst zum Schüler sagen?" ⭐</td><td style="cursor:pointer;color:var(--s1)" onclick="goTo(1)">① Gesprächseinstieg</td></tr>
+          <tr><td>„Welche Bedeutung hat die Lehrer-Schüler-Beziehung?"</td><td style="cursor:pointer;color:var(--s2)" onclick="goTo(2)">② Diagnose & Gespräch</td></tr>
+          <tr><td>„Welche Rolle spielt die Klasse als Gruppe?"</td><td style="cursor:pointer;color:var(--s3)" onclick="goTo(3)">③ Klassendynamik</td></tr>
+          <tr><td>„Was würden Sie im Unterricht konkret ändern?"</td><td style="cursor:pointer;color:var(--s4)" onclick="goTo(4)">④ Unterricht anpassen</td></tr>
+          <tr><td>„Was ist das übergeordnete Ziel?" / „Was ist Bildung?"</td><td style="cursor:pointer;color:var(--s5)" onclick="goTo(5)">⑤ Mündigkeit & Werte</td></tr>
+          <tr><td>„Wen würden Sie einbeziehen?" / „Wie reflektieren Sie?"</td><td style="cursor:pointer;color:var(--s6)" onclick="goTo(6)">⑥ System. Vernetzung</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="nav-footer">
+    <button class="nav-arrow" disabled>← Zurück</button>
+    <div class="nav-dots">${[0,1,2,3,4,5,6].map(i=>`<div class="nav-dot${i===0?' active':''}" onclick="goTo(${i})"></div>`).join('')}</div>
+    <button class="nav-arrow" onclick="goTo(1)">① Einstieg →</button>
+  </div>`;
+}
+
+function renderStation(s) {
+  const badge = (t) => `
+  <div class="theory-card" id="card-${s.id}-${t.author.replace(/\W/g,'')}">
+    <div class="theory-card-header" onclick="toggleCard(this.parentElement)">
+      <div class="theory-left">
+        <div class="theorist-badge" style="color:${t.color};border-color:${t.colorBorder};background:${t.colorDim}">${t.author}</div>
+        <div>
+          <div class="theory-name">${t.name}</div>
+          <div class="theory-key">${t.key}</div>
+        </div>
+      </div>
+      <span class="toggle-icon">+</span>
+    </div>
+    <div class="theory-body">
+      <ul>${t.points.map(p=>`<li>${p}</li>`).join('')}</ul>
+    </div>
+  </div>`;
+
+  let extra = '';
+
+  // Station-specific extras
+  if (s.rahmen) {
+    extra += `<div class="section"><div class="section-label">Rahmenbedingungen</div><div class="table-wrap"><table class="info-table"><tbody>${s.rahmen.items.map(i=>`<tr><td>${i.label}</td><td>${i.desc}</td></tr>`).join('')}</tbody></table></div></div>`;
+  }
+  if (s.palzkill) {
+    extra += `<div class="section"><div class="section-label">Musterverlauf A – Palzkill (Fördergespräch)</div><div class="steps">${s.palzkill.steps.map(st=>`<div class="step"><div class="step-num">${st.num}</div><div class="step-content"><div class="step-title">${st.title}</div><div class="step-desc">${st.desc}</div><div class="step-example">${st.example}</div></div></div>`).join('')}</div></div>`;
+  }
+  if (s.table) {
+    extra += `<div class="section"><div class="section-label">${s.table.title}</div><div class="table-wrap"><table class="info-table"><thead><tr>${s.table.headers.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${s.table.rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table></div></div>`;
+  }
+  if (s.diagnoseFehler) {
+    extra += `<div class="section"><div class="section-label">Typische Diagnosefehler – und Gegenmittel</div><div class="table-wrap"><table class="info-table"><tbody>${s.diagnoseFehler.map(f=>`<tr><td>${f.label}</td><td>${f.desc}</td></tr>`).join('')}</tbody></table></div></div>`;
+  }
+  if (s.lernsit) {
+    extra += `<div class="section"><div class="section-label">Lernsituation vs. Leistungssituation</div><div class="quote-block"><blockquote>${s.lernsit}</blockquote></div></div>`;
+  }
+  if (s.proaktiv) {
+    extra += `<div class="section"><div class="section-label">${s.proaktiv.title}</div><div class="table-wrap"><table class="info-table"><tbody>${s.proaktiv.items.map(i=>`<tr><td>${i.label}</td><td>${i.desc}</td></tr>`).join('')}</tbody></table></div></div>`;
+  }
+  if (s.kooperation) {
+    extra += `<div class="section"><div class="section-label">Kooperationspartner einbeziehen</div><div class="table-wrap"><table class="info-table"><tbody>${s.kooperation.items.map(i=>`<tr><td>${i.label}</td><td>${i.desc}</td></tr>`).join('')}</tbody></table></div></div>`;
+  }
+
+  return `
+  <div class="station-header">
+    <div class="station-tag" style="color:${s.color};border-color:${s.colorBorder};background:${s.colorDim}">${s.tag}</div>
+    <h1 class="station-title">${s.title}</h1>
+    <p class="station-subtitle">${s.subtitle}</p>
+  </div>
+  <div class="einstieg-banner">
+    <span class="icon">📌</span>
+    <span>${s.einstieg}</span>
+  </div>
+  <div class="section">
+    <div class="section-label">Theorien & Autoren – aufklappen für Details</div>
+    <div class="theory-grid">${s.theories.map(t=>badge(t)).join('')}</div>
+  </div>
+  ${extra}
+  <div class="section">
+    <div class="section-label">Prüfungsformulierung – wörtlich einsetzbar</div>
+    <div class="formulation">
+      <div class="formulation-label">Muster-Antwort Station ${s.id}</div>
+      <p>${s.formulation}</p>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-label">Übergang zur nächsten Station</div>
+    <div class="quote-block" style="border-left-color:${s.color}">
+      <blockquote style="font-style:normal;font-family:'DM Mono',monospace;font-size:13px;color:${s.color}">${s.transitionTo}</blockquote>
+    </div>
+  </div>
+  <div class="nav-footer">
+    <button class="nav-arrow" onclick="goTo(${s.prev ?? 0})" ${s.prev == null ? 'disabled' : ''}>← ${s.prev != null ? 'Station ' + s.prev : 'Übersicht'}</button>
+    <div class="nav-dots">${[0,1,2,3,4,5,6].map(i=>`<div class="nav-dot${i===current?' active':''}" onclick="goTo(${i})"></div>`).join('')}</div>
+    <button class="nav-arrow" onclick="goTo(${s.next ?? 0})" ${s.next == null ? '' : ''}>
+      ${s.next != null ? 'Station ' + s.next + ' →' : '↺ Übersicht →'}
+    </button>
+  </div>`;
+}
+
+// ── INIT ───────────────────────────────────────────────────────────────────
+render();
+document.querySelectorAll('.station-btn').forEach(b => {
+  b.classList.toggle('active', parseInt(b.dataset.s) === 0);
+});
+</script>
+</body>
+</html>

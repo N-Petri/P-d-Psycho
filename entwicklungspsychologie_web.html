@@ -83,34 +83,23 @@ ul.pl{list-style:none;padding:0;}
 ul.pl li{font-size:13.5px;padding:2.5px 0 2.5px 13px;position:relative;color:#2c2825;}
 ul.pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
 .note{font-size:12px;color:var(--mut);font-style:italic;margin-top:8px;padding-top:7px;border-top:1px solid var(--brd);}
-/* audio */
-.audio-bar{position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(20,20,25,.96);backdrop-filter:blur(10px);border-top:1px solid rgba(255,255,255,.12);padding:10px 24px 12px;transform:translateY(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);}
-.audio-bar.visible{transform:translateY(0);}
-.audio-inner{max-width:1100px;margin:0 auto;}
-.audio-top{display:flex;align-items:center;gap:14px;margin-bottom:8px;}
-.apb{width:36px;height:36px;border-radius:50%;border:none;cursor:pointer;background:var(--acc);color:white;font-size:15px;display:flex;align-items:center;justify-content:center;transition:transform .15s;flex-shrink:0;}
-.apb:hover{transform:scale(1.08);}
-.ainfo{flex:1;min-width:0;}
-.ach{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.5);}
-.atit{font-size:13px;font-weight:600;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.atime{font-size:12px;color:rgba(255,255,255,.45);font-variant-numeric:tabular-nums;flex-shrink:0;}
-.acb{width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,255,255,.2);cursor:pointer;background:transparent;color:rgba(255,255,255,.5);font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;}
-.acb:hover{background:rgba(255,255,255,.1);color:white;}
-.aprog{width:100%;height:4px;border-radius:2px;cursor:pointer;appearance:none;outline:none;accent-color:var(--acc);}
-.aprog::-webkit-slider-thumb{appearance:none;width:14px;height:14px;border-radius:50%;background:var(--acc);cursor:pointer;margin-top:-5px;}
-.aprog::-webkit-slider-runnable-track{height:4px;border-radius:2px;background:rgba(255,255,255,.15);}
-.ahp{margin-top:22px;background:var(--sur);border:1px solid var(--brd);border-radius:12px;padding:16px 20px;box-shadow:var(--sh);}
-.ahph{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
-.ahpi{font-size:22px;}
-.ahpl{font-family:'Lora',serif;font-size:15px;font-weight:700;}
-.ahps{font-size:11px;color:var(--mut);margin-top:1px;}
-.ahppb{width:38px;height:38px;border-radius:50%;border:none;cursor:pointer;background:var(--acc);color:white;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;margin-left:auto;}
-.ahppb:hover{transform:scale(1.05);}
-.ahppr{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
-.ahpt{font-size:11px;color:var(--mut);font-variant-numeric:tabular-nums;white-space:nowrap;}
-.ahpsk{flex:1;height:4px;border-radius:2px;cursor:pointer;accent-color:var(--acc);}
-.ahpch{display:flex;flex-wrap:wrap;gap:5px;}
-.chbtn{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;border:1px solid var(--brd);background:var(--sur2);color:var(--mut);cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif;}
+/* ── PODCAST PLAYER ── */
+.podcast-player{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;background:#fff;border:1px solid var(--brd);border-radius:14px;padding:14px 18px;margin-top:20px;box-shadow:0 2px 12px rgba(0,0,0,.06);}
+.pp-left{display:flex;align-items:center;gap:12px;flex:1;min-width:0;}
+.pp-icon{font-size:26px;flex-shrink:0;}
+.pp-meta{min-width:0;}
+.pp-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--acc);margin-bottom:1px;}
+.pp-title{font-family:'Lora',serif;font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pp-duration{font-size:11px;color:var(--mut);}
+.pp-controls{display:flex;align-items:center;gap:6px;}
+.pp-play{width:40px;height:40px;border-radius:50%;background:var(--acc);border:none;color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .15s,opacity .15s;flex-shrink:0;}
+.pp-play:hover{opacity:.85;transform:scale(1.05);}
+.pp-skip{background:none;border:1px solid var(--brd);border-radius:20px;font-size:11px;font-weight:600;color:var(--mut);padding:4px 9px;cursor:pointer;white-space:nowrap;transition:background .15s;}
+.pp-skip:hover{background:var(--sur2);}
+.pp-progress-wrap{display:flex;align-items:center;gap:8px;width:100%;order:99;}
+.pp-bar{flex:1;-webkit-appearance:none;height:4px;border-radius:2px;background:#e5e0d8;cursor:pointer;accent-color:var(--acc);}
+.pp-bar::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--acc);cursor:pointer;}
+.pp-time{font-size:11px;color:var(--mut);font-variant-numeric:tabular-nums;min-width:30px;}
 
 
 /* reveal */
@@ -171,18 +160,6 @@ ul.th-pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
   </div>
 </div>
 
-<audio id="mainAudio" preload="none"><source src="hoerbuch_entwicklungspsychologie.mp3" type="audio/mpeg"></audio>
-<div class="audio-bar" id="audioBar">
-  <div class="audio-inner">
-    <div class="audio-top">
-      <button class="apb" id="barPlayBtn" onclick="togglePlay()">▶</button>
-      <div class="ainfo"><div class="ach" id="barCh">Hörbuch</div><div class="atit" id="barTit">Entwicklungspsychologie</div></div>
-      <div class="atime" id="barTime">0:00 / 0:00</div>
-      <button class="acb" onclick="closeBar()">×</button>
-    </div>
-    <input type="range" class="aprog" id="audioProgress" value="0" min="0" step="0.1">
-  </div>
-</div>
 
 <nav class="nav">
   <div class="nav-inner">
@@ -210,10 +187,26 @@ ul.th-pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
     <span class="thb" style="color:#b45309;border-color:#b45309;">Havighurst <span class="thby">1900–1991</span></span>
     <span class="thb" style="color:#be123c;border-color:#be123c;">Resch <span class="thby">Störungsmodell</span></span>
   </div>
-  <div class="ahp">
-    <div class="ahph"><span class="ahpi">🎧</span><div><div class="ahpl">Hörbuch: Entwicklungspsychologie</div><div class="ahps">ca. 40 Minuten · 10 Kapitel · alle Fachbegriffe erklärt</div></div><button class="ahppb" id="heroPlayBtn" onclick="togglePlay()">▶</button></div>
-    <div class="ahppr"><span class="ahpt" id="heroTime">0:00</span><input type="range" class="ahpsk" id="heroSeek" value="0" min="0" step="0.1"><span class="ahpt" id="heroDur">40:14</span></div>
-    <div class="ahpch" id="chBtns"></div>
+  <div class="podcast-player">
+    <div class="pp-left">
+      <div class="pp-icon">🎧</div>
+      <div class="pp-meta">
+        <div class="pp-label">Zusammenfassender Podcast</div>
+        <div class="pp-title">Entwicklungspsychologie</div>
+        <div class="pp-duration">29:00 min</div>
+      </div>
+    </div>
+    <audio id="pp-audio" src="hoerbuch_entwicklungspsychologie.m4a" preload="none"></audio>
+    <div class="pp-controls">
+      <button class="pp-skip" onclick="document.getElementById('pp-audio').currentTime-=15">⟨ 15s</button>
+      <button class="pp-play" id="pp-btn" onclick="togglePodcast()">▶</button>
+      <button class="pp-skip" onclick="document.getElementById('pp-audio').currentTime+=30">30s ⟩</button>
+    </div>
+    <div class="pp-progress-wrap">
+      <span class="pp-time" id="pp-cur">0:00</span>
+      <input class="pp-bar" id="pp-bar" type="range" min="0" max="1740" value="0" step="1" oninput="seekPodcast(this.value)">
+      <span class="pp-time" id="pp-total">29:00</span>
+    </div>
   </div>
 </header>
 
@@ -545,32 +538,12 @@ ul.th-pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
 </footer>
 
 <script>
-const ACCENT='#c2410c';
-const CHAPTERS=[{key:'intro',title:'Einleitung',start:0,duration:55.5},{key:'ch1',title:'Kohlberg – Moralische Entwicklung',start:55.5,duration:384.2},{key:'ch2',title:'Erikson – Psychosoziale Entwicklung',start:439.7,duration:297.7},{key:'ch3',title:'Piaget – Kognitive Entwicklung',start:737.4,duration:258.1},{key:'ch4',title:'Havighurst – Entwicklungsaufgaben',start:995.5,duration:268.6},{key:'ch5',title:'Pubertät – Körper und Geist',start:1264.1,duration:297.8},{key:'ch6',title:'Sozialisation im Jugendalter',start:1561.9,duration:183.1},{key:'ch7',title:'Bewältigungsstrategien',start:1745.1,duration:239.3},{key:'ch8',title:'Warnsignale und Störungsbilder',start:1984.3,duration:343.3},{key:'outro',title:'Abschluss',start:2327.6,duration:86.5}];
-function toggle(item){const b=item.querySelector('.abody'),o=item.classList.contains('open');item.classList.toggle('open',!o);b.classList.toggle('open',!o);}
-function scrollTo(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
-const audio=document.getElementById('mainAudio'),bar=document.getElementById('audioBar');
-const bpb=document.getElementById('barPlayBtn'),hpb=document.getElementById('heroPlayBtn');
-const btit=document.getElementById('barTit'),bch=document.getElementById('barCh'),btm=document.getElementById('barTime');
-const ap=document.getElementById('audioProgress'),hs=document.getElementById('heroSeek');
-const htm=document.getElementById('heroTime'),hdr=document.getElementById('heroDur');
-const cbe=document.getElementById('chBtns');
-CHAPTERS.forEach(ch=>{const btn=document.createElement('button');btn.className='chbtn';btn.id='cb-'+ch.key;btn.textContent=ch.title;btn.onclick=()=>playChapter(ch.key);cbe.appendChild(btn);});
-function fmt(s){const m=Math.floor(s/60),sec=Math.floor(s%60);return m+':'+String(sec).padStart(2,'0');}
-function curCh(){const t=audio.currentTime;for(let i=CHAPTERS.length-1;i>=0;i--)if(t>=CHAPTERS[i].start)return CHAPTERS[i];return CHAPTERS[0];}
-function ui(){const t=audio.currentTime,d=audio.duration||0,ch=curCh();
-  btit.textContent=ch.title;bch.textContent='Hörbuch · '+(CHAPTERS.indexOf(ch)+1)+'/'+CHAPTERS.length;
-  btm.textContent=fmt(t)+' / '+fmt(d);ap.max=d;ap.value=t;
-  htm.textContent=fmt(t);if(d)hdr.textContent=fmt(d);hs.max=d;hs.value=t;
-  document.querySelectorAll('.chbtn').forEach(b=>{const a=b.id==='cb-'+ch.key&&!audio.paused;b.style.background=a?ACCENT:'';b.style.color=a?'white':'';b.style.borderColor=a?ACCENT:'';});
-
-  bpb.textContent=audio.paused?'▶':'⏸';hpb.textContent=audio.paused?'▶':'⏸';}
-function playChapter(key){const ch=CHAPTERS.find(c=>c.key===key);if(!ch)return;if(!audio.paused&&curCh().key===key){audio.pause();return;}audio.currentTime=ch.start;audio.play();bar.classList.add('visible');ui();}
-function togglePlay(){if(audio.paused){audio.play();bar.classList.add('visible');}else audio.pause();}
-function closeBar(){audio.pause();bar.classList.remove('visible');ui();}
-audio.addEventListener('timeupdate',ui);audio.addEventListener('play',ui);audio.addEventListener('pause',ui);
-ap.addEventListener('input',()=>{audio.currentTime=ap.value;});
-hs.addEventListener('input',()=>{audio.currentTime=hs.value;});
+var _aud=document.getElementById('pp-audio'),_btn=document.getElementById('pp-btn'),_bar=document.getElementById('pp-bar'),_cur=document.getElementById('pp-cur'),_tot=document.getElementById('pp-total');
+function fmt(s){var m=Math.floor(s/60);return m+':'+(Math.floor(s%60)+'').padStart(2,'0');}
+function togglePodcast(){if(_aud.paused){_aud.play();_btn.textContent='⏸';}else{_aud.pause();_btn.textContent='▶';}}
+function seekPodcast(v){_aud.currentTime=v;}
+_aud.addEventListener('timeupdate',function(){_bar.value=Math.floor(_aud.currentTime);_cur.textContent=fmt(_aud.currentTime);});
+_aud.addEventListener('ended',function(){_btn.textContent='▶';_bar.value=0;_cur.textContent='0:00';});
 const secs=document.querySelectorAll('.section'),nbs=document.querySelectorAll('.nb');
 secs.forEach(s=>new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){const i=Array.from(secs).indexOf(en.target);nbs.forEach((b,j)=>{b.style.background=j===i?ACCENT:'';b.style.color=j===i?'white':'';})}});},{threshold:0.25}).observe(s));
 document.querySelectorAll('.reveal').forEach(el=>new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('visible');});},{threshold:0.08}).observe(el));

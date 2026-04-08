@@ -77,6 +77,24 @@ ul.pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .5s,transform .5s;}
 .reveal.visible{opacity:1;transform:none;}
 @media(max-width:640px){.hero,.main{padding-left:18px;padding-right:18px;}.nav{padding:0 18px;}.cg,.cg.wide{grid-template-columns:1fr;}.cmp{grid-template-columns:1fr;}.ac{padding-left:18px;}.thgrid{grid-template-columns:1fr 1fr;}}
+
+/* ── PODCAST PLAYER ── */
+.podcast-player{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;background:#fff;border:1px solid var(--brd);border-radius:14px;padding:14px 18px;margin-top:20px;box-shadow:0 2px 12px rgba(0,0,0,.06);}
+.pp-left{display:flex;align-items:center;gap:12px;flex:1;min-width:0;}
+.pp-icon{font-size:26px;flex-shrink:0;}
+.pp-meta{min-width:0;}
+.pp-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--acc);margin-bottom:1px;}
+.pp-title{font-family:'Lora',serif;font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pp-duration{font-size:11px;color:var(--mut);}
+.pp-controls{display:flex;align-items:center;gap:6px;}
+.pp-play{width:40px;height:40px;border-radius:50%;background:var(--acc);border:none;color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .15s,opacity .15s;flex-shrink:0;}
+.pp-play:hover{opacity:.85;transform:scale(1.05);}
+.pp-skip{background:none;border:1px solid var(--brd);border-radius:20px;font-size:11px;font-weight:600;color:var(--mut);padding:4px 9px;cursor:pointer;white-space:nowrap;transition:background .15s;}
+.pp-skip:hover{background:var(--sur2);}
+.pp-progress-wrap{display:flex;align-items:center;gap:8px;width:100%;order:99;}
+.pp-bar{flex:1;-webkit-appearance:none;height:4px;border-radius:2px;background:#e5e0d8;cursor:pointer;accent-color:var(--acc);}
+.pp-bar::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--acc);cursor:pointer;}
+.pp-time{font-size:11px;color:var(--mut);font-variant-numeric:tabular-nums;min-width:30px;}
 </style>
 </head>
 <body>
@@ -90,7 +108,6 @@ ul.pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
     <button class="nb" onclick="scrollTo('s4')">Erziehungspartnerschaft</button>
     <button class="nb" onclick="scrollTo('s5')">Heterogenität &amp; Inklusion</button>
     <button class="nb" onclick="scrollTo('s6')">Digitale Bildung</button>
-    <button class="nb" onclick="scrollTo('s7')">Berufliche Orientierung</button>
   </div>
 </nav>
 
@@ -103,6 +120,27 @@ ul.pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
     <span class="thb" style="color:#0369a1;border-color:#0369a1;">Kant · Humboldt · Klafki <span class="thby">Bildungstheorien</span></span>
     <span class="thb" style="color:#15803d;border-color:#15803d;">Erziehungspartnerschaft <span class="thby">Eltern &amp; Schule</span></span>
     <span class="thb" style="color:#b45309;border-color:#b45309;">Heterogenität &amp; Inklusion <span class="thby">Vielfalt gestalten</span></span>
+  </div>
+  <div class="podcast-player">
+    <div class="pp-left">
+      <div class="pp-icon">🎧</div>
+      <div class="pp-meta">
+        <div class="pp-label">Zusammenfassender Podcast</div>
+        <div class="pp-title">Grundlagen der Pädagogik</div>
+        <div class="pp-duration">29:01 min</div>
+      </div>
+    </div>
+    <audio id="pp-audio" src="hoerbuch_Grundlagen.m4a" preload="none"></audio>
+    <div class="pp-controls">
+      <button class="pp-skip" onclick="document.getElementById('pp-audio').currentTime-=15" title="15s zurück">⟨ 15s</button>
+      <button class="pp-play" id="pp-btn" onclick="togglePodcast()">▶</button>
+      <button class="pp-skip" onclick="document.getElementById('pp-audio').currentTime+=30" title="30s vor">30s ⟩</button>
+    </div>
+    <div class="pp-progress-wrap">
+      <span class="pp-time" id="pp-cur">0:00</span>
+      <input class="pp-bar" id="pp-bar" type="range" min="0" max="1741" value="0" step="1" oninput="seekPodcast(this.value)">
+      <span class="pp-time">29:01</span>
+    </div>
   </div>
 </header>
 
@@ -286,41 +324,6 @@ ul.pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
 
     <div class="card" style="border-top-color:#15803d;">
       <div class="ch"><h3 style="color:#15803d;">🏫 Schule als System — aus pädagogischer Sicht</h3><div class="csub">Systemtheorie · Fächerübergreifende Ziele</div></div>
-      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#dcfce7;color:#15803d;">📋</div><div class="al">Möglichkeiten der Kontakt- und Beziehungspflege</div><span class="aico">▾</span></div>
-      <div class="abody"><div class="ac">
-        <div class="ex">Erziehungsberechtigte einzubinden bedeutet, ihnen echte Partizipation zu ermöglichen — eine Verzahnung der Lebenswelten Schule und Familie. Die BaySchO (§12–18) regelt dabei Sprechstunden, Elternsprechtage und Klassenelternversammlungen als Grundrahmen.</div>
-        <div class="fb"><div class="fl">🔑 Kollektive Kontaktmöglichkeiten</div>Neben dem gesetzlich geregelten Rahmen können Schulen eine Vielzahl zusätzlicher Angebote machen:
-          <ul class="pl" style="margin-top:6px;">
-            <li><strong>Themenabende &amp; Elterntraining</strong> — z.B. Sprachen-/Zweigwahl, Methodentraining, Mediennutzung, Pubertät</li>
-            <li><strong>Rundbriefe, Infoportal, ESIS</strong> — kurze digitale Kommunikationswege</li>
-            <li><strong>Stammtisch, Schulfeste, Spiele- und Bastelnachmittage</strong> (Unterstufe)</li>
-            <li><strong>Tür- und Angelgespräche</strong> als Zeichen spontaner Hilfsbereitschaft</li>
-            <li><strong>Eltern als außerschulische Experten</strong> — berufliche Kompetenzen bei Projekttagen, Exkursionen oder einer P-Seminar-Berufsmesse einbringen</li>
-          </ul>
-        </div>
-        <div class="fb"><div class="fl">🔑 Individuelle Kontaktmöglichkeiten</div>Über reguläre Sprechstunden hinaus ist Flexibilität gefragt: kurze Kommunikationswege (telefonisch, dienstliche E-Mail, Hausaufgabenheft) unter Berücksichtigung der Lebens- und Arbeitsbedingungen der Eltern — ohne Verpflichtung zur grenzenlosen Verfügbarkeit.</div>
-        <div class="ebox"><div class="el">🔑 Leitlinien: AKZENT Elternarbeit (2014)</div>
-          <strong>Gemeinschaft</strong> — Alle Eltern fühlen sich als Teil der Schulgemeinschaft wertgeschätzt.<br>
-          <strong>Kommunikation</strong> — Eltern und Lehrkräfte informieren einander proaktiv, nicht erst auf Nachfrage.<br>
-          <strong>Kooperation</strong> — Gemeinsam und kontinuierlich am Erziehungs- und Bildungserfolg arbeiten.<br>
-          <strong>Mitsprache</strong> — Eltern nehmen rechtlich geregelte Mitsprache-Möglichkeiten wahr.
-        </div>
-        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Bei sprachlichen Barrieren haben sich Schülerinnen und Schüler als Dolmetscher, mehrsprachige Infoblätter und Elterntandems bewährt. Bei heikleren Themen jedoch immer Datenschutz und kulturell bedingte Übersetzungsfreiheiten mitdenken. Über allen Kontaktmöglichkeiten steht die <strong>Schülerorientierung</strong>: Die Betroffenen sollten stets über Inhalte von Elterngesprächen und getroffene Absprachen informiert werden.</div>
-      </div></div></div>
-
-      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#dcfce7;color:#15803d;">🧩</div><div class="al">Grundhaltungen von Eltern — Transaktionsanalyse (Berne)</div><span class="aico">▾</span></div>
-      <div class="abody"><div class="ac">
-        <div class="fb"><div class="fl">🔑 Theoretischer Hintergrund</div>Bezugnehmend auf die Transaktionsanalyse von Eric Berne (1910–1970) lassen sich Eltern nach ihren Ich-Zuständen unterscheiden. Im <strong>Kind-Ich</strong> verhaftet, erwarten sie Lösungen von der Lehrkraft ohne Eigenverantwortung zu übernehmen → benötigen Bestärkung und Empowerment. Im <strong>Eltern-Ich</strong> artikulieren sie Kritik oder Forderungen sehr direkt → erfordern größtmögliche Professionalität in der Gesprächsführung.</div>
-        <div class="ex">Hennig/Ehinger (2016) unterscheiden neben der kooperativen Haltung folgende potenziell problematischen Grundhaltungen:</div>
-        <div class="stufe"><div class="snum" style="background:#dcfce7;color:#15803d;">👥</div><div class="sbody"><strong>Kooperative Haltung</strong> — Konstruktive Zusammenarbeit im Sinne des Kindes; Idealfall für die Erziehungspartnerschaft.</div></div>
-        <div class="stufe"><div class="snum" style="background:#fff1f2;color:#be123c;">⚡</div><div class="sbody"><strong>Anklagende</strong> — Sehen ein Problem, das andere verursacht haben; wollen selbst nichts zur Verbesserung beitragen.</div></div>
-        <div class="stufe"><div class="snum" style="background:#fef3c7;color:#b45309;">🕊️</div><div class="sbody"><strong>Beschwichtigende / Besänftigende</strong> — Möchten die Lehrkraft versöhnlich stimmen, ohne echte Auseinandersetzung zu suchen.</div></div>
-        <div class="stufe"><div class="snum" style="background:#e0f2fe;color:#0369a1;">🔬</div><div class="sbody"><strong>Rationalisierende / Intellektualisierende</strong> — Verharmlosen etwaige Probleme durch abstrahierende Argumentation.</div></div>
-        <div class="stufe"><div class="snum" style="background:#f5f3ff;color:#7c3aed;">🌀</div><div class="sbody"><strong>Ablenkende / Ausweichende</strong> — Wollen die wahre Problematik nicht sehen und weichen dem eigentlichen Thema aus.</div></div>
-        <div class="fb" style="margin-top:8px;"><div class="fl">🔑 Kontakttypen nach Sacher (2014)</div>Sacher unterscheidet — sowohl bei Eltern als auch bei Lehrkräften — nach Kontaktbereitschaft: <strong>Kontaktunwillige</strong> · <strong>Reservierte</strong> · <strong>Sparsame</strong> · <strong>Aufgeschlossene</strong>. Diese Typen bedingen sich bis zu einem gewissen Grad wechselseitig.</div>
-        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Ich-Botschaften können in konfliktreichen Gesprächen Wunder bewirken: „Ihr Vorwurf der ungerechten Bewertung betrifft mich sehr, da ich bei meinen Korrekturen besonders auf Gleichbehandlung achte." Eltern hinter der kritischen Äußerung als Experten für ihr Kind wahrnehmen — Was ist das eigentliche Anliegen?</div>
-      </div></div></div>
-
       <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#dcfce7;color:#15803d;">⚙️</div><div class="al">Fächerübergreifende Bildungs- und Erziehungsziele</div><span class="aico">▾</span></div>
       <div class="abody"><div class="ac">
         <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Fächerübergreifende Bildungsziele</span> — Ziele, die nicht einem einzelnen Fach zugeordnet sind, sondern in allen Fächern verfolgt werden: Politische Bildung, Medienkompetenz, Gesundheitserziehung, Berufs- und Lebensorientierung, Bildung für nachhaltige Entwicklung, interkulturelle Bildung.</div>
@@ -358,18 +361,6 @@ ul.pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
           <div class="ci"><div class="cil" style="color:#15803d;">Inklusion</div>System wird so umgestaltet, dass es alle aufnehmen kann. Individuelle Lernpläne, barrierefreie Materialien, Teamteaching.</div>
         </div>
         <div class="ebox"><div class="el">🏫 Inklusion am Gymnasium</div>Inklusion am Gymnasium bedeutet: Zusammenarbeit mit Sonderpädagogen, individuelle Lernzielvereinbarungen, differenzierte Leistungserhebungen (Nachteilsausgleich), barrierefreie Unterrichtsmaterialien, Sensibilisierung aller Beteiligten.</div>
-      </div></div></div>
-
-      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fef3c7;color:#b45309;">🗂️</div><div class="al">Formen der Inklusion in Bayern — Organisationsmodelle</div><span class="aico">▾</span></div>
-      <div class="abody"><div class="ac">
-        <div class="ex">Bayern setzt Inklusion im Rahmen des differenzierten Schulsystems um und verfolgt dabei einen Weg durch eine <strong>Vielfalt schulischer Angebote</strong> — neben den weiterhin bestehenden Förderschulen:</div>
-        <div class="stufe"><div class="snum" style="background:#fef3c7;color:#b45309;">1</div><div class="sbody"><strong>Kooperationsklassen</strong> — An Grund-, Mittel- und Berufsschulen lernen Schülerinnen und Schüler mit und ohne sonderpädagogischen Förderbedarf (Schwerpunkte: Lernen, Sprache, emotionale und soziale Entwicklung) durchgängig in allen Fächern gemeinsam. Unterstützung durch den Mobilen Sonderpädagogischen Dienst (MSD).</div></div>
-        <div class="stufe"><div class="snum" style="background:#fef3c7;color:#b45309;">2</div><div class="sbody"><strong>Partnerklassen</strong> — Eine Klasse der Förderschule kooperiert eng mit einer Klasse der allgemeinen Schule (oder umgekehrt). Umfang und Intensität des gemeinsamen Lernens sind variabel — von stundenweise bis sehr intensiv. Häufig mit Förderschwerpunkt geistige Entwicklung.</div></div>
-        <div class="stufe"><div class="snum" style="background:#fef3c7;color:#b45309;">3</div><div class="sbody"><strong>Offene Klassen der Förderschule</strong> — Unterricht auf Basis der Lehrpläne der allgemeinen Schule; Schülerinnen und Schüler ohne sonderpädagogischen Förderbedarf können aufgenommen werden.</div></div>
-        <div class="stufe"><div class="snum" style="background:#fef3c7;color:#b45309;">4</div><div class="sbody"><strong>Einzelinklusion</strong> — Die häufigste und im Hinblick auf den Verbleib in der örtlichen Gemeinschaft inklusivste Form: einzelne Schülerinnen/Schüler besuchen die Schule vor Ort, begleitet durch den MSD und ggf. außerschulische Unterstützungssysteme.</div></div>
-        <div class="stufe"><div class="snum" style="background:#fef3c7;color:#b45309;">5</div><div class="sbody"><strong>Schulen mit dem Schulprofil Inklusion</strong> (Art. 30b BayEUG) — Eine ganze Schule entwickelt sich als System zur inklusiven Schule. Unterrichtsformen und Schulleben sind auf die Vielfalt mit und ohne sonderpädagogischen Förderbedarf ausgerichtet.</div></div>
-        <div class="stufe"><div class="snum" style="background:#fef3c7;color:#b45309;">6</div><div class="sbody"><strong>Klassen mit festem Lehrertandem</strong> (nur an Schulen mit Schulprofil Inklusion) — Für Schülerinnen/Schüler mit sehr hohem sonderpädagogischem Förderbedarf: gemeinsamer Unterricht durch eine Regelschullehrkraft und eine Sonderpädagogin/einen Sonderpädagogen. Derzeit vorwiegend im Bereich Grund- und Mittelschulen.</div></div>
-        <div class="note">Rechtliche Grundlage: Art. 30a und 30b BayEUG · Die schulartspezifischen Übertrittsvoraussetzungen gelten für alle Schülerinnen und Schüler gleichermaßen. Nachteilsausgleich und Notenschutz sind bei lernzielgleichem Unterricht möglich.</div>
       </div></div></div>
 
       <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#fef3c7;color:#b45309;">📊</div><div class="al">Individuelle Förderung — Diagnose und Maßnahmen</div><span class="aico">▾</span></div>
@@ -420,72 +411,11 @@ ul.pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
   </div>
 </section>
 
-<!-- 7 BERUFLICHE ORIENTIERUNG -->
-<section class="section reveal" id="s7">
-  <div class="sh"><span class="sn">VII</span><span class="st">Berufliche Orientierung</span><span class="sa" style="background:#0f766e;">LehrplanPLUS · KMK 2017</span></div>
-  <div class="cg">
-    <div class="card" style="border-top-color:#0f766e;">
-      <div class="ch"><h3 style="color:#0f766e;">🧭 Berufliche Orientierung — Begriff und Ziele</h3><div class="csub">Selbstfindung · Information · Entscheidung · Realisierung</div></div>
-
-      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ccfbf1;color:#0f766e;">💡</div><div class="al">Was ist Berufliche Orientierung? — Definition und Auftrag</div><span class="aico">▾</span></div>
-      <div class="abody"><div class="ac">
-        <div class="fb"><div class="fl">🔑 Fachbegriff</div><span class="ft">Berufliche Orientierung</span> — Vorbereitung der Schülerinnen und Schüler auf die Berufs- und Arbeitswelt als Teil des schulischen Bildungs- und Erziehungsauftrags. Der Begriff dient laut KMK (2017) als einheitlicher Oberbegriff, der auch die Studienorientierung als spezielle Ausprägung umfasst. Im LehrplanPLUS ist Berufliche Orientierung als fächerübergreifendes Bildungs- und Erziehungsziel verankert.</div>
-        <div class="ex">Die hoch differenzierte und durch die Digitalisierung im rasanten Wandel begriffene Berufs- und Arbeitswelt — mit über 330 Ausbildungsberufen und rund 17.000 Studiengängen — erfordert, dass Schülerinnen und Schüler bei der Orientierung in diesem Bereich gezielt unterstützt werden.</div>
-        <div class="ebox"><div class="el">🎯 Ziele am Gymnasium</div>
-          Auseinandersetzung mit individuellen Neigungen, Wünschen und Potenzialen von der Unterstufe an · Überwindung von Geschlechterklischees in der Berufswahl (Art. 2 BayEUG) · Kenntnisse über Berufsfelder durch Erfahrungen (P-Seminar, Betriebspraktika, Schnupperstudium, Girls' Day / Boys' Day) · individuelle Beratung zur Berufswahl und Ausbildungs- bzw. Studienentscheidung
-        </div>
-      </div></div></div>
-
-      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ccfbf1;color:#0f766e;">🔄</div><div class="al">Die vier Phasen der Beruflichen Orientierung</div><span class="aico">▾</span></div>
-      <div class="abody"><div class="ac">
-        <div class="ex">Berufliche Orientierung umfasst im Wesentlichen vier aufeinander aufbauende Phasen, die Schülerinnen und Schüler idealerweise im Laufe ihrer Schulzeit durchlaufen:</div>
-        <div class="stufe"><div class="snum" style="background:#ccfbf1;color:#0f766e;">1</div><div class="sbody"><strong>Selbstfindungsphase</strong> — Auseinandersetzung mit den eigenen Interessen, Neigungen, Stärken und Werten. Frage: Wer bin ich, was kann ich, was möchte ich? Basis für alle weiteren Schritte der Berufsorientierung.</div></div>
-        <div class="stufe"><div class="snum" style="background:#ccfbf1;color:#0f766e;">2</div><div class="sbody"><strong>Informationsphase</strong> — Systematische Recherche zu Berufsfeldern, Ausbildungsgängen und Studienmöglichkeiten. Nutzung von Informationsquellen: Bundesagentur für Arbeit, Berufsberatung, Hochschulinformationstage, Schnupperstudium, Betriebspraktika, Berufsinformationsveranstaltungen.</div></div>
-        <div class="stufe"><div class="snum" style="background:#ccfbf1;color:#0f766e;">3</div><div class="sbody"><strong>Entscheidungsphase</strong> — Abwägen und Konkretisieren der beruflichen Vorstellungen. Die gewonnenen Informationen werden mit den eigenen Stärken und Interessen abgeglichen. Unterstützung durch Beratungslehrkraft, Berufsberatung und außerschulische Netzwerkpartner.</div></div>
-        <div class="stufe"><div class="snum" style="background:#ccfbf1;color:#0f766e;">4</div><div class="sbody"><strong>Realisierungsphase</strong> — Konkrete Schritte der Umsetzung: Bewerbungen, Anmeldungen zu Ausbildungs- oder Studiengängen. Schule begleitet diesen Übergang in Kooperation mit externen Partnern.</div></div>
-        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Berufliche Orientierung ist Aufgabe <em>aller</em> Fächer; Leitfach ist Wirtschaft und Recht. Zentrale Ansprechperson ist die Koordinatorin bzw. der Koordinator für Berufliche Orientierung (KBO), die ein schulspezifisches Curriculum entwickelt, alle Maßnahmen koordiniert und evaluiert.</div>
-      </div></div></div>
-    </div>
-
-    <div class="card" style="border-top-color:#0f766e;">
-      <div class="ch"><h3 style="color:#0f766e;">🌐 Netzwerke der Beruflichen Orientierung</h3><div class="csub">Innerschulisch · Außerschulisch · Partner</div></div>
-
-      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ccfbf1;color:#0f766e;">🏫</div><div class="al">Innerschulisches Netzwerk</div><span class="aico">▾</span></div>
-      <div class="abody"><div class="ac">
-        <div class="ex">Das innerschulische Netzwerk für Berufliche Orientierung umfasst alle relevanten Akteure innerhalb der Schule:</div>
-        <ul class="pl">
-          <li>Koordinatorin/Koordinator für Berufliche Orientierung (KBO) — entwickelt das schulspezifische BO-Curriculum</li>
-          <li>Schulleitung, Beratungslehrkraft, Stufenbetreuerinnen/-betreuer, Fachbetreuung Wirtschaft und Recht</li>
-          <li>Alle Lehrkräfte der Schule im Rahmen ihres Fachunterrichts</li>
-          <li>Elternvertreter in der Koordinationsgruppe sowie Eltern als Berufsexperten</li>
-          <li>Schülervertreter</li>
-        </ul>
-      </div></div></div>
-
-      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#ccfbf1;color:#0f766e;">🤝</div><div class="al">Außerschulisches Netzwerk</div><span class="aico">▾</span></div>
-      <div class="abody"><div class="ac">
-        <div class="fb"><div class="fl">🔑 Wichtige externe Partner</div>
-          <ul class="pl">
-            <li><strong>Bundesagentur für Arbeit</strong> — gesetzliche Aufgabe der Berufsberatung für Jugendliche</li>
-            <li><strong>Staatliche Schulberatung Bayern</strong></li>
-            <li><strong>Studienberatungen</strong> der Universitäten und Hochschulen</li>
-            <li><strong>Kammern, Verbände, Bayerischer Jugendring</strong></li>
-            <li><strong>Regionale Unternehmen und Einrichtungen</strong> — P-Seminar-Partner, Praktikumsplätze, Betriebsbesichtigungen, Berufsinformationsveranstaltungen</li>
-          </ul>
-        </div>
-        <div class="ebox"><div class="el">📋 Formate und Maßnahmen</div>
-          P-Seminar (Bestandteil der Oberstufe) · Betriebspraktika · Schnupperstudium · Girls' Day / Boys' Day · Berufsinformationsabende · Abiturientenmessen · Hochschultage und Berufsberatungsgespräche
-        </div>
-      </div></div></div>
-    </div>
-  </div>
-</section>
-
 </main>
 
 <footer style="background:var(--sur2);border-top:1px solid var(--brd);padding:20px 32px;text-align:center;">
   <div style="max-width:1100px;margin:0 auto;font-size:12px;color:var(--mut);">
-    Grundlagen der Pädagogik · Kant · Humboldt · Klafki · Kohlberg · Lind · Baacke · Art. 131 BV · LehrplanPLUS · Erziehungspartnerschaft · Inklusion Bayern · Berufliche Orientierung
+    Grundlagen der Pädagogik · Kant · Humboldt · Klafki · Kohlberg · Lind · Baacke · Art. 131 BV · LehrplanPLUS
   </div>
 </footer>
 
@@ -495,6 +425,15 @@ function scrollTo(id){const el=document.getElementById(id);if(el)el.scrollIntoVi
 const secs=document.querySelectorAll('.section'),nbs=document.querySelectorAll('.nb');
 secs.forEach(s=>new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){const i=Array.from(secs).indexOf(en.target);nbs.forEach((b,j)=>{b.style.background=j===i?'#7c3aed':'';b.style.color=j===i?'white':'';})}});},{threshold:0.25}).observe(s));
 document.querySelectorAll('.reveal').forEach(el=>new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('visible');});},{threshold:0.08}).observe(el));
+</script>
+<script>
+// ── Podcast Player ──
+const _aud=document.getElementById('pp-audio'),_btn=document.getElementById('pp-btn'),_bar=document.getElementById('pp-bar'),_cur=document.getElementById('pp-cur');
+function fmt(s){const m=Math.floor(s/60);return m+':'+(Math.floor(s%60)+'').padStart(2,'0');}
+function togglePodcast(){if(_aud.paused){_aud.play();_btn.textContent='⏸';}else{_aud.pause();_btn.textContent='▶';}}
+function seekPodcast(v){_aud.currentTime=v;}
+_aud.addEventListener('timeupdate',()=>{_bar.value=Math.floor(_aud.currentTime);_cur.textContent=fmt(_aud.currentTime);});
+_aud.addEventListener('ended',()=>{_btn.textContent='▶';_bar.value=0;_cur.textContent='0:00';});
 </script>
 </body>
 </html>

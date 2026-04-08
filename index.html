@@ -152,6 +152,18 @@ body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-s
 .hero-sub { animation-delay: .20s; }
 .domains { animation-delay: .28s; }
 .stats { animation-delay: .36s; }
+/* ── Podcast-in-card ── */
+.pc-wrap{border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:14px;box-shadow:0 2px 8px rgba(0,0,0,.05);}
+.pc-link{border:none!important;border-radius:0!important;margin-bottom:0!important;box-shadow:none!important;}
+.pc-bar{display:flex;align-items:center;gap:7px;padding:8px 14px;background:#f8f7f4;border-top:1px solid var(--border);}
+.pc-btn{width:28px;height:28px;border-radius:50%;border:none;color:#fff;font-size:12px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:opacity .15s;}
+.pc-btn:hover{opacity:.8;}
+.pc-skip{background:none;border:none;font-size:10px;font-weight:600;color:var(--muted);cursor:pointer;padding:0 2px;white-space:nowrap;}
+.pc-skip:hover{color:var(--text);}
+.pc-range{flex:1;height:3px;cursor:pointer;}
+.pc-cur,.pc-dur{font-size:10px;color:var(--muted);font-variant-numeric:tabular-nums;min-width:28px;}
+.pc-dur{text-align:right;}
+
 </style>
 </head>
 <body>
@@ -171,38 +183,70 @@ body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-s
   <div class="panel-body">
     <p style="font-size:14px;color:var(--muted);margin-bottom:20px;line-height:1.6;">Die Psychologie im Referendariat ist in drei große Bereiche gegliedert. Klicke auf ein Thema, um die interaktive Lernseite zu öffnen.</p>
 
-    <a class="sub-card" href="entwicklungspsychologie_web.html">
+    <div class="pc-wrap">
+      <a class="sub-card pc-link" href="entwicklungspsychologie_web.html">
       <div class="sub-icon" style="background:#fef9f0;">🧒</div>
       <div class="sub-info">
         <div class="sub-title">Entwicklungspsychologie</div>
         <div class="sub-desc">Wie Menschen aufwachsen — Kohlberg, Erikson, Piaget, Havighurst, Pubertät, Störungsbilder</div>
-        <span class="sub-badge" style="background:#fff3cd;color:#856404;">7 Themenbereiche</span>
+        <span class="sub-badge" style="background:#fff3cd;color:#856404;">8 Themenbereiche</span>
       </div>
       <div class="sub-arrow">›</div>
     </a>
+      <div class="pc-bar" onclick="event.stopPropagation()">
+        <audio id="ps1" src="hoerbuch_entwicklungspsychologie.m4a" preload="none"></audio>
+        <button class="pc-btn" id="ps1-btn" style="background:#b45309;" onclick="pcToggle('ps1',this)">▶</button>
+        <button class="pc-skip" onclick="document.getElementById('ps1').currentTime-=15">⟨ 15s</button>
+        <span class="pc-cur" id="ps1-cur">0:00</span>
+        <input class="pc-range" id="ps1-bar" type="range" min="0" max="1740" value="0" step="1" oninput="pcSeek('ps1',this.value)" style="accent-color:#b45309;">
+        <span class="pc-dur" id="ps1-dur">29:00</span>
+        <button class="pc-skip" onclick="document.getElementById('ps1').currentTime+=30">30s ⟩</button>
+      </div>
+    </div>
 
-    <a class="sub-card" href="lernpsychologie_web.html">
+    <div class="pc-wrap">
+      <a class="sub-card pc-link" href="lernpsychologie_web.html">
       <div class="sub-icon" style="background:#f0fdf4;">📚</div>
       <div class="sub-info">
         <div class="sub-title">Lehr- &amp; Lernpsychologie</div>
         <div class="sub-desc">Wie Lernen funktioniert — Motivation, Gedächtnis, Lerntheorien, Strategien, Prüfungsangst</div>
-        <span class="sub-badge" style="background:#dcfce7;color:#15803d;">7 Themenbereiche</span>
+        <span class="sub-badge" style="background:#dcfce7;color:#15803d;">13 Themenbereiche</span>
       </div>
       <div class="sub-arrow">›</div>
     </a>
+      <div class="pc-bar" onclick="event.stopPropagation()">
+        <audio id="ps2" src="hoerbuch_lernpsychologie.m4a" preload="none"></audio>
+        <button class="pc-btn" id="ps2-btn" style="background:#15803d;" onclick="pcToggle('ps2',this)">▶</button>
+        <button class="pc-skip" onclick="document.getElementById('ps2').currentTime-=15">⟨ 15s</button>
+        <span class="pc-cur" id="ps2-cur">0:00</span>
+        <input class="pc-range" id="ps2-bar" type="range" min="0" max="1770" value="0" step="1" oninput="pcSeek('ps2',this.value)" style="accent-color:#15803d;">
+        <span class="pc-dur" id="ps2-dur">29:30</span>
+        <button class="pc-skip" onclick="document.getElementById('ps2').currentTime+=30">30s ⟩</button>
+      </div>
+    </div>
 
-    <a class="sub-card" href="sozialpsychologie_web.html">
+    <div class="pc-wrap">
+      <a class="sub-card pc-link" href="sozialpsychologie_web.html">
       <div class="sub-icon" style="background:#eef2ff;">👥</div>
       <div class="sub-info">
         <div class="sub-title">Sozialpsychologie</div>
         <div class="sub-desc">Wie wir andere wahrnehmen — Gruppen, Kommunikation, Classroom-Management, Gesprächsführung</div>
-        <span class="sub-badge" style="background:#e0e7ff;color:#3730a3;">6 Themenbereiche</span>
+        <span class="sub-badge" style="background:#e0e7ff;color:#3730a3;">8 Themenbereiche</span>
       </div>
       <div class="sub-arrow">›</div>
     </a>
+      <div class="pc-bar" onclick="event.stopPropagation()">
+        <audio id="ps3" src="hoerbuch_sozialpsychologie.m4a" preload="none"></audio>
+        <button class="pc-btn" id="ps3-btn" style="background:#3730a3;" onclick="pcToggle('ps3',this)">▶</button>
+        <button class="pc-skip" onclick="document.getElementById('ps3').currentTime-=15">⟨ 15s</button>
+        <span class="pc-cur" id="ps3-cur">0:00</span>
+        <input class="pc-range" id="ps3-bar" type="range" min="0" max="1006" value="0" step="1" oninput="pcSeek('ps3',this.value)" style="accent-color:#3730a3;">
+        <span class="pc-dur" id="ps3-dur">16:46</span>
+        <button class="pc-skip" onclick="document.getElementById('ps3').currentTime+=30">30s ⟩</button>
+      </div>
+    </div>
   </div>
 </div>
-
 <!-- PÄDAGOGIK PANEL -->
 <div class="panel" id="panel-paed">
   <div class="panel-head">
@@ -215,45 +259,94 @@ body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-s
   <div class="panel-body">
     <p style="font-size:14px;color:var(--muted);margin-bottom:20px;line-height:1.6;">Alle vier Kapitel des Akademieberichts Pädagogik sind vollständig aufbereitet — mit Fachbegriffen, Theoretikern, Modellen und direkten Schulpraxis-Tipps.</p>
 
-    <a class="sub-card" href="grundlagen_paedagogik_web.html" style="text-decoration:none;color:inherit;">
-      <div class="sub-icon" style="background:#f5f3ff;">📖</div>
-      <div class="sub-info">
-        <div class="sub-title">Grundlagen der Pädagogik</div>
-        <div class="sub-desc">Bildung &amp; Erziehung · Kant · Humboldt · Klafki · Transaktionsanalyse · Inklusion Bayern · Berufsorientierung</div>
-        <span class="sub-badge" style="background:#7c3aed;color:white;">7 Sektionen</span>
+    <!-- 1 Grundlagen -->
+    <div class="pc-wrap">
+      <a class="sub-card pc-link" href="grundlagen_paedagogik_web.html">
+        <div class="sub-icon" style="background:#f5f3ff;">📖</div>
+        <div class="sub-info">
+          <div class="sub-title">Grundlagen der Pädagogik</div>
+          <div class="sub-desc">Bildung &amp; Erziehung · Kant · Humboldt · Klafki · Transaktionsanalyse · Inklusion Bayern · Berufsorientierung</div>
+          <span class="sub-badge" style="background:#7c3aed;color:white;">7 Sektionen</span>
+        </div>
+        <div class="sub-arrow">›</div>
+      </a>
+      <div class="pc-bar" onclick="event.stopPropagation()">
+        <audio id="p1" src="hoerbuch_Grundlagen.m4a" preload="none"></audio>
+        <button class="pc-btn" id="p1-btn" style="background:#7c3aed;" onclick="pcToggle('p1',this)">▶</button>
+        <button class="pc-skip" onclick="document.getElementById('p1').currentTime-=15">⟨ 15s</button>
+        <span class="pc-cur" id="p1-cur">0:00</span>
+        <input class="pc-range" id="p1-bar" type="range" min="0" max="1741" value="0" step="1" oninput="pcSeek('p1',this.value)" style="accent-color:#7c3aed;">
+        <span class="pc-dur" id="p1-dur">29:01</span>
+        <button class="pc-skip" onclick="document.getElementById('p1').currentTime+=30">30s ⟩</button>
       </div>
-      <div class="sub-arrow">›</div>
-    </a>
+    </div>
 
-    <a class="sub-card" href="klassenfuehrung_web.html" style="text-decoration:none;color:inherit;">
-      <div class="sub-icon" style="background:#fef9f0;">🏫</div>
-      <div class="sub-info">
-        <div class="sub-title">Klassen verstehen und führen</div>
-        <div class="sub-desc">Autorität · Kounin (7 Techniken) · Regeln &amp; Ich-Aussagen · Schindler-Rollen · Soziales Lernen · BayEUG Art. 86</div>
-        <span class="sub-badge" style="background:#b45309;color:white;">7 Sektionen</span>
+    <!-- 2 Klassenführung -->
+    <div class="pc-wrap">
+      <a class="sub-card pc-link" href="klassenfuehrung_web.html">
+        <div class="sub-icon" style="background:#fef9f0;">🏫</div>
+        <div class="sub-info">
+          <div class="sub-title">Klassen verstehen und führen</div>
+          <div class="sub-desc">Autorität · Kounin (7 Techniken) · Regeln &amp; Ich-Aussagen · Schindler-Rollen · Soziales Lernen · BayEUG Art. 86</div>
+          <span class="sub-badge" style="background:#b45309;color:white;">7 Sektionen</span>
+        </div>
+        <div class="sub-arrow">›</div>
+      </a>
+      <div class="pc-bar" onclick="event.stopPropagation()">
+        <audio id="p2" src="hoerbuch_klassenfuehrung.m4a" preload="none"></audio>
+        <button class="pc-btn" id="p2-btn" style="background:#b45309;" onclick="pcToggle('p2',this)">▶</button>
+        <button class="pc-skip" onclick="document.getElementById('p2').currentTime-=15">⟨ 15s</button>
+        <span class="pc-cur" id="p2-cur">0:00</span>
+        <input class="pc-range" id="p2-bar" type="range" min="0" max="1655" value="0" step="1" oninput="pcSeek('p2',this.value)" style="accent-color:#b45309;">
+        <span class="pc-dur" id="p2-dur">27:35</span>
+        <button class="pc-skip" onclick="document.getElementById('p2').currentTime+=30">30s ⟩</button>
       </div>
-      <div class="sub-arrow">›</div>
-    </a>
+    </div>
 
-    <a class="sub-card" href="unterricht_gestalten_web.html" style="text-decoration:none;color:inherit;">
-      <div class="sub-icon" style="background:#f0fdfa;">👩‍🏫</div>
-      <div class="sub-info">
-        <div class="sub-title">Unterricht gestalten</div>
-        <div class="sub-desc">Helmke · Meyer · Hattie · AVIVA · ARZZ · Golden Circle · Differenzierung · Sprachsensibilität · Beratungsgespräche</div>
-        <span class="sub-badge" style="background:#0f766e;color:white;">12 Sektionen</span>
+    <!-- 3 Unterricht gestalten -->
+    <div class="pc-wrap">
+      <a class="sub-card pc-link" href="unterricht_gestalten_web.html">
+        <div class="sub-icon" style="background:#f0fdfa;">👩‍🏫</div>
+        <div class="sub-info">
+          <div class="sub-title">Unterricht gestalten</div>
+          <div class="sub-desc">Helmke · Meyer · Hattie · AVIVA · ARZZ · Golden Circle · Differenzierung · Sprachsensibilität · Beratungsgespräche</div>
+          <span class="sub-badge" style="background:#0f766e;color:white;">12 Sektionen</span>
+        </div>
+        <div class="sub-arrow">›</div>
+      </a>
+      <div class="pc-bar" onclick="event.stopPropagation()">
+        <audio id="p3" src="hoerbuch_unterricht_gestalten.m4a" preload="none"></audio>
+        <button class="pc-btn" id="p3-btn" style="background:#0f766e;" onclick="pcToggle('p3',this)">▶</button>
+        <button class="pc-skip" onclick="document.getElementById('p3').currentTime-=15">⟨ 15s</button>
+        <span class="pc-cur" id="p3-cur">0:00</span>
+        <input class="pc-range" id="p3-bar" type="range" min="0" max="1801" value="0" step="1" oninput="pcSeek('p3',this.value)" style="accent-color:#0f766e;">
+        <span class="pc-dur" id="p3-dur">30:01</span>
+        <button class="pc-skip" onclick="document.getElementById('p3').currentTime+=30">30s ⟩</button>
       </div>
-      <div class="sub-arrow">›</div>
-    </a>
+    </div>
 
-    <a class="sub-card" href="schulentwicklung_web.html" style="text-decoration:none;color:inherit;">
-      <div class="sub-icon" style="background:#fff1f2;">🎓</div>
-      <div class="sub-info">
-        <div class="sub-title">An der Schulentwicklung mitwirken</div>
-        <div class="sub-desc">Top-down/Bottom-up · 10 Rollen (Meyer) · Intensivierungsstunden · Fallbesprechung (9 Schritte) · Unterrichtsreflexion · Lehrergesundheit</div>
-        <span class="sub-badge" style="background:#be123c;color:white;">7 Sektionen</span>
+    <!-- 4 Schulentwicklung -->
+    <div class="pc-wrap">
+      <a class="sub-card pc-link" href="schulentwicklung_web.html">
+        <div class="sub-icon" style="background:#fff1f2;">🎓</div>
+        <div class="sub-info">
+          <div class="sub-title">An der Schulentwicklung mitwirken</div>
+          <div class="sub-desc">Top-down/Bottom-up · 10 Rollen (Meyer) · Intensivierungsstunden · Fallbesprechung (9 Schritte) · Unterrichtsreflexion · Lehrergesundheit</div>
+          <span class="sub-badge" style="background:#be123c;color:white;">7 Sektionen</span>
+        </div>
+        <div class="sub-arrow">›</div>
+      </a>
+      <div class="pc-bar" onclick="event.stopPropagation()">
+        <audio id="p4" src="Schulentwicklung.m4a" preload="none"></audio>
+        <button class="pc-btn" id="p4-btn" style="background:#be123c;" onclick="pcToggle('p4',this)">▶</button>
+        <button class="pc-skip" onclick="document.getElementById('p4').currentTime-=15">⟨ 15s</button>
+        <span class="pc-cur" id="p4-cur">0:00</span>
+        <input class="pc-range" id="p4-bar" type="range" min="0" max="1606" value="0" step="1" oninput="pcSeek('p4',this.value)" style="accent-color:#be123c;">
+        <span class="pc-dur" id="p4-dur">26:46</span>
+        <button class="pc-skip" onclick="document.getElementById('p4').currentTime+=30">30s ⟩</button>
       </div>
-      <div class="sub-arrow">›</div>
-    </a>
+    </div>
+
   </div>
 </div>
 
@@ -272,7 +365,7 @@ body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-s
       <div class="domain-label">Themengebiet I</div>
       <div class="domain-title">Psychologie</div>
       <div class="domain-desc">Wie Menschen denken, lernen, fühlen und sich entwickeln — und was das für den Schulalltag bedeutet.</div>
-      <div class="domain-sub-count">3 Unterbereiche → 20+ Themen</div>
+      <div class="domain-sub-count">3 Unterbereiche → 29 Themen</div>
       <span class="domain-arrow">→</span>
     </div>
 
@@ -292,7 +385,7 @@ body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-s
       <div class="stat-lbl">Psychologie-Bereiche</div>
     </div>
     <div class="stat">
-      <div class="stat-num" style="color:var(--muted);">50+</div>
+      <div class="stat-num" style="color:var(--muted);">62</div>
       <div class="stat-lbl">Interaktive Themen</div>
     </div>
     <div class="stat">
@@ -303,17 +396,44 @@ body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-s
 </main>
 
 <script>
-function openPanel(type) {
-  document.getElementById('overlay').classList.add('open');
-  document.getElementById('panel-' + type).classList.add('open');
-  document.body.style.overflow = 'hidden';
+function openPanel(type){document.getElementById("overlay").classList.add("open");document.getElementById("panel-"+type).classList.add("open");document.body.style.overflow="hidden";}
+function closePanel(){
+  document.getElementById("overlay").classList.remove("open");
+  document.querySelectorAll(".panel").forEach(function(p){p.classList.remove("open");});
+  document.body.style.overflow="";
+  ["p1","p2","p3","p4","ps1","ps2","ps3"].forEach(function(id){
+    var a=document.getElementById(id);
+    if(a&&!a.paused){a.pause();var b=document.getElementById(id+"-btn");if(b)b.innerHTML="&#9654;";}
+  });
 }
-function closePanel() {
-  document.getElementById('overlay').classList.remove('open');
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('open'));
-  document.body.style.overflow = '';
+document.addEventListener("keydown",function(e){if(e.key==="Escape")closePanel();});
+
+function pcFmt(s){var m=Math.floor(s/60);return m+":"+(Math.floor(s%60)+"").padStart(2,"0");}
+function pcToggle(id,btn){
+  var a=document.getElementById(id);
+  if(a.paused){
+    ["p1","p2","p3","p4","ps1","ps2","ps3"].forEach(function(x){
+      var ax=document.getElementById(x);
+      if(ax&&!ax.paused){ax.pause();var bx=document.getElementById(x+"-btn");if(bx)bx.innerHTML="&#9654;";}
+    });
+    a.play();btn.innerHTML="&#9208;";
+  }else{a.pause();btn.innerHTML="&#9654;";}
 }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
+function pcSeek(id,v){document.getElementById(id).currentTime=v;}
+
+document.addEventListener("DOMContentLoaded",function(){
+  ["p1","p2","p3","p4","ps1","ps2","ps3"].forEach(function(id){
+    var a=document.getElementById(id);
+    if(!a)return;
+    var bar=document.getElementById(id+"-bar"),cur=document.getElementById(id+"-cur");
+    a.addEventListener("loadedmetadata",function(){
+      if(parseInt(bar.max)===9999){bar.max=Math.floor(a.duration);var d=document.getElementById(id+"-dur");if(d)d.textContent=pcFmt(a.duration);}
+    });
+    a.addEventListener("timeupdate",function(){bar.value=Math.floor(a.currentTime);cur.textContent=pcFmt(a.currentTime);});
+    a.addEventListener("ended",function(){bar.value=0;cur.textContent="0:00";var b=document.getElementById(id+"-btn");if(b)b.innerHTML="&#9654;";});
+  });
+});
 </script>
+
 </body>
 </html>

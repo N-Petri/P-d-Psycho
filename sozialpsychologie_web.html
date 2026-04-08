@@ -75,35 +75,23 @@ ul.pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
 .snum{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;flex-shrink:0;margin-top:1px;}
 .sbody{font-size:12.5px;line-height:1.45;}
 .sbody strong{display:block;font-weight:700;margin-bottom:1px;}
-/* audio */
-.audio-bar{position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(20,20,25,.96);backdrop-filter:blur(10px);border-top:1px solid rgba(255,255,255,.12);padding:10px 24px 12px;transform:translateY(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);}
-.audio-bar.visible{transform:translateY(0);}
-.audio-inner{max-width:1100px;margin:0 auto;}
-.audio-top{display:flex;align-items:center;gap:14px;margin-bottom:8px;}
-.apb{width:36px;height:36px;border-radius:50%;border:none;cursor:pointer;background:var(--acc);color:white;font-size:15px;display:flex;align-items:center;justify-content:center;transition:transform .15s;flex-shrink:0;}
-.apb:hover{transform:scale(1.08);}
-.ainfo{flex:1;min-width:0;}
-.ach{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.5);}
-.atit{font-size:13px;font-weight:600;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.atime{font-size:12px;color:rgba(255,255,255,.45);font-variant-numeric:tabular-nums;flex-shrink:0;}
-.acb{width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,255,255,.2);cursor:pointer;background:transparent;color:rgba(255,255,255,.5);font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;}
-.acb:hover{background:rgba(255,255,255,.1);color:white;}
-.aprog{width:100%;height:4px;border-radius:2px;cursor:pointer;appearance:none;outline:none;accent-color:var(--acc);}
-.aprog::-webkit-slider-thumb{appearance:none;width:14px;height:14px;border-radius:50%;background:var(--acc);cursor:pointer;margin-top:-5px;}
-.aprog::-webkit-slider-runnable-track{height:4px;border-radius:2px;background:rgba(255,255,255,.15);}
-.ahp{margin-top:22px;background:var(--sur);border:1px solid var(--brd);border-radius:12px;padding:16px 20px;box-shadow:var(--sh);}
-.ahph{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
-.ahpi{font-size:22px;}
-.ahpl{font-family:'Lora',serif;font-size:15px;font-weight:700;}
-.ahps{font-size:11px;color:var(--mut);margin-top:1px;}
-.ahppb{width:38px;height:38px;border-radius:50%;border:none;cursor:pointer;background:var(--acc);color:white;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;margin-left:auto;}
-.ahppr{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
-.ahpt{font-size:11px;color:var(--mut);font-variant-numeric:tabular-nums;white-space:nowrap;}
-.ahpsk{flex:1;height:4px;border-radius:2px;cursor:pointer;accent-color:var(--acc);}
-.ahpch{display:flex;flex-wrap:wrap;gap:5px;}
-.chbtn{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;border:1px solid var(--brd);background:var(--sur2);color:var(--mut);cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif;}
-.spb{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:4px 11px;border-radius:20px;border:1.5px solid var(--acc);background:transparent;color:var(--acc);cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif;white-space:nowrap;flex-shrink:0;}
-.spbi{font-size:10px;}
+/* ── PODCAST PLAYER ── */
+.podcast-player{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;background:#fff;border:1px solid var(--brd);border-radius:14px;padding:14px 18px;margin-top:20px;box-shadow:0 2px 12px rgba(0,0,0,.06);}
+.pp-left{display:flex;align-items:center;gap:12px;flex:1;min-width:0;}
+.pp-icon{font-size:26px;flex-shrink:0;}
+.pp-meta{min-width:0;}
+.pp-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--acc);margin-bottom:1px;}
+.pp-title{font-family:'Lora',serif;font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pp-duration{font-size:11px;color:var(--mut);}
+.pp-controls{display:flex;align-items:center;gap:6px;}
+.pp-play{width:40px;height:40px;border-radius:50%;background:var(--acc);border:none;color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .15s,opacity .15s;flex-shrink:0;}
+.pp-play:hover{opacity:.85;transform:scale(1.05);}
+.pp-skip{background:none;border:1px solid var(--brd);border-radius:20px;font-size:11px;font-weight:600;color:var(--mut);padding:4px 9px;cursor:pointer;white-space:nowrap;transition:background .15s;}
+.pp-skip:hover{background:var(--sur2);}
+.pp-progress-wrap{display:flex;align-items:center;gap:8px;width:100%;order:99;}
+.pp-bar{flex:1;-webkit-appearance:none;height:4px;border-radius:2px;background:#e5e0d8;cursor:pointer;accent-color:var(--acc);}
+.pp-bar::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--acc);cursor:pointer;}
+.pp-time{font-size:11px;color:var(--mut);font-variant-numeric:tabular-nums;min-width:30px;}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .5s,transform .5s;}
 .reveal.visible{opacity:1;transform:none;}
 @media(max-width:640px){.hero,.main{padding-left:18px;padding-right:18px;}.nav{padding:0 18px;}.cg,.cg.wide{grid-template-columns:1fr;}.cmp{grid-template-columns:1fr;}.ac{padding-left:18px;}.thgrid{grid-template-columns:1fr 1fr;}}
@@ -161,18 +149,6 @@ ul.th-pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
   </div>
 </div>
 
-<audio id="mainAudio" preload="none"><source src="hoerbuch_sozialpsychologie.mp3" type="audio/mpeg"></audio>
-<div class="audio-bar" id="audioBar">
-  <div class="audio-inner">
-    <div class="audio-top">
-      <button class="apb" id="barPlayBtn" onclick="togglePlay()">▶</button>
-      <div class="ainfo"><div class="ach" id="barCh">Hörbuch</div><div class="atit" id="barTit">Sozialpsychologie</div></div>
-      <div class="atime" id="barTime">0:00 / 0:00</div>
-      <button class="acb" onclick="closeBar()">×</button>
-    </div>
-    <input type="range" class="aprog" id="audioProgress" value="0" min="0" step="0.1">
-  </div>
-</div>
 
 <nav class="nav">
   <div class="nav-inner">
@@ -200,10 +176,26 @@ ul.th-pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
     <span class="thb" style="color:#3730a3;border-color:#3730a3;">Watzlawick · Schulz von Thun <span class="thby">Kommunikation</span></span>
     <span class="thb" style="color:#0f766e;border-color:#0f766e;">Rogers <span class="thby">Gesprächsführung</span></span>
   </div>
-  <div class="ahp">
-    <div class="ahph"><span class="ahpi">🎧</span><div><div class="ahpl">Hörbuch: Sozialpsychologie</div><div class="ahps">ca. 24 Minuten · 8 Kapitel · alle Fachbegriffe erklärt</div></div><button class="ahppb" id="heroPlayBtn" onclick="togglePlay()">▶</button></div>
-    <div class="ahppr"><span class="ahpt" id="heroTime">0:00</span><input type="range" class="ahpsk" id="heroSeek" value="0" min="0" step="0.1"><span class="ahpt" id="heroDur">24:01</span></div>
-    <div class="ahpch" id="chBtns"></div>
+  <div class="podcast-player">
+    <div class="pp-left">
+      <div class="pp-icon">🎧</div>
+      <div class="pp-meta">
+        <div class="pp-label">Zusammenfassender Podcast</div>
+        <div class="pp-title">Sozialpsychologie</div>
+        <div class="pp-duration">16:46 min</div>
+      </div>
+    </div>
+    <audio id="pp-audio" src="hoerbuch_sozialpsychologie.m4a" preload="none"></audio>
+    <div class="pp-controls">
+      <button class="pp-skip" onclick="document.getElementById('pp-audio').currentTime-=15">⟨ 15s</button>
+      <button class="pp-play" id="pp-btn" onclick="togglePodcast()">▶</button>
+      <button class="pp-skip" onclick="document.getElementById('pp-audio').currentTime+=30">30s ⟩</button>
+    </div>
+    <div class="pp-progress-wrap">
+      <span class="pp-time" id="pp-cur">0:00</span>
+      <input class="pp-bar" id="pp-bar" type="range" min="0" max="1006" value="0" step="1" oninput="seekPodcast(this.value)">
+      <span class="pp-time" id="pp-total">16:46</span>
+    </div>
   </div>
 </header>
 
@@ -227,7 +219,7 @@ ul.th-pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
 
 <!-- 1 WAHRNEHMUNG -->
 <section class="section reveal" id="s1">
-  <div class="sh"><span class="sn">I</span><span class="st">Soziale Wahrnehmung &amp; Wahrnehmungsfehler</span><span class="sa" style="background:#be123c;">Heider · Rosenthal · Tajfel</span><button class="spb" data-chapter="ch1" onclick="playChapter('ch1')"><span class="spbi">▶</span> Kapitel hören</button></div>
+  <div class="sh"><span class="sn">I</span><span class="st">Soziale Wahrnehmung &amp; Wahrnehmungsfehler</span><span class="sa" style="background:#be123c;">Heider · Rosenthal · Tajfel</span></div>
   <div class="cg wide">
     <div class="card" style="border-top-color:#be123c;">
       <div class="ch"><span class="ca" style="background:#be123c;">Heider · Rosenthal · Tajfel</span><h3 style="color:#be123c;">👁️ Wahrnehmungsfehler — warum wir systematisch falsch liegen</h3><div class="csub">Attributionsfehler · Pygmalion · Halo · Vorurteile</div></div>
@@ -286,7 +278,7 @@ ul.th-pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
 
 <!-- 2 GRUPPEN -->
 <section class="section reveal" id="s2">
-  <div class="sh"><span class="sn">II</span><span class="st">Gruppenpsychologie &amp; Klassenklima</span><span class="sa" style="background:#b45309;">Tuckman · Asch · Lewin</span><button class="spb" data-chapter="ch2" onclick="playChapter('ch2')"><span class="spbi">▶</span> Kapitel hören</button></div>
+  <div class="sh"><span class="sn">II</span><span class="st">Gruppenpsychologie &amp; Klassenklima</span><span class="sa" style="background:#b45309;">Tuckman · Asch · Lewin</span></div>
   <div class="cg">
     <div class="card" style="border-top-color:#b45309;">
       <div class="ch"><span class="ca" style="background:#b45309;">Tuckman</span><h3 style="color:#b45309;">🤝 Gruppenentwicklung — 5 Phasen</h3><div class="csub">Forming · Storming · Norming · Performing · Adjourning</div></div>
@@ -349,7 +341,7 @@ ul.th-pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
 
 <!-- 3 MOBBING -->
 <section class="section reveal" id="s3">
-  <div class="sh"><span class="sn">III</span><span class="st">Mobbing &amp; Inklusion</span><span class="sa" style="background:#15803d;">Olweus (1931–2020)</span><button class="spb" data-chapter="ch3" onclick="playChapter('ch3')"><span class="spbi">▶</span> Kapitel hören</button></div>
+  <div class="sh"><span class="sn">III</span><span class="st">Mobbing &amp; Inklusion</span><span class="sa" style="background:#15803d;">Olweus (1931–2020)</span></div>
   <div class="cg">
     <div class="card" style="border-top-color:#15803d;">
       <div class="ch"><span class="ca" style="background:#15803d;">Olweus</span><h3 style="color:#15803d;">⚠️ Mobbing — Definition, Formen &amp; Dynamik</h3><div class="csub">4 Kriterien · Rollen · Cyber-Mobbing</div></div>
@@ -402,7 +394,7 @@ ul.th-pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
 
 <!-- 4 AUSGRENZUNG -->
 <section class="section reveal" id="s4a">
-  <div class="sh"><span class="sn">III b</span><span class="st">Umgang mit Ausgrenzung</span><span class="sa" style="background:#7c3aed;">LK 175–180 · Prävention &amp; Intervention</span></div>
+  <div class="sh"><span class="sn">IV</span><span class="st">Umgang mit Ausgrenzung</span><span class="sa" style="background:#7c3aed;">LK 175–180 · Prävention &amp; Intervention</span></div>
   <div class="cg wide">
     <div class="card" style="border-top-color:#7c3aed;">
       <div class="ch"><h3 style="color:#7c3aed;">🤲 Ausgrenzung erkennen und gegensteuern</h3><div class="csub">Auslöser · Verstärker · Präventive Maßnahmen · Integration</div></div>
@@ -451,7 +443,7 @@ ul.th-pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
 
 <!-- 4 CLASSROOM -->
 <section class="section reveal" id="s4">
-  <div class="sh"><span class="sn">V</span><span class="st">Classroom-Management</span><span class="sa" style="background:#0369a1;">Kounin (1912–1995)</span><button class="spb" data-chapter="ch4" onclick="playChapter('ch4')"><span class="spbi">▶</span> Kapitel hören</button></div>
+  <div class="sh"><span class="sn">V</span><span class="st">Classroom-Management</span><span class="sa" style="background:#0369a1;">Kounin (1912–1995)</span></div>
   <div class="cg wide">
     <div class="card" style="border-top-color:#0369a1;">
       <div class="ch"><span class="ca" style="background:#0369a1;">Kounin</span><h3 style="color:#0369a1;">🎯 7 Techniken — und das überraschende Ergebnis</h3><div class="csub">Prävention vor Reaktion · Prinzip geringster Intervention</div></div>
@@ -497,7 +489,7 @@ ul.th-pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
 
 <!-- 5 WATZLAWICK -->
 <section class="section reveal" id="s5">
-  <div class="sh"><span class="sn">V</span><span class="st">Kommunikation — Watzlawick</span><span class="sa" style="background:#3730a3;">Paul Watzlawick (1921–2007)</span><button class="spb" data-chapter="ch5" onclick="playChapter('ch5')"><span class="spbi">▶</span> Kapitel hören</button></div>
+  <div class="sh"><span class="sn">VI</span><span class="st">Kommunikation — Watzlawick</span><span class="sa" style="background:#3730a3;">Paul Watzlawick (1921–2007)</span></div>
   <div class="cg wide">
     <div class="card" style="border-top-color:#3730a3;">
       <div class="ch"><span class="ca" style="background:#3730a3;">Watzlawick</span><h3 style="color:#3730a3;">📡 Die 5 Axiome der Kommunikation</h3><div class="csub">Grundgesetze menschlicher Verständigung</div></div>
@@ -539,7 +531,7 @@ ul.th-pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
 
 <!-- 6 SCHULZ VON THUN -->
 <section class="section reveal" id="s6">
-  <div class="sh"><span class="sn">VI</span><span class="st">Das 4-Ohren-Modell — Schulz von Thun</span><span class="sa" style="background:#6d28d9;">Friedemann Schulz von Thun (geb. 1944)</span><button class="spb" data-chapter="ch6" onclick="playChapter('ch6')"><span class="spbi">▶</span> Kapitel hören</button></div>
+  <div class="sh"><span class="sn">VII</span><span class="st">Das 4-Ohren-Modell — Schulz von Thun</span><span class="sa" style="background:#6d28d9;">Friedemann Schulz von Thun (geb. 1944)</span></div>
   <div class="cg">
     <div class="card" style="border-top-color:#6d28d9;">
       <div class="ch"><span class="ca" style="background:#6d28d9;">Schulz von Thun</span><h3 style="color:#6d28d9;">📬 Nachrichtenquadrat — 4 Ebenen jeder Botschaft</h3><div class="csub">Sachinhalt · Selbstoffenbarung · Beziehung · Appell</div></div>
@@ -593,7 +585,7 @@ ul.th-pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
 
 <!-- 7 GESPRÄCHSFÜHRUNG -->
 <section class="section reveal" id="s7">
-  <div class="sh"><span class="sn">VII</span><span class="st">Gesprächsführung nach Rogers</span><span class="sa" style="background:#0f766e;">Carl Rogers (1902–1987)</span><button class="spb" data-chapter="ch6" onclick="playChapter('ch6')"><span class="spbi">▶</span> Kapitel hören</button></div>
+  <div class="sh"><span class="sn">VIII</span><span class="st">Gesprächsführung nach Rogers</span><span class="sa" style="background:#0f766e;">Carl Rogers (1902–1987)</span></div>
   <div class="cg">
     <div class="card" style="border-top-color:#0f766e;">
       <div class="ch"><span class="ca" style="background:#0f766e;">Rogers</span><h3 style="color:#0f766e;">🤝 Die 3 Grundhaltungen &amp; Aktives Zuhören</h3><div class="csub">Personenzentrierte Gesprächsführung</div></div>
@@ -647,32 +639,12 @@ ul.th-pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
 </footer>
 
 <script>
-const ACCENT='#3730a3';
-const CHAPTERS=[{key:'intro',title:'Einleitung',start:0,duration:42.6},{key:'ch1',title:'Soziale Wahrnehmung',start:42.6,duration:306.2},{key:'ch2',title:'Gruppen & Konformitätsdruck',start:348.8,duration:210.1},{key:'ch3',title:'Mobbing & Inklusion',start:558.9,duration:161.9},{key:'ch4',title:'Classroom-Management',start:720.8,duration:172.4},{key:'ch5',title:'Kommunikation – Watzlawick',start:893.2,duration:253.9},{key:'ch6',title:'Schulz von Thun & Rogers',start:1147.1,duration:231.1},{key:'outro',title:'Abschluss',start:1378.2,duration:62.8}];
-function toggle(item){const b=item.querySelector('.abody'),o=item.classList.contains('open');item.classList.toggle('open',!o);b.classList.toggle('open',!o);}
-function scrollTo(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
-const audio=document.getElementById('mainAudio'),bar=document.getElementById('audioBar');
-const bpb=document.getElementById('barPlayBtn'),hpb=document.getElementById('heroPlayBtn');
-const btit=document.getElementById('barTit'),bch=document.getElementById('barCh'),btm=document.getElementById('barTime');
-const ap=document.getElementById('audioProgress'),hs=document.getElementById('heroSeek');
-const htm=document.getElementById('heroTime'),hdr=document.getElementById('heroDur');
-const cbe=document.getElementById('chBtns');
-CHAPTERS.forEach(ch=>{const btn=document.createElement('button');btn.className='chbtn';btn.id='cb-'+ch.key;btn.textContent=ch.title;btn.onclick=()=>playChapter(ch.key);cbe.appendChild(btn);});
-function fmt(s){const m=Math.floor(s/60),sec=Math.floor(s%60);return m+':'+String(sec).padStart(2,'0');}
-function curCh(){const t=audio.currentTime;for(let i=CHAPTERS.length-1;i>=0;i--)if(t>=CHAPTERS[i].start)return CHAPTERS[i];return CHAPTERS[0];}
-function ui(){const t=audio.currentTime,d=audio.duration||0,ch=curCh();
-  btit.textContent=ch.title;bch.textContent='Hörbuch · '+(CHAPTERS.indexOf(ch)+1)+'/'+CHAPTERS.length;
-  btm.textContent=fmt(t)+' / '+fmt(d);ap.max=d;ap.value=t;
-  htm.textContent=fmt(t);if(d)hdr.textContent=fmt(d);hs.max=d;hs.value=t;
-  document.querySelectorAll('.chbtn').forEach(b=>{const a=b.id==='cb-'+ch.key&&!audio.paused;b.style.background=a?ACCENT:'';b.style.color=a?'white':'';b.style.borderColor=a?ACCENT:'';});
-  document.querySelectorAll('.spb').forEach(b=>{const bc=CHAPTERS.find(c=>c.key===b.dataset.chapter);const p=!audio.paused&&bc&&t>=bc.start&&t<bc.start+bc.duration;b.innerHTML=p?'<span class="spbi">⏸</span> Pausieren':'<span class="spbi">▶</span> Kapitel hören';b.style.background=p?ACCENT:'';b.style.color=p?'white':ACCENT;b.style.borderColor=ACCENT;});
-  bpb.textContent=audio.paused?'▶':'⏸';hpb.textContent=audio.paused?'▶':'⏸';}
-function playChapter(key){const ch=CHAPTERS.find(c=>c.key===key);if(!ch)return;if(!audio.paused&&curCh().key===key){audio.pause();return;}audio.currentTime=ch.start;audio.play();bar.classList.add('visible');ui();}
-function togglePlay(){if(audio.paused){audio.play();bar.classList.add('visible');}else audio.pause();}
-function closeBar(){audio.pause();bar.classList.remove('visible');ui();}
-audio.addEventListener('timeupdate',ui);audio.addEventListener('play',ui);audio.addEventListener('pause',ui);
-ap.addEventListener('input',()=>{audio.currentTime=ap.value;});
-hs.addEventListener('input',()=>{audio.currentTime=hs.value;});
+var _aud=document.getElementById('pp-audio'),_btn=document.getElementById('pp-btn'),_bar=document.getElementById('pp-bar'),_cur=document.getElementById('pp-cur'),_tot=document.getElementById('pp-total');
+function fmt(s){var m=Math.floor(s/60);return m+':'+(Math.floor(s%60)+'').padStart(2,'0');}
+function togglePodcast(){if(_aud.paused){_aud.play();_btn.textContent='⏸';}else{_aud.pause();_btn.textContent='▶';}}
+function seekPodcast(v){_aud.currentTime=v;}
+_aud.addEventListener('timeupdate',function(){_bar.value=Math.floor(_aud.currentTime);_cur.textContent=fmt(_aud.currentTime);});
+_aud.addEventListener('ended',function(){_btn.textContent='▶';_bar.value=0;_cur.textContent='0:00';});
 const secs=document.querySelectorAll('.section'),nbs=document.querySelectorAll('.nb');
 secs.forEach(s=>new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){const i=Array.from(secs).indexOf(en.target);nbs.forEach((b,j)=>{b.classList.toggle('active',j===i);b.style.background=j===i?ACCENT:'';b.style.color=j===i?'white':'';})}});},{threshold:0.25}).observe(s));
 document.querySelectorAll('.reveal').forEach(el=>new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('visible');});},{threshold:0.08}).observe(el));

@@ -75,35 +75,23 @@ ul.pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
 .snum{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;flex-shrink:0;margin-top:1px;}
 .sbody{font-size:12.5px;line-height:1.45;}
 .sbody strong{display:block;font-weight:700;margin-bottom:1px;}
-/* audio */
-.audio-bar{position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(20,20,25,.96);backdrop-filter:blur(10px);border-top:1px solid rgba(255,255,255,.12);padding:10px 24px 12px;transform:translateY(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);}
-.audio-bar.visible{transform:translateY(0);}
-.audio-inner{max-width:1100px;margin:0 auto;}
-.audio-top{display:flex;align-items:center;gap:14px;margin-bottom:8px;}
-.apb{width:36px;height:36px;border-radius:50%;border:none;cursor:pointer;background:var(--acc);color:white;font-size:15px;display:flex;align-items:center;justify-content:center;transition:transform .15s;flex-shrink:0;}
-.apb:hover{transform:scale(1.08);}
-.ainfo{flex:1;min-width:0;}
-.ach{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.5);}
-.atit{font-size:13px;font-weight:600;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.atime{font-size:12px;color:rgba(255,255,255,.45);font-variant-numeric:tabular-nums;flex-shrink:0;}
-.acb{width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,255,255,.2);cursor:pointer;background:transparent;color:rgba(255,255,255,.5);font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;}
-.acb:hover{background:rgba(255,255,255,.1);color:white;}
-.aprog{width:100%;height:4px;border-radius:2px;cursor:pointer;appearance:none;outline:none;accent-color:var(--acc);}
-.aprog::-webkit-slider-thumb{appearance:none;width:14px;height:14px;border-radius:50%;background:var(--acc);cursor:pointer;margin-top:-5px;}
-.aprog::-webkit-slider-runnable-track{height:4px;border-radius:2px;background:rgba(255,255,255,.15);}
-.ahp{margin-top:22px;background:var(--sur);border:1px solid var(--brd);border-radius:12px;padding:16px 20px;box-shadow:var(--sh);}
-.ahph{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
-.ahpi{font-size:22px;}
-.ahpl{font-family:'Lora',serif;font-size:15px;font-weight:700;}
-.ahps{font-size:11px;color:var(--mut);margin-top:1px;}
-.ahppb{width:38px;height:38px;border-radius:50%;border:none;cursor:pointer;background:var(--acc);color:white;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;margin-left:auto;}
-.ahppr{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
-.ahpt{font-size:11px;color:var(--mut);font-variant-numeric:tabular-nums;white-space:nowrap;}
-.ahpsk{flex:1;height:4px;border-radius:2px;cursor:pointer;accent-color:var(--acc);}
-.ahpch{display:flex;flex-wrap:wrap;gap:5px;}
-.chbtn{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;border:1px solid var(--brd);background:var(--sur2);color:var(--mut);cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif;}
-.spb{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:4px 11px;border-radius:20px;border:1.5px solid var(--acc);background:transparent;color:var(--acc);cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif;white-space:nowrap;flex-shrink:0;}
-.spbi{font-size:10px;}
+/* ── PODCAST PLAYER ── */
+.podcast-player{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;background:#fff;border:1px solid var(--brd);border-radius:14px;padding:14px 18px;margin-top:20px;box-shadow:0 2px 12px rgba(0,0,0,.06);}
+.pp-left{display:flex;align-items:center;gap:12px;flex:1;min-width:0;}
+.pp-icon{font-size:26px;flex-shrink:0;}
+.pp-meta{min-width:0;}
+.pp-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--acc);margin-bottom:1px;}
+.pp-title{font-family:'Lora',serif;font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pp-duration{font-size:11px;color:var(--mut);}
+.pp-controls{display:flex;align-items:center;gap:6px;}
+.pp-play{width:40px;height:40px;border-radius:50%;background:var(--acc);border:none;color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .15s,opacity .15s;flex-shrink:0;}
+.pp-play:hover{opacity:.85;transform:scale(1.05);}
+.pp-skip{background:none;border:1px solid var(--brd);border-radius:20px;font-size:11px;font-weight:600;color:var(--mut);padding:4px 9px;cursor:pointer;white-space:nowrap;transition:background .15s;}
+.pp-skip:hover{background:var(--sur2);}
+.pp-progress-wrap{display:flex;align-items:center;gap:8px;width:100%;order:99;}
+.pp-bar{flex:1;-webkit-appearance:none;height:4px;border-radius:2px;background:#e5e0d8;cursor:pointer;accent-color:var(--acc);}
+.pp-bar::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--acc);cursor:pointer;}
+.pp-time{font-size:11px;color:var(--mut);font-variant-numeric:tabular-nums;min-width:30px;}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .5s,transform .5s;}
 .reveal.visible{opacity:1;transform:none;}
 @media(max-width:640px){.hero,.main{padding-left:18px;padding-right:18px;}.nav{padding:0 18px;}.cg,.cg.wide{grid-template-columns:1fr;}.cmp{grid-template-columns:1fr;}.ac{padding-left:18px;}.thgrid{grid-template-columns:1fr 1fr;}}
@@ -161,18 +149,6 @@ ul.th-pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
   </div>
 </div>
 
-<audio id="mainAudio" preload="none"><source src="hoerbuch_lernpsychologie.mp3" type="audio/mpeg"></audio>
-<div class="audio-bar" id="audioBar">
-  <div class="audio-inner">
-    <div class="audio-top">
-      <button class="apb" id="barPlayBtn" onclick="togglePlay()">▶</button>
-      <div class="ainfo"><div class="ach" id="barCh">Hörbuch</div><div class="atit" id="barTit">Lernpsychologie</div></div>
-      <div class="atime" id="barTime">0:00 / 0:00</div>
-      <button class="acb" onclick="closeBar()">×</button>
-    </div>
-    <input type="range" class="aprog" id="audioProgress" value="0" min="0" step="0.1">
-  </div>
-</div>
 
 <nav class="nav">
   <div class="nav-inner">
@@ -185,6 +161,7 @@ ul.th-pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
     <button class="nb" onclick="scrollTo('s5')">Lernstile</button>
     <button class="nb" onclick="scrollTo('s6')">Strategien</button>
     <button class="nb" onclick="scrollTo('s7')">Prüfungsangst</button>
+    <button class="nb" onclick="scrollTo('s13')">Kommunikation</button>
   </div>
 </nav>
 
@@ -199,10 +176,26 @@ ul.th-pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
     <span class="thb" style="color:#0f766e;border-color:#0f766e;">Ebbinghaus <span class="thby">Gedächtnis</span></span>
     <span class="thb" style="color:#6d28d9;border-color:#6d28d9;">Skinner · Bandura <span class="thby">Lerntheorien</span></span>
   </div>
-  <div class="ahp">
-    <div class="ahph"><span class="ahpi">🎧</span><div><div class="ahpl">Hörbuch: Lernpsychologie</div><div class="ahps">ca. 26 Minuten · 9 Kapitel · alle Fachbegriffe erklärt</div></div><button class="ahppb" id="heroPlayBtn" onclick="togglePlay()">▶</button></div>
-    <div class="ahppr"><span class="ahpt" id="heroTime">0:00</span><input type="range" class="ahpsk" id="heroSeek" value="0" min="0" step="0.1"><span class="ahpt" id="heroDur">26:02</span></div>
-    <div class="ahpch" id="chBtns"></div>
+  <div class="podcast-player">
+    <div class="pp-left">
+      <div class="pp-icon">🎧</div>
+      <div class="pp-meta">
+        <div class="pp-label">Zusammenfassender Podcast</div>
+        <div class="pp-title">Lehr- &amp; Lernpsychologie</div>
+        <div class="pp-duration">29:30 min</div>
+      </div>
+    </div>
+    <audio id="pp-audio" src="hoerbuch_lernpsychologie.m4a" preload="none"></audio>
+    <div class="pp-controls">
+      <button class="pp-skip" onclick="document.getElementById('pp-audio').currentTime-=15">⟨ 15s</button>
+      <button class="pp-play" id="pp-btn" onclick="togglePodcast()">▶</button>
+      <button class="pp-skip" onclick="document.getElementById('pp-audio').currentTime+=30">30s ⟩</button>
+    </div>
+    <div class="pp-progress-wrap">
+      <span class="pp-time" id="pp-cur">0:00</span>
+      <input class="pp-bar" id="pp-bar" type="range" min="0" max="1770" value="0" step="1" oninput="seekPodcast(this.value)">
+      <span class="pp-time" id="pp-total">29:30</span>
+    </div>
   </div>
 </header>
 
@@ -225,7 +218,7 @@ ul.th-pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
 
 <!-- 1 MOTIVATION -->
 <section class="section reveal" id="s1">
-  <div class="sh"><span class="sn">I</span><span class="st">Motivation</span><span class="sa" style="background:#b45309;">Heckhausen · Rheinberg · Deci &amp; Ryan</span><button class="spb" data-chapter="ch1" onclick="playChapter('ch1')"><span class="spbi">▶</span> Kapitel hören</button></div>
+  <div class="sh"><span class="sn">I</span><span class="st">Motivation</span><span class="sa" style="background:#b45309;">Heckhausen · Rheinberg · Deci &amp; Ryan</span></div>
   <div class="cg wide">
     <div class="card" style="border-top-color:#b45309;">
       <div class="ch"><span class="ca" style="background:#b45309;">Motivation</span><h3 style="color:#b45309;">🔥 Intrinsisch vs. extrinsisch — und der korrumpierende Effekt</h3><div class="csub">Deci &amp; Ryan · Selbstbestimmungstheorie</div></div>
@@ -291,7 +284,7 @@ ul.th-pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
 
 <!-- 2 ATTRIBUTION -->
 <section class="section reveal" id="s2">
-  <div class="sh"><span class="sn">II</span><span class="st">Attribution, Mindset &amp; Hilflosigkeit</span><span class="sa" style="background:#be123c;">Weiner · Dweck · Seligman</span><button class="spb" data-chapter="ch2" onclick="playChapter('ch2')"><span class="spbi">▶</span> Kapitel hören</button></div>
+  <div class="sh"><span class="sn">II</span><span class="st">Attribution, Mindset &amp; Hilflosigkeit</span><span class="sa" style="background:#be123c;">Weiner · Dweck · Seligman</span></div>
   <div class="cg">
     <div class="card" style="border-top-color:#be123c;">
       <div class="ch"><span class="ca" style="background:#be123c;">Weiner</span><h3 style="color:#be123c;">📌 Attributionstheorie — Warum glaube ich, dass ich gescheitert bin?</h3><div class="csub">3 Dimensionen · Muster · Schulrelevanz</div></div>
@@ -337,7 +330,7 @@ ul.th-pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
 
 <!-- 3 GEDÄCHTNIS -->
 <section class="section reveal" id="s3">
-  <div class="sh"><span class="sn">III</span><span class="st">Gedächtnis &amp; Lernen im Gehirn</span><span class="sa" style="background:#0f766e;">Ebbinghaus · Baddeley · Vygotski</span><button class="spb" data-chapter="ch3" onclick="playChapter('ch3')"><span class="spbi">▶</span> Kapitel hören</button></div>
+  <div class="sh"><span class="sn">III</span><span class="st">Gedächtnis &amp; Lernen im Gehirn</span><span class="sa" style="background:#0f766e;">Ebbinghaus · Baddeley · Vygotski</span></div>
   <div class="cg">
     <div class="card" style="border-top-color:#0f766e;">
       <div class="ch"><span class="ca" style="background:#0f766e;">Ebbinghaus · Baddeley</span><h3 style="color:#0f766e;">🧠 Wie das Gedächtnis funktioniert</h3><div class="csub">Vergessenskurve · Arbeitsgedächtnis · Langzeitgedächtnis</div></div>
@@ -380,7 +373,7 @@ ul.th-pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
 
 <!-- 4 LERNTHEORIEN -->
 <section class="section reveal" id="s4">
-  <div class="sh"><span class="sn">IV</span><span class="st">Lerntheorien</span><span class="sa" style="background:#6d28d9;">Pawlow · Skinner · Bandura</span><button class="spb" data-chapter="ch4" onclick="playChapter('ch4')"><span class="spbi">▶</span> Kapitel hören</button></div>
+  <div class="sh"><span class="sn">IV</span><span class="st">Lerntheorien</span><span class="sa" style="background:#6d28d9;">Pawlow · Skinner · Bandura</span></div>
   <div class="cg">
     <div class="card" style="border-top-color:#6d28d9;">
       <div class="ch"><span class="ca" style="background:#6d28d9;">Pawlow · Skinner</span><h3 style="color:#6d28d9;">🔔 Klassisches &amp; operantes Konditionieren</h3><div class="csub">Behaviorismus · Verstärkung · Bestrafung</div></div>
@@ -425,7 +418,7 @@ ul.th-pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
 
 <!-- 5 LERNSTILE -->
 <section class="section reveal" id="s5">
-  <div class="sh"><span class="sn">V</span><span class="st">Lernstile &amp; individuelle Unterschiede</span><span class="sa" style="background:#0891b2;">Kolb · Gardner · Hattie</span><button class="spb" data-chapter="ch5" onclick="playChapter('ch5')"><span class="spbi">▶</span> Kapitel hören</button></div>
+  <div class="sh"><span class="sn">V</span><span class="st">Lernstile &amp; individuelle Unterschiede</span><span class="sa" style="background:#0891b2;">Kolb · Gardner · Hattie</span></div>
   <div class="cg">
     <div class="card" style="border-top-color:#0891b2;">
       <div class="ch"><span class="ca" style="background:#0891b2;">Kolb</span><h3 style="color:#0891b2;">🔄 Kolbs Lernkreislauf &amp; Lernstile</h3><div class="csub">4 Stile · Erfahrungslernen · Kritik</div></div>
@@ -468,7 +461,7 @@ ul.th-pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
 
 <!-- 6 STRATEGIEN -->
 <section class="section reveal" id="s6">
-  <div class="sh"><span class="sn">VI</span><span class="st">Lernstrategien &amp; Metakognition</span><span class="sa" style="background:#2d6a4f;">Flavell · Zimmermann · Forschungsevidenz</span><button class="spb" data-chapter="ch6" onclick="playChapter('ch6')"><span class="spbi">▶</span> Kapitel hören</button></div>
+  <div class="sh"><span class="sn">VI</span><span class="st">Lernstrategien &amp; Metakognition</span><span class="sa" style="background:#2d6a4f;">Flavell · Zimmermann · Forschungsevidenz</span></div>
   <div class="cg">
     <div class="card" style="border-top-color:#2d6a4f;">
       <div class="ch"><h3 style="color:#2d6a4f;">💡 Effektive vs. ineffektive Lernstrategien</h3><div class="csub">Was die Forschung sagt</div></div>
@@ -513,7 +506,7 @@ ul.th-pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
 
 <!-- 7 PRÜFUNGSANGST -->
 <section class="section reveal" id="s7">
-  <div class="sh"><span class="sn">VII</span><span class="st">Prüfungsangst</span><span class="sa" style="background:#be123c;">Liebert &amp; Morris · Neuropsychologie</span><button class="spb" data-chapter="ch7" onclick="playChapter('ch7')"><span class="spbi">▶</span> Kapitel hören</button></div>
+  <div class="sh"><span class="sn">VII</span><span class="st">Prüfungsangst</span><span class="sa" style="background:#be123c;">Liebert &amp; Morris · Neuropsychologie</span></div>
   <div class="cg">
     <div class="card" style="border-top-color:#be123c;">
       <div class="ch"><h3 style="color:#be123c;">😰 Prüfungsangst — Entstehung &amp; Teufelskreis</h3><div class="csub">Zwei Komponenten · 4 Ebenen · Intervention</div></div>
@@ -736,6 +729,62 @@ ul.th-pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
   </div>
 </section>
 
+
+<!-- 13 KOMMUNIKATIONSMODELL -->
+<section class="section reveal" id="s13">
+  <div class="sh"><span class="sn">XIII</span><span class="st">Erweitertes informationstheoretisches Kommunikationsmodell</span><span class="sa" style="background:#0891b2;">Überblick Kommunikation · LK 187–191</span></div>
+  <div class="cg wide">
+    <div class="card" style="border-top-color:#0891b2;">
+      <div class="ch"><span class="ca" style="background:#0891b2;">Kommunikation</span><h3 style="color:#0891b2;">📡 Das erweiterte informationstheoretische Kommunikationsmodell</h3><div class="csub">Nach Universität Oldenburg · Sender · Kanal · Empfänger · Störquellen · Rückkopplung</div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0f7fa;color:#0891b2;">💡</div><div class="al">Aufbau des Modells — die Grundelemente</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Das erweiterte informationstheoretische Kommunikationsmodell (nach der Universität Oldenburg) geht über das klassische Shannon-Weaver-Modell hinaus. Es beschreibt Kommunikation nicht nur als technische Signalübertragung, sondern berücksichtigt soziale, psychologische und situative Faktoren — besonders relevant für die Schule.</div>
+        <div class="fb"><div class="fl">🔑 Die Kernelemente des Modells</div>
+          <strong>① Sender:</strong> Person, die eine Nachricht übermitteln will (innere Vorstellung, Gefühl, Information).<br>
+          <strong>② Encodieren:</strong> Die innere Vorstellung wird in Zeichen übersetzt — in Sprache, Mimik, Gestik, Schrift.<br>
+          <strong>③ Kanal / Medium:</strong> Der Übertragungsweg — Luft (Sprache), Papier (Text), digitale Medien, nonverbal/verbal.<br>
+          <strong>④ Decodieren:</strong> Der Empfänger entschlüsselt die angekommenen Signale nach seinem eigenen Zeichensystem.<br>
+          <strong>⑤ Empfänger:</strong> Person, die die Nachricht aufnimmt und interpretiert.
+        </div>
+        <div class="fb"><div class="fl">🔑 Erweiterungen gegenüber dem Grundmodell</div>
+          <strong>Internale Einflussfaktoren:</strong> Soziale Rolle (symmetrisch/komplementär), psychophysische Verfassung von Sender und Empfänger wirken auf den gesamten Prozess ein.<br>
+          <strong>Störquellen:</strong> Innere (z. B. Ablenkung, Vorannahmen, Emotionen) und äußere Störungen (Lärm, Zeitdruck, Medium) verzerren die Übertragung.<br>
+          <strong>Rahmenbedingungen:</strong> Ort, Zeit, Machtverhältnisse, Gruppenklima beeinflussen, wie Nachrichten encodiert und decodiert werden.<br>
+          <strong>Rückkopplung (Feedback):</strong> Der Empfänger wird selbst zum Sender — er gibt Signale zurück, die den Kommunikationsprozess regulieren.
+        </div>
+        <div class="ebox"><div class="el">📚 Schulbeispiel: Lehrkraft erklärt ein Konzept</div>
+          Die Lehrkraft (Sender) hat eine klare Vorstellung von „Photosynthese". Sie encodiert diese in Worte und zeichnet ein Diagramm (Kanal: Sprache + visuell). Ein Schüler, der gerade Streit in der Pause hatte (internale Störquelle: emotionale Belastung), kann die Nachricht nur bruchstückhaft decodieren. Sein verwirrter Blick ist die Rückkopplung — die Lehrkraft reagiert und erklärt nochmals.
+        </div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Lehrkräfte sind gleichzeitig Sender und Empfänger. Kongruenz zwischen dem, was man sagen will, wie man es sagt und wie man es körpersprachlich signalisiert, ist entscheidend. Feedback-Schleifen aktiv einbauen: „Habt ihr das verstanden?" ist kein Feedback — besser: „Erkläre mir mit eigenen Worten, was ich gerade gesagt habe."</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0f7fa;color:#0891b2;">✅</div><div class="al">7 Bedingungen für gelingende Kommunikation</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="ex">Das Modell benennt sieben Bedingungen, die erfüllt sein müssen, damit Kommunikation gelingt. Jede nicht erfüllte Bedingung ist eine potenzielle Störquelle:</div>
+        <div class="stufe" style="background:#ecfeff;border-color:#a5f3fc;"><div class="snum" style="background:#e0f7fa;color:#0891b2;">①</div><div class="sbody"><strong>Übereinstimmung von Vorstellung und Encodierung</strong> — Was der Sender meint, muss mit dem, was er ausdrückt, übereinstimmen. Wer verwirrt ist, kann keine klare Botschaft senden. <em>Schulbsp.: Eine Lehrkraft, die selbst unsicher ist, vermittelt Unsicherheit — auch ohne es zu bemerken.</em></div></div>
+        <div class="stufe" style="background:#ecfeff;border-color:#a5f3fc;"><div class="snum" style="background:#e0f7fa;color:#0891b2;">②</div><div class="sbody"><strong>Kongruenz zwischen verbal und nonverbal</strong> — Gesprochenes und Körpersprache müssen übereinstimmen. Inkongruenz erzeugt Misstrauen. <em>Schulbsp.: „Ich bin für euch da!" — gesagt mit verschränkten Armen und ohne Blickkontakt — wirkt unglaubwürdig.</em></div></div>
+        <div class="stufe" style="background:#ecfeff;border-color:#a5f3fc;"><div class="snum" style="background:#e0f7fa;color:#0891b2;">③</div><div class="sbody"><strong>Gemeinsames Zeichensystem</strong> — Sender und Empfänger müssen dieselbe Sprache, dieselben Begriffe und Symbole teilen. <em>Schulbsp.: Fachsprache, die noch nicht erklärt wurde, ist kein Zeichensystem — sie ist Rauschen für die Schülerinnen und Schüler.</em></div></div>
+        <div class="stufe" style="background:#ecfeff;border-color:#a5f3fc;"><div class="snum" style="background:#e0f7fa;color:#0891b2;">④</div><div class="sbody"><strong>Psychische Verfassung, Rollen, Machtgefälle</strong> — Wer erschöpft, ängstlich oder wütend ist, encodiert und decodiert anders. Hierarchien (Lehrerin–Schüler) beeinflussen, was gesagt und wie es verstanden wird. <em>Schulbsp.: Ein Schüler, der sich von der Lehrerin nicht gemocht fühlt, wird ihr Feedback als Kritik hören — auch wenn es neutral gemeint ist.</em></div></div>
+        <div class="stufe" style="background:#ecfeff;border-color:#a5f3fc;"><div class="snum" style="background:#e0f7fa;color:#0891b2;">⑤</div><div class="sbody"><strong>Vorwissen beider Seiten</strong> — Um Signale korrekt zuzuordnen, brauchen Sender und Empfänger ausreichend Vorwissen. <em>Schulbsp.: Rückmeldungen auf eine Hausarbeit können nur verstanden werden, wenn der Schüler weiß, was „Argumentation" bedeutet.</em></div></div>
+        <div class="stufe" style="background:#ecfeff;border-color:#a5f3fc;"><div class="snum" style="background:#e0f7fa;color:#0891b2;">⑥</div><div class="sbody"><strong>Bereitschaft zum Perspektivwechsel</strong> — Kommunikation gelingt nur, wenn beide Seiten bereit sind, unterschiedliche Sichtweisen zu akzeptieren und auf gemeinsame Ziele hinzuarbeiten. <em>Schulbsp.: Ein Elterngespräch über schwache Leistungen scheitert, wenn beide Seiten nur die eigene Position vertreten wollen.</em></div></div>
+        <div class="stufe" style="background:#ecfeff;border-color:#a5f3fc;"><div class="snum" style="background:#e0f7fa;color:#0891b2;">⑦</div><div class="sbody"><strong>Rahmenbedingungen und Störvariablen</strong> — Ort, Zeit, Lärm, Zeitdruck oder eine ungünstige Sitzordnung können Kommunikation beeinträchtigen — auch wenn alle anderen Bedingungen erfüllt sind. <em>Schulbsp.: Ein Elterngespräch auf dem Flur zwischen zwei Unterrichtsstunden scheitert an den Rahmenbedingungen — nicht an den Beteiligten.</em></div></div>
+        <div class="note">Das Modell zeigt: Missverständnisse sind der Normalfall, nicht die Ausnahme. Gelingende Kommunikation erfordert aktive Anstrengung von allen Beteiligten.</div>
+      </div></div></div>
+
+      <div class="ai" onclick="toggle(this)"><div class="at"><div class="an" style="background:#e0f7fa;color:#0891b2;">🔗</div><div class="al">Verbindung zu anderen Kommunikationsmodellen</div><span class="aico">▾</span></div>
+      <div class="abody"><div class="ac">
+        <div class="cmp">
+          <div class="ci"><div class="cil" style="color:#0891b2;">Verbal (digital)</div>Gesprochene Sprache, Schrift, Inhalt. Nach Watzlawick: Inhaltsebene. Präzise, aber ohne Kontext leicht missverständlich.</div>
+          <div class="ci"><div class="cil" style="color:#db2777;">Nonverbal (analog)</div>Mimik, Gestik, Körperhaltung, Tonfall, Augenkontakt, Erscheinungsbild. Beziehungsebene — oft wichtiger als das gesprochene Wort.</div>
+        </div>
+        <div class="fb"><div class="fl">🔑 Digitale Medien als Kanal</div>Digitale Kommunikation (Chats, E-Mails, Lernplattformen) reduziert nonverbale Signale erheblich — Missverständnisse entstehen leichter. Emojis sind ein Versuch, nonverbale Signale digital zu encodieren. Im Unterricht: klare Netiquette, explizite Formulierungen, bewusste Kompensation fehlender Körpersprache.</div>
+        <div class="tip"><div class="tl">🏫 Schulpraxis</div>Das informationstheoretische Modell erklärt, warum Unterrichtskommunikation so oft nicht funktioniert, wie geplant: Störquellen gibt es immer. Die professionelle Reaktion ist nicht Frustration, sondern bewusstes Einbauen von Rückkopplungsschleifen — Nachfragen, Visualisieren, Reformulieren lassen.</div>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
 </main>
 
 <footer style="background:var(--sur2);border-top:1px solid var(--brd);padding:20px 32px;text-align:center;">
@@ -745,32 +794,12 @@ ul.th-pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
 </footer>
 
 <script>
-const ACCENT='#2d6a4f';
-const CHAPTERS=[{key:'intro',title:'Einleitung',start:0,duration:45.1},{key:'ch1',title:'Motivation & Rubikon',start:45.1,duration:338.6},{key:'ch2',title:'Attribution, Mindset & Hilflosigkeit',start:383.7,duration:181.3},{key:'ch3',title:'Gedächtnis & Vorwissen',start:565.0,duration:161.3},{key:'ch4',title:'Lerntheorien',start:726.3,duration:210.1},{key:'ch5',title:'Lernstile & Hattie',start:936.4,duration:210.5},{key:'ch6',title:'Lernstrategien & Metakognition',start:1146.9,duration:179.9},{key:'ch7',title:'Prüfungsangst',start:1326.8,duration:169.0},{key:'outro',title:'Abschluss',start:1495.8,duration:66.2}];
-function toggle(item){const b=item.querySelector('.abody'),o=item.classList.contains('open');item.classList.toggle('open',!o);b.classList.toggle('open',!o);}
-function scrollTo(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
-const audio=document.getElementById('mainAudio'),bar=document.getElementById('audioBar');
-const bpb=document.getElementById('barPlayBtn'),hpb=document.getElementById('heroPlayBtn');
-const btit=document.getElementById('barTit'),bch=document.getElementById('barCh'),btm=document.getElementById('barTime');
-const ap=document.getElementById('audioProgress'),hs=document.getElementById('heroSeek');
-const htm=document.getElementById('heroTime'),hdr=document.getElementById('heroDur');
-const cbe=document.getElementById('chBtns');
-CHAPTERS.forEach(ch=>{const btn=document.createElement('button');btn.className='chbtn';btn.id='cb-'+ch.key;btn.textContent=ch.title;btn.onclick=()=>playChapter(ch.key);cbe.appendChild(btn);});
-function fmt(s){const m=Math.floor(s/60),sec=Math.floor(s%60);return m+':'+String(sec).padStart(2,'0');}
-function curCh(){const t=audio.currentTime;for(let i=CHAPTERS.length-1;i>=0;i--)if(t>=CHAPTERS[i].start)return CHAPTERS[i];return CHAPTERS[0];}
-function ui(){const t=audio.currentTime,d=audio.duration||0,ch=curCh();
-  btit.textContent=ch.title;bch.textContent='Hörbuch · '+(CHAPTERS.indexOf(ch)+1)+'/'+CHAPTERS.length;
-  btm.textContent=fmt(t)+' / '+fmt(d);ap.max=d;ap.value=t;
-  htm.textContent=fmt(t);if(d)hdr.textContent=fmt(d);hs.max=d;hs.value=t;
-  document.querySelectorAll('.chbtn').forEach(b=>{const a=b.id==='cb-'+ch.key&&!audio.paused;b.style.background=a?ACCENT:'';b.style.color=a?'white':'';b.style.borderColor=a?ACCENT:'';});
-  document.querySelectorAll('.spb').forEach(b=>{const bc=CHAPTERS.find(c=>c.key===b.dataset.chapter);const p=!audio.paused&&bc&&t>=bc.start&&t<bc.start+bc.duration;b.innerHTML=p?'<span class="spbi">⏸</span> Pausieren':'<span class="spbi">▶</span> Kapitel hören';b.style.background=p?ACCENT:'';b.style.color=p?'white':ACCENT;b.style.borderColor=ACCENT;});
-  bpb.textContent=audio.paused?'▶':'⏸';hpb.textContent=audio.paused?'▶':'⏸';}
-function playChapter(key){const ch=CHAPTERS.find(c=>c.key===key);if(!ch)return;if(!audio.paused&&curCh().key===key){audio.pause();return;}audio.currentTime=ch.start;audio.play();bar.classList.add('visible');ui();}
-function togglePlay(){if(audio.paused){audio.play();bar.classList.add('visible');}else audio.pause();}
-function closeBar(){audio.pause();bar.classList.remove('visible');ui();}
-audio.addEventListener('timeupdate',ui);audio.addEventListener('play',ui);audio.addEventListener('pause',ui);
-ap.addEventListener('input',()=>{audio.currentTime=ap.value;});
-hs.addEventListener('input',()=>{audio.currentTime=hs.value;});
+var _aud=document.getElementById('pp-audio'),_btn=document.getElementById('pp-btn'),_bar=document.getElementById('pp-bar'),_cur=document.getElementById('pp-cur'),_tot=document.getElementById('pp-total');
+function fmt(s){var m=Math.floor(s/60);return m+':'+(Math.floor(s%60)+'').padStart(2,'0');}
+function togglePodcast(){if(_aud.paused){_aud.play();_btn.textContent='⏸';}else{_aud.pause();_btn.textContent='▶';}}
+function seekPodcast(v){_aud.currentTime=v;}
+_aud.addEventListener('timeupdate',function(){_bar.value=Math.floor(_aud.currentTime);_cur.textContent=fmt(_aud.currentTime);});
+_aud.addEventListener('ended',function(){_btn.textContent='▶';_bar.value=0;_cur.textContent='0:00';});
 const secs=document.querySelectorAll('.section'),nbs=document.querySelectorAll('.nb');
 secs.forEach(s=>new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){const i=Array.from(secs).indexOf(en.target);nbs.forEach((b,j)=>{b.classList.toggle('active',j===i);b.style.background=j===i?ACCENT:'';b.style.color=j===i?'white':'';})}});},{threshold:0.25}).observe(s));
 document.querySelectorAll('.reveal').forEach(el=>new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('visible');});},{threshold:0.08}).observe(el));

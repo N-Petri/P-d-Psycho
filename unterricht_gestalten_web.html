@@ -77,6 +77,24 @@ ul.pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .5s,transform .5s;}
 .reveal.visible{opacity:1;transform:none;}
 @media(max-width:640px){.hero,.main{padding-left:18px;padding-right:18px;}.nav{padding:0 18px;}.cg,.cg.wide{grid-template-columns:1fr;}.cmp{grid-template-columns:1fr;}.ac{padding-left:18px;}}
+/* ── PODCAST PLAYER ── */
+.podcast-player{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;background:#fff;border:1px solid var(--brd);border-radius:14px;padding:14px 18px;margin-top:20px;box-shadow:0 2px 12px rgba(0,0,0,.06);}
+.pp-left{display:flex;align-items:center;gap:12px;flex:1;min-width:0;}
+.pp-icon{font-size:26px;flex-shrink:0;}
+.pp-meta{min-width:0;}
+.pp-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--acc);margin-bottom:1px;}
+.pp-title{font-family:'Lora',serif;font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pp-duration{font-size:11px;color:var(--mut);}
+.pp-controls{display:flex;align-items:center;gap:6px;}
+.pp-play{width:40px;height:40px;border-radius:50%;background:var(--acc);border:none;color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .15s,opacity .15s;flex-shrink:0;}
+.pp-play:hover{opacity:.85;transform:scale(1.05);}
+.pp-skip{background:none;border:1px solid var(--brd);border-radius:20px;font-size:11px;font-weight:600;color:var(--mut);padding:4px 9px;cursor:pointer;white-space:nowrap;transition:background .15s;}
+.pp-skip:hover{background:var(--sur2);}
+.pp-progress-wrap{display:flex;align-items:center;gap:8px;width:100%;order:99;}
+.pp-bar{flex:1;-webkit-appearance:none;height:4px;border-radius:2px;background:#e5e0d8;cursor:pointer;accent-color:var(--acc);}
+.pp-bar::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--acc);cursor:pointer;}
+.pp-time{font-size:11px;color:var(--mut);font-variant-numeric:tabular-nums;min-width:30px;}
+
 </style>
 </head>
 <body>
@@ -107,6 +125,28 @@ ul.pl li::before{content:'–';position:absolute;left:0;color:var(--mut);}
     <span class="thb" style="color:#7c3aed;border-color:#7c3aed;">Lehrerpersönlichkeit <span class="thby">Golden Circle · 3E's</span></span>
     <span class="thb" style="color:#b45309;border-color:#b45309;">AVIVA · ARZZ · Methoden <span class="thby">Unterrichtsgestaltung</span></span>
     <span class="thb" style="color:#be123c;border-color:#be123c;">Leistungsbewertung <span class="thby">Funktionen &amp; Gütekriterien</span></span>
+  </div>
+
+  <div class="podcast-player">
+    <div class="pp-left">
+      <div class="pp-icon">🎧</div>
+      <div class="pp-meta">
+        <div class="pp-label">Zusammenfassender Podcast</div>
+        <div class="pp-title">Unterricht gestalten</div>
+        <div class="pp-duration">30:01 min</div>
+      </div>
+    </div>
+    <audio id="pp-audio" src="hoerbuch_unterricht_gestalten.m4a" preload="none"></audio>
+    <div class="pp-controls">
+      <button class="pp-skip" onclick="document.getElementById('pp-audio').currentTime-=15" title="15s zurück">⟨ 15s</button>
+      <button class="pp-play" id="pp-btn" onclick="togglePodcast()">▶</button>
+      <button class="pp-skip" onclick="document.getElementById('pp-audio').currentTime+=30" title="30s vor">30s ⟩</button>
+    </div>
+    <div class="pp-progress-wrap">
+      <span class="pp-time" id="pp-cur">0:00</span>
+      <input class="pp-bar" id="pp-bar" type="range" min="0" max="1801" value="0" step="1" oninput="seekPodcast(this.value)">
+      <span class="pp-time" id="pp-total">30:01</span>
+    </div>
   </div>
 </header>
 
@@ -871,6 +911,14 @@ function scrollTo(id){const el=document.getElementById(id);if(el)el.scrollIntoVi
 const secs=document.querySelectorAll('.section'),nbs=document.querySelectorAll('.nb');
 secs.forEach(s=>new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){const i=Array.from(secs).indexOf(en.target);nbs.forEach((b,j)=>{b.style.background=j===i?'#0f766e':'';b.style.color=j===i?'white':'';})}});},{threshold:0.25}).observe(s));
 document.querySelectorAll('.reveal').forEach(el=>new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('visible');});},{threshold:0.08}).observe(el));
+</script>
+<script>
+const _aud=document.getElementById('pp-audio'),_btn=document.getElementById('pp-btn'),_bar=document.getElementById('pp-bar'),_cur=document.getElementById('pp-cur'),_tot=document.getElementById('pp-total');
+function fmt(s){const m=Math.floor(s/60);return m+':'+(Math.floor(s%60)+'').padStart(2,'0');}
+function togglePodcast(){if(_aud.paused){_aud.play();_btn.textContent='⏸';}else{_aud.pause();_btn.textContent='▶';}}
+function seekPodcast(v){_aud.currentTime=v;}
+_aud.addEventListener('timeupdate',()=>{_bar.value=Math.floor(_aud.currentTime);_cur.textContent=fmt(_aud.currentTime);});
+_aud.addEventListener('ended',()=>{_btn.textContent='▶';_bar.value=0;_cur.textContent='0:00';});
 </script>
 </body>
 </html>
